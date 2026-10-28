@@ -1,0 +1,1587 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>King Air 350 Systems</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: chapter rail on the left (the manual's table of contents), study content on the right;
+   the electrical chapter centers on a live schematic with a cockpit subpanel beneath it. */
+:root {
+  --bg: #e8ecf0;
+  --surface: #ffffff;
+  --surface-2: #f3f5f8;
+  --fg: #15202b;
+  --muted: #586675;
+  --line: #ccd4dc;
+  --accent: #1c4f8c;
+  --accent-ink: #ffffff;
+  --accent-soft: #dbe6f3;
+
+  --panel: #3b4148;        /* King Air instrument-panel grey, same in both themes */
+  --panel-2: #2e3339;
+  --panel-line: #59616a;
+  --placard: #f1f3f5;
+  --placard-dim: #aab2bb;
+
+  --canvas: #f9fafb;
+  --wire-dead: #a2adb8;
+  --wire-case: #27313b;
+  --sym: #27313b;
+  --sym-fill: #ffffff;
+
+  --pw-bat: #d4382c;
+  --pw-gen: #2a73c4;
+  --pw-ext: #23904e;
+  --pw-ctl: #e2b714;
+  --fault: #e0321f;
+
+  --ann-amber: #f4b322;
+  --ann-green: #33b864;
+  --ann-off: #1c2025;
+  --ann-off-ink: #5d666f;
+
+  --ok: #23804a;
+  --warn: #a8690f;
+  --bad: #c3352a;
+
+  --f-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1317; --surface: #161c22; --surface-2: #1c232a; --fg: #e3e8ed; --muted: #93a1ae;
+    --line: #2b343d; --accent: #82b4ee; --accent-ink: #0c1621; --accent-soft: #1d2f45;
+    --canvas: #11171c; --wire-dead: #4b5662; --wire-case: #05080a; --sym: #c7d0d9; --sym-fill: #1b2229;
+    --pw-bat: #ef5749; --pw-gen: #4d95e8; --pw-ext: #3dbf6d; --pw-ctl: #f0cb35; --fault: #ff5a43;
+    --ok: #4cc27c; --warn: #e3a643; --bad: #f06a5d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1317; --surface: #161c22; --surface-2: #1c232a; --fg: #e3e8ed; --muted: #93a1ae;
+  --line: #2b343d; --accent: #82b4ee; --accent-ink: #0c1621; --accent-soft: #1d2f45;
+  --canvas: #11171c; --wire-dead: #4b5662; --wire-case: #05080a; --sym: #c7d0d9; --sym-fill: #1b2229;
+  --pw-bat: #ef5749; --pw-gen: #4d95e8; --pw-ext: #3dbf6d; --pw-ctl: #f0cb35; --fault: #ff5a43;
+  --ok: #4cc27c; --warn: #e3a643; --bad: #f06a5d;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--f-body); font-size: 16px; line-height: 1.55;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--panel); }
+h1, h2, h3, h4 { font-family: var(--f-display); line-height: 1.1; text-wrap: balance; margin: 0; }
+p { margin: 0; }
+a { color: var(--accent); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+/* ---------- top bar ---------- */
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: var(--panel); color: var(--placard);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 10px;
+  display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--panel-2);
+}
+.brand { display: flex; align-items: baseline; gap: 10px; text-decoration: none; color: inherit; min-width: 0; }
+.brand b { font-family: var(--f-display); font-size: 1.45rem; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+.brand span { font-family: var(--f-mono); font-size: .72rem; color: var(--placard-dim); letter-spacing: .08em; white-space: nowrap; }
+.menu-btn { display: none; margin-left: auto; background: var(--panel-2); border: 1px solid var(--panel-line); border-radius: var(--r); padding: 6px 12px; font-family: var(--f-display); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; color: var(--placard); }
+
+/* ---------- shell ---------- */
+.shell { display: grid; grid-template-columns: 270px minmax(0, 1fr); min-height: calc(100vh - 56px); }
+.rail {
+  background: var(--surface); border-right: 1px solid var(--line);
+  padding-block: 20px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: 16px;
+  position: sticky; top: calc(env(safe-area-inset-top, 0px) + 56px); height: calc(100vh - 56px - env(safe-area-inset-top, 0px)); overflow-y: auto;
+}
+.rail h2 { font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
+.toc { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+.toc a {
+  display: grid; grid-template-columns: 2.2em 1fr auto; align-items: center; gap: 6px;
+  padding: 6px 8px; border-radius: var(--r); text-decoration: none; color: var(--fg);
+  font-family: var(--f-display); font-size: 1.02rem; letter-spacing: .02em; text-transform: uppercase;
+}
+.toc a .n { font-family: var(--f-mono); font-size: .75rem; color: var(--muted); }
+.toc a .st { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+.toc a .st.ready { background: var(--ok); }
+.toc a:hover { background: var(--surface-2); }
+.toc a[aria-current="page"] { background: var(--accent-soft); color: var(--accent); }
+.toc a[aria-current="page"] .n { color: var(--accent); }
+.rail .home-link { display: block; margin-bottom: 14px; font-family: var(--f-display); text-transform: uppercase; letter-spacing: .06em; text-decoration: none; padding: 6px 8px; border-radius: var(--r); color: var(--fg); }
+.rail .home-link[aria-current="page"] { background: var(--accent-soft); color: var(--accent); }
+.rail .note { margin-top: 18px; font-size: .8rem; color: var(--muted); }
+
+main {
+  min-width: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 64px;
+}
+.view { max-width: 1240px; margin: 0 auto; display: grid; gap: 40px; }
+.prose { max-width: 68ch; display: grid; gap: 12px; }
+.eyebrow { font-family: var(--f-mono); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.chapter-head { display: grid; gap: 10px; }
+.chapter-head h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); text-transform: uppercase; letter-spacing: .01em; font-weight: 700; }
+.lede { font-size: 1.12rem; max-width: 64ch; color: var(--fg); }
+.disclaimer { font-size: .85rem; color: var(--muted); border-left: 3px solid var(--line); padding-left: 12px; max-width: 70ch; }
+
+section.block { display: grid; gap: 16px; scroll-margin-top: 80px; }
+section.block > h2 { font-size: 1.9rem; text-transform: uppercase; letter-spacing: .02em; display: flex; align-items: baseline; gap: 12px; }
+section.block > h2 .ref { font-family: var(--f-mono); font-size: .72rem; color: var(--muted); letter-spacing: .06em; font-weight: 500; }
+h3 { font-size: 1.3rem; text-transform: uppercase; letter-spacing: .03em; }
+
+.subnav { display: flex; flex-wrap: wrap; gap: 6px; }
+.subnav button {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px;
+  font-family: var(--f-display); text-transform: uppercase; letter-spacing: .05em; font-size: .92rem; cursor: pointer;
+}
+.subnav button:hover { border-color: var(--accent); color: var(--accent); }
+
+/* spec strip */
+.specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.spec { background: var(--surface); padding: 12px 14px; display: grid; gap: 2px; align-content: start; }
+.spec .v { font-family: var(--f-mono); font-size: 1.25rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.spec .k { font-size: .85rem; color: var(--muted); line-height: 1.35; }
+
+/* ---------- simulator ---------- */
+.sim { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 16px; align-items: start; }
+.diagram-card { background: var(--canvas); border: 1px solid var(--line); border-radius: var(--r); display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; }
+.diagram-card > * { min-width: 0; }
+.scen { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+.scen > * { min-width: 0; }
+.scen-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.scen label { font-family: var(--f-display); text-transform: uppercase; letter-spacing: .06em; font-size: .95rem; }
+.scen select { flex: 1 1 260px; min-width: 0; font: inherit; font-size: .95rem; padding: 6px 8px; border-radius: var(--r); border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+.btn {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 6px 12px; cursor: pointer;
+  font-family: var(--f-display); text-transform: uppercase; letter-spacing: .05em; font-size: .95rem;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.primary:hover { color: var(--accent-ink); filter: brightness(1.08); }
+.scen-cap { font-size: .95rem; color: var(--fg); min-height: 3em; }
+.scen-cap b { font-family: var(--f-mono); font-size: .8rem; color: var(--muted); font-weight: 500; margin-right: 6px; }
+.svg-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.svg-wrap svg { display: block; width: 100%; min-width: 680px; height: auto; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 16px; padding: 10px 14px; border-top: 1px solid var(--line); font-size: .85rem; color: var(--muted); align-items: center; }
+.legend i { display: inline-block; width: 22px; height: 5px; border-radius: 3px; vertical-align: middle; margin-right: 6px; }
+
+.side { display: grid; gap: 16px; min-width: 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; display: grid; gap: 10px; min-width: 0; }
+.card > h3 { font-size: 1.05rem; letter-spacing: .08em; }
+.info h4 { font-size: 1.35rem; text-transform: uppercase; letter-spacing: .02em; }
+.info .now { font-family: var(--f-mono); font-size: .8rem; background: var(--surface-2); border-radius: 4px; padding: 6px 8px; line-height: 1.45; }
+.info ul { margin: 0; padding-left: 18px; font-size: .9rem; }
+.info .eq { max-height: 220px; overflow-y: auto; border-top: 1px solid var(--line); padding-top: 8px; }
+.info .eq h5 { margin: 6px 0 2px; font-family: var(--f-display); text-transform: uppercase; letter-spacing: .05em; font-size: .9rem; color: var(--muted); }
+.log { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; max-height: 260px; overflow-y: auto; font-size: .86rem; }
+.log li { display: grid; grid-template-columns: 3.4em 1fr; gap: 8px; border-bottom: 1px dashed var(--line); padding-bottom: 6px; }
+.log li .t { font-family: var(--f-mono); color: var(--muted); font-size: .75rem; padding-top: 2px; }
+.log li.warn .m { color: var(--warn); }
+.log li.bad .m { color: var(--bad); }
+
+/* SVG symbols */
+svg text { font-family: var(--f-display); fill: var(--fg); }
+.lbl { font-size: 12px; letter-spacing: .04em; fill: var(--muted); }
+.lbl-b { font-size: 13px; letter-spacing: .05em; font-weight: 600; }
+.w-case { fill: none; stroke: var(--wire-case); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; opacity: .0; }
+.w { fill: none; stroke: var(--wire-dead); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke .25s, stroke-width .25s; }
+.w.p1, .w.p2, .w.p3 { stroke-width: 4.5; }
+.w-case.on { opacity: .9; }
+.w.p1 { stroke: var(--pw-bat); } .w.p2 { stroke: var(--pw-gen); } .w.p3 { stroke: var(--pw-ext); }
+.w.short { stroke: var(--wire-dead); stroke-dasharray: 2 5; }
+.c { fill: none; stroke: var(--wire-dead); stroke-width: 1.6; transition: stroke .25s; }
+.c.on { stroke: var(--pw-ctl); stroke-width: 3; }
+.c.dash { stroke-dasharray: 5 4; }
+.bus-fill { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.5; transition: fill .25s; }
+.bus-fill.p1 { fill: var(--pw-bat); } .bus-fill.p2 { fill: var(--pw-gen); } .bus-fill.p3 { fill: var(--pw-ext); }
+.bus-fill.short { fill: var(--sym-fill); stroke: var(--fault); stroke-dasharray: 4 3; }
+.bus-txt { font-size: 13px; font-weight: 700; letter-spacing: .06em; pointer-events: none; }
+.bus-txt.lit { fill: #ffffff; }
+.sym { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; }
+.sym-l { fill: none; stroke: var(--sym); stroke-width: 2.2; stroke-linecap: round; }
+.sym-solid { fill: var(--sym); stroke: none; }
+.term { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; }
+.blade { stroke: var(--sym); stroke-width: 3; stroke-linecap: round; transition: transform .2s; }
+.lim { fill: var(--sym); stroke: var(--sym); stroke-width: 1; transition: fill .2s; }
+.lim.blown { fill: var(--fault); stroke: var(--fault); }
+.coil { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; transition: fill .2s; }
+.coil.on { fill: var(--pw-ctl); }
+.hed { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; transition: fill .2s; }
+.hed.trip { fill: var(--pw-ctl); }
+.hed-t { font-size: 10px; font-weight: 700; pointer-events: none; }
+.gcu { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; transition: fill .2s; }
+.gcu.on { fill: var(--pw-ctl); }
+.gcu-t { font-size: 11px; font-weight: 700; pointer-events: none; letter-spacing: .04em; }
+.gcu.on + .gcu-t, .gcu-t.dark { fill: #1b1f24; }
+.bolt { fill: var(--fault); }
+.rotor { transform-box: fill-box; transform-origin: center; }
+.rotor.spin { animation: spin .6s linear infinite; }
+.rotor.slow { animation-duration: 1.6s; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.comp { cursor: pointer; }
+.comp .hit { fill: transparent; stroke: none; }
+.comp:hover .hit { fill: var(--accent); opacity: .08; }
+.comp.sel .hit { fill: var(--accent); opacity: .16; stroke: var(--accent); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.comp:focus { outline: none; }
+.comp:focus-visible .hit { fill: var(--accent); opacity: .2; }
+.n1t { font-family: var(--f-mono); font-size: 12px; font-weight: 700; fill: var(--fg); }
+.flowtag { font-family: var(--f-mono); font-size: 11px; fill: var(--muted); }
+
+/* ---------- cockpit controls ---------- */
+.cockpit { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 16px; }
+.panel {
+  background: var(--panel); color: var(--placard); border-radius: 8px; padding: 14px;
+  box-shadow: inset 0 0 0 1px var(--panel-2), inset 0 2px 0 rgba(255,255,255,.04);
+  display: grid; gap: 12px; min-width: 0;
+}
+.panel > h3 { font-size: .95rem; letter-spacing: .18em; color: var(--placard-dim); font-weight: 600; }
+.sw-row { display: flex; flex-wrap: wrap; gap: 14px 12px; align-items: flex-start; }
+.sw-group { display: grid; gap: 6px; padding: 8px 10px 10px; border: 1px solid var(--panel-line); border-radius: 6px; position: relative; }
+.sw-group > .gname { font-family: var(--f-display); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--placard-dim); text-align: center; }
+.sw-group .sws { display: flex; gap: 10px; }
+.tog { display: grid; justify-items: center; gap: 4px; min-width: 64px; }
+.tog .name { font-family: var(--f-display); font-weight: 700; font-size: .95rem; letter-spacing: .06em; text-transform: uppercase; text-align: center; line-height: 1.05; }
+.tog .pos { display: grid; gap: 3px; width: 100%; }
+.tog .pos button {
+  display: flex; align-items: center; gap: 6px; justify-content: flex-start;
+  background: var(--panel-2); border: 1px solid var(--panel-line); color: var(--placard-dim);
+  border-radius: 4px; padding: 3px 7px; cursor: pointer; font-family: var(--f-display); font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;
+}
+.tog .pos button::before { content: ""; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--placard-dim); flex: none; }
+.tog .pos button[aria-pressed="true"] { background: var(--placard); color: #1d2228; border-color: var(--placard); }
+.tog .pos button[aria-pressed="true"]::before { background: #1d2228; border-color: #1d2228; }
+.tog .pos button.mom { border-style: dashed; }
+.tog .pos button.mom::after { content: "↺"; margin-left: auto; font-size: .8rem; opacity: .7; }
+.tog.ring .name::before { content: ""; display: inline-block; width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--placard); margin-right: 5px; vertical-align: 1px; }
+.eng-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.eng { display: grid; gap: 6px; border: 1px solid var(--panel-line); border-radius: 6px; padding: 8px 10px; }
+.eng .hd { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--f-display); letter-spacing: .08em; text-transform: uppercase; }
+.eng .n1v { font-family: var(--f-mono); font-size: 1.05rem; font-weight: 700; }
+.bar { height: 8px; background: var(--panel-2); border-radius: 4px; overflow: hidden; border: 1px solid var(--panel-line); }
+.bar > span { display: block; height: 100%; width: 0; background: var(--placard); transition: width .2s linear; }
+.eng .hint { font-size: .78rem; color: var(--placard-dim); min-height: 2.4em; line-height: 1.3; }
+.pbtn { background: var(--panel-2); border: 1px solid var(--panel-line); color: var(--placard); border-radius: 4px; padding: 4px 10px; font-family: var(--f-display); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; font-size: .85rem; }
+.pbtn:hover { border-color: var(--placard); }
+.pbtn[aria-pressed="true"] { background: var(--fault); border-color: var(--fault); color: #ffffff; }
+.pbtn.gpu[aria-pressed="true"] { background: var(--pw-ext); border-color: var(--pw-ext); }
+
+.gauges { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.gauge { display: grid; justify-items: center; gap: 2px; }
+.gauge svg { width: 100%; max-width: 120px; height: auto; }
+.gauge svg text { fill: var(--placard); font-family: var(--f-mono); }
+.gauge .gl { font-family: var(--f-display); letter-spacing: .1em; text-transform: uppercase; font-size: .8rem; color: var(--placard-dim); text-align: center; }
+.gauge .gv { font-family: var(--f-mono); font-size: .85rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.gauge .gv.over { color: #ff8a7a; }
+.vsel { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; }
+.vsel button { background: var(--panel-2); border: 1px solid var(--panel-line); color: var(--placard-dim); border-radius: 3px; padding: 1px 6px; font-family: var(--f-display); font-size: .74rem; letter-spacing: .05em; cursor: pointer; text-transform: uppercase; }
+.vsel button[aria-pressed="true"] { background: var(--placard); color: #1d2228; }
+.endur { font-size: .82rem; color: var(--placard-dim); text-align: center; }
+
+.ann-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; background: #121518; padding: 6px; border-radius: 4px; }
+.ann {
+  font-family: var(--f-display); font-weight: 700; font-size: .78rem; letter-spacing: .05em; text-transform: uppercase; line-height: 1.05;
+  text-align: center; padding: 7px 4px; border-radius: 2px; background: var(--ann-off); color: var(--ann-off-ink);
+  border: 1px solid #000000; min-height: 38px; display: grid; place-items: center;
+}
+.ann.amber { background: var(--ann-amber); color: #241a00; box-shadow: 0 0 10px rgba(244,179,34,.45); }
+.ann.green { background: var(--ann-green); color: #04220f; box-shadow: 0 0 10px rgba(51,184,100,.45); }
+.ann.flash { animation: flash .6s steps(1) infinite; }
+@keyframes flash { 50% { background: var(--ann-off); color: var(--ann-off-ink); box-shadow: none; } }
+.ann-note { font-size: .78rem; color: var(--placard-dim); }
+
+.faults { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* ---------- content blocks ---------- */
+.bus-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-family: var(--f-display); text-transform: uppercase; letter-spacing: .06em; font-size: .9rem; color: var(--muted); font-weight: 600; background: var(--surface-2); }
+tr:last-child td { border-bottom: none; }
+td.num, th.num { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.chip { display: inline-block; font-family: var(--f-display); text-transform: uppercase; letter-spacing: .05em; font-size: .8rem; padding: 1px 8px; border-radius: 3px; white-space: nowrap; }
+.chip.amber { background: var(--ann-amber); color: #241a00; }
+.chip.green { background: var(--ann-green); color: #04220f; }
+.chip.busc { border: 1px solid var(--line); background: var(--surface-2); }
+
+.comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.comp-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 14px; display: grid; gap: 8px; align-content: start; }
+.comp-card h4 { font-size: 1.15rem; text-transform: uppercase; letter-spacing: .03em; }
+.comp-card .where { font-size: .82rem; color: var(--muted); }
+.comp-card p { font-size: .94rem; }
+.comp-card .show { justify-self: start; background: none; border: none; padding: 0; color: var(--accent); font-family: var(--f-display); text-transform: uppercase; letter-spacing: .06em; cursor: pointer; font-size: .9rem; }
+.comp-card .show:hover { text-decoration: underline; }
+.group-h { font-family: var(--f-mono); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); grid-column: 1 / -1; margin-top: 6px; }
+
+.steps { list-style: none; counter-reset: s; margin: 0; padding: 0; display: grid; gap: 10px; }
+.steps li { counter-increment: s; display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 14px; }
+.steps li::before { content: counter(s); font-family: var(--f-display); font-size: 1.8rem; font-weight: 700; color: var(--accent); line-height: 1; }
+.steps li h4 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: .03em; margin-bottom: 4px; }
+.steps li p { font-size: .95rem; }
+.steps .show { margin-top: 6px; background: none; border: none; padding: 0; color: var(--accent); font-family: var(--f-display); text-transform: uppercase; letter-spacing: .06em; cursor: pointer; font-size: .9rem; }
+.steps .show:hover { text-decoration: underline; }
+
+.two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.callout { border: 1px solid var(--line); border-left: 4px solid var(--warn); background: var(--surface); padding: 10px 14px; border-radius: var(--r); font-size: .94rem; }
+.callout.warning { border-left-color: var(--bad); }
+.callout b { font-family: var(--f-display); letter-spacing: .08em; text-transform: uppercase; margin-right: 6px; }
+ul.tight { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+
+details.eqlist { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); }
+details.eqlist summary { cursor: pointer; padding: 10px 14px; font-family: var(--f-display); text-transform: uppercase; letter-spacing: .05em; font-size: 1.05rem; }
+details.eqlist .cols { padding: 0 14px 14px; columns: 3 220px; column-gap: 24px; font-size: .9rem; }
+details.eqlist .cols div { break-inside: avoid; margin-bottom: 10px; }
+details.eqlist h5 { margin: 0 0 2px; font-family: var(--f-display); text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-size: .9rem; }
+details.eqlist ul { margin: 0; padding-left: 16px; }
+
+/* home + placeholder */
+.ch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px; }
+.ch-card { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; align-items: baseline; padding: 14px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); text-decoration: none; color: var(--fg); }
+.ch-card:hover { border-color: var(--accent); }
+.ch-card .n { font-family: var(--f-mono); color: var(--muted); font-size: .85rem; grid-row: span 2; }
+.ch-card .t { font-family: var(--f-display); font-size: 1.2rem; text-transform: uppercase; letter-spacing: .02em; line-height: 1.1; }
+.ch-card .s { font-size: .82rem; color: var(--muted); }
+.ch-card.ready .s { color: var(--ok); font-weight: 600; }
+.placeholder { border: 2px dashed var(--line); border-radius: 8px; padding: 32px 20px; display: grid; gap: 8px; justify-items: start; color: var(--muted); }
+.placeholder h3 { color: var(--fg); }
+
+@media (max-width: 1120px) {
+  .sim { grid-template-columns: minmax(0, 1fr); }
+  .side { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .cockpit { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 860px) {
+  .menu-btn { display: inline-block; }
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .rail { position: fixed; z-index: 25; top: calc(env(safe-area-inset-top, 0px) + 52px); left: 0; bottom: 0; width: min(300px, 86vw); height: auto; box-shadow: 0 10px 30px rgba(0,0,0,.25); transform: translateX(-105%); transition: transform .2s; }
+  .rail.open { transform: none; }
+  .brand span { display: none; }
+  .gauges { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 480px) {
+  .ann-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .eng-row { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rotor.spin, .ann.flash { animation: none; }
+  * { transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#">
+    <b>King Air 350 Systems</b>
+    <span>B300 · Pilot study guide</span>
+  </a>
+  <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="rail">Chapters</button>
+</header>
+
+<div class="shell">
+  <nav class="rail" id="rail" aria-label="Chapters">
+    <a class="home-link" href="#" id="homeLink">Contents</a>
+    <h2>Chapters</h2>
+    <ol class="toc" id="toc"></ol>
+    <p class="note">Green dot = chapter has content. Other chapters are set up and waiting for material.</p>
+  </nav>
+
+  <main id="main"></main>
+</div>
+
+<template id="tpl-electrical">
+<div class="view">
+  <header class="chapter-head">
+    <div class="eyebrow">Chapter 2</div>
+    <h1>Electrical Power Systems</h1>
+    <p class="lede">The King Air 350 runs on a 28-volt DC, negative-ground, multi-bus system. A battery and two engine-driven starter/generators feed six buses, and current sensors, bus ties and current limiters isolate a fault before it can take the whole system down.</p>
+    <p class="disclaimer">Study aid built from a King Air 300/350 pilot training manual chapter, King Air 350 content only. It is not an approved document. The Pilot's Operating Handbook / AFM governs all procedures and limitations.</p>
+    <div class="subnav" id="subnav">
+      <button data-go="glance">At a glance</button>
+      <button data-go="sim">Interactive schematic</button>
+      <button data-go="buses">Buses</button>
+      <button data-go="components">Components</button>
+      <button data-go="operation">How it operates</button>
+      <button data-go="gcu">Generator control</button>
+      <button data-go="protection">Bus ties &amp; protection</button>
+      <button data-go="extpwr">External power</button>
+      <button data-go="ac">AC &amp; avionics power</button>
+      <button data-go="cb">Circuit breakers</button>
+      <button data-go="abnormal">Abnormal indications</button>
+      <button data-go="loadmgmt">Load management</button>
+    </div>
+  </header>
+
+  <section class="block" id="glance">
+    <h2>At a glance</h2>
+    <div class="specs">
+      <div class="spec"><span class="v">28.25 ±0.25 V</span><span class="k">Regulated generator / system voltage</span></div>
+      <div class="spec"><span class="v">2 × 300 A</span><span class="k">Starter/generators, 28 V, max continuous load each</span></div>
+      <div class="spec"><span class="v">24 V</span><span class="k">Battery: Ni-Cad 34 or 36 Ah, or 42 Ah sealed lead-acid</span></div>
+      <div class="spec"><span class="v">275 ±5 A</span><span class="k">Hall-effect sensor trip, opens the associated bus tie</span></div>
+      <div class="spec"><span class="v">250 A</span><span class="k">Current limiters between each gen bus and the center bus</span></div>
+      <div class="spec"><span class="v">3 × 60 A</span><span class="k">Limiters feeding the triple-fed bus (battery, L gen bus, R gen bus)</span></div>
+      <div class="spec"><span class="v">400 A</span><span class="k">GCU output limit on the operating generator during a cross-generator start</span></div>
+      <div class="spec"><span class="v">32 V</span><span class="k">Overvoltage: GCU takes the generator off line</span></div>
+      <div class="spec"><span class="v">&gt;7 A for 6 s</span><span class="k">Battery charge current that lights BATTERY CHARGE</span></div>
+      <div class="spec"><span class="v">30 / 5 / 30 / 5 / 30 / 30</span><span class="k">Starter limit: seconds ON / minutes OFF, ending with 30 minutes off</span></div>
+    </div>
+  </section>
+
+  <section class="block" id="sim">
+    <h2>Interactive power distribution <span class="ref">Figures 2-42 to 2-57</span></h2>
+    <p class="prose">This is the King Air 350 power distribution schematic, and it runs live. Use the subpanel switches below to power up and start the airplane, or load one of the manual's figures. You can also inject a fault and watch the protection devices isolate it. Select any component on the schematic to see what it does and what state it is in.</p>
+
+    <div class="sim">
+      <div class="diagram-card">
+        <div class="scen">
+          <div class="scen-row">
+            <label for="scenSel">Manual figure</label>
+            <select id="scenSel"></select>
+            <button class="btn" id="scenPrev" aria-label="Previous figure">◀ Prev</button>
+            <button class="btn" id="scenNext" aria-label="Next figure">Next ▶</button>
+            <button class="btn" id="coldBtn" title="Everything off, faults cleared">Cold &amp; dark</button>
+          </div>
+          <p class="scen-cap" id="scenCap"></p>
+        </div>
+        <div class="svg-wrap"><svg id="schem" viewBox="0 0 1040 880" role="img" aria-label="King Air 350 DC power distribution schematic"></svg></div>
+        <div class="legend">
+          <span><i style="background:var(--pw-ctl)"></i>Control power</span>
+          <span><i style="background:var(--pw-bat)"></i>Battery power</span>
+          <span><i style="background:var(--pw-gen)"></i>Generator power</span>
+          <span><i style="background:var(--pw-ext)"></i>External power</span>
+          <span><i style="background:var(--wire-dead)"></i>Unpowered</span>
+          <span><i style="background:var(--fault)"></i>Fault / open limiter</span>
+        </div>
+      </div>
+
+      <div class="side">
+        <div class="card info" id="info" aria-live="polite"></div>
+        <div class="card">
+          <h3>System events</h3>
+          <ol class="log" id="log"></ol>
+        </div>
+      </div>
+    </div>
+
+    <div class="cockpit">
+      <div class="panel">
+        <h3>Pilot's left subpanel</h3>
+        <div class="sw-row" id="switches"></div>
+        <div class="eng-row" id="engines"></div>
+        <div class="sw-row">
+          <button class="pbtn gpu" id="gpuBtn" aria-pressed="false">Ground power unit: disconnected</button>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Overhead meter panel</h3>
+        <div class="gauges" id="gauges"></div>
+        <p class="endur" id="endur"></p>
+        <h3>Caution / advisory annunciators</h3>
+        <div class="ann-grid" id="anns"></div>
+        <p class="ann-note">Annunciator power comes from the triple-fed bus, so the panel goes dark whenever that bus is unpowered.</p>
+        <h3>Inject a fault</h3>
+        <div class="faults" id="faults"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="buses">
+    <h2>Buses <span class="ref">Figure 2-6</span></h2>
+    <div class="prose">
+      <p>Loads are spread across six DC buses. Equipment with a duplicate (left and right landing lights, for example) is placed on different buses, so one bus failure never removes both. Each bus is split into feeder subbuses, and on the copilot's circuit breaker panel the breakers on the same feeder are joined by white lines.</p>
+      <p>In normal operation every bus is tied together into one system and all sources share the load through their own protective devices. Switches whose power comes from the center or triple-fed buses have a <b>white ring</b> painted around them on the panel. That equipment stays usable after a dual-generator failure.</p>
+    </div>
+    <div class="bus-table-wrap">
+      <table>
+        <thead><tr><th>Bus</th><th>Fed from</th><th>Protection on its feeds</th><th>Role</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip busc">Left gen bus</span></td><td>Left generator through its line contactor; center bus through the left gen tie</td><td>250 A limiter + Hall-effect sensor toward center bus; 60 A limiter + diode toward triple-fed</td><td>Left-side and non-essential loads. Shed automatically when both generators are lost.</td></tr>
+          <tr><td><span class="chip busc">Right gen bus</span></td><td>Right generator through its line contactor; center bus through the right gen tie</td><td>Same as left</td><td>Right-side and non-essential loads, No. 2 inverter. Shed with the left.</td></tr>
+          <tr><td><span class="chip busc">Center bus</span></td><td>Both gen buses (gen ties), battery (battery bus tie), external power relay</td><td>Battery tie Hall-effect sensor; 250 A limiters on each gen side</td><td>Ties the system together. Feeds both starter relays, gear motor, electric heat, No. 1 inverter.</td></tr>
+          <tr><td><span class="chip busc">Triple-fed bus</span></td><td>Battery (battery relay) and both gen buses</td><td>Three 60 A limiters, each followed by a diode</td><td>Receives power only and never passes it on. Carries most essential items: annunciators, engine instruments, start control, gear control.</td></tr>
+          <tr><td><span class="chip busc">Battery bus</span></td><td>Battery, directly, through the remote control circuit breaker (RCCB)</td><td>RCCB, controlled by the BATTERY BUS switch</td><td>Live whether or not the BAT switch is on. Also powers the BAT switch relay circuit.</td></tr>
+          <tr><td><span class="chip busc">Dual-fed bus</span></td><td>Battery bus, and the triple-fed bus No. 2 fuel panel feeder (20 A)</td><td>Diodes on both feeds</td><td>Engine fire extinguishers and cabin entry lighting. Usable with the BAT switch off.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <details class="eqlist"><summary>Equipment on each bus (typical King Air 350)</summary><div class="cols" id="eqcols"></div></details>
+  </section>
+
+  <section class="block" id="components">
+    <h2>Components and what they do</h2>
+    <div class="comp-grid" id="compGrid"></div>
+  </section>
+
+  <section class="block" id="operation">
+    <h2>How the system operates <span class="ref">Before start → start → before taxi</span></h2>
+    <ol class="steps" id="steps"></ol>
+  </section>
+
+  <section class="block" id="gcu">
+    <h2>Generator control units</h2>
+    <div class="prose">
+      <p>Each generator has its own GCU, mounted below the center aisle floor. It keeps bus voltage constant as engine speed and electrical load change. The generator is self-exciting: it builds up from its own residual magnetism and needs no aircraft power to come on line. The GEN switches (OFF – ON – RESET) are next to the BAT switch under the master switch gang bar.</p>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <h3>Voltage regulation &amp; line contactor control</h3>
+        <p>Holding the switch at RESET routes residual voltage through the GCU to the shunt field and output rises. When the switch is released to ON, the regulator holds 28.25 V across all rated speed, load and temperature conditions. The GCU closes the line contactor only when generator voltage is within 0.5 V of bus voltage. That puts the generator on line and closes both gen ties. A failed or switched-off generator has its line contactor opened.</p>
+      </div>
+      <div class="card">
+        <h3>Overvoltage &amp; overexcitation</h3>
+        <p>At 32 V the overexcitation circuit identifies which generator is running high and trying to take the whole load, and disconnects it. Overexcitation protection also trips a generator whose field reaches its design limit while voltage is rising out of control but has not yet reached overvoltage.</p>
+      </div>
+      <div class="card">
+        <h3>Paralleling / load sharing</h3>
+        <p>With both generators on line, each GCU senses the interpole winding voltage of both machines and biases its regulator up or down. The result is equal load sharing within 10%. When the gen ties are open, paralleling is lost and the loadmeters need not match. Watch that neither exceeds 100%.</p>
+      </div>
+      <div class="card">
+        <h3>Reverse-current protection</h3>
+        <p>An underexcited or slowing generator, for example during engine shutdown, starts drawing current from the bus. The GCU compares generator output to bus voltage. When the bus is higher, it opens the line contactor.</p>
+      </div>
+      <div class="card">
+        <h3>Cross-generator-start current limiting</h3>
+        <p>Selecting ON with the second engine's start switch signals the operating generator's GCU to limit output to 400 A. That protects the 250 A limiter on the operating side from start transients. While a starter is selected, the bus-tie current sensors are disabled so they cannot open their ties. STARTER ONLY does the same.</p>
+      </div>
+      <div class="card">
+        <h3>Starter function</h3>
+        <p>The same machine is a starter (series winding) and a generator (shunt field). A start switch at ON or STARTER ONLY energizes the starter relay. It also disables the shunt field through the field sense relay, so the unit cannot generate during the start. Starter power comes from the center bus.</p>
+      </div>
+    </div>
+    <div class="callout"><b>Caution</b>Starter limits: 30 s ON, 5 min OFF, 30 s ON, 5 min OFF, 30 s ON, then 30 min OFF. They apply only while the starter is driving the engine, not when the engine is driving the starter.</div>
+  </section>
+
+  <section class="block" id="protection">
+    <h2>Bus ties, sensors &amp; fault protection</h2>
+    <div class="two-col">
+      <div class="card">
+        <h3>Bus tie relays</h3>
+        <p>Three bus tie relays connect to the center bus: left gen tie, right gen tie and battery tie. With no power applied, all three are open. The BAT switch closes the battery tie and battery relay without affecting the gen ties. Either generator coming on line, or external power, closes both gen ties. External power and generators have no effect on the battery tie.</p>
+      </div>
+      <div class="card">
+        <h3>Hall-effect sensors (HED)</h3>
+        <p>Solid-state sensors that read the magnetic field around a conductor, which is proportional to current. They are one-directional and only see current flowing the way the arrow points: from the center bus toward each gen bus, and from the battery toward the center bus. At 275 ±5 A the sensor opens its tie and latches it open (about 0.010 s for the generator sensors, 0.120 s for the battery sensor). The 250 A limiters cover the opposite direction.</p>
+      </div>
+      <div class="card">
+        <h3>GEN TIES switch</h3>
+        <p>MAN CLOSE – NORM – OPEN, lever-locked out of center. It locks in OPEN and springs back from MAN CLOSE. MAN CLOSE closes both gen ties and latches them, lighting MAN TIES CLOSE, which goes out once a generator comes on line and the GCUs take over holding the ties. OPEN opens both gen ties at any time. A tie that a fault tripped open cannot be closed manually. It needs BUS SENSE RESET first.</p>
+      </div>
+      <div class="card">
+        <h3>BUS SENSE switch</h3>
+        <p>RESET – NORM – TEST, spring-loaded to NORM. TEST sends bus voltage into all three sensor test circuits and simulates an overcurrent, so all three ties open and latch. RESET powers the tie coils and unlatches them. Use both positions only momentarily. Holding TEST can destroy the sensor modules. Holding RESET latches out overcurrent sensing, which risks welding tie contacts or opening a 250 A limiter into a grounded bus.</p>
+      </div>
+      <div class="card">
+        <h3>Bus isolation</h3>
+        <p>A short on one bus opens that bus's tie and the rest of the system keeps running. All sensors are desensitized during engine starts so starter current doesn't trip them. The battery tie sensor is also desensitized, and the tie held closed, during landing gear operation. The triple-fed bus is protected only by its three 60 A limiters. It is isolated only when all three open.</p>
+      </div>
+      <div class="card">
+        <h3>Load shedding</h3>
+        <p>When both generators fail or are switched off, the gen ties open and the generator bus loads drop off automatically. The battery keeps the center, triple-fed, battery and dual-fed buses powered. You can restore the gen buses with GEN TIES MAN CLOSE, but that cuts battery duration severely. In flight, land as soon as practical unless a generator can be brought back.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="extpwr">
+    <h2>External power</h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>The receptacle is under the right wing, outboard of the nacelle, and takes a standard AN plug. The external power relay closes only when polarity is correct and the EXT PWR switch is ON. As external power comes in, both gen ties close, so every bus, including the starters, is powered.</p>
+        <p>With the plug connected and BAT on, the EXT PWR annunciator flashes if the power unit or the EXT PWR switch is off, or if voltage is low. It is steady when external power is on line and adequate. Check GPU voltage before switching on by selecting EXT PWR on the voltmeter.</p>
+      </div>
+      <ul class="tight card">
+        <li>Over-voltage sensor opens the relay above <b class="mono">31 ±0.5 V</b>.</li>
+        <li>EXT PWR flashes below <b class="mono">24 ±1.5 V</b>.</li>
+        <li>GPU must supply up to <b class="mono">1000 A</b> momentarily and <b class="mono">300 A</b> continuous for starts. A weak unit can make the starter relay chatter and weld its contacts.</li>
+        <li>Prolonged exposure above <b class="mono">30 V</b> can damage the battery.</li>
+        <li>Reduce electrical load to the practical minimum before an external power start.</li>
+      </ul>
+    </div>
+    <div class="callout warning"><b>Caution</b>Recommended minimum battery voltage before connecting external power is 23 V. Never connect external power unless the installed battery shows at least 20 V. Always apply battery power first, because the avionics master relays need voltage to remove power from the avionics.</div>
+  </section>
+
+  <section class="block" id="ac">
+    <h2>AC &amp; avionics power</h2>
+    <div class="two-col">
+      <div class="card">
+        <h3>Avionics master</h3>
+        <p>The AVIONICS MASTER POWER switch on the pilot's left subpanel controls the three avionics buses together. No. 1 is fed from the triple-fed bus, No. 2 from the left gen bus and No. 3 from the right gen bus. If every radio drops off line without a breaker tripping, the master switch is the likely cause. Pull the AVIONICS MASTER breaker on the copilot's panel to bypass it.</p>
+      </div>
+      <div class="card">
+        <h3>Inverters (summary)</h3>
+        <p>Two solid-state inverters in the wings, outboard of each nacelle, produce 115 V and 26 V AC at 400 Hz. Each feeds its own 115 V and 26 V AC buses and is typically rated 750 VA. Both are used for flight. No. 1 takes DC from the center bus and No. 2 from the right gen bus. Each switch is ON – OFF – BUS TRANSFER. An inverter monitor lights #1 or #2 AC BUS when voltage or frequency goes out of tolerance. BUS TRANSFER moves a failed inverter's buses to the other inverter. The inverter schematics are not part of the interactive diagram.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="cb">
+    <h2>Circuit breakers</h2>
+    <div class="prose">
+      <p>Two breaker panels are in the cockpit. The smaller one, left of the pilot below the fuel management panel, holds the fuel system, AC electrical, battery bus and dual-fed bus breakers. The larger one on the copilot's sidewall covers engine systems, avionics, environmental, lighting, annunciators, bus ties and avionics bus feeders. Some loads, such as exterior lighting and ice protection, use circuit-breaker switches on the pilot's right subpanel, with the rating stamped on the switch.</p>
+    </div>
+    <div class="callout"><b>Tripped breaker</b>Non-essential circuit: do not reset in flight. Essential circuit, such as avionics: let it cool, then push once to reset. If it trips again, do not reset it. Use the bus chart to work out what equipment is lost.</div>
+  </section>
+
+  <section class="block" id="abnormal">
+    <h2>Abnormal indications</h2>
+    <p class="prose">Gen bus and center bus faults show up as bus-tie annunciators. A triple-fed bus fault has no tie annunciation, so confirm any bus problem with lost equipment, the voltmeter and the loadmeters. Summary only. Fly the POH/AFM procedures.</p>
+    <div class="bus-table-wrap">
+      <table>
+        <thead><tr><th>Indication</th><th>Meaning</th><th>Pilot response (summary)</th></tr></thead>
+        <tbody>
+          <tr><td><span class="chip amber">L / R DC GEN</span></td><td>Generator off line</td><td>Confirm on the loadmeter. GEN switch to RESET for about 1 s, then ON. If it won't reset, turn it OFF, run on the other generator at or below 100% load, and shed non-essential equipment.</td></tr>
+          <tr><td><span class="chip amber">L / R GEN TIE OPEN</span></td><td>That gen tie is open, possibly a gen bus fault</td><td>Check that loadmeter. Below 100% and normal: BUS SENSE to RESET. Above 100% or abnormal: that generator OFF, and keep the other at or below 100%. If the tie won't reset, monitor the loadmeters. Paralleling is lost, so loads won't match.</td></tr>
+          <tr><td><span class="chip amber">BAT TIE OPEN</span></td><td>Battery tie open, possibly a center bus fault</td><td>Check center bus voltage. At 24–28 V, BUS SENSE RESET (a transient tripped the sensor). At 0 V, a center bus fault: GEN TIES OPEN and confirm both GEN TIE OPEN lights, pull the LANDING GEAR RELAY breaker, extend the gear manually, turn air conditioning off before gear extension, No. 1 inverter to BUS TRANSFER. The battery cannot charge.</td></tr>
+          <tr><td><span class="chip amber">BATTERY CHARGE</span></td><td>Charge current above 7 A for 6 s</td><td>Normal for a few minutes after a start, and it acts as the system self-test. In flight: positive and decreasing on the ammeter, keep monitoring. Steady or increasing, BAT switch OFF. If it still shows charge with BAT off, land as soon as practical. GEN TIES OPEN stops current reaching the battery through the center bus.</td></tr>
+          <tr><td><span class="chip amber">EXT PWR</span></td><td>Plug connected (BAT on)</td><td>Flashing: power unit off, EXT PWR switch off, or voltage low. Steady: external power on line.</td></tr>
+          <tr><td><span class="chip green">MAN TIES CLOSE</span></td><td>Gen ties manually latched closed</td><td>Goes out when a generator comes on line. Do not use after a dual-generator failure.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><b>Ni-Cad condition check (ground)</b>After start the charge current is high and BATTERY CHARGE comes on. Within five minutes the ammeter should drop below 7 A and the light should go out. If the current holds steady or rises, turn the battery OFF and have it checked by a nickel-cadmium battery shop. The same check works before shutdown.</div>
+  </section>
+
+  <section class="block" id="loadmgmt">
+    <h2>Load management after dual generator failure <span class="ref">Table 2-2</span></h2>
+    <p class="prose">With only the "continuous" items running, the main battery lasts about <b>30 minutes</b>, based on a 50 A load and 75% battery capacity. Items with a set operating time cut battery duration by the amounts listed, and the reductions add up. Do not place GEN TIES to MAN CLOSE, because that reconnects both gen bus loads.</p>
+    <div class="bus-table-wrap">
+      <table id="lmTable">
+        <thead><tr><th>Equipment</th><th>Operating time (min)</th><th class="num">Reduction in battery duration (min)</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="disclaimer">* Optional equipment, powered by an auxiliary battery. Which attitude instruments remain depends on the specific panel installation.</p>
+  </section>
+</div>
+</template>
+
+<script>
+(function () {
+"use strict";
+
+/* ================= Chapters (order follows the training manual contents) ================= */
+const CHAPTERS = [
+  { n: 1,  id: "aircraft-general",  t: "Aircraft General" },
+  { n: 2,  id: "electrical",        t: "Electrical Power Systems", ready: true },
+  { n: 3,  id: "lighting",          t: "Lighting" },
+  { n: 4,  id: "master-warning",    t: "Master Warning System" },
+  { n: 5,  id: "fuel",              t: "Fuel System" },
+  { n: 6,  id: "apu",               t: "Auxiliary Power Unit" },
+  { n: 7,  id: "powerplant",        t: "Powerplant" },
+  { n: 8,  id: "fire-protection",   t: "Fire Protection" },
+  { n: 9,  id: "pneumatics",        t: "Pneumatics" },
+  { n: 10, id: "ice-rain",          t: "Ice and Rain Protection" },
+  { n: 11, id: "air-conditioning",  t: "Air Conditioning" },
+  { n: 12, id: "pressurization",    t: "Pressurization" },
+  { n: 13, id: "hydraulics",        t: "Hydraulic Power Systems" },
+  { n: 14, id: "landing-gear",      t: "Landing Gear and Brakes" },
+  { n: 15, id: "flight-controls",   t: "Flight Controls" },
+  { n: 16, id: "avionics",          t: "Avionics" },
+  { n: 17, id: "miscellaneous",     t: "Miscellaneous Systems" }
+];
+
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function buildToc() {
+  $("#toc").innerHTML = CHAPTERS.map(c =>
+    `<li><a href="#${c.id}" data-ch="${c.id}"><span class="n">${String(c.n).padStart(2, "0")}</span><span>${esc(c.t)}</span><span class="st${c.ready ? " ready" : ""}"></span></a></li>`
+  ).join("");
+}
+
+function renderHome() {
+  $("#main").innerHTML = `
+  <div class="view">
+    <header class="chapter-head">
+      <div class="eyebrow">Beechcraft King Air 350 (B300)</div>
+      <h1>Aircraft Systems</h1>
+      <p class="lede">Chapter-by-chapter systems study for the King Air 350, in the same order as the pilot training manual. Start with Electrical Power Systems. It has a full write-up and a live power distribution schematic you can operate.</p>
+      <p class="disclaimer">For familiarization and training only. The POH/AFM governs all procedures and limitations.</p>
+    </header>
+    <section class="block">
+      <h2>Contents</h2>
+      <div class="ch-grid">
+        ${CHAPTERS.map(c => `<a class="ch-card${c.ready ? " ready" : ""}" href="#${c.id}"><span class="n">${String(c.n).padStart(2, "0")}</span><span class="t">${esc(c.t)}</span><span class="s">${c.ready ? "Ready · interactive schematic" : "Section set up · content pending"}</span></a>`).join("")}
+      </div>
+    </section>
+  </div>`;
+}
+
+function renderPlaceholder(c) {
+  const prev = CHAPTERS[c.n - 2], next = CHAPTERS[c.n];
+  $("#main").innerHTML = `
+  <div class="view">
+    <header class="chapter-head">
+      <div class="eyebrow">Chapter ${c.n}</div>
+      <h1>${esc(c.t)}</h1>
+    </header>
+    <div class="placeholder">
+      <h3>Content not added yet</h3>
+      <p>This chapter is set up in the manual's order. Its description, components and diagrams will go here once the chapter material is supplied.</p>
+    </div>
+    <div class="scen-row">
+      ${prev ? `<a class="btn" href="#${prev.id}">◀ ${esc(prev.t)}</a>` : ""}
+      ${next ? `<a class="btn" href="#${next.id}">${esc(next.t)} ▶</a>` : ""}
+    </div>
+  </div>`;
+}
+
+let simStarted = false;
+function route() {
+  const id = (location.hash || "").replace("#", "");
+  const ch = CHAPTERS.find(c => c.id === id);
+  $$(".toc a").forEach(a => a.setAttribute("aria-current", a.dataset.ch === id ? "page" : "false"));
+  $("#homeLink").setAttribute("aria-current", ch ? "false" : "page");
+  stopSim();
+  if (!ch) renderHome();
+  else if (ch.id === "electrical") { $("#main").innerHTML = ""; $("#main").appendChild($("#tpl-electrical").content.cloneNode(true)); initElectrical(); }
+  else renderPlaceholder(ch);
+  window.scrollTo(0, 0);
+  $("#rail").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded", "false");
+}
+
+/* ================= Electrical: reference content ================= */
+
+const EQUIP = {
+  lgb: { name: "Left generator bus", groups: [
+    ["Subbus feeder", ["Auto prop deice", "Auto prop deice CB switch", "No. 2 avionics bus feeder (L GEN avionics)", "Refreshment bar", "Vent blower power"]],
+    ["Subpanel feeder", ["L landing light", "Nav lights", "Tail flood lights"]],
+    ["Circuit breaker panel feeder", ["Altitude alert (opt)", "AM-FM stereo (opt)", "Avionics & engine instrument lights", "Bus tie power, L GEN · control · indication", "Cigarette lighter", "CP encoding altimeter (opt)", "Flap indication & control", "Flap motor", "Flight instrument lights", "Furnishings master control", "L chip detect", "L fuel vent heat", "L standby engine anti-ice", "No smoke, FSB & baggage lights", "R bleed air control"]],
+    ["Triple-fed bus feeder", ["Pilot's W/S anti-ice power RCCB", "Pilot's W/S anti-ice control RCCB"]]
+  ]},
+  rgb: { name: "Right generator bus", groups: [
+    ["Subbus feeder", ["Aft evaporator blower", "Air conditioner clutch", "Copilot W/S anti-ice power & control", "No. 2 inverter", "No. 3 avionics bus feeder (R GEN avionics)", "Toilet"]],
+    ["Subpanel feeder", ["Recognition lights", "R landing light", "R pitot heat", "Stall warning heat", "Strobe lights"]],
+    ["Circuit breaker panel feeder", ["Brake deice (opt)", "Bus tie power, R GEN · control · indication", "Pitch trim (opt)", "Prop governor test", "Prop sync", "Reading lights", "R chip detect", "R fuel vent heat", "R standby engine anti-ice", "Side panel lights", "Subpanel, overhead & console lights"]],
+    ["Triple-fed bus feeder", []]
+  ]},
+  ctr: { name: "Center bus", groups: [
+    ["Direct", ["Condenser blower", "Electric heat (aft)", "Electric heat (fwd)", "Landing gear motor", "No. 1 inverter", "L prop deice power (manual)", "R prop deice power (manual)"]],
+    ["Subpanel feeder", ["Beacon lights", "Ice lights", "Taxi light"]],
+    ["Starters", ["Left and right starter relays"]]
+  ]},
+  tf: { name: "Triple-fed bus", groups: [
+    ["No. 1 CB panel feeder", ["Annunciator power", "Autofeather", "Avionics master", "Landing gear warning", "L bleed air warning", "L fire detect", "L fuel flow", "L ignitor power", "L oil pressure & warning", "L oil temp", "L start control"]],
+    ["No. 2 CB panel feeder", ["Annunciator indication", "Landing gear indication", "R bleed air warning", "R fire detect", "R fuel flow", "R ignitor power", "R oil pressure & warning", "R oil temp", "R start control", "Rudder boost", "Stall warning"]],
+    ["No. 3 CB panel feeder", ["Airspeed warning", "Avionics annunciator (opt)", "Cabin lights", "Gen reset", "Instrument indirect lights", "L main engine anti-ice", "Outside air temp", "Pilot altimeter & air data (opt)", "Pilot turn & slip", "Surface deice"]],
+    ["No. 4 CB panel feeder", ["Bus tie power, TPL FED · control · indication", "Cabin alt high", "Cabin diff high", "Cabin pressure control", "Cabin temp control", "L bleed air control", "Manual prop deice control", "Oxygen control", "R main engine anti-ice", "Windshield wiper"]],
+    ["No. 1 fuel panel feeder", ["L aux fuel warn & transfer", "L firewall valve", "L fuel press warn", "L fuel quantity & warn", "L standby pump"]],
+    ["No. 2 fuel panel feeder", ["AC bus control", "Crossfeed", "Dual-fed bus (20 A)", "R aux fuel warn & transfer", "R firewall valve", "R fuel press warn", "R fuel quantity & warn", "R standby pump"]],
+    ["Subpanel feeder", ["Landing gear control", "L pitot heat"]],
+    ["No. 1 avionics bus feeder", ["TPL FED avionics"]]
+  ]},
+  batbus: { name: "Battery bus", groups: [["Loads", ["Avionics (memory items)", "Battery switch / relay control", "Dual-fed bus", "Ground comm"]]] },
+  dfb: { name: "Dual-fed bus", groups: [["Loads", ["Cabin entry lights (also aft baggage eyeball lights, chart holder, control wheel clock, door handle and J-hook observation lights, door step lights, emergency instrument indirect lights, under-wing entry light, refreshment bar clock, left seat riser threshold light, spar cover light)", "L engine fire extinguisher", "R engine fire extinguisher"]]] }
+};
+
+const LOAD_MGMT = [
+  ["Air-driven attitude gyro", "Continuous", "—"], ["Standby attitude gyro", "Continuous", "None*"], ["Inverter 1", "Continuous", "—"],
+  ["Comm 1 transmit", "3", "0.5"], ["Pilot audio", "Continuous", "—"], ["Nav 1", "Continuous", "—"], ["RMI 2", "Continuous", "—"],
+  ["Pilot altimeter", "Continuous", "—"], ["Pilot ADI (electromechanical)", "Continuous", "—"], ["Pilot EADI (EFIS)", "Not operational", "—"],
+  ["Pilot HSI (electromechanical)", "Continuous", "—"], ["Pilot EHSI (EFIS)", "Not operational", "—"], ["Turn & slip indicator", "Continuous", "—"],
+  ["Annunciator panel", "As required", "—"], ["Instrument indirect / emergency lights", "Continuous", "—"], ["Cabin lights", "5", "2"],
+  ["Ice light", "5", "0.5"], ["Beacon lights", "Continuous", "—"], ["Taxi lights", "1", "0.5"], ["Digital OAT", "Continuous", "—"],
+  ["Fuel quantity indicator", "Continuous", "—"], ["Single standby fuel pump", "5", "1"], ["Left bleed air valve", "Continuous", "—"],
+  ["Pressurization control", "Continuous", "—"], ["Cabin temperature control", "Continuous", "—"], ["Engine ignition", "0.5", "0.1"],
+  ["Surface deice", "6 cycles", "0.1"], ["Left and right main engine anti-ice", "Single operation", "0.1"], ["Manual prop deice", "3", "3"],
+  ["Windshield wiper", "1", "0.1"], ["Left pitot heat", "Continuous", "—"], ["Landing gear", "Single operation", "0.5"]
+];
+
+/* Component descriptions. side() builds L/R pairs. */
+const SIDE = { L: "Left", R: "Right" };
+function genComps(s) {
+  const n = SIDE[s], ln = n.toLowerCase();
+  return {
+    ["gen" + s]: { group: "Generation", name: n + " starter/generator", where: "Engine accessory gearbox, " + ln + " engine",
+      desc: "Engine-driven DC machine that serves as both starter and generator. It drives the compressor through accessory gearing on its series winding during a start, then generates on its shunt field once the engine runs. Output is 28.25 ±0.25 V at up to 300 A continuous. It self-excites from residual voltage and needs no aircraft power to come on line." },
+    ["gcu" + s]: { group: "Generation", name: n + " generator control unit (GCU)", where: "Below the center aisle floor",
+      desc: "Regulates voltage and controls the line contactor. Provides overvoltage (32 V) and overexcitation protection, paralleling and load sharing (within 10%), reverse-current protection, and the 400 A cross-generator-start limit. While a generator is on line its GCU also holds both gen ties closed." },
+    ["line" + s]: { group: "Generation", name: n + " line contactor", where: "Between the generator and its bus",
+      desc: "Connects the generator output to the " + ln + " gen bus. The GCU closes it after the GEN switch goes from RESET back to ON, once generator voltage is within 0.5 V of bus voltage. It opens for a failure, for GEN OFF, or for reverse current." },
+    ["str" + s]: { group: "Generation", name: n + " starter relay", where: "Fed from the center bus",
+      desc: "Connects the center bus to the starter winding while the " + ln + " IGNITION AND ENGINE START switch is at ON or STARTER ONLY. The relay's control power comes from the start control breaker on the triple-fed bus. On a cross-generator start both the battery and the operating generator feed through it." },
+    ["load" + s]: { group: "Indication", name: n + " loadmeter", where: "Overhead meter panel",
+      desc: "Shows " + ln + " generator load as a percentage of its 300 A rating. With both generators paralleled the two needles should be within 10%. Keep each at or below 100%." },
+    ["tie" + s]: { group: "Distribution", name: n + " generator bus tie", where: "Between the " + ln + " gen bus and the center bus",
+      desc: "Relay that connects the " + ln + " gen bus to the center bus. It closes automatically when either generator comes on line or external power is applied, or manually with GEN TIES MAN CLOSE. It opens with GEN TIES OPEN, when its Hall-effect sensor trips, or when no generator or external power remains (load shedding). Light: " + n.toUpperCase().charAt(0) + " GEN TIE OPEN." },
+    ["hed" + s]: { group: "Protection", name: n + " Hall-effect sensor", where: "Between the " + ln + " gen tie and the center bus",
+      desc: "One-way current sensor. It watches current flowing from the center bus toward the " + ln + " gen bus. Above 275 ±5 A it opens and latches the " + ln + " gen tie in about 0.010 s. It is disabled while a starter is selected. Reset with BUS SENSE RESET." },
+    ["lim250" + s]: { group: "Protection", name: n + " 250 A current limiter", where: "Between the " + ln + " gen bus and its gen tie",
+      desc: "A large slow-blow fuse. It covers the direction the Hall-effect sensor cannot see: current flowing from the gen bus toward the center bus, as in a center bus short. An open limiter partly isolates the bus." },
+    ["lim60" + s]: { group: "Protection", name: n + " 60 A limiter & diode", where: n + " gen bus → triple-fed bus",
+      desc: "Feeds the triple-fed bus from the " + ln + " gen bus. The diode lets current flow only toward the triple-fed bus, so a fault on the gen bus cannot pull power back out of it. The limiter opens on a triple-fed bus short." },
+    [ln.charAt(0) + "gb"]: { group: "Buses", name: n + " generator bus", bus: ln.charAt(0) + "gb", where: "Copilot's circuit breaker panel feeders",
+      desc: "Fed directly by the " + ln + " generator through its line contactor. It is tied to the center bus through a 250 A limiter and the " + ln + " gen tie, and feeds the triple-fed bus through a 60 A limiter and diode. Its loads are shed automatically when both generators are lost." }
+  };
+}
+const COMPS = Object.assign({},
+  genComps("L"), genComps("R"),
+  {
+    battery: { group: "Sources", name: "Battery", where: "Right wing center section, air-cooled box",
+      desc: "24 V nickel-cadmium (20 cells, 34 or 36 Ah) or 42 Ah sealed lead-acid battery. It supplies engine starts and is the in-flight backup source. At 28.25 V the generators keep it fully charged. The battery relay, battery tie, external power relay, two Hall-effect sensors, the battery 60 A limiter and the charge-monitor shunt are mounted just forward of it." },
+    batRelay: { group: "Distribution", name: "Battery relay", where: "Battery compartment",
+      desc: "Connects the battery to the triple-fed bus through a 60 A limiter and diode. The BAT switch closes it." },
+    batTie: { group: "Distribution", name: "Battery bus tie", where: "Battery compartment",
+      desc: "Connects the battery to the center bus, and so to both starter relays. The BAT switch closes it. It opens when the battery Hall-effect sensor sees more than 275 A flowing toward the center bus, which lights BAT TIE OPEN. It is held closed and its sensor desensitized during landing gear operation." },
+    hedB: { group: "Protection", name: "Battery Hall-effect sensor", where: "Battery compartment",
+      desc: "Watches current flowing from the battery toward the center bus. Above 275 ±5 A it opens and latches the battery tie in about 0.120 s. Reset with BUS SENSE RESET." },
+    lim60B: { group: "Protection", name: "Battery 60 A limiter & diode", where: "Battery compartment → triple-fed bus",
+      desc: "The battery's feed to the triple-fed bus. The diode prevents back-feed into the battery path. The limiter opens on a triple-fed bus short." },
+    rccb: { group: "Distribution", name: "Remote control circuit breaker (RCCB)", where: "Battery compartment",
+      desc: "Connects the battery directly to the battery bus and dual-fed bus. It is controlled from the cockpit by the BATTERY BUS switch through the 0.5 A BAT BUS CONTROL breaker. NORMAL closes it. EMERGENCY OFF opens it, the only way to remove power from the battery bus." },
+    batBusSw: { group: "Controls", name: "BATTERY BUS switch", where: "Pilot's left subpanel",
+      desc: "NORMAL / EMERGENCY OFF. Controls the RCCB. Use EMERGENCY OFF only when the battery bus itself must be de-powered." },
+    batSw: { group: "Controls", name: "BAT switch", where: "Pilot's left subpanel, under the master switch gang bar",
+      desc: "Closes the battery relay and the battery bus tie. Per the schematic, its control power comes from the battery bus, so with BATTERY BUS at EMERGENCY OFF the BAT switch has no effect." },
+    ammeter: { group: "Indication", name: "Battery ammeter", where: "Overhead meter panel; shunt at the battery",
+      desc: "Reads charge into (+) or discharge from (−) the battery. A charge above 7 A for 6 s or longer lights BATTERY CHARGE. After a battery start this happens for a few minutes, and the light serves as a self-test of the monitor." },
+    gpu: { group: "Sources", name: "External power receptacle & relay", where: "Under the right wing, outboard of the nacelle",
+      desc: "AN-type receptacle. The external power relay closes only when polarity is correct and EXT PWR is ON. It opens above 31 ±0.5 V. EXT PWR flashes when voltage is below 24 ±1.5 V. Bringing external power on line closes both gen ties." },
+    ctr: { group: "Buses", name: "Center bus", bus: "ctr", where: "Ties the system together",
+      desc: "Fed by both gen buses through the gen ties, by the battery through the battery tie, and by external power. It feeds both starter relays and heavy loads such as the gear motor and electric heat. With all ties closed, every source shares the load through it." },
+    tf: { group: "Buses", name: "Triple-fed bus", bus: "tf", where: "Copilot's and fuel CB panels",
+      desc: "Fed from the battery and both gen buses through 60 A limiters and diodes. It only receives power and never passes it to another part of the system, so most essential equipment always has a backup source. It is isolated only if all three 60 A limiters open." },
+    batbus: { group: "Buses", name: "Battery bus", bus: "batbus", where: "Fuel circuit breaker panel (cockpit)",
+      desc: "Connected straight to the battery through the RCCB, so it is live with the BAT switch OFF. Keep its use to a minimum with the airplane secured or the generators off, so the battery doesn't run down." },
+    dfb: { group: "Buses", name: "Dual-fed bus", bus: "dfb", where: "Fuel circuit breaker panel (cockpit)",
+      desc: "Fed from the battery bus and from the triple-fed bus No. 2 fuel panel feeder (20 A), each through a diode. It carries the engine fire extinguishers and cabin entry lighting." },
+    cb20: { group: "Protection", name: "20 A dual-fed bus breaker", where: "Triple-fed bus → dual-fed bus",
+      desc: "Protects the triple-fed bus's feed to the dual-fed bus. The diode beyond it stops the battery bus from back-feeding the triple-fed bus." },
+    diodeBB: { group: "Protection", name: "Battery bus diode", where: "Battery bus → dual-fed bus",
+      desc: "One-way valve for current. The dual-fed bus can draw from the battery bus, but not feed back into it." }
+  }
+);
+
+const COMP_ORDER = ["battery", "genL", "genR", "gpu", "gcuL", "lineL", "strL", "batRelay", "batTie", "rccb", "tieL", "hedL", "hedB", "lim250L", "lim60L", "lim60B", "cb20", "loadL", "ammeter", "batSw", "batBusSw"];
+const COMP_GROUP_ORDER = ["Sources", "Generation", "Distribution", "Protection", "Indication", "Controls"];
+const PAIR_NOTE = { gcuL: "One per generator.", lineL: "One per generator.", strL: "One per engine.", tieL: "Left and right.", hedL: "Left and right gen ties.", lim250L: "Left and right.", lim60L: "Left and right.", loadL: "Left and right." };
+
+const STEPS = [
+  { t: "Battery bus live", sc: 1, p: "With BATTERY BUS at NORMAL, the RCCB connects the battery to the battery bus and dual-fed bus, with no other switch needed. Fire extinguishers, ground comm and entry lights are available." },
+  { t: "BAT switch ON", sc: 2, p: "The battery relay connects the battery to the triple-fed bus. The battery tie connects it to the center bus and both starter relays. The gen ties stay open on battery power alone, so both gen buses stay dead. Expect L & R DC GEN and L & R GEN TIE OPEN. Unlike the 300, the 350 does not need the ties closed manually before start." },
+  { t: "First engine start (battery)", sc: 4, p: "Start switch to ON. The starter relay closes and the center bus drives the starter while the shunt field is disabled. All bus-tie sensors are desensitized for the start. Watch light-off and N1, then return the switch to OFF. Battery voltage sags under the starter load." },
+  { t: "Generator on line", sc: 5, p: "GEN switch to RESET: the GCU builds voltage. Release to ON: the line contactor closes, both gen ties close automatically, and the generator powers every bus and recharges the battery. BATTERY CHARGE comes on briefly as a monitor self-test." },
+  { t: "Cross-generator start", sc: 6, p: "The second engine starts on the battery plus the running generator through the center bus. The operating GCU limits output to 400 A so its 250 A limiter survives the transient." },
+  { t: "Both generators on", sc: 7, p: "Each generator feeds its own bus. The center bus ties everything together and the GCUs share the load within 10%. Check the voltmeter at 28.25 V, the loadmeters matched, and the battery charge decreasing below 7 A within about five minutes." },
+  { t: "Bus sense test", sc: 9, p: "BUS SENSE to TEST momentarily: all three ties open and latch (L & R GEN TIE OPEN, BAT TIE OPEN). Then RESET momentarily: they close again." }
+];
+
+const SCEN = [
+  { fig: "2-42", t: "Power distribution schematic (cold & dark)", cap: "Baseline schematic with everything off. Use the subpanel switches to power up yourself, or step through the figures.", apply() {} },
+  { fig: "2-43", t: "Battery OFF, battery bus EMERGENCY OFF", cap: "With the RCCB open, even the battery bus and dual-fed bus are dead. Only the battery terminals hold voltage. The BAT switch has no control power from the battery bus.", apply(s) { s.batBus = "EMER"; } },
+  { fig: "2-44", t: "Battery OFF, battery bus NORMAL", cap: "The RCCB is closed, so the battery bus and dual-fed bus are live without the BAT switch. The yellow control path to the BAT switch is now powered too. The triple-fed bus is dead, so the annunciator panel is dark.", apply() {} },
+  { fig: "2-45", t: "Battery switch ON", cap: "The battery relay feeds the triple-fed bus and the battery tie feeds the center bus and both starter relays. The gen ties stay open on battery power alone, so the gen buses are dead.", apply(s) { s.bat = true; } },
+  { fig: "2-46", t: "Battery ON, generator ties manually closed", cap: "GEN TIES MAN CLOSE latches both gen ties closed and the whole system runs on the battery. MAN TIES CLOSE is lit. It goes out once a generator comes on line.", apply(s) { s.bat = true; s.manLatch = true; } },
+  { fig: "2-47", t: "Right engine start", cap: "The right starter relay is closed and the center bus drives the starter on battery power. The tie sensors are desensitized. Watch N1, light-off at about 12%, then set the start switch to OFF and GEN RESET → ON.", apply(s) { s.bat = true; s.start.R = "ON"; s.n1.R = 4; } },
+  { fig: "2-48", t: "Right generator ON", cap: "The right line contactor is closed and both gen ties close automatically. The right generator powers every bus and recharges the battery. Only L DC GEN remains.", apply(s) { s.bat = true; runEng(s, "R"); s.deficit = 1500; } },
+  { fig: "2-49", t: "Cross-generator start (left engine)", cap: "The battery and right generator both feed the left starter through the center bus. The right GCU caps its output at 400 A. Watch the right loadmeter and the battery ammeter share the start current.", apply(s) { s.bat = true; runEng(s, "R"); s.start.L = "ON"; s.n1.L = 4; } },
+  { fig: "2-50", t: "Both generators ON", cap: "Normal configuration. Each generator feeds its own bus, the buses are tied through the center bus, and load is shared within 10%.", apply(s) { s.bat = true; runEng(s, "L"); runEng(s, "R"); } },
+  { fig: "2-51", t: "Both generators ON, generator ties OPEN", cap: "The gen buses are separated from the center bus. Each generator feeds its own bus and the triple-fed bus, and the battery alone powers the center bus. Paralleling is inoperative.", apply(s) { s.bat = true; runEng(s, "L"); runEng(s, "R"); s.genTies = "OPEN"; } },
+  { fig: "2-52", t: "Both generators ON, bus sense TEST", cap: "Test voltage simulates an overcurrent at all three sensors. All three ties open and latch. Press BUS SENSE RESET to close them.", apply(s) { s.bat = true; runEng(s, "L"); runEng(s, "R"); s.trip = { L: true, R: true, B: true }; } },
+  { fig: "2-53", t: "Both generators failed (load shedding)", cap: "With no generator, the gen ties open and the gen bus loads are shed. The battery carries the center, triple-fed, battery and dual-fed buses, about 30 min at 50 A after load management. Do not MAN CLOSE.", apply(s) { s.bat = true; runEng(s, "L"); runEng(s, "R"); s.fail = { L: true, R: true }; s.excited = { L: false, R: false }; } },
+  { fig: "2-54", t: "Bus isolation: left gen bus short", cap: "The left sensor sees >275 A flowing from the center bus into the short and opens the left gen tie, and the left GCU drops its generator. L DC GEN + L GEN TIE OPEN. The right generator carries everything else.", apply(s) { s.bat = true; runEng(s, "L"); runEng(s, "R"); s.short.LGB = true; } },
+  { fig: "2-55", t: "Bus isolation: center bus short", cap: "The battery sensor opens the battery tie. Both 250 A limiters open because the gen sensors cannot see current flowing in that direction. Only BAT TIE OPEN is lit. The battery can't charge and the gear must be extended manually.", apply(s) { s.bat = true; runEng(s, "L"); runEng(s, "R"); s.short.CTR = true; } },
+  { fig: "2-56", t: "Bus isolation: triple-fed bus short", cap: "All three 60 A limiters open and isolate the bus. There is no tie annunciation, and with annunciator power on this bus the panel goes dark. Diagnose from lost equipment and the voltmeter.", apply(s) { s.bat = true; runEng(s, "L"); runEng(s, "R"); s.short.TF = true; } },
+  { fig: "2-57", t: "External power", cap: "EXT PWR ON closes the external power relay and both gen ties. Every bus, including the starters, is on external power. EXT PWR is lit steady.", apply(s) { s.bat = true; s.gpu = true; s.extSw = true; } }
+];
+function runEng(s, k) { s.lit[k] = true; s.n1[k] = 62; s.gen[k] = "ON"; s.excited[k] = true; }
+
+/* ================= Electrical: simulation ================= */
+function fresh() {
+  return { bat: false, batBus: "NORMAL", gen: { L: "OFF", R: "OFF" }, genTies: "NORM", start: { L: "OFF", R: "OFF" }, extSw: false, gpu: false,
+    n1: { L: 0, R: 0 }, lit: { L: false, R: false }, excited: { L: false, R: false }, fail: { L: false, R: false },
+    short: { LGB: false, RGB: false, CTR: false, TF: false }, trip: { L: false, R: false, B: false }, manLatch: false,
+    blown: { L250: false, R250: false, L60: false, R60: false, B60: false },
+    deficit: 0, chgT: 0, strT: { L: 0, R: 0 }, strWarned: { L: false, R: false }, volt: "CTR", t: 0 };
+}
+let S = fresh();
+let D = null;          // derived state from evaluate()
+let M = { genA: { L: 0, R: 0 }, batA: 0, batV: 24.4, gpuA: 0 };   // meters
+let timer = null;
+let selected = null;
+let scenIdx = 0;
+let momentary = {};    // visual hold for spring-loaded positions
+
+const NETS = ["LGEN", "RGEN", "LGB", "RGB", "LTA", "RTA", "CTR", "GPU", "BATN", "BATBUS", "DFB", "BRL", "B60", "TF", "L60", "R60", "TF20", "LSTR", "RSTR"];
+const SHORTABLE = { LGB: "LGB", RGB: "RGB", CTR: "CTR", TF: "TF" };
+
+function genOut(k) { return S.n1[k] >= 45 && (S.gen[k] === "ON" || S.gen[k] === "RESET") && S.excited[k] && !S.fail[k] && S.start[k] === "OFF"; }
+function genOnline(k) { return genOut(k) && S.gen[k] === "ON"; }
+
+function relays() {
+  const r = {};
+  r.rccb = S.batBus === "NORMAL";
+  r.batCtl = r.rccb && S.bat;              // BAT switch control power is taken from the battery bus
+  r.batRelay = r.batCtl;
+  r.batTie = r.batCtl && !S.trip.B;
+  r.ext = S.gpu && S.extSw;
+  r.lineL = genOnline("L"); r.lineR = genOnline("R");
+  r.tiesCmd = S.genTies !== "OPEN" && (r.lineL || r.lineR || r.ext || S.manLatch);
+  r.tieL = r.tiesCmd && !S.trip.L; r.tieR = r.tiesCmd && !S.trip.R;
+  r.strL = false; r.strR = false;
+  return r;
+}
+
+function solve(r) {
+  const E = [
+    ["LGEN", "LGB", r.lineL, 0], ["LGB", "LTA", !S.blown.L250, 0], ["LTA", "CTR", r.tieL, 0],
+    ["RGEN", "RGB", r.lineR, 0], ["RGB", "RTA", !S.blown.R250, 0], ["RTA", "CTR", r.tieR, 0],
+    ["GPU", "CTR", r.ext, 1], ["CTR", "BATN", r.batTie, 0], ["BATN", "BATBUS", r.rccb, 0],
+    ["BATBUS", "DFB", true, 1], ["BATN", "BRL", r.batRelay, 0], ["BRL", "B60", !S.blown.B60, 0], ["B60", "TF", true, 1],
+    ["LGB", "L60", !S.blown.L60, 0], ["L60", "TF", true, 1], ["RGB", "R60", !S.blown.R60, 0], ["R60", "TF", true, 1],
+    ["TF", "TF20", true, 0], ["TF20", "DFB", true, 1],
+    ["CTR", "LSTR", r.strL, 1], ["CTR", "RSTR", r.strR, 1]
+  ];
+  const adj = {}; NETS.forEach(n => adj[n] = []);
+  E.forEach(([a, b, on, dir]) => { if (!on) return; adj[a].push(b); if (!dir) adj[b].push(a); });
+  const srcs = [["BAT", "BATN", 1]];
+  if (genOut("L")) srcs.push(["LGEN", "LGEN", 2]);
+  if (genOut("R")) srcs.push(["RGEN", "RGEN", 2]);
+  if (S.gpu) srcs.push(["GPU", "GPU", 3]);
+  const reach = {}, level = {}; NETS.forEach(n => level[n] = 0);
+  srcs.forEach(([id, start, lv]) => {
+    const seen = new Set([start]), q = [start];
+    while (q.length) {
+      const n = q.shift();
+      if (SHORTABLE[n] && S.short[n]) continue;    // a grounded net passes nothing on
+      adj[n].forEach(m => { if (!seen.has(m)) { seen.add(m); q.push(m); } });
+    }
+    reach[id] = { set: seen, lv };
+    seen.forEach(n => { if (!(SHORTABLE[n] && S.short[n])) level[n] = Math.max(level[n], lv); });
+  });
+  return { reach, level };
+}
+
+let evLog = [];
+function log(msg, cls) {
+  evLog.unshift({ t: S.t, msg, cls: cls || "" });
+  if (evLog.length > 40) evLog.pop();
+  renderLog();
+}
+
+function evaluate(quiet) {
+  const prev = D;
+  let r, P;
+  for (let i = 0; i < 6; i++) {
+    r = relays(); P = solve(r);
+    let ch = false;
+    const desens = S.start.L !== "OFF" || S.start.R !== "OFF";
+    ["L", "R"].forEach(k => {
+      const net = k + "GB", n = SIDE[k].toLowerCase();
+      if (S.short[net]) {
+        if (S.excited[k]) { S.excited[k] = false; ch = true; if (!quiet) log(`${SIDE[k]} GCU takes its generator off line (short on ${n} gen bus).`, "bad"); }
+        if (r["tie" + k] && !S.blown[k + "250"] && P.level.CTR > 0) {
+          if (desens) { S.blown[k + "250"] = true; if (!quiet) log(`Start in progress, sensors desensitized: ${n} 250 A limiter opens.`, "bad"); }
+          else { S.trip[k] = true; if (!quiet) log(`${SIDE[k]} Hall-effect sensor sees >275 A flowing toward the ${n} gen bus and opens the ${n} gen tie.`, "bad"); }
+          ch = true;
+        }
+      }
+      if (S.fail[k] && S.excited[k]) { S.excited[k] = false; ch = true; if (!quiet) log(`${SIDE[k]} generator fails, GCU opens the line contactor.`, "bad"); }
+    });
+    if (S.short.CTR) {
+      if (r.batTie) { S.trip.B = true; ch = true; if (!quiet) log("Battery Hall-effect sensor sees >275 A flowing toward the center bus and opens the battery tie.", "bad"); }
+      ["L", "R"].forEach(k => {
+        if (r["tie" + k] && !S.blown[k + "250"] && P.level[k + "GB"] > 0) { S.blown[k + "250"] = true; ch = true; if (!quiet) log(`${SIDE[k]} 250 A limiter opens. The gen tie sensor can't see current flowing toward the center bus.`, "bad"); }
+      });
+    }
+    if (S.short.TF) {
+      if (!S.blown.L60 && P.level.LGB > 0) { S.blown.L60 = true; ch = true; if (!quiet) log("Left 60 A triple-fed limiter opens.", "bad"); }
+      if (!S.blown.R60 && P.level.RGB > 0) { S.blown.R60 = true; ch = true; if (!quiet) log("Right 60 A triple-fed limiter opens.", "bad"); }
+      if (!S.blown.B60 && r.batRelay) { S.blown.B60 = true; ch = true; if (!quiet) log("Battery 60 A triple-fed limiter opens. Triple-fed bus isolated.", "bad"); }
+    }
+    if (S.manLatch && (r.lineL || r.lineR)) { S.manLatch = false; ch = true; if (!quiet) log("Generator on line: GCU now holds the gen ties, MAN TIES CLOSE goes out."); }
+    if (S.manLatch && (S.genTies === "OPEN" || P.level.CTR === 0)) { S.manLatch = false; ch = true; }
+    if (!ch) break;
+  }
+  const tfLive = P.level.TF > 0;
+  r.strL = S.start.L !== "OFF" && tfLive && P.level.CTR > 0;
+  r.strR = S.start.R !== "OFF" && tfLive && P.level.CTR > 0;
+  P = solve(r);
+  D = { r, P };
+
+  if (prev && !quiet) {
+    const pr = prev.r;
+    const msg = (key, on, off, cls) => { if (pr[key] !== r[key]) log(r[key] ? on : off, r[key] ? "" : (cls || "")); };
+    msg("batRelay", "Battery relay closes. Battery feeds the triple-fed bus.", "Battery relay opens.");
+    msg("batTie", "Battery bus tie closes. Battery connected to the center bus and starter relays.", "Battery bus tie opens.", "warn");
+    msg("rccb", "RCCB closes. Battery bus and dual-fed bus powered.", "RCCB opens. Battery bus de-powered.", "warn");
+    msg("lineL", "Left line contactor closes. Left generator on line.", "Left line contactor opens. Left generator off line.", "warn");
+    msg("lineR", "Right line contactor closes. Right generator on line.", "Right line contactor opens. Right generator off line.", "warn");
+    msg("tieL", "Left gen tie closes.", "Left gen tie opens.", "warn");
+    msg("tieR", "Right gen tie closes.", "Right gen tie opens.", "warn");
+    msg("ext", "External power relay closes. External power on line.", "External power relay opens.");
+    msg("strL", "Left starter relay closes. Starter motoring.", "Left starter relay opens.");
+    msg("strR", "Right starter relay closes. Starter motoring.", "Right starter relay opens.");
+    if (pr.tiesCmd && !r.tiesCmd && (pr.lineL || pr.lineR) && !r.lineL && !r.lineR && S.genTies !== "OPEN")
+      log("No generator on line: the gen ties open and the gen bus loads are shed.", "warn");
+  }
+  render();
+}
+
+/* ---------- loads, battery and engines (time step) ---------- */
+const LOADS = { LGB: 45, RGB: 55, CTR: 20, TF: 25, BATBUS: 2, DFB: 3 };
+const USABLE_AS = 97200;   // 36 Ah × 75% in amp-seconds
+
+function suppliers(net) {
+  const lv = D.P.level[net]; if (!lv) return [];
+  return Object.keys(D.P.reach).filter(id => D.P.reach[id].lv === lv && D.P.reach[id].set.has(net));
+}
+
+function step(dt) {
+  S.t += dt;
+  let needEval = false;
+  ["L", "R"].forEach(k => {
+    const turning = D.r["str" + k];
+    if (turning) { S.strT[k] += dt; if (S.strT[k] > 30 && !S.strWarned[k]) { S.strWarned[k] = true; log(`${SIDE[k]} starter has run 30 s. Limit is 30 s ON, then 5 min OFF.`, "warn"); } }
+    else { S.strT[k] = 0; S.strWarned[k] = false; }
+    const before = S.n1[k];
+    if (S.lit[k]) S.n1[k] = Math.min(62, S.n1[k] + (turning ? 7 : 5) * dt);
+    else if (turning) {
+      S.n1[k] = Math.min(20, S.n1[k] + 3.2 * dt);
+      if (S.start[k] === "ON" && S.n1[k] >= 12) { S.lit[k] = true; log(`${SIDE[k]} engine light-off at ${S.n1[k].toFixed(0)}% N1.`); }
+    } else S.n1[k] = Math.max(0, S.n1[k] - 6 * dt);
+    if (before < 62 && S.n1[k] >= 62 && S.lit[k] && S.start[k] !== "OFF") log(`${SIDE[k]} engine stabilized at idle. Set its start switch to OFF, then GEN RESET → ON.`);
+    if (S.n1[k] < 45 && S.excited[k]) { S.excited[k] = false; }
+    if ((before >= 45) !== (S.n1[k] >= 45)) needEval = true;
+  });
+  if (needEval) evaluate();
+  else evaluate(true);
+
+  // distribute loads
+  const genA = { L: 0, R: 0 }; let batDis = 0, gpuA = 0;
+  const add = (net, amps) => {
+    if (S.short[net] || !D.P.level[net]) return;
+    const sup = suppliers(net); if (!sup.length) return;
+    const share = amps / sup.length;
+    sup.forEach(id => { if (id === "BAT") batDis += share; else if (id === "GPU") gpuA += share; else genA[id.charAt(0)] += share; });
+  };
+  Object.keys(LOADS).forEach(n => add(n, LOADS[n]));
+  ["L", "R"].forEach(k => { if (D.r["str" + k] && D.P.level[k + "STR"]) add(k + "STR", S.n1[k] < 12 ? 380 : 260); });
+  // cross-generator start: operating GCU limits to 400 A, the battery supplies the rest
+  ["L", "R"].forEach(k => {
+    const o = k === "L" ? "R" : "L";
+    if (S.start[o] !== "OFF" && genA[k] > 400) { batDis += (D.r.batTie ? genA[k] - 400 : 0); genA[k] = 400; }
+  });
+  let batA;
+  const bl = D.P.level.BATN;
+  if (bl >= 2) {
+    const I = Math.min(110, 2 + S.deficit * 0.06);
+    const sup = suppliers("BATN");
+    sup.forEach(id => { if (id === "GPU") gpuA += I / sup.length; else if (id !== "BAT") genA[id.charAt(0)] += I / sup.length; });
+    S.deficit = Math.max(0, S.deficit - I * dt * 1.6);
+    batA = batDis > 0 ? I - batDis : I;
+  } else {
+    batA = -batDis;
+    S.deficit = Math.min(USABLE_AS * 1.2, S.deficit + batDis * dt);
+  }
+  if (batA > 7) S.chgT += dt; else S.chgT = 0;
+  const restV = 24.6 - 2.2 * Math.min(1, S.deficit / USABLE_AS);
+  M = { genA, batA, gpuA, batDis, batV: bl >= 2 ? (bl === 3 ? 28.0 : 28.25) : Math.max(17.5, restV - 0.012 * batDis) };
+  renderMeters();
+}
+
+/* ================= SVG schematic ================= */
+const VB_W = 1040;
+function buildSchematic() {
+  const casings = [], wires = [], ctl = [], syms = [];
+  const pts = a => a.map(p => p.join(",")).join(" ");
+  const W = (net, a) => { casings.push(`<polyline class="w-case" data-netc="${net}" points="${pts(a)}"/>`); wires.push(`<polyline class="w" data-net="${net}" points="${pts(a)}"/>`); };
+  const C = (key, a, dash) => ctl.push(`<polyline class="c${dash ? " dash" : ""}" data-ctl="${key}" points="${pts(a)}"/>`);
+  const T = (x, y, s, cls, anchor) => `<text x="${x}" y="${y}" class="${cls || "lbl"}" text-anchor="${anchor || "middle"}">${s}</text>`;
+  const comp = (id, inner, hit, label) => syms.push(`<g class="comp" data-comp="${id}" tabindex="0" role="button" aria-label="${esc(label || COMPS[id].name)}"><rect class="hit" x="${hit[0]}" y="${hit[1]}" width="${hit[2]}" height="${hit[3]}" rx="4"/>${inner}</g>`);
+  const contacts = (key, x, y, ang) => `<g transform="translate(${x},${y}) rotate(${ang || 0})"><circle class="term" cx="-15" cy="0" r="3"/><circle class="term" cx="15" cy="0" r="3"/><line class="blade" data-sw="${key}" x1="-15" y1="0" x2="15" y2="0"/></g>`;
+  const limiter = (key, x, y, ang) => `<g transform="translate(${x},${y}) rotate(${ang || 0})"><path class="lim" data-lim="${key}" d="M-14,-8 L0,0 L-14,8 Z M14,-8 L0,0 L14,8 Z"/></g>`;
+  const diode = (x, y, ang) => `<g transform="translate(${x},${y}) rotate(${ang || 0})"><path class="sym-solid" d="M-8,-8 L7,0 L-8,8 Z"/><line class="sym-l" x1="8" y1="-9" x2="8" y2="9"/></g>`;
+  const coil = (key, x, y, w, h) => `<rect class="coil" data-coil="${key}" x="${x}" y="${y}" width="${w || 20}" height="${h || 16}" rx="2"/>`;
+  const ground = (x, y) => `<g transform="translate(${x},${y})"><line class="sym-l" x1="0" y1="0" x2="0" y2="8"/><line class="sym-l" x1="-10" y1="8" x2="10" y2="8"/><line class="sym-l" x1="-6" y1="13" x2="6" y2="13"/><line class="sym-l" x1="-2" y1="18" x2="2" y2="18"/></g>`;
+  const bolt = (key, x, y) => `<g data-short="${key}" transform="translate(${x},${y})" hidden><path class="bolt" d="M0,0 L18,-26 L10,-8 L26,-14 L4,22 L12,2 Z"/>${ground(6, 22)}</g>`;
+  const bus = (id, net, x, y, w, label) => comp(id, `<rect class="bus-fill" data-net="${net}" x="${x}" y="${y}" width="${w}" height="32" rx="16"/><text class="bus-txt" data-bustxt="${net}" x="${x + w / 2}" y="${y + 21}" text-anchor="middle">${label}</text>`, [x - 4, y - 4, w + 8, 40]);
+
+  // ---------- per side ----------
+  ["L", "R"].forEach(k => {
+    const X = x => k === "L" ? x : VB_W - x;
+    const A = a => k === "L" ? a : ({ start: "end", end: "start", middle: "middle" }[a]);
+    const P = (x, y) => [X(x), y];
+    const n = SIDE[k].toUpperCase();
+    // generator output → loadmeter → line contactor → gen bus
+    W(k + "GEN", [P(160, 139), P(160, 180), P(211, 180)]);
+    W(k + "GB", [P(241, 180), P(290, 180), P(290, 240), P(100, 240), P(100, 274)]);
+    // starter relay tap from center bus line
+    W("CTR", [P(370, 290), P(370, 40), P(340, 40)]);
+    W(k + "STR", [P(310, 40), P(190, 40), P(190, 76)]);
+    // top bus row
+    W(k + "GB", [P(170, 290), P(213, 290)]);
+    W(k + "TA", [P(241, 290), P(300, 290)]);
+    W("CTR", [P(330, 290), P(460, 290)]);
+    // gen bus → 60 A → diode → triple-fed
+    const d = t => P(70 + 350 * t, 306 + 494 * t);
+    W(k + "GB", [P(70, 306), d(0.17)]);
+    W(k + "60", [d(0.23), d(0.885)]);
+    W("TF", [d(0.915), P(420, 800)]);
+    const ang = Math.atan2(494, 350 * (k === "L" ? 1 : -1)) * 180 / Math.PI;
+
+    // control wiring (GCU)
+    C("field" + k, [P(86, 196), P(86, 168)]);
+    C("field" + k, [P(86, 142), P(86, 105), P(126, 105)]);
+    C("lc" + k, [P(132, 212), P(226, 212), P(226, 204)]);
+    C("hed" + k, [P(325, 314), P(411, 314), P(411, 306)], true);
+
+    // generator
+    comp("gen" + k,
+      `<circle class="sym" cx="${X(160)}" cy="105" r="34"/><circle class="sym" cx="${X(160)}" cy="105" r="21"/>
+       <g class="rotor" data-rotor="${k}"><line class="sym-l" x1="${X(160)}" y1="88" x2="${X(160)}" y2="122"/><line class="sym-l" x1="${X(143)}" y1="105" x2="${X(177)}" y2="105"/></g>
+       ${T(X(205), 104, "STARTER/GEN", "lbl", A("start"))}`,
+      [X(160) - 40, 64, 80, 104]);
+    syms.push(`<text class="n1t" data-n1="${k}" x="${X(108)}" y="64" text-anchor="${A("end")}">N1 0%</text>`);
+    syms.push(T(X(80), 120, "TO GEN", "lbl", A("end")), T(X(80), 133, "FIELD", "lbl", A("end")));
+    // gen switch in field line
+    syms.push(`<g>${T(X(98), 160, "GEN SW", "lbl", A("start"))}${contacts("genSw" + k, X(86), 155, 90)}</g>`);
+    comp("load" + k, `<circle class="sym" cx="${X(196)}" cy="180" r="11"/><line class="sym-l" x1="${X(190)}" y1="186" x2="${X(202)}" y2="173"/>${T(X(190), 164, "LOAD", "lbl")}`, [X(196) - 16, 152, 32, 42]);
+    comp("line" + k, contacts("line" + k, X(226), 180) + coil("line" + k, X(226) - 10, 192) + T(X(234), 164, "LINE CONT", "lbl", A("start")), [X(226) - 22, 152, 44, 60]);
+    comp("gcu" + k, `<rect class="gcu" data-gcu="${k}" x="${X(k === "L" ? 40 : 132)}" y="196" width="92" height="32" rx="3"/><text class="gcu-t" data-gcut="${k}" x="${X(86)}" y="216" text-anchor="middle">GEN CONTROL</text>`, [X(k === "L" ? 40 : 132) - 3, 193, 98, 38]);
+    comp("str" + k, contacts("str" + k, X(325), 40) + coil("str" + k, X(325) - 10, 50) + T(X(325), 26, n + " STARTER RELAY", "lbl"), [X(325) - 60, 14, 120, 56]);
+    // bus row symbols
+    bus(k.toLowerCase() + "gb", k + "GB", k === "L" ? 30 : VB_W - 170, 274, 140, n + " GEN BUS");
+    comp("lim250" + k, limiter(k + "250", X(227), 290) + T(X(227), 274, "250", "lbl"), [X(227) - 18, 262, 36, 38]);
+    comp("tie" + k, contacts("tie" + k, X(315), 290) + coil("tie" + k, X(315) - 10, 306) + T(X(315), 340, n + " GEN TIE", "lbl"), [X(315) - 34, 278, 68, 68]);
+    comp("hed" + k, `<rect class="hed" data-hed="${k}" x="${X(411) - 8}" y="276" width="16" height="30" rx="2"/><text class="hed-t" x="${X(411)}" y="288" text-anchor="middle">H</text><text class="hed-t" x="${X(411)}" y="298" text-anchor="middle">E</text><text class="hed-t" x="${X(411)}" y="308" text-anchor="middle" dy="-1">D</text>${T(X(411), 268, k === "L" ? "← 275" : "275 →", "lbl")}`, [X(411) - 16, 255, 32, 54]);
+    comp("lim60" + k, `<g>${limiter(k + "60", d(0.2)[0], d(0.2)[1], ang)}${diode(d(0.9)[0], d(0.9)[1], ang)}</g>${T(d(0.2)[0] + (k === "L" ? -22 : 22), d(0.2)[1] + 4, "60", "lbl")}`, [Math.min(d(0.2)[0], d(0.9)[0]) - 18, d(0.2)[1] - 20, Math.abs(d(0.9)[0] - d(0.2)[0]) + 36, d(0.9)[1] - d(0.2)[1] + 40], SIDE[k] + " 60 A limiter and diode");
+    syms.push(bolt(k + "GB", X(k === "L" ? 120 : 136), 330));
+  });
+
+  // ---------- centre trunk ----------
+  W("CTR", [[520, 306], [520, 400]]);
+  W("CTR", [[460, 350], [520, 350]]);
+  W("GPU", [[396, 350], [430, 350]]);
+  W("BATN", [[520, 430], [520, 640]]);
+  W("BATN", [[520, 460], [470, 460]]);
+  W("BATN", [[465, 562], [520, 562]]);
+  W("BATBUS", [[420, 460], [350, 460]]);
+  W("BATBUS", [[290, 476], [290, 492]]);
+  W("DFB", [[290, 508], [290, 520]]);
+  W("BRL", [[520, 670], [520, 702]]);
+  W("B60", [[520, 730], [520, 752]]);
+  W("TF", [[520, 768], [520, 790]]);
+  const q = t => [330 + 140 * t, 552 + 238 * t];
+  W("DFB", [q(0), q(0.31)]);
+  W("TF20", [q(0.39), q(0.82)]);
+  W("TF", [q(0.9), [470, 790]]);
+  syms.push(`<polyline class="w" style="stroke:var(--pw-bat);stroke-width:3.5" points="408,591 408,612 440,612 440,629"/>`);
+
+  // control: BAT BUS switch → .5A → RCCB; BAT switch from battery bus → relay / tie coils
+  C("bbGnd", [[205, 400], [215, 400]]);
+  C("bbCtl", [[245, 400], [318, 400]]);
+  C("bbCtl", [[352, 400], [445, 400], [445, 450]]);
+  C("bsIn", [[790, 478], [700, 478], [700, 506]]);
+  C("bsOut", [[700, 536], [700, 655], [570, 655]]);
+  C("bsOut", [[700, 590], [640, 590], [640, 415], [570, 415]]);
+  C("hedB", [[559, 431], [559, 515], [534, 515]], true);
+
+  bus("ctr", "CTR", 460, 274, 120, "CENTER BUS");
+  bus("tf", "TF", 420, 790, 200, "TRIPLE-FED BUS");
+  bus("batbus", "BATBUS", 230, 444, 120, "BAT BUS");
+  bus("dfb", "DFB", 230, 520, 120, "DUAL-FED BUS");
+
+  comp("gpu", `<g><rect class="sym" x="368" y="338" width="20" height="24" rx="2"/><line class="sym-l" x1="388" y1="344" x2="396" y2="344"/><line class="sym-l" x1="388" y1="356" x2="396" y2="356"/></g>${contacts("ext", 445, 350)}${T(378, 330, "GPU", "lbl-b")}${T(445, 376, "EXT PWR RELAY", "lbl")}`, [360, 316, 104, 66]);
+  comp("batTie", contacts("batTie", 520, 415, 90) + coil("batTie", 550, 407) + T(578, 400, "BATTERY BUS TIE", "lbl", "start"), [500, 392, 190, 44]);
+  comp("rccb", `<rect class="coil" data-coil="rccb" x="420" y="450" width="50" height="20" rx="2"/><text class="gcu-t" data-rccbt="1" x="445" y="464" text-anchor="middle">RCCB</text>`, [416, 446, 58, 28]);
+  comp("hedB", `<rect class="hed" data-hed="B" x="506" y="505" width="28" height="18" rx="2"/><text class="hed-t" x="520" y="518" text-anchor="middle">HED</text>${T(500, 518, "275 ↑", "lbl", "end")}`, [460, 500, 80, 28]);
+  comp("battery", `<rect class="sym" x="395" y="545" width="70" height="46" rx="4"/><rect class="sym" x="403" y="539" width="10" height="7"/><rect class="sym" x="447" y="539" width="10" height="7"/>
+    <text x="408" y="574" class="lbl-b" text-anchor="middle">−</text><text x="452" y="574" class="lbl-b" text-anchor="middle">+</text>${T(430, 605, "BATTERY", "lbl-b")}`, [388, 532, 84, 80]);
+  comp("ammeter", `<circle class="sym" cx="440" cy="640" r="11"/><line class="sym-l" x1="434" y1="646" x2="446" y2="633"/>${ground(440, 651)}${T(456, 644, "AMMETER", "lbl", "start")}`, [425, 624, 100, 50]);
+  comp("batRelay", contacts("batRelay", 520, 655, 90) + coil("batRelay", 550, 647) + T(578, 680, "BATTERY RELAY", "lbl", "start"), [500, 632, 170, 54]);
+  comp("lim60B", limiter("B60", 520, 716, 90) + diode(520, 760, 90) + T(536, 720, "60", "lbl", "start"), [500, 700, 46, 70]);
+  comp("diodeBB", diode(290, 500, 90), [276, 486, 28, 28]);
+  comp("cb20", `<g transform="translate(${q(0.86)[0]},${q(0.86)[1]})"><path class="sym-l" d="M-10,0 A10,10 0 0 1 10,0"/><circle class="term" cx="-10" cy="0" r="2.5"/><circle class="term" cx="10" cy="0" r="2.5"/></g>${T(q(0.86)[0] + 16, q(0.86)[1] + 4, "20A", "lbl", "start")}`, [q(0.86)[0] - 16, q(0.86)[1] - 16, 56, 26]);
+  syms.push(diode(q(0.35)[0], q(0.35)[1], Math.atan2(-238, -140) * 180 / Math.PI));
+
+  comp("batBusSw", `${ground(205, 400)}${contacts("batBusSw", 230, 400)}<g transform="translate(335,400)"><path class="sym-l" d="M-14,0 A14,14 0 0 1 14,0"/><circle class="term" cx="-14" cy="0" r="2.5"/><circle class="term" cx="14" cy="0" r="2.5"/></g>
+    ${T(230, 382, "BAT BUS SW", "lbl")}${T(335, 378, ".5A BAT BUS CTL", "lbl")}`, [192, 366, 172, 58]);
+  comp("batSw", `${contacts("batSw", 700, 521, 90)}${T(712, 470, "FROM BAT BUS", "lbl", "start")}${T(714, 525, "BATT SWITCH", "lbl", "start")}`, [688, 458, 120, 80]);
+
+  syms.push(bolt("CTR", 600, 250), bolt("TF", 640, 840));
+
+  $("#schem").innerHTML = `<g>${casings.join("")}</g><g>${ctl.join("")}</g><g>${wires.join("")}</g><g>${syms.join("")}</g>`;
+}
+
+/* ================= Rendering ================= */
+function renderSchem() {
+  const L = D.P.level;
+  $$("#schem [data-net]").forEach(el => {
+    const n = el.dataset.net;
+    el.classList.remove("p0", "p1", "p2", "p3", "short");
+    el.classList.add(SHORTABLE[n] && S.short[n] ? "short" : "p" + (L[n] || 0));
+  });
+  $$("#schem [data-netc]").forEach(el => el.classList.toggle("on", (L[el.dataset.netc] || 0) > 0 && !(SHORTABLE[el.dataset.netc] && S.short[el.dataset.netc])));
+  $$("#schem [data-bustxt]").forEach(el => { const n = el.dataset.bustxt; el.classList.toggle("lit", (L[n] || 0) > 0 && !S.short[n]); });
+  const sw = Object.assign({}, D.r, { genSwL: S.gen.L !== "OFF", genSwR: S.gen.R !== "OFF", batSw: S.bat, batBusSw: S.batBus === "NORMAL" });
+  $$("#schem [data-sw]").forEach(el => el.setAttribute("transform", sw[el.dataset.sw] ? "" : "rotate(-30 -15 0)"));
+  const coil = { lineL: D.r.lineL, lineR: D.r.lineR, tieL: D.r.tieL, tieR: D.r.tieR, batTie: D.r.batTie, batRelay: D.r.batRelay, strL: D.r.strL, strR: D.r.strR, rccb: D.r.rccb };
+  $$("#schem [data-coil]").forEach(el => el.classList.toggle("on", !!coil[el.dataset.coil]));
+  const ctl = { fieldL: genOut("L") || (S.excited.L && S.gen.L !== "OFF"), fieldR: genOut("R") || (S.excited.R && S.gen.R !== "OFF"), lcL: D.r.lineL, lcR: D.r.lineR,
+    hedL: S.trip.L, hedR: S.trip.R, hedB: S.trip.B, bbGnd: S.batBus === "NORMAL", bbCtl: true, bsIn: L.BATBUS > 0, bsOut: D.r.batCtl };
+  $$("#schem [data-ctl]").forEach(el => el.classList.toggle("on", !!ctl[el.dataset.ctl]));
+  $$("#schem [data-lim]").forEach(el => el.classList.toggle("blown", !!S.blown[el.dataset.lim]));
+  $$("#schem [data-hed]").forEach(el => el.classList.toggle("trip", !!S.trip[el.dataset.hed]));
+  $$("#schem [data-gcu]").forEach(el => { const on = S.excited[el.dataset.gcu] && S.n1[el.dataset.gcu] >= 45; el.classList.toggle("on", on); $(`#schem [data-gcut="${el.dataset.gcu}"]`).classList.toggle("dark", on); });
+  $("#schem [data-rccbt]").classList.toggle("dark", D.r.rccb);
+  $$("#schem [data-short]").forEach(el => el.toggleAttribute("hidden", !S.short[el.dataset.short]));
+  $$("#schem [data-rotor]").forEach(el => { const k = el.dataset.rotor; el.classList.toggle("spin", S.n1[k] > 0.5); el.classList.toggle("slow", S.n1[k] > 0.5 && S.n1[k] < 30); });
+  $$("#schem [data-n1]").forEach(el => el.textContent = "N1 " + S.n1[el.dataset.n1].toFixed(0) + "%");
+}
+
+const SWITCHES = [
+  { group: "Master switch", items: [
+    { id: "bat", name: "BAT", pos: [["ON", "ON"], ["OFF", "OFF"]] },
+    { id: "genL", name: "L GEN", pos: [["RESET", "RESET", 1], ["ON", "ON"], ["OFF", "OFF"]] },
+    { id: "genR", name: "R GEN", pos: [["RESET", "RESET", 1], ["ON", "ON"], ["OFF", "OFF"]] }
+  ]},
+  { group: "Battery bus", items: [{ id: "batBus", name: "BAT BUS", pos: [["NORMAL", "NORMAL"], ["EMER", "EMER OFF"]] }] },
+  { group: "Bus ties", items: [
+    { id: "genTies", name: "GEN TIES", ring: 1, pos: [["MAN", "MAN CLOSE", 1], ["NORM", "NORM"], ["OPEN", "OPEN"]] },
+    { id: "busSense", name: "BUS SENSE", ring: 1, pos: [["RESET", "RESET", 1], ["NORM", "NORM"], ["TEST", "TEST", 1]] }
+  ]},
+  { group: "Ignition & engine start", items: [
+    { id: "startL", name: "LEFT", ring: 1, pos: [["ON", "ON"], ["OFF", "OFF"], ["STARTER", "STARTER ONLY"]] },
+    { id: "startR", name: "RIGHT", ring: 1, pos: [["ON", "ON"], ["OFF", "OFF"], ["STARTER", "STARTER ONLY"]] }
+  ]},
+  { group: "External power", items: [{ id: "ext", name: "EXT PWR", pos: [["ON", "ON"], ["OFF", "OFF"]] }] }
+];
+
+function swValue(id) {
+  if (momentary[id]) return momentary[id];
+  switch (id) {
+    case "bat": return S.bat ? "ON" : "OFF";
+    case "genL": return S.gen.L; case "genR": return S.gen.R;
+    case "batBus": return S.batBus;
+    case "genTies": return S.genTies;
+    case "busSense": return "NORM";
+    case "startL": return S.start.L; case "startR": return S.start.R;
+    case "ext": return S.extSw ? "ON" : "OFF";
+  }
+}
+
+function hold(id, val, ms) {
+  momentary[id] = val; renderSwitches();
+  setTimeout(() => { delete momentary[id]; renderSwitches(); }, ms || 900);
+}
+
+function setSwitch(id, val) {
+  switch (id) {
+    case "bat": S.bat = val === "ON"; break;
+    case "genL": case "genR": {
+      const k = id.slice(-1);
+      if (val === "RESET") {
+        if (S.n1[k] < 45) log(`${SIDE[k]} GEN RESET: engine not running, so there is nothing to excite.`, "warn");
+        else if (S.start[k] !== "OFF") log(`${SIDE[k]} GEN RESET: the field is disabled while the start switch is selected.`, "warn");
+        else if (S.fail[k]) log(`${SIDE[k]} GEN RESET: the generator won't come on line (failed). Turn it OFF and rely on the other generator.`, "bad");
+        else if (S.short[k + "GB"]) log(`${SIDE[k]} GEN RESET: the GCU trips again because the ${SIDE[k].toLowerCase()} gen bus is still shorted.`, "bad");
+        else { S.excited[k] = true; log(`${SIDE[k]} GEN RESET: GCU builds generator voltage. Release to ON to close the line contactor.`); }
+        S.gen[k] = "RESET"; evaluate();
+        hold(id, "RESET", 900);
+        setTimeout(() => { if (S.gen[k] === "RESET") { S.gen[k] = "ON"; evaluate(); } }, 900);
+        return;
+      }
+      S.gen[k] = val; if (val === "OFF") S.excited[k] = false;
+      break;
+    }
+    case "batBus": S.batBus = val; break;
+    case "genTies":
+      if (val === "MAN") {
+        hold(id, "MAN", 700);
+        if (S.genTies === "OPEN") { log("GEN TIES: the switch is lever-locked in OPEN. Move it to NORM first.", "warn"); return; }
+        if (!D.P.level.CTR) { log("GEN TIES MAN CLOSE: no bus voltage to close the ties.", "warn"); return; }
+        if (S.trip.L || S.trip.R) log("A gen tie opened by a fault can't be manually closed. Use BUS SENSE RESET first.", "warn");
+        S.manLatch = true;
+        if (!D.r.lineL && !D.r.lineR && (S.fail.L || S.fail.R)) log("Warning: MAN CLOSE reconnects both gen bus loads and severely limits battery duration.", "bad");
+        else log("GEN TIES MAN CLOSE: gen ties latched closed, MAN TIES CLOSE on.");
+        S.genTies = "NORM";
+        break;
+      }
+      S.genTies = val;
+      if (val === "OPEN") log("GEN TIES OPEN: both gen ties open.");
+      break;
+    case "busSense":
+      if (val === "TEST") {
+        hold(id, "TEST", 700);
+        if (!D.P.level.TF && !D.P.level.CTR) { log("BUS SENSE TEST: no bus voltage.", "warn"); return; }
+        S.trip = { L: true, R: true, B: true };
+        log("BUS SENSE TEST: all three sensors simulate overcurrent, so every tie opens and latches.");
+      } else if (val === "RESET") {
+        hold(id, "RESET", 700);
+        S.trip = { L: false, R: false, B: false };
+        log("BUS SENSE RESET: tie latches cleared.");
+        if (S.short.LGB || S.short.RGB || S.short.CTR) log("The fault is still present and will trip the tie again. Hold RESET only momentarily.", "warn");
+      }
+      break;
+    case "startL": case "startR": {
+      const k = id.slice(-1); S.start[k] = val;
+      if (val === "OFF" && !S.lit[k] && S.n1[k] > 0) log(`${SIDE[k]} start switch OFF before light-off.`, "warn");
+      break;
+    }
+    case "ext":
+      S.extSw = val === "ON";
+      if (S.extSw && !S.gpu) log("EXT PWR ON: no ground power unit connected.", "warn");
+      break;
+  }
+  evaluate();
+}
+
+function renderSwitches() {
+  const host = $("#switches"); if (!host) return;
+  if (!host.dataset.built) {
+    host.innerHTML = SWITCHES.map(g => `<div class="sw-group"><div class="gname">${g.group}</div><div class="sws">${g.items.map(s =>
+      `<div class="tog${s.ring ? " ring" : ""}"><div class="name">${s.name}</div><div class="pos" role="group" aria-label="${s.name} switch">${s.pos.map(p =>
+        `<button type="button" id="sw-${s.id}-${p[0]}" data-sw="${s.id}" data-val="${p[0]}" class="${p[2] ? "mom" : ""}" aria-pressed="false">${p[1]}</button>`).join("")}</div></div>`).join("")}</div></div>`).join("");
+    host.dataset.built = "1";
+    host.addEventListener("click", e => { const b = e.target.closest("button[data-sw]"); if (b) setSwitch(b.dataset.sw, b.dataset.val); });
+  }
+  $$("button[data-sw]", host).forEach(b => b.setAttribute("aria-pressed", String(swValue(b.dataset.sw) === b.dataset.val)));
+}
+
+function renderEngines() {
+  const host = $("#engines"); if (!host) return;
+  if (!host.dataset.built) {
+    host.innerHTML = ["L", "R"].map(k => `<div class="eng"><div class="hd"><span>${SIDE[k]} engine</span><span class="n1v mono" id="n1v${k}">0%</span></div>
+      <div class="bar"><span id="n1b${k}"></span></div><div class="hint" id="hint${k}"></div>
+      <div><button class="pbtn" id="cut${k}" type="button">Condition lever: cutoff</button></div></div>`).join("");
+    host.dataset.built = "1";
+    ["L", "R"].forEach(k => $("#cut" + k).addEventListener("click", () => { if (S.lit[k]) { S.lit[k] = false; log(`${SIDE[k]} engine shut down (fuel cutoff).`); } }));
+  }
+  ["L", "R"].forEach(k => {
+    $("#n1v" + k).textContent = S.n1[k].toFixed(0) + "% N1";
+    $("#n1b" + k).style.width = Math.min(100, S.n1[k] / 0.8) + "%";
+    let h = "";
+    if (D.r["str" + k]) h = S.start[k] === "STARTER" ? "Motoring on the starter only (no ignition)." : (S.lit[k] ? "Light-off. Accelerating to idle." : "Starter engaged. Light-off near 12% N1.");
+    else if (S.start[k] !== "OFF" && !S.lit[k]) h = "Start switch selected, but the starter relay needs the triple-fed (control) and center (power) buses.";
+    else if (S.lit[k] && S.start[k] !== "OFF") h = "Running. Set the start switch to OFF.";
+    else if (S.lit[k] && !D.r["line" + k]) h = S.fail[k] ? "Running. Generator failed." : "Running. Generator off line: GEN RESET, then ON.";
+    else if (S.lit[k]) h = "Running. Generator on line.";
+    else if (S.n1[k] > 0) h = "Spooling down.";
+    else h = "Shut down.";
+    $("#hint" + k).textContent = h;
+    $("#cut" + k).disabled = !S.lit[k];
+  });
+}
+
+/* gauges */
+const GAUGES = [
+  { id: "gL", label: "L Load", min: 0, max: 120, ticks: [0, 50, 100], unit: "%", red: 100 },
+  { id: "gR", label: "R Load", min: 0, max: 120, ticks: [0, 50, 100], unit: "%", red: 100 },
+  { id: "gV", label: "Volts", min: 0, max: 32, ticks: [0, 10, 20, 30], unit: "V", red: 31 },
+  { id: "gA", label: "Batt amps", min: -60, max: 60, ticks: [-50, 0, 50], unit: "A" }
+];
+const VSEL = [["EXT", "Ext pwr"], ["BAT", "Batt"], ["LGB", "L gen"], ["CTR", "Ctr"], ["RGB", "R gen"], ["TF", "Tpl fed"]];
+function gaugeSVG(g) {
+  const ang = v => -120 + 240 * (Math.max(g.min, Math.min(g.max, v)) - g.min) / (g.max - g.min);
+  const pt = (a, r) => [60 + r * Math.sin(a * Math.PI / 180), 60 - r * Math.cos(a * Math.PI / 180)];
+  let s = `<svg viewBox="0 0 120 104" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="#1a1d21" stroke="#596169" stroke-width="2"/>`;
+  for (let v = g.min; v <= g.max; v += (g.max - g.min) / 12) { const a = ang(v), p1 = pt(a, 47), p2 = pt(a, 41); s += `<line x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="#d9dee3" stroke-width="1.2"/>`; }
+  if (g.red !== undefined) { const a1 = ang(g.red), a2 = ang(g.max), p1 = pt(a1, 47), p2 = pt(a2, 47); s += `<path d="M${p1[0]},${p1[1]} A47,47 0 0 1 ${p2[0]},${p2[1]}" fill="none" stroke="#e5483a" stroke-width="3"/>`; }
+  g.ticks.forEach(v => { const p = pt(ang(v), 31); s += `<text x="${p[0]}" y="${p[1] + 3}" font-size="9" text-anchor="middle">${v}</text>`; });
+  s += `<line id="${g.id}N" x1="60" y1="60" x2="60" y2="16" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" style="transition:transform .3s;transform-origin:60px 60px"/><circle cx="60" cy="60" r="5" fill="#d9dee3"/></svg>`;
+  return s;
+}
+function renderMeters() {
+  const host = $("#gauges"); if (!host) return;
+  if (!host.dataset.built) {
+    host.innerHTML = GAUGES.map(g => `<div class="gauge">${gaugeSVG(g)}<div class="gl">${g.label}</div><div class="gv" id="${g.id}V">—</div>${g.id === "gV" ? `<div class="vsel" role="group" aria-label="Voltmeter bus select">${VSEL.map(v => `<button type="button" id="vs-${v[0]}" data-vs="${v[0]}" aria-pressed="false">${v[1]}</button>`).join("")}</div>` : ""}</div>`).join("");
+    host.dataset.built = "1";
+    host.addEventListener("click", e => { const b = e.target.closest("[data-vs]"); if (b) { S.volt = b.dataset.vs; renderMeters(); } });
+  }
+  const set = (g, v, txt, over) => {
+    const G = GAUGES.find(x => x.id === g);
+    const a = -120 + 240 * (Math.max(G.min, Math.min(G.max, v)) - G.min) / (G.max - G.min);
+    $("#" + g + "N").style.transform = `rotate(${a}deg)`;
+    const el = $("#" + g + "V"); el.textContent = txt; el.classList.toggle("over", !!over);
+  };
+  const pctL = M.genA.L / 3, pctR = M.genA.R / 3;
+  set("gL", pctL, `${pctL.toFixed(0)}%  ${M.genA.L.toFixed(0)} A`, pctL > 100);
+  set("gR", pctR, `${pctR.toFixed(0)}%  ${M.genA.R.toFixed(0)} A`, pctR > 100);
+  const lvV = n => { const lv = D.P.level[n]; if (!lv || (SHORTABLE[n] && S.short[n])) return 0; return lv === 3 ? 28.0 : lv === 2 ? 28.25 : M.batV; };
+  const v = S.volt === "EXT" ? (S.gpu ? 28.0 : 0) : S.volt === "BAT" ? M.batV : lvV(S.volt);
+  set("gV", v, v.toFixed(2) + " V", v > 31);
+  set("gA", M.batA, (M.batA >= 0 ? "+" : "") + M.batA.toFixed(0) + " A", false);
+  $$("[data-vs]", host).forEach(b => b.setAttribute("aria-pressed", String(b.dataset.vs === S.volt)));
+  const soc = Math.max(0, 100 - 100 * S.deficit / USABLE_AS);
+  let e = `Battery usable charge ≈ ${soc.toFixed(0)}%.`;
+  if (M.batA < -1) { const min = Math.max(0, (USABLE_AS - S.deficit) / -M.batA / 60); e += ` At ${(-M.batA).toFixed(0)} A discharge: about ${min < 1 ? "<1" : min.toFixed(0)} min remaining.`; }
+  else if (M.batA > 0.5) e += " Charging.";
+  $("#endur").textContent = e;
+  renderAnns(); renderEngines();
+}
+
+const ANNS = [["LDC", "L DC GEN"], ["LTIE", "L GEN TIE OPEN"], ["RTIE", "R GEN TIE OPEN"], ["RDC", "R DC GEN"], ["BTIE", "BAT TIE OPEN"], ["MAN", "MAN TIES CLOSE"], ["EXT", "EXT PWR"], ["BCHG", "BATTERY CHARGE"]];
+function renderAnns() {
+  const host = $("#anns"); if (!host) return;
+  if (!host.dataset.built) { host.innerHTML = ANNS.map(a => `<div class="ann" id="ann-${a[0]}">${a[1]}</div>`).join(""); host.dataset.built = "1"; }
+  const pw = D.P.level.TF > 0 && !S.short.TF;
+  const st = {
+    LDC: !D.r.lineL, RDC: !D.r.lineR, LTIE: !D.r.tieL, RTIE: !D.r.tieR, BTIE: !D.r.batTie, MAN: S.manLatch,
+    EXT: S.gpu && S.bat ? (S.extSw ? "on" : "flash") : false, BCHG: S.chgT >= 6
+  };
+  ANNS.forEach(([k]) => {
+    const el = $("#ann-" + k), v = pw && st[k];
+    el.className = "ann" + (v ? (k === "MAN" ? " green" : " amber") : "") + (v === "flash" ? " flash" : "");
+  });
+}
+
+function renderLog() {
+  const host = $("#log"); if (!host) return;
+  host.innerHTML = evLog.length ? evLog.map(e => `<li class="${e.cls}"><span class="t">${e.t.toFixed(1)}s</span><span class="m">${esc(e.msg)}</span></li>`).join("")
+    : `<li><span class="t">—</span><span class="m">Relay, tie and limiter changes will be listed here as they happen.</span></li>`;
+}
+
+function stateLine(id) {
+  const lv = n => ["unpowered", "battery power", "generator power", "external power"][D.P.level[n] || 0];
+  const cl = b => b ? "CLOSED" : "OPEN";
+  const v = {
+    battery: () => `Terminal ${M.batV.toFixed(1)} V · ${M.batA >= 0 ? "charging +" : "discharging "}${Math.abs(M.batA).toFixed(0)} A`,
+    batRelay: () => `Relay ${cl(D.r.batRelay)}`, batTie: () => `Tie ${cl(D.r.batTie)}${S.trip.B ? " · latched open by sensor" : ""}`,
+    hedB: () => S.trip.B ? "TRIPPED (latched)" : "Normal", rccb: () => `RCCB ${cl(D.r.rccb)} · battery bus ${lv("BATBUS")}`,
+    batBusSw: () => S.batBus === "NORMAL" ? "NORMAL" : "EMERGENCY OFF", batSw: () => `BAT ${S.bat ? "ON" : "OFF"}${S.bat && !D.r.rccb ? " · no control power" : ""}`,
+    ammeter: () => `${M.batA >= 0 ? "+" : ""}${M.batA.toFixed(0)} A`, gpu: () => `GPU ${S.gpu ? "connected" : "not connected"} · relay ${cl(D.r.ext)}`,
+    ctr: () => (S.short.CTR ? "SHORTED · " : "") + lv("CTR"), tf: () => (S.short.TF ? "SHORTED · " : "") + lv("TF"),
+    batbus: () => lv("BATBUS"), dfb: () => lv("DFB"), cb20: () => "Closed", diodeBB: () => "Passive",
+    lim60B: () => S.blown.B60 ? "OPEN (blown)" : "Intact"
+  };
+  ["L", "R"].forEach(k => {
+    v["gen" + k] = () => `N1 ${S.n1[k].toFixed(0)}% · ${D.r["str" + k] ? "motoring as starter" : genOut(k) ? "generating 28.25 V" : S.fail[k] ? "FAILED" : "not generating"}`;
+    v["gcu" + k] = () => S.excited[k] ? (D.r["line" + k] ? "Regulating · generator on line" : "Field excited") : "Generator off line";
+    v["line" + k] = () => `Contactor ${cl(D.r["line" + k])}`; v["str" + k] = () => `Relay ${cl(D.r["str" + k])} · start switch ${S.start[k]}`;
+    v["load" + k] = () => `${(M.genA[k] / 3).toFixed(0)}% (${M.genA[k].toFixed(0)} A)`;
+    v["tie" + k] = () => `Tie ${cl(D.r["tie" + k])}${S.trip[k] ? " · latched open by sensor" : ""}`;
+    v["hed" + k] = () => S.trip[k] ? "TRIPPED (latched)" : (S.start.L !== "OFF" || S.start.R !== "OFF" ? "Desensitized (start)" : "Armed");
+    v["lim250" + k] = () => S.blown[k + "250"] ? "OPEN (blown)" : "Intact";
+    v["lim60" + k] = () => S.blown[k + "60"] ? "OPEN (blown)" : "Intact";
+    v[k.toLowerCase() + "gb"] = () => (S.short[k + "GB"] ? "SHORTED · " : "") + lv(k + "GB");
+  });
+  return v[id] ? v[id]() : "";
+}
+
+function renderInfo() {
+  const host = $("#info"); if (!host) return;
+  if (!selected) {
+    host.innerHTML = `<h3>Component details</h3><p>Select any symbol on the schematic, whether a bus, relay, sensor, limiter or the generator itself, to see what it does and its live state.</p><p class="now">Tip: start with Figure 2-45 and press <b>Next</b> to walk the manual's start sequence.</p>`;
+    return;
+  }
+  const c = COMPS[selected];
+  const eq = c.bus && EQUIP[c.bus] ? `<div class="eq">${EQUIP[c.bus].groups.filter(g => g[1].length).map(g => `<h5>${esc(g[0])}</h5><ul>${g[1].map(i => `<li>${esc(i)}</li>`).join("")}</ul>`).join("")}</div>` : "";
+  host.innerHTML = `<div class="eyebrow">${esc(c.group)} · ${esc(c.where)}</div><h4>${esc(c.name)}</h4><div class="now" id="infoNow">Now: ${esc(stateLine(selected))}</div><p>${esc(c.desc)}</p>${eq}`;
+}
+function refreshInfoState() { const el = $("#infoNow"); if (el && selected) el.textContent = "Now: " + stateLine(selected); }
+
+function select(id, scroll) {
+  selected = id;
+  $$("#schem .comp").forEach(g => g.classList.toggle("sel", g.dataset.comp === id));
+  renderInfo();
+  if (scroll) $("#sim").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+}
+
+function render() {
+  if (!$("#schem")) return;
+  renderSchem(); renderSwitches(); renderMeters(); refreshInfoState();
+  $("#gpuBtn").setAttribute("aria-pressed", String(S.gpu));
+  $("#gpuBtn").textContent = S.gpu ? "Ground power unit: connected (28.0 V)" : "Ground power unit: disconnected";
+  $$("#faults [data-fault]").forEach(b => b.setAttribute("aria-pressed", String(faultOn(b.dataset.fault))));
+}
+
+/* faults */
+const FAULTS = [["failL", "Fail L generator"], ["failR", "Fail R generator"], ["LGB", "Short L gen bus"], ["RGB", "Short R gen bus"], ["CTR", "Short center bus"], ["TF", "Short triple-fed bus"]];
+function faultOn(f) { return f === "failL" ? S.fail.L : f === "failR" ? S.fail.R : S.short[f]; }
+function buildFaults() {
+  const host = $("#faults");
+  host.innerHTML = FAULTS.map(f => `<button type="button" class="pbtn" id="fault-${f[0]}" data-fault="${f[0]}" aria-pressed="false">${f[1]}</button>`).join("") + `<button type="button" class="pbtn" id="repair">Repair faults &amp; replace limiters</button>`;
+  host.addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.id === "repair") {
+      S.fail = { L: false, R: false }; S.short = { LGB: false, RGB: false, CTR: false, TF: false };
+      S.blown = { L250: false, R250: false, L60: false, R60: false, B60: false };
+      log("Maintenance: faults cleared and limiters replaced. Ties latched open stay open until BUS SENSE RESET; generators need GEN RESET.");
+    } else {
+      const f = b.dataset.fault;
+      if (f === "failL" || f === "failR") { const k = f.slice(-1); S.fail[k] = !S.fail[k]; if (!S.fail[k]) log(`${SIDE[k]} generator repaired. Use GEN RESET → ON.`); }
+      else { S.short[f] = !S.short[f]; log(S.short[f] ? `Fault injected: ${b.textContent.toLowerCase()}.` : `Short removed from ${f}. Blown limiters stay open until replaced.`, S.short[f] ? "bad" : ""); }
+    }
+    evaluate();
+  });
+}
+
+function applyScenario(i) {
+  scenIdx = Math.max(0, Math.min(SCEN.length - 1, i));
+  const sc = SCEN[scenIdx];
+  S = fresh(); sc.apply(S);
+  D = null; evLog = [];
+  evaluate(true);
+  if (S.fail.L || S.fail.R) { /* load-shed scenarios start part-discharged */ S.deficit = 8000; }
+  log(`Loaded Figure ${sc.fig}: ${sc.t}.`);
+  $("#scenSel").value = String(scenIdx);
+  $("#scenCap").innerHTML = `<b>Fig ${sc.fig}</b>${esc(sc.cap)}`;
+  M = { genA: { L: 0, R: 0 }, batA: 0, batV: 24.4, gpuA: 0 };
+  step(0.01);
+}
+
+function stopSim() { if (timer) { clearInterval(timer); timer = null; } }
+
+function initElectrical() {
+  buildSchematic();
+  // scenario selector
+  $("#scenSel").innerHTML = SCEN.map((s, i) => `<option value="${i}">Fig ${s.fig} · ${esc(s.t)}</option>`).join("");
+  $("#scenSel").addEventListener("change", e => applyScenario(+e.target.value));
+  $("#scenPrev").addEventListener("click", () => applyScenario(scenIdx - 1));
+  $("#scenNext").addEventListener("click", () => applyScenario(scenIdx + 1));
+  $("#coldBtn").addEventListener("click", () => applyScenario(0));
+  $("#gpuBtn").addEventListener("click", () => { S.gpu = !S.gpu; log(S.gpu ? "Ground power unit connected (AN plug, correct polarity)." : "Ground power unit disconnected."); evaluate(); });
+  buildFaults();
+  // schematic selection
+  const svg = $("#schem");
+  svg.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) select(g.dataset.comp); });
+  svg.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); select(e.target.closest(".comp").dataset.comp); } });
+  // sub-navigation
+  $("#subnav").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  // component cards
+  const groups = {};
+  COMP_ORDER.forEach(id => { const c = COMPS[id]; (groups[c.group] = groups[c.group] || []).push(id); });
+  $("#compGrid").innerHTML = COMP_GROUP_ORDER.filter(g => groups[g]).map(g => `<div class="group-h">${g}</div>` + groups[g].map(id => {
+    const c = COMPS[id]; const nm = PAIR_NOTE[id] ? c.name.replace(/^Left /, "") : c.name;
+    return `<article class="comp-card"><h4>${esc(nm.charAt(0).toUpperCase() + nm.slice(1))}</h4><div class="where">${esc(c.where)}${PAIR_NOTE[id] ? " · " + PAIR_NOTE[id] : ""}</div><p>${esc(c.desc)}</p><button class="show" type="button" data-show="${id}">Show on schematic →</button></article>`;
+  }).join("")).join("");
+  $("#compGrid").addEventListener("click", e => { const b = e.target.closest("[data-show]"); if (b) select(b.dataset.show, true); });
+  // operation steps
+  $("#steps").innerHTML = STEPS.map(s => `<li><div><h4>${esc(s.t)}</h4><p>${esc(s.p)}</p><button class="show" type="button" data-sc="${s.sc}">Load Figure ${SCEN[s.sc].fig} in the schematic →</button></div></li>`).join("");
+  $("#steps").addEventListener("click", e => { const b = e.target.closest("[data-sc]"); if (b) { applyScenario(+b.dataset.sc); $("#sim").scrollIntoView({ behavior: "smooth", block: "start" }); } });
+  // equipment lists
+  $("#eqcols").innerHTML = ["lgb", "ctr", "rgb", "tf", "batbus", "dfb"].map(b => `<div><h5>${EQUIP[b].name}</h5>${EQUIP[b].groups.filter(g => g[1].length).map(g => `<div style="margin-bottom:6px"><i>${esc(g[0])}</i><ul>${g[1].map(i => `<li>${esc(i)}</li>`).join("")}</ul></div>`).join("")}</div>`).join("");
+  $("#lmTable tbody").innerHTML = LOAD_MGMT.map(r => `<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td class="num">${esc(r[2])}</td></tr>`).join("");
+
+  renderInfo();
+  applyScenario(8);       // open on the normal configuration: both generators on line
+  select("ctr");
+  stopSim();
+  timer = setInterval(() => step(0.2), 200);
+}
+
+/* ================= boot ================= */
+buildToc();
+$("#menuBtn").addEventListener("click", () => { const o = $("#rail").classList.toggle("open"); $("#menuBtn").setAttribute("aria-expanded", String(o)); });
+window.addEventListener("hashchange", route);
+route();
+})();
+</script>
+</body>
+</html>
