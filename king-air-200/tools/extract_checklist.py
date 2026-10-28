@@ -259,9 +259,22 @@ def main(pdf, site):
             if titles:
                 rg = rg | titles[-1]["r"]
             grown.append((rg, titles[-1]["t"] if titles else ""))
+        merged = True
+        while merged:
+            merged = False
+            for i in range(len(grown)):
+                for j in range(i + 1, len(grown)):
+                    a, b = grown[i][0], grown[j][0]
+                    if (a + (-4, -30, 4, 30)).intersects(b) and min(a.x1, b.x1) - max(a.x0, b.x0) > 0:
+                        grown[i] = (a | b, grown[i][1] or grown[j][1])
+                        del grown[j]
+                        merged = True
+                        break
+                if merged:
+                    break
         figs = []
         for rg, title in grown:
-            if rg.height < 25:
+            if rg.height < 25 or rg.width < 60 or rg.height > 400:
                 continue
             nfig += 1
             fname = f"cl-{nfig:02d}.webp"
@@ -321,7 +334,7 @@ def main(pdf, site):
                         cur_proc["anns"].append({"text": re.sub(r"\s+", " ", c["t"]), "color": color})
                 continue
             if cur_proc is None:
-                if k in ("text", "bold") and sec == "N" and cur_group is not None:
+                if k in ("text", "bold", "label", "h11") and cur_group is not None:
                     new_proc(sec, cur_group["title"], label)
                 elif k == "fig":
                     if cur_group is None:
@@ -433,6 +446,18 @@ def main(pdf, site):
                     for sub in st.get("sub", []):
                         sub["text"] = re.sub(r"([a-z])- ([a-z])", r"\1\2", sub["text"])
                 p["steps"] = tableize(fold_callouts(p["steps"]))
+                last_n = 0
+                for st in p["steps"]:
+                    for key in ("text", "action"):
+                        if key in st:
+                            st[key] = st[key].replace("lnoperative", "Inoperative")
+                    if st["t"] != "item":
+                        continue
+                    m = re.match(r"^(\d{1,2})\s+(.*)$", st["text"])
+                    if st["n"] is None and m and int(m.group(1)) == last_n + 1:
+                        st["n"], st["text"] = int(m.group(1)), m.group(2)
+                    if st["n"]:
+                        last_n = st["n"]
             g["procs"] = [p for p in g["procs"] if p["steps"]]
         s["groups"] = [g for g in s["groups"] if g["procs"]]
     ids = {}
