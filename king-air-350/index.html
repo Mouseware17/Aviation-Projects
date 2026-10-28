@@ -458,6 +458,81 @@ details.eqlist ul { margin: 0; padding-left: 16px; }
 .cap-table td:last-child { font-family: var(--f-mono); }
 #fschem .lbl { paint-order: stroke; stroke: var(--canvas); stroke-width: 3px; stroke-linejoin: round; }
 
+
+/* ---------- powerplant ---------- */
+.pp-top { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 16px; align-items: start; }
+.pedestal { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+.lgroup { display: grid; gap: 8px; justify-items: center; border: 1px solid var(--panel-line); border-radius: 6px; padding: 8px 10px 10px; }
+.lgroup .gname { font-family: var(--f-display); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--placard-dim); }
+.lrow { display: flex; gap: 6px; align-items: stretch; }
+.placard { position: relative; width: 78px; height: 230px; font-family: var(--f-display); font-size: .66rem; letter-spacing: .05em; text-transform: uppercase; color: var(--placard); }
+.placard span { position: absolute; right: 0; transform: translateY(-50%); text-align: right; line-height: 1; white-space: nowrap; }
+.placard span.gate { color: #ffcf4a; }
+.placard .stripe { position: absolute; right: 0; width: 70px; background: repeating-linear-gradient(0deg, #d23b2e 0 6px, #f3f3f3 6px 12px); opacity: .85; border-radius: 2px; }
+.lever-col { display: grid; justify-items: center; gap: 4px; }
+.lever-col b { font-family: var(--f-display); font-size: .8rem; letter-spacing: .1em; }
+input.lever { writing-mode: vertical-lr; direction: rtl; width: 34px; height: 230px; margin: 0; appearance: none; -webkit-appearance: none; background: transparent; cursor: grab; }
+input.lever::-webkit-slider-runnable-track { width: 8px; background: #121416; border-radius: 4px; border: 1px solid #000000; }
+input.lever::-moz-range-track { width: 8px; background: #121416; border-radius: 4px; border: 1px solid #000000; }
+input.lever::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 34px; height: 22px; border-radius: 4px; background: linear-gradient(#5b636b, #2c3136); border: 1px solid #0b0c0d; box-shadow: 0 2px 4px rgba(0,0,0,.5); }
+input.lever::-moz-range-thumb { width: 32px; height: 20px; border-radius: 4px; background: linear-gradient(#5b636b, #2c3136); border: 1px solid #0b0c0d; }
+input.lever.pwr::-webkit-slider-thumb { background: linear-gradient(#6b737b, #3b4148); }
+input.lever.prp::-webkit-slider-thumb { background: linear-gradient(#3d5f8f, #1f3557); }
+input.lever.cnd::-webkit-slider-thumb { background: linear-gradient(#e9e4d2, #b9b29a); }
+input.lever.prp::-moz-range-thumb { background: linear-gradient(#3d5f8f, #1f3557); }
+input.lever.cnd::-moz-range-thumb { background: linear-gradient(#e9e4d2, #b9b29a); }
+input.lever:focus-visible { outline: 2px solid var(--placard); outline-offset: 2px; }
+.lift { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+.qset { display: flex; flex-wrap: wrap; gap: 6px; }
+.hintbar { font-size: .85rem; color: #ffd76a; min-height: 1.3em; }
+.inst { display: grid; grid-template-columns: minmax(0, 1fr) 76px minmax(0, 1fr); gap: 4px 6px; align-items: center; }
+.inst .ilabel { text-align: center; font-family: var(--f-display); font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--placard-dim); line-height: 1.1; }
+.inst .ilabel small { display: block; font-family: var(--f-mono); letter-spacing: 0; font-size: .64rem; }
+.ig { display: grid; justify-items: center; }
+.ig svg { width: 100%; max-width: 118px; height: auto; }
+.ig .iv { font-family: var(--f-mono); font-size: .8rem; font-weight: 700; color: var(--placard); font-variant-numeric: tabular-nums; }
+.ig .iv.warn { color: #ffcf4a; } .ig .iv.over { color: #ff7a6b; }
+.ig svg text { fill: #e6e9ec; font-family: var(--f-mono); }
+.modes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.mode { border: 1px solid var(--panel-line); border-radius: 6px; padding: 8px 10px; display: grid; gap: 6px; }
+.mode .mh { display: flex; justify-content: space-between; align-items: center; gap: 6px; font-family: var(--f-display); letter-spacing: .08em; text-transform: uppercase; }
+.mchip { font-family: var(--f-display); font-weight: 700; letter-spacing: .06em; font-size: .8rem; padding: 2px 8px; border-radius: 3px; background: #1d2023; color: var(--placard-dim); }
+.mchip.alpha { background: #2fb062; color: #03200d; } .mchip.beta { background: #f2b81c; color: #241a00; } .mchip.rev { background: #e2342a; color: #ffffff; }
+.mchip.feather { background: #9aa7b4; color: #10161c; } .mchip.start { background: #4d95e8; color: #04121f; }
+.mode .mt { font-size: .8rem; color: var(--placard-dim); line-height: 1.35; min-height: 3.9em; }
+.mode svg { width: 100%; height: 54px; }
+.dtabs { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--line); align-items: center; }
+.dtabs .seg button { font-size: .85rem; padding: 5px 10px; }
+.dtabs label { font-family: var(--f-display); text-transform: uppercase; letter-spacing: .06em; font-size: .9rem; margin-left: auto; }
+.envrow { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; font-size: .85rem; color: var(--placard); }
+.panel .seg button { color: var(--fg); }
+.envrow input[type=range] { width: 130px; accent-color: #f2b81c; }
+.blk { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; }
+.blk.on { stroke: var(--accent); stroke-width: 2.4; }
+.blk-t { font-size: 12px; font-weight: 700; letter-spacing: .04em; pointer-events: none; }
+.blk-s { font-size: 10.5px; fill: var(--muted); pointer-events: none; letter-spacing: .02em; }
+.ln { fill: none; stroke: var(--wire-dead); stroke-width: 2.5; stroke-linejoin: round; opacity: .6; }
+.ln.on { opacity: 1; stroke-width: 4; stroke-dasharray: 9 7; animation: flow .8s linear infinite; }
+.ln.on.c-pwr { stroke: #2fb062; } .ln.on.c-prp { stroke: #d14bd1; } .ln.on.c-cnd { stroke: #3a6fd8; } .ln.on.c-oil { stroke: #c08a1e; } .ln.on.c-fuel { stroke: #2a8ad8; } .ln.on.c-air { stroke: #e8607a; } .ln.on.c-scav { stroke: #23904e; } .ln.on.c-hot { stroke: #ee7d1f; }
+.gas { fill: none; stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; opacity: .2; }
+.gas.cold { stroke: #3a8be0; } .gas.hot { stroke: #ee5a24; }
+.gas.on { opacity: .95; stroke-dasharray: 12 10; animation: flow 1s linear infinite; }
+.casing { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.6; }
+.disc { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.4; }
+.disc.cmp { fill: #8fb9e8; } .disc.trb { fill: #e8846a; }
+.shaft-n1 { stroke: #3a8be0; stroke-width: 6; } .shaft-np { stroke: #d24a35; stroke-width: 6; }
+.spark { fill: #ffd400; opacity: 0; }
+.spark.on { animation: blink .25s steps(1) infinite; opacity: 1; }
+.bleedv { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.4; }
+.bleedv.open { fill: #8fb9e8; }
+.stn { font-family: var(--f-mono); font-size: 11px; font-weight: 700; fill: var(--accent); }
+#ppSvgs svg .lbl { paint-order: stroke; stroke: var(--canvas); stroke-width: 3px; stroke-linejoin: round; }
+@media (max-width: 1120px) { .pp-top { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 520px) { .placard { width: 62px; font-size: .58rem; } .modes { grid-template-columns: minmax(0, 1fr); } }
+.ann.white { background: #f1f3f4; color: #1a1d20; box-shadow: 0 0 10px rgba(241,243,244,.35); }
+.pbtn.envb[aria-pressed="true"] { background: var(--placard); color: #1d2228; border-color: var(--placard); }
+.pbtn.liftb[aria-pressed="true"] { background: #f2b81c; color: #241a00; border-color: #f2b81c; }
+
 @media (max-width: 1120px) {
   .sim { grid-template-columns: minmax(0, 1fr); }
   .side { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -476,7 +551,7 @@ details.eqlist ul { margin: 0; padding-left: 16px; }
   .eng-row { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rotor.spin, .ann.flash, .fl.on, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
+  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
   * { transition: none !important; }
 }
 </style>
@@ -1071,6 +1146,248 @@ details.eqlist ul { margin: 0; padding-left: 16px; }
 </div>
 </template>
 
+<template id="tpl-powerplant">
+<div class="view">
+  <header class="chapter-head">
+    <div class="eyebrow">Chapter 7</div>
+    <h1>Powerplant</h1>
+    <p class="lede">Two Pratt &amp; Whitney Canada PT6A-60A free-turbine, reverse-flow turboprops, each flat-rated to 1,050 shaft horsepower and driving a four-blade, full-feathering, reversing, constant-speed propeller. Three levers per engine run everything: power, propeller and condition.</p>
+    <p class="disclaimer">Study aid built from the King Air 300/350 training manual powerplant chapter. Propeller-governor detail comes from a generic PT6A control-system reference (Creative Commons, FreeBee). It is not an approved document. The POH/AFM governs. The simulator's numbers are illustrative and are not performance data.</p>
+    <div class="subnav" id="ppSubnav">
+      <button data-go="pp-glance">At a glance</button>
+      <button data-go="pp-sim">Interactive engine</button>
+      <button data-go="pp-design">Engine design &amp; airflow</button>
+      <button data-go="pp-ign">Ignition</button>
+      <button data-go="pp-lube">Accessories &amp; lubrication</button>
+      <button data-go="pp-fuel">Engine fuel system &amp; FCU</button>
+      <button data-go="pp-ctl">Levers &amp; governors</button>
+      <button data-go="pp-lim">Instruments &amp; limits</button>
+      <button data-go="pp-over">Exceedances &amp; trend monitoring</button>
+    </div>
+  </header>
+
+  <section class="block" id="pp-glance">
+    <h2>At a glance <span class="ref">Figures 7-2, 7-4</span></h2>
+    <div class="specs">
+      <div class="spec"><span class="v">1,050 SHP</span><span class="k">Flat-rated takeoff and max continuous, 1,113 ESHP to 25 °C</span></div>
+      <div class="spec"><span class="v">17.6 : 1</span><span class="k">Reduction ratio from power turbine (Nf) to propeller (Np)</span></div>
+      <div class="spec"><span class="v">1,450–1,700 rpm</span><span class="k">Propeller governing range. 1,700 rpm maximum.</span></div>
+      <div class="spec"><span class="v">62 / 70 % N1</span><span class="k">Low idle / high idle, set by the condition lever</span></div>
+      <div class="spec"><span class="v">104 % N1</span><span class="k">Maximum gas generator speed (39,000 rpm; 100 % = 37,500)</span></div>
+      <div class="spec"><span class="v">820 °C</span><span class="k">ITT maximum continuous; 1,000 °C starting only, 5 s</span></div>
+      <div class="spec"><span class="v">100 %</span><span class="k">Torque limit; 156 % / 850 °C transient for up to 20 s</span></div>
+      <div class="spec"><span class="v">90–135 psi</span><span class="k">Normal oil pressure above 72 % N1; 60 psi minimum</span></div>
+      <div class="spec"><span class="v">4 US gal</span><span class="k">Oil system capacity, including a 2.5 gal tank</span></div>
+      <div class="spec"><span class="v">9 : 1</span><span class="k">Compression ratio, 3 axial + 1 centrifugal stage</span></div>
+    </div>
+  </section>
+
+  <section class="block" id="pp-sim">
+    <h2>Interactive engine <span class="ref">Figures 7-5, 7-16, 7-20, 7-22</span></h2>
+    <p class="prose">Drag the levers on the pedestal. Moving a lever aft past a gate (IDLE, GROUND FINE or FUEL CUTOFF) needs <b>Lift</b> first, as in the airplane. To start, set the start switch to ON, then bring the condition lever to LOW IDLE once N1 reaches 12% or more. The instruments, operating mode and diagrams all respond. The diagrams show one engine at a time.</p>
+
+    <div class="diagram-card">
+      <div class="scen">
+        <div class="scen-row">
+          <label for="ppScenSel">Scenario</label>
+          <select id="ppScenSel"></select>
+          <button class="btn" id="ppPrev" aria-label="Previous scenario">◀ Prev</button>
+          <button class="btn" id="ppNext" aria-label="Next scenario">Next ▶</button>
+        </div>
+        <p class="scen-cap" id="ppScenCap"></p>
+      </div>
+    </div>
+
+    <div class="pp-top">
+      <div class="panel">
+        <h3>Control pedestal</h3>
+        <div class="pedestal" id="pedestal"></div>
+        <div class="lift" id="liftRow"></div>
+        <p class="hintbar" id="ppHint" aria-live="polite"></p>
+        <div class="qset" id="qset"></div>
+        <h3>Ignition &amp; engine start · environment</h3>
+        <div class="sw-row" id="ppSwitches"></div>
+        <div class="envrow" id="envRow"></div>
+        <h3>Inject a fault</h3>
+        <div class="faults" id="ppFaults"></div>
+      </div>
+      <div class="panel">
+        <h3>Engine instruments (L · R)</h3>
+        <div class="inst" id="instPanel"></div>
+        <h3>Operating mode</h3>
+        <div class="modes" id="modes"></div>
+        <h3>Annunciators</h3>
+        <div class="ann-grid" id="ppAnns"></div>
+      </div>
+    </div>
+
+    <div class="sim">
+      <div class="diagram-card">
+        <div class="dtabs">
+          <div class="seg" role="group" aria-label="Diagram" id="ppTabs">
+            <button type="button" id="ppt-gas" data-tab="gas" aria-pressed="true">Gas path</button>
+            <button type="button" id="ppt-ctl" data-tab="ctl" aria-pressed="false">Control system</button>
+            <button type="button" id="ppt-fuel" data-tab="fuel" aria-pressed="false">Engine fuel</button>
+            <button type="button" id="ppt-lube" data-tab="lube" aria-pressed="false">Lubrication</button>
+          </div>
+          <label>Engine</label>
+          <div class="seg" role="group" aria-label="Engine shown">
+            <button type="button" id="ppe-L" data-eng="L" aria-pressed="true">Left</button>
+            <button type="button" id="ppe-R" data-eng="R" aria-pressed="false">Right</button>
+          </div>
+        </div>
+        <div class="svg-wrap" id="ppSvgs">
+          <svg id="pp-gas" viewBox="0 0 1000 430" role="img" aria-label="PT6A-60A gas path"></svg>
+          <svg id="pp-ctl" viewBox="0 0 1000 446" role="img" aria-label="Engine and propeller control system" hidden></svg>
+          <svg id="pp-fuel" viewBox="0 0 1000 430" role="img" aria-label="Engine fuel system" hidden></svg>
+          <svg id="pp-lube" viewBox="0 0 1000 430" role="img" aria-label="Engine lubrication system" hidden></svg>
+        </div>
+        <div class="legend" id="ppLegend"></div>
+      </div>
+      <div class="side">
+        <div class="card info" id="ppInfo" aria-live="polite"></div>
+        <div class="card"><h3>Engine events</h3><ol class="log" id="ppLog"></ol></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pp-design">
+    <h2>Engine design &amp; airflow <span class="ref">Figures 7-3 to 7-8</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p><b>Free turbine.</b> Two turbine sections on separate shafts, turning in opposite directions, with no mechanical connection between them. The single-stage <b>compressor turbine</b> drives the compressor and accessories (N1). The two-stage <b>power turbine</b> drives the propeller through the reduction gearbox (Nf, then Np). The compressor turbine takes about 60% of the energy in the gas, and the power turbines take the rest.</p>
+        <p><b>Reverse flow.</b> Air enters at the <i>rear</i> through an annular plenum and screen, flows forward through three axial stages and one centrifugal stage, then turns 90° in the diffuser tubes. It turns 180° to enter the annular combustion liner, reverses again in the exit duct, drives the turbines, and leaves through twin opposed exhaust ports at the <i>front</i>. Folding the flow removes the need for a long shaft, which keeps the engine short and light.</p>
+        <p><b>Combustion.</b> About 25% of the compressed air burns with fuel. The other 75% centers the flame and cools the engine. Fuel enters through 14 simplex nozzles on a dual manifold, primary and secondary. Two spark igniters are used for starting only.</p>
+        <p><b>Modular.</b> The gas generator module and the power section module separate between the compressor and power turbines. That makes possible on-wing hot section inspections, usually at mid-TBO, and modular overhaul.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="bus-table-wrap"><table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody>
+          <tr><td class="num">N1 / Ng</td><td>Gas generator speed, % (100% = 37,500 rpm)</td></tr>
+          <tr><td class="num">Np</td><td>Propeller rpm</td></tr>
+          <tr><td class="num">N2 / Nf</td><td>Power turbine rpm (not indicated)</td></tr>
+          <tr><td class="num">P2.5</td><td>Compressor interstage (axial-stage) air pressure</td></tr>
+          <tr><td class="num">P3</td><td>Compressor discharge pressure, the bleed air source for cabin heat, pressurization and pneumatics</td></tr>
+          <tr><td class="num">ITT / T5</td><td>Interstage turbine temperature, °C, between the compressor turbine and the first power turbine</td></tr>
+        </tbody></table></div>
+        <div class="card"><h3>Compressor bleed valve, jet flap &amp; swing check valve</h3><p>At low N1 the axial stages deliver more air than the centrifugal stage can take. The <b>bleed valve</b> (3 o'clock, looking forward) dumps P2.5 to prevent axial-stage stalls. It is open at low N1 and closed above about 90%. Stuck closed causes compressor stalls on acceleration. Stuck open gives high ITT and low torque at high power. On the -60A, P2.5 air also feeds the <b>jet flap</b>, slots in the inlet struts that pre-swirl the intake air like a fixed inlet guide vane. The hinged <b>swing check valve</b> relieves P2.5 that the jet flaps can't use while the bleed valve is open.</p></div>
+      </div>
+    </div>
+    <div class="bus-table-wrap"><table><thead><tr><th>Operating condition (SL static, ISA)</th><th class="num">ESHP</th><th class="num">SHP</th><th class="num">Prop rpm</th><th class="num">Jet thrust (lb)</th><th class="num">SFC (lb/eshp/hr)</th></tr></thead><tbody>
+      <tr><td>Takeoff</td><td class="num">1,113*</td><td class="num">1,050</td><td class="num">1,700</td><td class="num">158</td><td class="num">0.548</td></tr>
+      <tr><td>Max continuous</td><td class="num">1,113*</td><td class="num">1,050</td><td class="num">1,700</td><td class="num">158</td><td class="num">0.548</td></tr>
+      <tr><td>Max climb †</td><td class="num">1,060***</td><td class="num">1,000</td><td class="num">1,700</td><td class="num">150</td><td class="num">0.557</td></tr>
+      <tr><td>Max cruise †</td><td class="num">1,060**</td><td class="num">1,000</td><td class="num">1,700</td><td class="num">150</td><td class="num">0.557</td></tr>
+      <tr><td>Normal cruise †</td><td class="num">1,060***</td><td class="num">1,000</td><td class="num">1,700</td><td class="num">150</td><td class="num">0.557</td></tr>
+    </tbody></table></div>
+    <p class="disclaimer">* to 25.0 °C · ** to 28.3 °C · *** to 23.3 °C · † information only, not certification ratings. Power turbine speed at 1,700 prop rpm: 29,920 rpm. Jet thrust is about 10% of total power, so ESHP = SHP + jet thrust equivalent.</p>
+  </section>
+
+  <section class="block" id="pp-ign">
+    <h2>Ignition &amp; starting <span class="ref">Figure 7-9</span></h2>
+    <div class="two-col">
+      <div class="card"><h3>Igniters &amp; exciter</h3><p>Two spark igniters in the combustion liner. Either one alone will start the engine, and an open or shorted igniter doesn't stop the other. An airframe-mounted exciter runs on 28 V DC (works from 9 to 30 V) and produces up to 3,500 V. Combustion is self-sustaining once lit, so the igniters go off after the start.</p></div>
+      <div class="card"><h3>IGNITION AND ENGINE START switches</h3><p><b>ON</b> runs the starter and both igniters. <b>OFF</b> is the center position. <b>STARTER ONLY</b> is a spring-loaded hold position that motors the engine without ignition to clear unburned fuel. Starter limits: 30 s ON, 5 min OFF, 30 s ON, 5 min OFF, 30 s ON, then 30 min OFF.</p></div>
+      <div class="card"><h3>Auto-ignition</h3><p>Arm the ENG AUTO IGNITION switches in turbulence, precipitation and icing. When armed, if torque falls below about 17%, the igniters fire automatically and IGNITION ON lights. A flamed-out engine relights by itself. Ignition also closes that side's motive flow valve, which stops aux fuel transfer.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="pp-lube">
+    <h2>Accessories &amp; lubrication <span class="ref">Figures 7-10 to 7-15</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p><b>Accessory gearbox.</b> At the rear of the engine, driven from the compressor shaft (N1) through a coupling shaft. It carries the starter/generator, the high-pressure fuel pump and FCU, the N1 tachometer generator and the oil pumps, each pad at its own gear ratio. The propeller tachometer and propeller governors are on the reduction gearbox instead, driven by the power section.</p>
+        <p><b>Lubrication.</b> Oil cools and lubricates the bearings. It also supplies the propeller governor and reversing system. The oil tank is part of the compressor inlet case and holds a gear-type pressure pump, the pressure regulator and the filter. Pressure oil passes the pressure and temperature bulbs and goes to the bearing compartments and nose case. Scavenge pumps return it through the thermostatic external oil cooler. The oil-to-fuel heat exchanger uses that heat to keep ice out of the fuel pump filter.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>Oil quantity &amp; consumption</h3><p>4 US gal total, including the 2.5 gal tank. The dipstick reads quarts <i>below full</i>. Engines usually settle 1–2 qt down when hot and about 1 qt lower than that when cold. Don't overfill, and don't mix brands or types. Check shortly after shutdown for the most accurate reading. Maximum consumption is 1 qt per 10 hours, and normal can be as low as 1 qt per 50 hours.</p></div>
+        <div class="card"><h3>Magnetic chip detector</h3><p>In the bottom of each nose (reduction) gearbox. Metal contamination lights L or R CHIP DETECT. That alone is not a reason to shut down. Watch engine parameters, and if they're abnormal a precautionary shutdown is at the pilot's discretion. Find and correct the cause before the next flight.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pp-fuel">
+    <h2>Engine fuel system &amp; FCU <span class="ref">Figures 7-16 to 7-19</span></h2>
+    <ol class="steps">
+      <li><div><h4>Engine-driven boost pump</h4><p>Runs whenever N1 turns and supplies about 30 psi head pressure so the high-pressure pump doesn't cavitate. FUEL PRES LO lights below 10 psi. The standby pump restores pressure above 11 (±2) psi.</p></div></li>
+      <li><div><h4>Firewall filter, pressure switch &amp; oil-to-fuel heater</h4><p>Filtered fuel is warmed by engine oil to prevent icing at the pump filter. This is automatic. Below −45 °C OAT an anti-icing additive is required.</p></div></li>
+      <li><div><h4>High-pressure pump</h4><p>A gear pump with inlet and outlet filters, delivering up to 1,050 psi depending on N1 and the FCU. A purge line returns a little fuel to the gravity-feed line to keep vapor out of the FCU. If this pump fails, the engine flames out.</p></div></li>
+      <li><div><h4>Fuel control unit (FCU)</h4><p>Meters fuel for starting, acceleration and maximum power. It compares N1 with the power lever setting. The condition lever operates the <b>pump unloading valve</b>, which is fully open (cutoff) or fully closed with nothing in between. A minimum-flow adjustment of about 90 pph keeps the engine running at minimum power.</p></div></li>
+      <li><div><h4>Minimum pressurizing valve, flow transmitter &amp; flow divider</h4><p>The minimum pressurizing valve opens at about 100 psi so that only a good spray pattern reaches the nozzles. The fuel flow transmitter, between the FCU and flow divider, drives the DC fuel flow gauge in pph × 100. The flow divider feeds the primary nozzles first and adds the secondaries at about 35–40% N1. That staging gives cooler starts and a noticeable N1 surge.</p></div></li>
+      <li><div><h4>Manifold purge</h4><p>A tank charged with P3 air through a check valve. At shutdown, when fuel pressure drops, the P3 air blows residual fuel from the flow divider and manifolds into the combustor to burn. The result is a 1–2 s delay before spool-down.</p></div></li>
+    </ol>
+    <div class="two-col">
+      <div class="card"><h3>How the FCU governs N1</h3><p>The power lever, and the condition lever at idle, position a <b>3D cam</b> to select an N1 speed. A <b>flyweight N1 governor</b> is the feedback element. An overspeed drives the cam down and cuts fuel, and an underspeed drives it up and adds fuel, until N1 matches the selection. A <b>P3 bellows</b> sets acceleration and deceleration fuel limits so the engine can't overheat while spooling. The bellows also lets the propeller's fuel topping governor reduce N1 in a propeller overspeed. With the power levers fixed, N1 stays constant in a climb or descent while torque, ITT and fuel flow change.</p></div>
+      <div class="callout"><b>Caution</b>Operation with FUEL PRES LO on is limited to 10 hours between overhaul or replacement of the high-pressure pump. Boost pressure lubricates and cools that pump and keeps it from cavitating.</div>
+    </div>
+  </section>
+
+  <section class="block" id="pp-ctl">
+    <h2>Levers, alpha &amp; beta, and the governors <span class="ref">Figures 7-21, 7-22</span></h2>
+    <div class="two-col">
+      <div class="card"><h3>Power levers</h3><p>Select N1 through the FCU's N1 governor, from idle to takeoff power. Three regions: <b>forward thrust</b>; <b>ground fine</b>, reached by lifting over the IDLE gate, which holds idle N1 while the lever sets blade angle for taxi; and <b>reverse</b>, reached by lifting over the GROUND FINE gate, where the lever sets both N1 and blade angle. Reverse is for use only with the engines running.</p></div>
+      <div class="card"><h3>Propeller levers</h3><p>Set governed rpm from 1,450 to 1,700 (HIGH RPM is used for takeoff, landing and reverse). Pull back through the friction detent into the red-and-white striped area to <b>feather</b>, and push forward into the governing range to unfeather. Props feather automatically at shutdown because hub oil pressure is lost. Automatic feathering (autofeather) is also installed.</p></div>
+      <div class="card"><h3>Condition levers</h3><p><b>FUEL CUTOFF</b>, <b>LOW IDLE</b> (62% N1 minimum) and <b>HI IDLE</b> (70%), continuously variable in between. They set the idle floor that the power lever works above: 62–104% from low idle, 70–104% from high idle. High idle keeps more airflow through the engine to cool it under generator or air-conditioning load. During starts, keep the lever just out of the LOW IDLE detent so it can come straight back to cutoff.</p></div>
+    </div>
+    <div class="two-col">
+      <div class="prose">
+        <p><b>Alpha (constant speed).</b> The power lever controls only the FCU fuel schedule (N1, and so torque). The propeller lever controls Np through the constant speed governor (CSU), which varies blade angle. More power gives more torque at the same Np. Pulling the prop lever back gives lower Np and more torque, with no change in N1, because it's a free turbine.</p>
+        <p><b>Beta.</b> At low power the propeller can't reach governed speed and drops onto its flight-idle blade angle. The power lever then sets blade angle directly. The cambox moves the <b>beta valve</b>, and a carbon block and beta ring feed blade position back. The CSU sits fully open in an underspeed and acts only as a pressure source. Ground fine and reverse are deeper beta.</p>
+        <p><b>Blade forces.</b> Feathering springs and counterweights push the blades toward high pitch and feather. Governor oil pressure on the servo piston, assisted by centrifugal twisting moment, pushes toward low pitch and reverse. Lose the oil and the propeller feathers.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>Four governors</h3><ul class="tight">
+          <li><b>N1 governor (in the FCU):</b> holds the gas generator speed selected by the power or condition lever.</li>
+          <li><b>Constant speed governor (prop governor):</b> holds Np selected by the prop lever, using a booster pump that supplies oil from 0 psi (feather) to about 400 psi (full reverse) through the transfer sleeve.</li>
+          <li><b>Fuel topping (Nf) governor:</b> built into the prop governor. Above the selected Np (about 6–10% on a typical PT6 installation) it bleeds FCU air pressure to cut fuel. In beta it is reset to roughly 5% below the selected speed, so it is the governor limiting Np in reverse.</li>
+          <li><b>Hydraulic overspeed governor:</b> a separate unit on its own drive pad, typically set around 104–106% Np. It dumps prop oil if everything else fails. A ground TEST switch resets it below normal speed so it can be checked.</li>
+        </ul></div>
+        <div class="callout warning"><b>Why the gate</b>In alpha three governors protect the propeller. In beta and reverse only the fuel topping governor does. An overspeed dump while the blades are at negative pitch drives them through zero toward feather, unloading the propeller into a runaway overspeed. Never bring the power levers below flight idle in flight.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pp-lim">
+    <h2>Engine instruments &amp; operating limits <span class="ref">Figures 7-20, 7-23</span></h2>
+    <div class="bus-table-wrap"><table><thead><tr><th>Instrument</th><th>Normal (green)</th><th>Caution (yellow)</th><th>Limit (red)</th><th>Notes</th></tr></thead><tbody>
+      <tr><td>ITT (°C)</td><td class="num">400–820</td><td>—</td><td class="num">820 max continuous</td><td>1,000 °C starting only, 5 s (white/red line). Self-powered.</td></tr>
+      <tr><td>Torque (%)</td><td class="num">0–100</td><td>—</td><td class="num">100</td><td>Hydromechanical torquemeter in the first-stage reduction gear. Signal is AC (DC FL-121 and after).</td></tr>
+      <tr><td>Prop tach (rpm)</td><td class="num">1,450–1,700</td><td>—</td><td class="num">1,700</td><td></td></tr>
+      <tr><td>N1 tach (%)</td><td class="num">62–104</td><td>—</td><td class="num">104</td><td>Self-generating. Outer dial in units, inner dial in tens.</td></tr>
+      <tr><td>Fuel flow (pph × 100)</td><td>—</td><td>—</td><td>—</td><td>No limit markings. DC powered.</td></tr>
+      <tr><td>Oil temperature (°C)</td><td class="num">0–99</td><td class="num">99–110</td><td class="num">110</td><td>99–110 °C for 10 min maximum. −40 °C minimum for starting. 55 °C recommended for takeoff (fuel heater).</td></tr>
+      <tr><td>Oil pressure (psi)</td><td class="num">90–135</td><td class="num">60–90</td><td class="num">60 min / 200 max</td><td>60–90 tolerated only to complete the flight at reduced power. Below 60, shut down or land as soon as possible.</td></tr>
+    </tbody></table></div>
+    <div class="bus-table-wrap"><table><thead><tr><th>Operating condition</th><th class="num">Torque %</th><th class="num">Max ITT °C</th><th class="num">N1 %</th><th class="num">Np rpm</th><th class="num">Oil psi</th><th class="num">Oil °C</th></tr></thead><tbody>
+      <tr><td>Starting</td><td class="num">—</td><td class="num">1,000 (5 s)</td><td class="num">—</td><td class="num">—</td><td class="num">0–200</td><td class="num">−40 min</td></tr>
+      <tr><td>Idle</td><td class="num">—</td><td class="num">750</td><td class="num">62 min</td><td class="num">1,050 min</td><td class="num">60 min</td><td class="num">−40 to 110</td></tr>
+      <tr><td>Takeoff / max continuous</td><td class="num">100</td><td class="num">820</td><td class="num">104</td><td class="num">1,700</td><td class="num">90–135</td><td class="num">0–110</td></tr>
+      <tr><td>Cruise climb</td><td class="num">varies</td><td class="num">785</td><td class="num">104</td><td class="num">1,700</td><td class="num">90–135</td><td class="num">0–110</td></tr>
+      <tr><td>Max cruise</td><td class="num">varies</td><td class="num">820</td><td class="num">104</td><td class="num">1,700</td><td class="num">90–135</td><td class="num">0–110</td></tr>
+      <tr><td>Max reverse</td><td class="num">—</td><td class="num">760</td><td class="num">—</td><td class="num">1,650</td><td class="num">90–135</td><td class="num">0–99</td></tr>
+      <tr><td>Transient</td><td class="num">156 (20 s)</td><td class="num">850 (20 s)</td><td class="num">104</td><td class="num">1,870 (5 s)</td><td class="num">40–200</td><td class="num">0–110</td></tr>
+    </tbody></table></div>
+    <p class="disclaimer">From the manual's engine limits chart (Figure 7-23). Torque limit applies from 1,000 to 1,700 prop rpm. Below 1,000 rpm, torque is limited to 62%. Cold or low conditions are usually torque-limited. Hot or high conditions are ITT-limited. Whichever limit you reach first sets the power available.</p>
+    <div class="two-col">
+      <div class="card"><h3>Ground ITT</h3><p>At idle, ITT climbs with generator load, air conditioning (a heavy load on the right engine's N1) and P3 bleed. If ITT approaches the 750 °C idle limit, reduce the loads, then raise N1 with the condition lever. About 70% (HI IDLE) is normally enough. Restore the loads once ITT stays below 750 °C.</p></div>
+      <div class="card"><h3>Generator limits</h3><p>On the ground, 75% generator load is the maximum between 62% and 70% N1. In flight, 100% from sea level to 34,000 ft and 95% above. See the POH Generator Limits table.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="pp-over">
+    <h2>Exceedances &amp; trend monitoring <span class="ref">Figures 7-24 to 7-26</span></h2>
+    <div class="two-col">
+      <div class="card"><h3>Overtemperature (Figure 7-24)</h3><ul class="tight">
+        <li><b>Area A</b> (moderate, short exceedance): find and correct the cause. After a start overtemp, inspect visually through the exhaust duct. Log it.</li>
+        <li><b>Area B</b> (longer exceedance): hot section inspection.</li>
+        <li><b>Area C</b> (severe): the engine may need to go to overhaul. More than a few seconds here can cause extensive damage.</li>
+      </ul><p>Abort any start whose ITT is approaching the starting limit before the needle reaches the line.</p></div>
+      <div class="card"><h3>Overtorque (Figure 7-25)</h3><p>Brief transients up to 156% for 20 s need no action. Sustained overtorque means a logbook entry and, in the worse regions, sending the power section to overhaul. Exceeding the torque limit for more than a few minutes can damage the gearbox.</p></div>
+      <div class="card"><h3>Trend monitoring</h3><p>PT6 performance is predictable, so the recommended trend program records stabilized cruise data each flying day or every 5 flight hours. After at least 5 minutes stable, record IAS, OAT, altitude, torque, ITT, N1 and fuel flow. Correct the readings and compare them against typical engine values. Steady deviations in ITT, N1 and fuel flow reveal deterioration early.</p></div>
+    </div>
+  </section>
+</div>
+</template>
+
 <script>
 (function () {
 "use strict";
@@ -1081,8 +1398,8 @@ const CHAPTERS = [
   { n: 2,  id: "electrical",        t: "Electrical Power Systems", ready: "Ready · interactive schematic" },
   { n: 4,  id: "master-warning",    t: "Master Warning System", ready: "Ready · interactive annunciator panels" },
   { n: 5,  id: "fuel",              t: "Fuel System", ready: "Ready · interactive fuel-flow schematic" },
-  { n: 6,  id: "apu",               t: "Auxiliary Power Unit" },
-  { n: 7,  id: "powerplant",        t: "Powerplant" },
+  { n: 6,  id: "propellers",        t: "Propellers" },
+  { n: 7,  id: "powerplant",        t: "Powerplant", ready: "Ready · interactive pedestal & engine" },
   { n: 8,  id: "fire-protection",   t: "Fire Protection" },
   { n: 9,  id: "pneumatics",        t: "Pneumatics" },
   { n: 10, id: "ice-rain",          t: "Ice and Rain Protection" },
@@ -1145,7 +1462,7 @@ function renderPlaceholder(c) {
   </div>`;
 }
 
-const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel() };
+const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant() };
 function route() {
   const id = (location.hash || "").replace("#", "");
   const ch = CHAPTERS.find(c => c.id === id);
@@ -1941,7 +2258,7 @@ function applyScenario(i) {
   step(0.01);
 }
 
-function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } MW = null; }
+function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; MW = null; }
 
 function initElectrical() {
   buildSchematic();
@@ -2500,6 +2817,558 @@ function initFuel() {
   fApply(0);
   fSelect("nacL");
   fTimer = setInterval(() => fStep(0.25), 250);
+}
+
+
+/* ================= Chapter 7: Powerplant ================= */
+const PL_IDLE = 24, PL_GF = 14, CL_GATE = 10, PR_FTH = 10;
+let PP = null, ppTimer = null, ppSide = "L", ppTab = "gas", ppSel = null, ppScen = 0, ppScript = null, ppLogArr = [];
+const clamp01 = v => Math.max(0, Math.min(1, v));
+
+function ppEngine() {
+  return { pl: PL_IDLE, pr: 5, cl: 0, start: "OFF", autoIgn: false, n1: 0, itt: 15, np: 0, tq: 0, ff: 0, oilP: 0, oilT: 15, blade: 1,
+    lit: false, startPhase: false, wetT: 0, peak: 0, purgeT: 0, starterT: 0, mode: "SHUT DOWN", ctl: "", topping: false, warned: {}, stallT: 0, prevN1: 0, starterHold: 0 };
+}
+function ppFresh() {
+  return { E: { L: ppEngine(), R: ppEngine() }, env: { flight: false, oat: 15, gen: { L: true, R: true }, ac: false },
+    fault: { chip: { L: false, R: false }, bleedOpen: { L: false, R: false }, bleedClosed: { L: false, R: false }, hp: { L: false, R: false }, boost: { L: false, R: false }, csu: { L: false, R: false } },
+    lift: { pwr: false, cnd: false }, together: true, t: 0 };
+}
+function ppLog(msg, cls) {
+  ppLogArr.unshift({ t: PP.t, msg, cls: cls || "" }); if (ppLogArr.length > 50) ppLogArr.pop();
+  const h = $("#ppLog"); if (h) h.innerHTML = ppLogArr.map(e => `<li class="${e.cls}"><span class="t">${e.t.toFixed(1)}s</span><span class="m">${esc(e.msg)}</span></li>`).join("");
+}
+function warnOnce(e, key, cond, msg, cls) { if (cond && !e.warned[key]) { e.warned[key] = true; ppLog(msg, cls || "warn"); } if (!cond) e.warned[key] = false; }
+const npSetOf = e => 1450 + clamp01((e.pr - 12) / 88) * 250;
+const idleOf = e => 62 + clamp01((e.cl - CL_GATE) / 90) * 8;
+
+function ppStep(dt) {
+  PP.t += dt;
+  const env = PP.env, F = PP.fault;
+  ["L", "R"].forEach(k => {
+    const e = PP.E[k], S = SIDE[k];
+    const fuelSel = e.cl >= CL_GATE;
+    if (e.start === "STARTER") { e.starterHold -= dt; if (e.starterHold <= 0) { e.start = "OFF"; ppLog(`${S} STARTER ONLY released (spring-loaded to OFF).`); } }
+    const starter = e.start === "ON" || e.start === "STARTER";
+    const ign = e.start === "ON" || (e.autoIgn && e.tq < 17);
+    e.ign = ign;
+    const flowing = fuelSel && !F.hp[k] && e.n1 >= 8;
+    // light-off / flameout
+    if (flowing && !e.lit) {
+      if (ign) {
+        e.lit = true; e.startPhase = e.n1 < idleOf(e) - 1;
+        e.peak = 760 + Math.max(0, 12 - e.n1) * 150 + Math.min(e.wetT, 10) * 30 + (env.oat - 15) * 2;
+        ppLog(e.startPhase ? `${S} light-off at ${e.n1.toFixed(0)}% N1${e.n1 < 12 ? ". Fuel was introduced below 12% N1: expect a hot start." : "."}${e.wetT > 2 ? " Pooled fuel adds to the ITT peak." : ""}` : `${S} engine relights (igniters on).`, e.n1 < 12 && e.startPhase ? "warn" : "");
+        e.wetT = 0;
+      } else { e.wetT += dt; warnOnce(e, "wet", e.wetT > 2, `${S}: fuel is flowing with no ignition. That's a wet start risk, and STARTER ONLY clears the fuel.`); }
+    } else if (!flowing) e.wetT = Math.max(0, e.wetT - dt * 0.5);
+    if (e.lit && !flowing) {
+      e.lit = false; e.startPhase = false;
+      if (!fuelSel) { e.purgeT = 1.5; ppLog(`${S} condition lever to FUEL CUTOFF. The P3 manifold purge burns residual fuel, so spool-down starts after 1–2 s.`); }
+      else if (F.hp[k]) ppLog(`${S} high-pressure fuel pump failed. The minimum pressurizing valve closes and the engine flames out.`, "bad");
+      else ppLog(`${S} engine flamed out.`, "bad");
+    }
+    // N1
+    const idle = idleOf(e);
+    if (e.lit) {
+      let cmd;
+      if (e.pl >= PL_IDLE) cmd = idle + (e.pl - PL_IDLE) / (100 - PL_IDLE) * (104 - idle);
+      else if (e.pl >= PL_GF) cmd = idle;
+      else cmd = idle + (PL_GF - e.pl) / PL_GF * (86 - idle);
+      if (e.startPhase) {
+        e.n1 += (2.6 + (starter ? 1.6 : 0) + (e.n1 > 37 ? 1.8 : 0)) * dt;
+        if (e.n1 >= 37 && e.prevN1 < 37) ppLog(`${S} secondary nozzles flowing (~37% N1). All 14 nozzles now deliver fuel, and N1 accelerates noticeably.`);
+        if (e.n1 >= idle - 1) { e.startPhase = false; ppLog(`${S} stabilized at idle, ${idle.toFixed(0)}% N1. Turn the start switch OFF.`); }
+      } else e.n1 += Math.max(-6 * dt, Math.min(8 * dt, (cmd - e.n1) * dt / 1.6));
+    } else if (e.purgeT > 0) e.purgeT -= dt;
+    else {
+      const tgt = starter ? 20 : 0;
+      e.n1 += (tgt - e.n1) * dt / (tgt > e.n1 ? 2.4 : 3.5);
+      if (e.n1 < 0.05) e.n1 = 0;
+    }
+    if (starter) { e.starterT += dt; warnOnce(e, "starter", e.starterT > 30, `${S} starter has run 30 s. Limit is 30 s ON, then 5 min OFF.`); } else e.starterT = 0;
+    // bleed valve
+    e.bleedOpen = F.bleedOpen[k] ? true : F.bleedClosed[k] ? false : e.n1 < 90;
+    // SHP
+    const dens = 288 / (273 + env.oat) * (env.flight ? 0.72 : 1);
+    let shp = e.lit ? 1180 * dens * Math.pow(clamp01((e.n1 - 55) / 49), 1.8) : 0;
+    if (e.bleedOpen && e.n1 > 85) shp *= 0.88;
+    // ITT
+    if (e.lit) {
+      const pen = ((env.gen[k] ? 90 : 0) + (k === "R" && env.ac ? 160 : 0)) * clamp01((78 - e.n1) / 16);
+      const steadyAt = n => 520 + 6.4 * (n - 62) + (env.oat - 15) * 2.2 + pen + (e.bleedOpen && n > 85 ? 55 : 0) - (env.flight ? 15 : 0);
+      let tgt = steadyAt(e.n1);
+      if (e.startPhase) { const base = steadyAt(idle); tgt = Math.max(tgt, base + (e.peak - base) * Math.exp(-Math.pow((e.n1 - 26) / 11, 2))); }
+      if (F.bleedClosed[k] && e.n1 < 85 && e.n1 - e.prevN1 > 0.25 * dt * 10 && !e.startPhase) { if (e.stallT <= 0) ppLog(`${S} compressor stall: the bleed valve is stuck closed during acceleration at low N1. Bang, ITT spike.`, "bad"); e.stallT = 1.5; }
+      if (e.stallT > 0) { e.stallT -= dt; tgt += 120; }
+      e.itt += (tgt - e.itt) * dt / 1.1;
+    } else e.itt += (env.oat + 20 - e.itt) * dt / 8;
+    // oil
+    e.oilP = e.n1 < 10 ? e.n1 * 4.5 : 55 + (Math.min(e.n1, 80) - 10) * 0.85;
+    e.oilT += ((e.n1 > 5 ? 45 + e.n1 * 0.4 + (env.oat - 15) * 0.3 : env.oat) - e.oilT) * dt / 40;
+    // propeller
+    const npSet = npSetOf(e);
+    const ram = env.flight ? 950 : 0;
+    const npFine = e.lit ? 900 + 2200 * Math.pow(shp / 1180, 0.75) + ram : (env.flight ? 1150 : 0);
+    let feather = e.pr < PR_FTH || (!env.flight && (!e.lit || e.oilP < 40));
+    let npT, blade, mode, ctl; e.topping = false;
+    if (feather) {
+      blade = 1; npT = e.lit ? Math.min(npFine * 0.3, 650) : 0;
+      mode = e.lit ? "FEATHERED" : (e.n1 > 0.5 ? (e.startPhase || e.start !== "OFF" ? "STARTING" : "SPOOLING DOWN") : "SHUT DOWN");
+      ctl = e.pr < PR_FTH ? "Prop lever in FEATHER: the feathering valve dumps governor oil, and springs plus counterweights drive the blades to the feather stop." : "No governor oil pressure: the propeller sits on its feather stop until the engine is running.";
+    } else if (!e.lit && env.flight) {
+      blade = 0.25; npT = Math.min(npSet, 1150); mode = "WINDMILLING";
+      ctl = "Engine not running, propeller windmilling with high drag. Feather it: prop lever to FEATHER.";
+    } else if (e.pl >= PL_IDLE) {
+      if (F.csu[k]) {
+        const top = npSet * 1.06; npT = Math.min(npFine, top); e.topping = npFine > top;
+        blade = 0.15; mode = "CSU FAILED";
+        ctl = e.topping ? `Constant speed governor failed. The fuel topping governor bleeds FCU air and cuts fuel to hold about ${Math.round(top)} rpm. More power lever has no effect.` : "Constant speed governor failed. Np follows power until the fuel topping governor takes over.";
+      } else if (npFine >= npSet) {
+        npT = npSet; blade = 0.18 + 0.55 * clamp01((npFine - npSet) / 2600); mode = "ALPHA";
+        ctl = `Constant speed: the CSU varies blade angle to hold ${Math.round(npSet)} rpm. The power lever sets N1 only.`;
+      } else {
+        npT = npFine; blade = 0.15 + (e.pl - PL_IDLE) / 76 * 0.04; mode = "BETA";
+        ctl = `Below governing speed (Np < ${Math.round(npSet)}). The blades rest at the flight-idle angle set through the beta valve, and the CSU is in underspeed.`;
+      }
+    } else if (e.pl >= PL_GF) {
+      blade = (e.pl - 19) / 5 * 0.15; npT = npFine; mode = "GROUND FINE";
+      ctl = "Ground fine: the power lever sets blade angle through the cambox and beta valve. N1 stays at idle. Zero thrust is near the middle of this range.";
+    } else {
+      const top = npSet * 0.97; blade = -0.15 - (PL_GF - e.pl) / PL_GF * 0.25; npT = Math.min(npFine, top); e.topping = npFine > top; mode = "REVERSE";
+      ctl = `Reverse: the power lever sets both N1 and reverse blade angle. The fuel topping governor, reset below the selected speed, limits Np to about ${Math.round(top)} rpm.`;
+    }
+    e.np += (npT - e.np) * dt / 1.3; if (e.np < 1) e.np = 0;
+    e.blade += (blade - e.blade) * dt / 0.8;
+    e.mode = e.startPhase ? "STARTING" : mode; e.ctl = e.startPhase ? "Starting: the starter and the FCU's start fuel schedule accelerate the gas generator. Watch ITT." : ctl;
+    e.tq = e.lit && e.np > 60 ? shp / 1050 * 1700 / e.np * 100 : 0;
+    e.ff = e.lit ? (90 + 540 * Math.pow(clamp01((e.n1 - 55) / 49), 1.35)) * (env.flight ? 0.8 : 1) : (flowing ? 110 : 0);
+    // exceedance messages
+    warnOnce(e, "itt1000", e.itt > 1000, `${S} ITT above 1,000 °C. That's the starting limit, and only 5 s is allowed. Abort: condition lever to FUEL CUTOFF.`, "bad");
+    warnOnce(e, "itt820", e.lit && !e.startPhase && e.itt > 822, `${S} ITT above 820 °C maximum continuous. Reduce power: this is the ITT-limited case.`, "bad");
+    warnOnce(e, "itt750", e.lit && !e.startPhase && e.n1 < 72 && e.itt > 750 && e.itt <= 822, `${S} ITT above the 750 °C idle limit. Reduce generator/A-C load, then raise N1 with the condition lever (HI IDLE).`, "warn");
+    warnOnce(e, "tq", e.tq > 101, `${S} torque above 100%. Reduce the power lever: this is the torque-limited case.`, "bad");
+    warnOnce(e, "np", e.np > 1712, `${S} propeller above 1,700 rpm.`, "bad");
+    warnOnce(e, "oilp", e.lit && !e.startPhase && e.oilP < 60, `${S} oil pressure below 60 psi.`, "bad");
+    warnOnce(e, "ground", env.flight && e.pl < PL_IDLE, `${S} power lever below flight idle in flight. Never do this.`, "bad");
+    e.prevN1 = e.n1;
+  });
+  if (ppScript) ppRunScript();
+  ppRender();
+}
+
+/* ---------- scripts (auto-demonstrations) ---------- */
+function ppRunScript() {
+  const s = ppScript;
+  while (s.i < s.steps.length) {
+    const st = s.steps[s.i];
+    if (st.wait !== undefined) { if (PP.t - s.t0 < st.wait) return; }
+    else if (st.until && !st.until(PP)) return;
+    st.do(PP); if (st.msg) ppLog("Demo: " + st.msg); s.i++; s.t0 = PP.t;
+  }
+  ppScript = null;
+}
+
+/* ---------- scenarios ---------- */
+function ppRun(e, cl) { e.lit = true; e.n1 = idleOf(Object.assign({}, e, { cl: cl === undefined ? e.cl : cl })); e.itt = 560; e.np = 1100; e.oilP = 100; e.oilT = 60; e.blade = 0.15; e.mode = "BETA"; }
+const both = (P, f) => ["L", "R"].forEach(k => f(P.E[k], k));
+const PP_SCEN = [
+  { t: "Cold & dark", cap: "Both engines shut down, props feathered, condition levers at FUEL CUTOFF. Try a start yourself: prop levers to HIGH RPM, start switch ON, then condition lever to LOW IDLE (lift over the gate) once N1 passes 12%.", apply() {} },
+  { t: "Ready to start", cap: "Power levers at IDLE, prop levers at HIGH RPM, condition levers at FUEL CUTOFF. Set a start switch ON and watch N1 climb on the starter. Introduce fuel (condition lever to LOW IDLE) at 12% N1 or above. Then watch the ITT peak, the secondary nozzles at about 37%, and stabilization at 62%. Start switch OFF once stable.", apply(P) { both(P, e => { e.pr = 100; }); } },
+  { t: "Demo: normal start (right engine)", cap: "Automatic demonstration of a normal start. The starter motors N1, fuel is introduced above 12% N1, then light-off, a controlled ITT peak, the secondary nozzles, and stabilization at low idle. Then the start switch goes OFF. Follow along in the event log and on the gas-path diagram.", apply(P) { both(P, e => { e.pr = 100; }); ppSide = "R"; },
+    script: [{ wait: 1, do: P => { P.E.R.start = "ON"; }, msg: "right start switch ON (starter + ignition)." }, { until: P => P.E.R.n1 >= 13, do: P => { P.E.R.cl = CL_GATE; }, msg: "N1 above 12%: right condition lever to LOW IDLE." }, { until: P => !P.E.R.startPhase && P.E.R.lit, do: P => { P.E.R.start = "OFF"; }, msg: "stabilized: right start switch OFF." }] },
+  { t: "Demo: hot start", cap: "Fuel is introduced too early, at about 6% N1, with too little airflow. ITT shoots past the 1,000 °C starting limit, and the demo aborts the start by pulling the condition lever to FUEL CUTOFF. In the airplane that's an Area A/B/C exceedance on Figure 7-24.", apply(P) { both(P, e => { e.pr = 100; }); ppSide = "L"; },
+    script: [{ wait: 1, do: P => { P.E.L.start = "ON"; }, msg: "left start switch ON." }, { until: P => P.E.L.n1 >= 8.5, do: P => { P.E.L.cl = CL_GATE; }, msg: "condition lever to LOW IDLE far too early (≈8% N1)." }, { until: P => P.E.L.itt > 1000, do: P => { P.E.L.cl = 0; P.E.L.start = "OFF"; }, msg: "ITT past 1,000 °C: abort. Condition lever to FUEL CUTOFF, start switch OFF." }] },
+  { t: "Low idle with generator and air-conditioning load", cap: "Both engines at LOW IDLE on a 30 °C day, with both generators loaded and the air conditioner running on the right engine. Right ITT rises past the 750 °C idle limit. Lift nothing: just push the condition levers toward HI IDLE (70%) and watch ITT come down as airflow increases.", apply(P) { P.env.oat = 30; P.env.ac = true; both(P, e => { e.pr = 100; e.cl = CL_GATE; ppRun(e); }); } },
+  { t: "Taxi in ground fine", cap: "Power levers lifted over the IDLE gate into GROUND FINE. N1 stays at idle and the power lever now sets blade angle through the beta valve, which is how taxi speed is controlled. PROP PITCH shows the blades below the flight-idle stop.", apply(P) { both(P, e => { e.pr = 100; e.cl = 100; ppRun(e, 100); e.pl = 19; }); } },
+  { t: "Takeoff, ISA (15 °C): torque-limited", cap: "Full power on a standard day. Torque passes 100% before ITT reaches 820 °C, so this case is torque-limited. Bring the power levers back until torque reads 100%. Np is held at 1,700 by the CSU (alpha).", apply(P) { both(P, e => { e.pr = 100; e.cl = 100; ppRun(e, 100); e.pl = 100; }); } },
+  { t: "Takeoff, hot day (40 °C): ITT-limited", cap: "Same full power at 40 °C. Thinner air means less torque, but ITT passes 820 °C first, so this case is ITT-limited. Reduce power until ITT is within limits. Whichever limit you meet first sets the power available.", apply(P) { P.env.oat = 40; both(P, e => { e.pr = 100; e.cl = 100; ppRun(e, 100); e.pl = 100; }); } },
+  { t: "Cruise, 1,500 rpm (in flight)", cap: "In flight at altitude, with props pulled back to 1,500 rpm. In alpha the prop lever sets Np and the power lever sets N1. Move the prop levers and torque changes opposite to Np while N1 stays put, because it's a free turbine. Move the power levers and torque follows N1 with Np constant.", apply(P) { P.env.flight = true; P.env.oat = -20; both(P, e => { e.pr = 12 + 50 / 250 * 88; e.cl = CL_GATE; ppRun(e); e.n1 = 90; e.np = 1500; e.pl = 80; e.itt = 700; }); } },
+  { t: "Landing rollout: full reverse", cap: "On the ground with props at HIGH RPM, power levers lifted through ground fine into REVERSE. The power lever now raises N1 and drives the blades to negative pitch. The fuel topping governor, reset below the selected speed, limits Np to about 1,650 rpm (max reverse 1,650 rpm, 760 °C).", apply(P) { both(P, e => { e.pr = 100; e.cl = CL_GATE; ppRun(e); e.pl = 1; }); } },
+  { t: "RVS NOT READY", cap: "On the ground with the gear down and the prop levers not fully forward, RVS NOT READY lights. Reverse needs the props at HIGH RPM. Otherwise the reset fuel topping governor limits Np even lower, and a go-around would start at reduced rpm.", apply(P) { both(P, e => { e.pr = 60; e.cl = CL_GATE; ppRun(e); e.pl = PL_IDLE; }); } },
+  { t: "Engine failure in flight: feather it", cap: "Cruise in flight. After 3 s the right high-pressure fuel pump fails, the minimum pressurizing valve closes and the engine flames out. The propeller windmills with high drag. Secure it: right prop lever to FEATHER and right condition lever to FUEL CUTOFF.", apply(P) { P.env.flight = true; P.env.oat = -20; both(P, e => { e.pr = 100; e.cl = CL_GATE; ppRun(e); e.n1 = 90; e.np = 1700; e.pl = 80; e.itt = 700; }); ppSide = "R"; },
+    script: [{ wait: 3, do: P => { P.fault.hp.R = true; }, msg: "right HP fuel pump fails." }] },
+  { t: "Propeller governor (CSU) failure in flight", cap: "The left constant speed governor fails toward low pitch. Np climbs until the fuel topping governor, in the prop governor, starts bleeding FCU air pressure to cut fuel and holds Np a few percent above the selected speed. Adding power has no effect. The separate hydraulic overspeed governor is the last line of defense.", apply(P) { P.env.flight = true; P.env.oat = -20; P.fault.csu.L = true; both(P, e => { e.pr = 12 + 50 / 250 * 88; e.cl = CL_GATE; ppRun(e); e.n1 = 90; e.np = 1500; e.pl = 80; e.itt = 700; }); } },
+  { t: "Demo: shutdown", cap: "From idle, power levers at IDLE, condition levers to FUEL CUTOFF. The P3 manifold purge delays spool-down 1–2 s while residual fuel burns. As oil pressure decays the propellers feather themselves.", apply(P) { both(P, e => { e.pr = 100; e.cl = CL_GATE; ppRun(e); }); },
+    script: [{ wait: 2.5, do: P => both(P, e => { e.cl = 0; }), msg: "both condition levers to FUEL CUTOFF." }] }
+];
+
+function ppApply(i) {
+  ppScen = Math.max(0, Math.min(PP_SCEN.length - 1, i));
+  const sc = PP_SCEN[ppScen];
+  PP = ppFresh(); ppLogArr = [];
+  sc.apply(PP);
+  ppScript = sc.script ? { steps: sc.script, i: 0, t0: 0 } : null;
+  ppLog(`Loaded: ${sc.t}.`);
+  $("#ppScenSel").value = String(ppScen);
+  $("#ppScenCap").textContent = sc.cap;
+  $$("[data-eng]").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.eng === ppSide)));
+  ppSyncControls();
+  ppStep(0.01);
+}
+
+/* ---------- pedestal & controls ---------- */
+const LEVERS = [
+  { g: "pwr", name: "Power", cls: "pwr", marks: [[100, "Takeoff"], [62, "Cruise"], [PL_IDLE, "Idle", 1], [19, "Gnd fine"], [PL_GF, "", 1], [5, "Reverse"]], gates: [PL_IDLE, PL_GF] },
+  { g: "prp", name: "Propeller", cls: "prp", marks: [[100, "High rpm 1700"], [56, "1575"], [12, "Low 1450"], [5, "Feather"]], stripe: [0, PR_FTH] },
+  { g: "cnd", name: "Condition", cls: "cnd", marks: [[100, "Hi idle 70%"], [CL_GATE, "Low idle 62%", 1], [3, "Fuel cutoff"]], gates: [CL_GATE] }
+];
+const LKEY = { pwr: "pl", prp: "pr", cnd: "cl" };
+function ppHint(msg) { const h = $("#ppHint"); if (h) h.textContent = msg; }
+
+function ppLeverInput(g, k, v) {
+  const key = LKEY[g], e = PP.E[k], prev = e[key];
+  if (g === "pwr") {
+    if (PP.env.flight && v < PL_IDLE) { v = PL_IDLE; ppHint("In flight the power levers stay at or above flight idle. Ground fine and reverse are for the ground only."); }
+    else if (prev >= PL_IDLE && v < PL_IDLE && !PP.lift.pwr) { v = PL_IDLE; ppHint("Lift the power levers to move them over the IDLE gate into GROUND FINE."); }
+    else if (prev >= PL_GF && v < PL_GF && !PP.lift.pwr) { v = Math.max(v, PL_GF); ppHint("Lift again to pass the GROUND FINE gate into REVERSE."); }
+  }
+  if (g === "cnd" && prev >= CL_GATE && v < CL_GATE && !PP.lift.cnd) { v = CL_GATE; ppHint("Lift the condition levers over the gate to reach FUEL CUTOFF."); }
+  e[key] = v;
+  if (PP.together) { const o = PP.E[OTHER[k]]; if (!(g === "cnd" && o.cl < CL_GATE && v >= CL_GATE && !o.lit && o.n1 < 1)) o[key] = v; }
+  ppSyncControls();
+}
+
+function ppSyncControls() {
+  ["pwr", "prp", "cnd"].forEach(g => ["L", "R"].forEach(k => { const el = $(`#lv-${g}-${k}`); if (el && +el.value !== PP.E[k][LKEY[g]]) el.value = PP.E[k][LKEY[g]]; }));
+  ["pwr", "cnd"].forEach(g => { const b = $("#lift-" + g); if (b) b.setAttribute("aria-pressed", String(PP.lift[g])); });
+  const t = $("#together"); if (t) t.checked = PP.together;
+  $$("#ppSwitches button[data-ps]").forEach(b => {
+    const [f, k] = b.dataset.ps.split(":"); const e = PP.E[k];
+    const val = f === "start" ? e.start : e.autoIgn ? "ARM" : "OFF";
+    b.setAttribute("aria-pressed", String(val === b.dataset.val));
+  });
+  const env = PP.env;
+  $$("#envRow [data-env]").forEach(b => {
+    const f = b.dataset.env;
+    const on = f === "flight" ? env.flight : f === "ground" ? !env.flight : f === "ac" ? env.ac : env.gen[f.slice(-1)];
+    b.setAttribute("aria-pressed", String(on));
+  });
+  const o = $("#oat"); if (o && +o.value !== env.oat) o.value = env.oat;
+  const ov = $("#oatV"); if (ov) ov.textContent = env.oat + " °C";
+  $$("#ppFaults [data-pf]").forEach(b => { const [t, k] = b.dataset.pf.split(":"); b.setAttribute("aria-pressed", String(PP.fault[t][k])); });
+}
+
+const QSET = [
+  ["Start config", P => both(P, e => { e.pl = PL_IDLE; e.pr = 100; if (!e.lit) e.cl = 0; })],
+  ["Low idle", P => both(P, e => { if (e.lit || e.cl >= CL_GATE) e.cl = CL_GATE; e.pl = PL_IDLE; })],
+  ["High idle", P => both(P, e => { if (e.lit || e.cl >= CL_GATE) e.cl = 100; e.pl = PL_IDLE; })],
+  ["Taxi (ground fine)", P => { if (P.env.flight) return ppHint("Ground fine is not available in flight."); both(P, e => { e.pl = 19; }); }],
+  ["Takeoff power", P => both(P, e => { e.pl = 100; e.pr = 100; })],
+  ["Cruise 1,500 rpm", P => both(P, e => { e.pl = 80; e.pr = 12 + 50 / 250 * 88; })],
+  ["Full reverse", P => { if (P.env.flight) return ppHint("Reverse is not available in flight."); both(P, e => { e.pl = 1; }); }],
+  ["Feather", P => both(P, e => { e.pr = 2; })],
+  ["Fuel cutoff", P => both(P, e => { e.cl = 0; })]
+];
+
+function buildPedestal() {
+  $("#pedestal").innerHTML = LEVERS.map(L => {
+    const marks = L.marks.map(m => `<span class="${m[2] ? "gate" : ""}" style="top:${100 - m[0]}%">${m[1]}${m[2] ? " ▬" : ""}</span>`).join("");
+    const stripe = L.stripe ? `<div class="stripe" style="top:${100 - L.stripe[1]}%;height:${L.stripe[1] - L.stripe[0]}%"></div>` : "";
+    return `<div class="lgroup"><div class="gname">${L.name}</div><div class="lrow"><div class="placard" aria-hidden="true">${stripe}${marks}</div>${["L", "R"].map(k =>
+      `<div class="lever-col"><input type="range" class="lever ${L.cls}" id="lv-${L.g}-${k}" min="0" max="100" step="0.5" value="0" aria-label="${SIDE[k]} ${L.name.toLowerCase()} lever"><b>${k}</b></div>`).join("")}</div></div>`;
+  }).join("");
+  LEVERS.forEach(L => ["L", "R"].forEach(k => {
+    const el = $(`#lv-${L.g}-${k}`);
+    el.addEventListener("input", () => ppLeverInput(L.g, k, +el.value));
+    el.addEventListener("change", () => { if (L.g !== "prp" && PP.lift[L.g]) { PP.lift[L.g] = false; ppSyncControls(); } });
+  }));
+  $("#liftRow").innerHTML = `<button type="button" class="pbtn liftb" id="lift-pwr" aria-pressed="false">Lift power levers (gates)</button><button type="button" class="pbtn liftb" id="lift-cnd" aria-pressed="false">Lift condition levers (cutoff gate)</button><label class="envrow"><input type="checkbox" id="together" checked> Move L &amp; R together</label>`;
+  ["pwr", "cnd"].forEach(g => $("#lift-" + g).addEventListener("click", () => { PP.lift[g] = !PP.lift[g]; ppHint(PP.lift[g] ? "Lifted. Now drag the lever aft past the gate." : ""); ppSyncControls(); }));
+  $("#together").addEventListener("change", e => { PP.together = e.target.checked; });
+  $("#qset").innerHTML = QSET.map((q, i) => `<button type="button" class="pbtn" id="qs-${i}" data-q="${i}">${q[0]}</button>`).join("");
+  $("#qset").addEventListener("click", e => { const b = e.target.closest("[data-q]"); if (b) { ppScript = null; QSET[+b.dataset.q][1](PP); ppSyncControls(); } });
+  // start & auto-ignition switches
+  $("#ppSwitches").innerHTML = ["L", "R"].map(k => `<div class="sw-group"><div class="gname">${SIDE[k]}</div><div class="sws">
+    <div class="tog ring"><div class="name">Ign &amp; start</div><div class="pos">${[["ON", "ON"], ["OFF", "OFF"], ["STARTER", "STARTER ONLY", 1]].map(p => `<button type="button" id="ps-start-${k}-${p[0]}" data-ps="start:${k}" data-val="${p[0]}" class="${p[2] ? "mom" : ""}" aria-pressed="false">${p[1]}</button>`).join("")}</div></div>
+    <div class="tog"><div class="name">Auto ign</div><div class="pos">${[["ARM", "ARM"], ["OFF", "OFF"]].map(p => `<button type="button" id="ps-ai-${k}-${p[0]}" data-ps="ai:${k}" data-val="${p[0]}" aria-pressed="false">${p[1]}</button>`).join("")}</div></div></div></div>`).join("");
+  $("#ppSwitches").addEventListener("click", e => {
+    const b = e.target.closest("[data-ps]"); if (!b) return;
+    const [f, k] = b.dataset.ps.split(":"), e2 = PP.E[k];
+    if (f === "start") { e2.start = b.dataset.val; if (e2.start === "STARTER") e2.starterHold = 10; ppLog(`${SIDE[k]} IGNITION AND ENGINE START: ${b.textContent}.`); }
+    else { e2.autoIgn = b.dataset.val === "ARM"; ppLog(`${SIDE[k]} auto-ignition ${e2.autoIgn ? "armed: igniters fire whenever torque is below about 17%" : "off"}.`); }
+    ppSyncControls();
+  });
+  $("#envRow").innerHTML = `<div class="seg" role="group" aria-label="Phase"><button type="button" id="env-ground" data-env="ground">On ground</button><button type="button" id="env-flight" data-env="flight">In flight</button></div>
+    <label for="oat">OAT</label><input type="range" id="oat" min="-30" max="45" step="1"><span id="oatV" class="mono"></span>
+    <button type="button" class="pbtn envb" id="env-genL" data-env="genL">L generator load</button><button type="button" class="pbtn envb" id="env-genR" data-env="genR">R generator load</button><button type="button" class="pbtn envb" id="env-ac" data-env="ac">Air conditioner (R N1)</button>`;
+  $("#envRow").addEventListener("click", e => {
+    const b = e.target.closest("[data-env]"); if (!b) return; const f = b.dataset.env, env = PP.env;
+    if (f === "ground" || f === "flight") { env.flight = f === "flight"; if (env.flight) both(PP, x => { if (x.pl < PL_IDLE) x.pl = PL_IDLE; }); ppLog(env.flight ? "Now in flight: airflow windmills the props, so they govern even at idle power." : "Now on the ground."); }
+    else if (f === "ac") env.ac = !env.ac; else env.gen[f.slice(-1)] = !env.gen[f.slice(-1)];
+    ppSyncControls();
+  });
+  $("#oat").addEventListener("input", e => { PP.env.oat = +e.target.value; ppSyncControls(); });
+  const PF = [["chip", "Chip detect"], ["boost", "Eng boost pump"], ["hp", "HP fuel pump"], ["bleedOpen", "Bleed valve stuck open"], ["bleedClosed", "Bleed valve stuck closed"], ["csu", "Prop governor (CSU)"]];
+  $("#ppFaults").innerHTML = ["L", "R"].map(k => PF.map(f => `<button type="button" class="pbtn" id="pf-${f[0]}-${k}" data-pf="${f[0]}:${k}" aria-pressed="false">${k} ${f[1]}</button>`).join("")).join("") +
+    ["L", "R"].map(k => `<button type="button" class="pbtn" id="pfo-${k}" data-flame="${k}">${k} momentary flameout</button>`).join("") + `<button type="button" class="pbtn" id="ppRepair">Repair all</button>`;
+  $("#ppFaults").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.id === "ppRepair") { Object.keys(PP.fault).forEach(t => PP.fault[t] = { L: false, R: false }); ppLog("All engine faults repaired."); }
+    else if (b.dataset.flame) { const e2 = PP.E[b.dataset.flame]; if (e2.lit) { e2.lit = false; e2.startPhase = false; ppLog(`${SIDE[b.dataset.flame]} flameout (e.g. ice or water ingestion).${e2.autoIgn ? " Auto-ignition is armed: torque drops below 17%, the igniters fire, and it should relight." : " Auto-ignition is OFF, so it stays out. Arm auto-ign or use the start switch to relight."}`, "bad"); } }
+    else { const [t, k] = b.dataset.pf.split(":"); PP.fault[t][k] = !PP.fault[t][k]; ppLog(`${PP.fault[t][k] ? "Fault" : "Repaired"}: ${b.textContent}.`, PP.fault[t][k] ? "bad" : ""); }
+    ppSyncControls();
+  });
+}
+
+/* ---------- instruments ---------- */
+const IG = [
+  { id: "itt", name: "ITT", unit: "°C", min: 0, max: 1200, labels: [[0, "0"], [400, "4"], [800, "8"], [1200, "12"]], green: [400, 820], red: [820], white: 1000, val: e => e.itt, fmt: v => Math.round(v) + "°", lim: (v, e) => v > 1000 || (e.lit && !e.startPhase && v > 822) ? 2 : v > 750 && e.n1 < 72 && e.lit ? 1 : 0 },
+  { id: "tq", name: "Torque", unit: "%", min: 0, max: 120, labels: [[0, "0"], [40, "40"], [80, "80"], [120, "120"]], green: [0, 100], red: [100], val: e => e.tq, fmt: v => v.toFixed(0) + "%", lim: v => v > 101 ? 2 : 0 },
+  { id: "np", name: "Prop", unit: "rpm", min: 0, max: 2000, labels: [[0, "0"], [500, "5"], [1000, "10"], [1500, "15"], [2000, "20"]], green: [1450, 1700], red: [1700], val: e => e.np, fmt: v => Math.round(v) + "", lim: v => v > 1712 ? 2 : 0 },
+  { id: "n1", name: "Turbine N1", unit: "%", min: 0, max: 110, labels: [[0, "0"], [40, "40"], [80, "80"], [110, "110"]], green: [62, 104], red: [104], val: e => e.n1, fmt: v => v.toFixed(1) + "%", lim: v => v > 104.2 ? 2 : 0 },
+  { id: "ff", name: "Fuel flow", unit: "pph", min: 0, max: 800, labels: [[0, "0"], [200, "2"], [400, "4"], [600, "6"], [800, "8"]], val: e => e.ff, fmt: v => Math.round(v) + "", lim: () => 0 },
+  { id: "op", name: "Oil press", unit: "psi", min: 0, max: 200, labels: [[0, "0"], [100, "100"], [200, "200"]], yellow: [[60, 90]], green: [90, 135], red: [60, 200], val: e => e.oilP, fmt: v => Math.round(v) + "", lim: (v, e) => e.lit && v < 60 ? 2 : e.lit && v < 90 && e.n1 > 72 ? 1 : 0 },
+  { id: "ot", name: "Oil temp", unit: "°C", min: -40, max: 150, labels: [[0, "0"], [50, "50"], [100, "100"], [150, "150"]], green: [0, 99], yellow: [[99, 110]], red: [110], val: e => e.oilT, fmt: v => Math.round(v) + "°", lim: v => v > 110 ? 2 : v > 99 ? 1 : 0 }
+];
+function engGaugeSVG(g, id) {
+  const A = v => -135 + 270 * (Math.max(g.min, Math.min(g.max, v)) - g.min) / (g.max - g.min);
+  const P = (a, r) => [60 + r * Math.sin(a * Math.PI / 180), 60 - r * Math.cos(a * Math.PI / 180)];
+  const arc = (a1, a2, r, col, w) => { const p1 = P(a1, r), p2 = P(a2, r); return `<path d="M${p1[0].toFixed(1)},${p1[1].toFixed(1)} A${r},${r} 0 ${a2 - a1 > 180 ? 1 : 0} 1 ${p2[0].toFixed(1)},${p2[1].toFixed(1)}" fill="none" stroke="${col}" stroke-width="${w}"/>`; };
+  const radial = (v, col, w) => { const a = A(v), p1 = P(a, 52), p2 = P(a, 40); return `<line x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="${col}" stroke-width="${w}"/>`; };
+  let s = `<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#141618" stroke="#5b636b" stroke-width="2"/>`;
+  for (let i = 0; i <= 20; i++) { const a = -135 + 270 * i / 20, p1 = P(a, 52), p2 = P(a, i % 5 ? 48 : 45); s += `<line x1="${p1[0].toFixed(1)}" y1="${p1[1].toFixed(1)}" x2="${p2[0].toFixed(1)}" y2="${p2[1].toFixed(1)}" stroke="#cfd5da" stroke-width="1"/>`; }
+  if (g.green) s += arc(A(g.green[0]), A(g.green[1]), 49, "#3cbf5c", 4);
+  (g.yellow || []).forEach(y => s += arc(A(y[0]), A(y[1]), 49, "#f2c21c", 4));
+  (g.red || []).forEach(r => s += radial(r, "#e5483a", 3));
+  if (g.white) s += radial(g.white, "#ffffff", 3);
+  g.labels.forEach(([v, t]) => { const p = P(A(v), 33); s += `<text x="${p[0].toFixed(1)}" y="${(p[1] + 3).toFixed(1)}" font-size="9" text-anchor="middle">${t}</text>`; });
+  s += `<text x="60" y="86" font-size="8" text-anchor="middle" fill="#9aa3ab">${g.unit}</text><line id="${id}N" x1="60" y1="60" x2="60" y2="14" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" style="transform-origin:60px 60px;transition:transform .12s linear"/><circle cx="60" cy="60" r="5" fill="#cfd5da"/></svg>`;
+  return s;
+}
+function buildInstruments() {
+  $("#instPanel").innerHTML = IG.map(g => ["L", null, "R"].map(k => k ? `<div class="ig">${engGaugeSVG(g, `ig-${g.id}-${k}`)}<div class="iv" id="ig-${g.id}-${k}V"></div></div>` : `<div class="ilabel">${g.name}<small>${g.unit}</small></div>`).join("")).join("");
+  $("#modes").innerHTML = ["L", "R"].map(k => `<div class="mode"><div class="mh"><span>${SIDE[k]}</span><span class="mchip" id="mchip-${k}"></span></div>
+    <svg viewBox="0 0 200 54" aria-hidden="true"><line x1="10" y1="27" x2="190" y2="27" stroke="var(--placard-dim)" stroke-dasharray="3 3"/><text x="12" y="12" font-size="9" fill="var(--placard-dim)" font-family="var(--f-mono)">PLANE OF ROTATION</text>
+    <g id="blade-${k}" style="transform-origin:100px 27px;transition:transform .2s"><path d="M62,27 C70,19 120,20 140,25 C142,27 140,29 138,29 C118,33 72,34 62,27 Z" fill="#cfd5da" stroke="#0b0c0d"/></g><text x="196" y="50" font-size="9" text-anchor="end" fill="var(--placard-dim)" font-family="var(--f-mono)" id="bladeTxt-${k}"></text></svg>
+    <div class="mt" id="mtext-${k}"></div></div>`).join("");
+  $("#ppAnns").innerHTML = [["LOP", "L OIL PRES LO"], ["LFP", "L FUEL PRES LO"], ["RFP", "R FUEL PRES LO"], ["ROP", "R OIL PRES LO"], ["LCH", "L CHIP DETECT"], ["RVS", "RVS NOT READY"], ["", ""], ["RCH", "R CHIP DETECT"], ["LIG", "L IGNITION ON"], ["LPP", "L PROP PITCH"], ["RPP", "R PROP PITCH"], ["RIG", "R IGNITION ON"]]
+    .map(a => a[0] ? `<div class="ann" id="ppa-${a[0]}">${a[1]}</div>` : `<div class="ann" aria-hidden="true"></div>`).join("");
+}
+function ppRender() {
+  if (!$("#instPanel") || !PP) return;
+  ["L", "R"].forEach(k => {
+    const e = PP.E[k];
+    IG.forEach(g => {
+      const v = g.val(e), a = -135 + 270 * (Math.max(g.min, Math.min(g.max, v)) - g.min) / (g.max - g.min);
+      $(`#ig-${g.id}-${k}N`).style.transform = `rotate(${a}deg)`;
+      const t = $(`#ig-${g.id}-${k}V`), l = g.lim(v, e); t.textContent = g.fmt(v); t.className = "iv" + (l === 2 ? " over" : l === 1 ? " warn" : "");
+    });
+    const chip = $("#mchip-" + k), m = e.mode;
+    chip.textContent = m; chip.className = "mchip " + ({ ALPHA: "alpha", BETA: "beta", "GROUND FINE": "beta", REVERSE: "rev", FEATHERED: "feather", STARTING: "start", "CSU FAILED": "rev", WINDMILLING: "rev" }[m] || "");
+    $("#mtext-" + k).textContent = e.ctl + (e.lit ? ` Np set ${Math.round(npSetOf(e))} rpm.` : "");
+    const deg = e.blade * 90;
+    $("#blade-" + k).style.transform = `rotate(${-deg}deg)`;
+    $("#bladeTxt-" + k).textContent = e.blade > 0.9 ? "FEATHER" : e.blade < -0.05 ? "REVERSE PITCH" : e.blade < 0.1 ? "NEAR ZERO PITCH" : e.blade < 0.2 ? "FLIGHT IDLE PITCH" : "COARSER (GOVERNING)";
+  });
+  const E = PP.E, F = PP.fault, gr = !PP.env.flight;
+  const A = { LOP: ["red", E.L.oilP < 60], ROP: ["red", E.R.oilP < 60], LFP: ["red", F.boost.L || E.L.n1 < 5], RFP: ["red", F.boost.R || E.R.n1 < 5], LCH: ["amber", F.chip.L], RCH: ["amber", F.chip.R],
+    RVS: ["amber", gr && (E.L.pr < 98 || E.R.pr < 98) && (E.L.lit || E.R.lit)], LIG: ["green", E.L.ign], RIG: ["green", E.R.ign], LPP: ["white", E.L.lit && E.L.pl < PL_IDLE], RPP: ["white", E.R.lit && E.R.pl < PL_IDLE] };
+  Object.keys(A).forEach(k => { const el = $("#ppa-" + k); if (el) el.className = "ann" + (A[k][1] ? " " + A[k][0] : ""); });
+  ppRenderDiagram();
+  const n = $("#ppInfoNow"); if (n && ppSel) n.textContent = "Now: " + (PCOMP[ppSel].state ? PCOMP[ppSel].state(PP.E[ppSide]) : "");
+}
+
+/* ---------- diagrams ---------- */
+const PCOMP = {};
+function pc(id, group, name, desc, state) { PCOMP[id] = { group, name, desc, state }; }
+pc("prop", "Propeller", "Four-blade propeller", "Full-feathering, reversing, constant-speed propeller on the reduction gearbox output shaft. Feathering springs and counterweights drive the blades toward high pitch and feather. Governor oil on the servo piston, aided by centrifugal twisting moment, drives them toward low pitch and reverse. Lose the oil and it feathers. It feathers automatically at shutdown and unfeathers as the engine starts.", e => `${Math.round(e.np)} rpm · ${e.mode.toLowerCase()}`);
+pc("rgb", "Power section", "Reduction gearbox", "Two-stage planetary gearbox that turns the power turbine's high speed and low torque into propeller speed: 17.6:1 (29,920 rpm Nf → 1,700 rpm Np). The torquemeter sits in the first stage and the chip detector at the bottom of the nose case.", e => `Torque ${e.tq.toFixed(0)}%`);
+pc("pgov", "Propeller control", "Propeller governor (CSU + fuel topping governor)", "Driven by the reduction gearbox. Flyweights against a speeder spring set by the prop lever meter oil from a built-in booster pump, up to about 400 psi, to the servo piston through the transfer sleeve. Onspeed holds oil, underspeed adds oil (lower pitch), and overspeed drains it (higher pitch). It also contains the beta valve and the fuel topping (Nf) governor, which cuts FCU fuel through a Py bleed if Np runs above the selected speed, and is reset below the selected speed in beta and reverse.", e => e.ctl);
+pc("osgov", "Propeller control", "Hydraulic overspeed governor", "A separate, non-adjustable governor on its own drive pad, set above the CSU (typically around 104–106% Np). If the CSU and topping governor fail to hold Np, it dumps propeller oil to raise pitch. A ground TEST switch resets it below normal speed so its operation can be checked.", () => "Standby (no overspeed)");
+pc("exh", "Power section", "Exhaust duct & twin exhaust stubs", "Gas leaving the power turbines exits through an annular plenum and two opposed exhaust ports at the front of the engine. Residual jet thrust is about 10% of total power (158 lb at takeoff).", e => e.lit ? "Hot exhaust" : "Cold");
+pc("pt", "Power section", "Power turbine (2 stages)", "Drives the propeller shaft through the reduction gearbox. It has no mechanical link to the gas generator: a free turbine. It extracts the roughly 40% of gas energy left after the compressor turbine.", e => `Np ${Math.round(e.np)} rpm`);
+pc("ct", "Gas generator", "Compressor turbine (1 stage)", "Single-stage turbine that drives the compressor and accessory gearbox (N1). It extracts about 60% of the energy in the combustion gas and turns opposite to the power turbine.", e => `N1 ${e.n1.toFixed(1)}%`);
+pc("itt", "Gas generator", "ITT (T5) probes", "Thermocouples between the compressor turbine and first power turbine stage. ITT is the main temperature limit: 400–820 °C normal, 820 °C maximum continuous, 750 °C at idle, 1,000 °C for starting only (5 s). The gauge is self-powered.", e => `${Math.round(e.itt)} °C`);
+pc("comb", "Gas generator", "Annular combustion chamber", "Air turns 180° to enter the liner. About 25% burns with fuel, and 75% centers the flame and cools. Hot gas reverses again in the exit duct toward the turbines. The folded design does away with a long shaft.", e => e.lit ? "Burning" : "No combustion");
+pc("noz", "Gas generator", "14 simplex fuel nozzles", "Fed by a dual manifold through the flow divider. Primaries flow first. Secondaries join at about 35–40% N1, which gives cooler starts and a noticeable N1 surge.", e => e.lit || e.ff ? (e.n1 >= 37 ? "Primary + secondary" : "Primary only") : "No flow");
+pc("ign", "Gas generator", "Spark igniters (2)", "Two igniters in the liner, fed by a 28 V exciter producing up to 3,500 V. One is enough to start. Powered by the start switch at ON, or by auto-ignition when armed and torque is below about 17%.", e => e.ign ? "SPARKING" : "Off");
+pc("comp", "Gas generator", "Compressor: 3 axial + 1 centrifugal", "On one shaft with the compressor turbine. Stator vanes between stages diffuse the air. Diffuser tubes turn it 90° and convert velocity to pressure. Compression ratio is 9:1. P2.5 is interstage air, and P3 is discharge air used for bleed and for the FCU.", e => `N1 ${e.n1.toFixed(1)}% (37,500 rpm = 100%)`);
+pc("bleed", "Gas generator", "Compressor bleed valve", "Pneumatic piston valve that compares axial and centrifugal stage pressure. It is open at low N1 to dump surplus P2.5 and prevent stalls, and closed above about 90% N1. Stuck closed causes stalls on acceleration. Stuck open gives high ITT and low torque at power.", e => e.bleedOpen ? "OPEN" : "CLOSED");
+pc("inlet", "Gas generator", "Air inlet plenum, screen & jet flap", "Air enters at the rear through an annular plenum and screen. P2.5 air blowing from slots in the hollow inlet struts (the jet flap) pre-swirls the intake like a fixed inlet guide vane. A swing check valve relieves P2.5 the jet flaps can't use.", () => "");
+pc("agb", "Accessories", "Accessory gearbox", "At the rear, driven by N1 through a coupling shaft. Starter/generator, high-pressure fuel pump and FCU, N1 tach generator, and the oil pressure and scavenge pumps.", e => e.start !== "OFF" ? "Starter engaged" : "");
+pc("plever", "Cockpit", "Power lever", "Forward range: selects N1 through the FCU (alpha). Below flight idle in beta, ground fine and reverse it also sets blade angle through the cambox, Teleflex cable and beta valve. Gated at IDLE and at GROUND FINE.", e => `Position ${e.pl.toFixed(0)} · ${e.pl >= PL_IDLE ? "forward range" : e.pl >= PL_GF ? "ground fine" : "reverse"}`);
+pc("prlever", "Cockpit", "Propeller lever", "Sets CSU speeder spring tension from 1,450 to 1,700 rpm. Fully aft through the friction detent, it opens the feathering valve.", e => e.pr < PR_FTH ? "FEATHER" : `${Math.round(npSetOf(e))} rpm selected`);
+pc("clever", "Cockpit", "Condition lever", "FUEL CUTOFF closes fuel via the FCU pump unloading/cutoff function. LOW IDLE (62%) to HI IDLE (70%) sets the minimum N1 the power lever works above.", e => e.cl < CL_GATE ? "FUEL CUTOFF" : `Idle floor ${idleOf(e).toFixed(0)}% N1`);
+pc("cambox", "Engine controls", "Cambox", "On the engine, linked to the power lever. A slotted cam sends the power lever's motion to the FCU, and through a Teleflex cable to the beta valve's walking beam. In the alpha range the slot is a constant radius, so the beta valve isn't moved.", () => "");
+pc("fcu", "Engine fuel", "Fuel control unit (N1 governor)", "Meters fuel to hold the N1 selected by the power or condition lever. A 3D cam and fuel valve are positioned by flyweights (speed feedback) and a P3 bellows (acceleration and deceleration limits). The minimum flow adjustment is about 90 pph. The fuel topping governor can reduce its fuel through Py bleed.", e => e.lit ? `Holding ${e.n1.toFixed(1)}% N1 · ${Math.round(e.ff)} pph` : "Not metering");
+pc("beta", "Propeller control", "Beta valve", "In the prop governor, moved by the power lever (cambox → Teleflex → walking beam). A carbon block on the beta ring feeds blade position back. It controls blade angle below the governing range, in beta, ground fine and reverse.", e => ["BETA", "GROUND FINE", "REVERSE"].includes(e.mode) ? "CONTROLLING blade angle" : "Held open (alpha)");
+pc("topping", "Propeller control", "Fuel topping (Nf) governor", "Part of the prop governor. In alpha it is set above the selected Np (about 6–10% on typical PT6 installations) and bleeds FCU Py air to cut fuel in a propeller overspeed. In beta and reverse it is reset about 5% below the selected speed, and is then the only governor limiting Np.", e => e.topping ? "LIMITING Np" : "Standby");
+pc("feath", "Propeller control", "Feathering valve", "Opened by pulling the prop lever fully aft into FEATHER. It dumps governor oil to the reduction gearbox. Springs and counterweights then drive the blades to the feather stop.", e => e.pr < PR_FTH ? "OPEN (dumping)" : "Closed");
+pc("govpump", "Propeller control", "Governor oil boost pump", "Gear pump in the base of the prop governor, driven by the reduction gearbox. It raises engine oil pressure to the level needed to move the blades, from 0 psi at feather to about 400 psi at full reverse.", e => e.lit ? "Pressurizing" : "No pressure");
+pc("servo", "Propeller control", "Servo piston & blades", "Oil in the piston chamber moves the piston aft toward low pitch and reverse. Springs and counterweights push it forward toward feather. An external stop sets the feather angle so a feathered prop doesn't windmill.", e => e.mode);
+pc("boost", "Engine fuel", "Engine-driven boost pump", "Turns with N1 and gives about 30 psi head pressure to keep the HP pump from cavitating. FUEL PRES LO lights below 10 psi.", (e) => PP.fault.boost[ppSide] ? "FAILED (standby pump needed)" : e.n1 > 5 ? "Pumping" : "Stopped");
+pc("filt", "Engine fuel", "Firewall fuel filter & pressure switch", "Filters boost-pump fuel and senses its pressure for FUEL PRES LO.", () => "");
+pc("hx", "Engine fuel", "Oil-to-fuel heat exchanger", "Uses hot engine oil to warm the fuel at the pump inlet so ice can't form on the pump filter. Automatic. 55 °C oil is recommended at takeoff power.", e => `Oil ${Math.round(e.oilT)} °C`);
+pc("hpp", "Engine fuel", "High-pressure fuel pump", "Engine-driven gear pump with inlet and outlet filters, up to 1,050 psi. A purge line returns a little fuel to the gravity-feed line to keep vapor out of the FCU. If it fails, the minimum pressurizing valve closes and the engine flames out.", () => PP.fault.hp[ppSide] ? "FAILED" : "");
+pc("unload", "Engine fuel", "Pump unloading valve (cutoff)", "In the FCU, worked by the condition lever: fully open in FUEL CUTOFF (pump output unloaded, no fuel to the engine) or fully closed, with nothing in between.", e => e.cl < CL_GATE ? "OPEN: fuel cut off" : "Closed: fuel to engine");
+pc("mpv", "Engine fuel", "Minimum pressurizing valve", "Blocks flow during starts until about 100 psi, so only a well-atomized spray reaches the nozzles. Works with the flow divider.", e => e.ff > 0 ? "Open" : "Closed");
+pc("ffx", "Engine fuel", "Fuel flow transmitter", "Between the FCU and the flow divider. It drives the DC-powered fuel flow gauge in pph × 100.", e => `${Math.round(e.ff)} pph`);
+pc("fdiv", "Engine fuel", "Flow divider & dump valve", "Sends fuel to the primary manifold, and to the secondary manifold too above about 35–40% N1. At shutdown the P3 purge air passes through it.", e => e.ff > 0 ? (e.n1 >= 37 ? "Primary + secondary" : "Primary") : "");
+pc("purge", "Engine fuel", "P3 purge tank", "Charged with P3 air through a check valve while running. At shutdown, as fuel pressure drops, the air blows residual fuel out of the manifold and nozzles into the combustor to burn, giving a 1–2 s delay before spool-down.", e => e.purgeT > 0 ? "PURGING" : e.lit ? "Charged" : "");
+pc("otank", "Lubrication", "Oil tank (2.5 US gal)", "Integral with the compressor inlet case, ahead of the accessory gearbox. It holds the pressure pump, regulator and filter. Total system 4 US gal. The dipstick reads quarts below full.", () => "");
+pc("opump", "Lubrication", "Pressure pump, regulator & filter", "Gear-type pump driven from the accessory section, with a pressure regulating valve, filter and bypass valve. 90–135 psi normal above 72% N1. 60 psi minimum.", e => `${Math.round(e.oilP)} psi`);
+pc("osens", "Lubrication", "Oil pressure & temperature bulbs", "On or near the rear accessory case, feeding the cockpit oil gauge and OIL PRES LO.", e => `${Math.round(e.oilP)} psi · ${Math.round(e.oilT)} °C`);
+pc("brg", "Lubrication", "Bearing compartments", "Pressure oil cools and lubricates the gas generator and power turbine bearings.", () => "");
+pc("nose", "Lubrication", "Nose case & reduction gear", "Fed through an external transfer line below the engine. It supplies the torquemeter and the propeller governor.", () => "");
+pc("tqm", "Lubrication", "Torquemeter", "Torque on the first-stage ring gear compresses oil in the torquemeter chamber. The pressure difference against reduction-gear internal pressure is read as torque.", e => `${e.tq.toFixed(0)}%`);
+pc("propoil", "Lubrication", "Propeller supply oil", "Engine oil boosted by the governor pump goes through the transfer sleeve into the hollow prop shaft and on to the servo piston.", e => e.mode);
+pc("chip", "Lubrication", "Magnetic chip detector", "In the bottom of the nose gearbox. Metal particles close the circuit and light CHIP DETECT.", () => PP.fault.chip[ppSide] ? "METAL DETECTED" : "Clean");
+pc("scav", "Lubrication", "Scavenge pumps", "Gear pumps in and on the accessory case return oil from the nose case and bearing compartments.", () => "");
+pc("cool", "Lubrication", "Oil cooler (thermostatic)", "External cooler below the engine, thermostatically controlled to hold oil temperature.", e => `${Math.round(e.oilT)} °C`);
+pc("ohx", "Lubrication", "Oil-to-fuel heater", "Hot scavenge oil heats engine fuel ahead of the HP pump.", () => "");
+
+function ppSvg() {
+  const T = (x, y, s, cls, anchor) => `<text x="${x}" y="${y}" class="${cls || "lbl"}" text-anchor="${anchor || "middle"}">${s}</text>`;
+  const comp = (id, inner, hit) => `<g class="comp" data-pcomp="${id}" tabindex="0" role="button" aria-label="${esc(PCOMP[id].name)}"><rect class="hit" x="${hit[0]}" y="${hit[1]}" width="${hit[2]}" height="${hit[3]}" rx="4"/>${inner}</g>`;
+  const box = (id, x, y, w, h, t, sub) => comp(id, `<rect class="blk" data-blk="${id}" x="${x}" y="${y}" width="${w}" height="${h}" rx="5"/>${T(x + w / 2, y + (sub ? h / 2 - 2 : h / 2 + 4), t, "blk-t")}${sub ? T(x + w / 2, y + h / 2 + 12, sub, "blk-s") : ""}`, [x - 3, y - 3, w + 6, h + 6]);
+  const ln = (key, pts, c, dash) => `<polyline class="ln c-${c}" data-ln="${key}" points="${pts.map(p => p.join(",")).join(" ")}"${dash ? ' stroke-dasharray="4 4"' : ""}/>`;
+
+  // ----- gas path -----
+  let g = "";
+  g += `<rect class="casing" x="100" y="150" width="115" height="130" rx="14"/><rect class="casing" x="215" y="122" width="115" height="186"/><rect class="casing" x="245" y="70" width="40" height="52"/><rect class="casing" x="245" y="308" width="40" height="52"/>
+    <rect class="casing" x="330" y="125" width="110" height="180"/><rect class="casing" x="440" y="100" width="140" height="230" rx="6"/><rect class="casing" x="580" y="135" width="210" height="160"/><rect class="casing" x="790" y="105" width="60" height="220"/><rect class="casing" x="850" y="150" width="115" height="130" rx="8"/>`;
+  g += `<line class="shaft-np" x1="80" y1="215" x2="360" y2="215"/><line class="shaft-n1" x1="402" y1="215" x2="860" y2="215"/>`;
+  g += `<rect class="sym" x="458" y="128" width="104" height="32" rx="12"/><rect class="sym" x="458" y="270" width="104" height="32" rx="12"/>`;
+  // flows
+  g += `<polyline class="gas cold" data-gas="cold" points="820,78 820,182 662,182 636,152 612,120 580,113 452,113 444,128 456,144"/>`;
+  g += `<polyline class="gas hot" data-gas="hot" points="462,144 548,144 566,160 548,180 420,182 330,182 290,172 265,140 265,62"/>`;
+  g += comp("inlet", `<line x1="800" y1="110" x2="800" y2="320" stroke="var(--sym)" stroke-dasharray="3 3"/><line x1="812" y1="110" x2="812" y2="320" stroke="var(--sym)" stroke-dasharray="3 3"/>${T(820, 345, "AIR INLET (REAR)", "lbl")}`, [790, 100, 62, 255]);
+  g += comp("comp", [700, 730, 760].map(x => `<rect class="disc cmp" x="${x - 5}" y="163" width="10" height="104" rx="2"/>`).join("") + `<path class="disc cmp" d="M620,155 L660,170 L660,260 L620,275 Z"/>${T(700, 310, "COMPRESSOR · 3 AXIAL + CENTRIFUGAL", "lbl")}`, [612, 150, 158, 168]);
+  g += comp("bleed", `<rect class="bleedv" data-bleed="1" x="676" y="124" width="26" height="12" rx="2"/>${T(689, 118, "BLEED VALVE", "lbl")}`, [660, 106, 58, 32]);
+  g += comp("comb", `${T(510, 92, "COMBUSTION CHAMBER", "lbl")}`, [450, 78, 120, 90]);
+  g += comp("noz", `<path class="sym-solid" d="M548,136 L558,144 L548,152 Z"/>${T(540, 172, "", "lbl")}`, [542, 132, 20, 24]);
+  g += comp("ign", `<circle class="spark" data-spark="1" cx="500" cy="129" r="6"/><circle class="sym" cx="500" cy="122" r="3"/>${T(498, 196, "", "lbl")}`, [490, 112, 22, 24]);
+  g += comp("ct", `<rect class="disc trb" x="405" y="152" width="12" height="126" rx="2"/>${T(411, 296, "CT", "lbl-b")}`, [398, 148, 26, 160]);
+  g += comp("pt", `<rect class="disc trb" x="342" y="150" width="12" height="130" rx="2"/><rect class="disc trb" x="366" y="150" width="12" height="130" rx="2"/>${T(360, 296, "PT", "lbl-b")}`, [336, 146, 48, 162]);
+  g += comp("itt", `<line x1="392" y1="125" x2="392" y2="178" stroke="var(--fault)" stroke-width="2.5"/><circle cx="392" cy="178" r="3" fill="var(--fault)"/>${T(392, 116, "ITT (T5)", "stn")}`, [374, 104, 36, 80]);
+  g += comp("exh", `${T(265, 54, "EXHAUST", "lbl")}`, [240, 40, 50, 84]);
+  g += comp("rgb", `${T(157, 245, "REDUCTION", "lbl")}${T(157, 258, "GEARBOX 17.6:1", "lbl")}<circle class="sym" cx="140" cy="200" r="12"/><circle class="sym" cx="175" cy="200" r="12"/>`, [100, 150, 115, 130]);
+  g += comp("pgov", `<rect class="blk" x="118" y="112" width="80" height="34" rx="4"/>${T(158, 127, "PROP GOV", "blk-t")}${T(158, 140, "CSU · β · Nf", "blk-s")}`, [114, 108, 88, 42]);
+  g += comp("osgov", `<rect class="blk" x="118" y="284" width="80" height="30" rx="4"/>${T(158, 303, "O/S GOV", "blk-t")}`, [114, 280, 88, 38]);
+  g += comp("agb", `${["STARTER/GEN", "HP PUMP · FCU", "N1 TACH GEN", "OIL PUMPS"].map((t, i) => T(907, 176 + i * 28, t, "lbl")).join("")}`, [850, 150, 115, 130]);
+  g += comp("prop", `<circle class="sym" cx="70" cy="215" r="22"/><ellipse id="gasBladeT" cx="70" cy="140" rx="10" ry="58" fill="var(--sym-fill)" stroke="var(--sym)" stroke-width="1.6"/><ellipse id="gasBladeB" cx="70" cy="290" rx="10" ry="58" fill="var(--sym-fill)" stroke="var(--sym)" stroke-width="1.6"/>`, [20, 76, 100, 280]);
+  g += `<text class="stn" x="686" y="160" text-anchor="middle">P2.5</text><text class="stn" x="600" y="104" text-anchor="middle">P3</text>`;
+  g += `<text class="n1t" id="gasN1" x="700" y="390" text-anchor="middle"></text><text class="n1t" id="gasNp" x="200" y="390" text-anchor="middle"></text><text class="n1t" id="gasITT" x="410" y="390" text-anchor="middle"></text>`;
+  g += T(500, 420, "FRONT ◄  gas flows forward through the engine  ◄  REAR", "lbl");
+  $("#pp-gas").innerHTML = g;
+
+  // ----- control system -----
+  let c = "";
+  c += ln("pl-cam", [[165, 84], [165, 130]], "pwr") + ln("cam-fcu", [[135, 174], [135, 240]], "pwr") + ln("cam-beta", [[200, 174], [200, 205], [405, 205], [405, 240]], "pwr");
+  c += ln("fcu-n1", [[165, 300], [165, 352]], "fuel") + ln("cl-fcu", [[865, 40], [865, 16], [30, 16], [30, 270], [60, 270]], "cnd") + ln("cl-cut", [[880, 84], [880, 140]], "cnd");
+  c += ln("prl-csu", [[500, 84], [500, 140]], "prp") + ln("prl-fth", [[575, 62], [712, 62], [712, 322], [720, 322]], "prp");
+  c += ln("pump-beta", [[405, 330], [405, 290]], "oil") + ln("beta-csu", [[480, 255], [505, 255], [505, 165], [520, 165]], "oil") + ln("csu-servo", [[690, 175], [700, 175], [700, 385], [690, 385]], "oil");
+  c += ln("fth-dump", [[850, 344], [850, 398], [690, 398]], "prp") + ln("top-fcu", [[560, 269], [560, 312], [240, 312], [240, 300]], "air") + ln("servo-beta", [[520, 398], [510, 398], [510, 298], [445, 298], [445, 290]], "oil", true) + ln("cut-noz", [[950, 162], [975, 162], [975, 418], [165, 418], [165, 400]], "fuel");
+  c += box("plever", 90, 40, 150, 44, "POWER LEVER") + box("prlever", 425, 40, 150, 44, "PROPELLER LEVER") + box("clever", 780, 40, 170, 44, "CONDITION LEVER");
+  c += box("cambox", 90, 130, 150, 44, "CAMBOX") + box("fcu", 60, 240, 210, 60, "FCU · N1 GOVERNOR", "3D cam · flyweights · P3 bellows");
+  c += box("unload", 780, 140, 170, 44, "CUTOFF / UNLOADING") + box("beta", 330, 240, 150, 50, "BETA VALVE", "Teleflex · walking beam");
+  c += box("pgov", 520, 140, 170, 50, "PROP GOVERNOR (CSU)", "flyweights · speeder spring") + box("topping", 520, 225, 170, 44, "FUEL TOPPING (Nf) GOV");
+  c += box("feath", 720, 300, 200, 44, "FEATHERING VALVE") + box("osgov", 720, 230, 200, 44, "OVERSPEED GOVERNOR");
+  c += box("govpump", 330, 330, 150, 50, "GOV OIL BOOST PUMP", "engine oil in") + box("servo", 520, 360, 170, 50, "SERVO PISTON & BLADES", "springs + counterweights") + box("noz", 60, 352, 210, 48, "GAS GENERATOR · NOZZLES");
+  c += `<text class="n1t" id="ctlStatus" x="500" y="436" text-anchor="middle"></text>`;
+  $("#pp-ctl").innerHTML = c;
+
+  // ----- engine fuel -----
+  let f = "";
+  f += `<rect x="400" y="62" width="420" height="190" rx="8" fill="none" stroke="var(--muted)" stroke-dasharray="6 5"/>` + T(610, 56, "FUEL CONTROL UNIT", "lbl-b");
+  f += ln("f-boost", [[105, 330], [105, 290]], "fuel") + ln("f-filt", [[105, 240], [105, 190]], "fuel") + ln("f-hx", [[170, 165], [220, 165]], "fuel") + ln("f-hpp", [[350, 170], [430, 170]], "fuel");
+  f += ln("f-fv", [[580, 170], [630, 170]], "fuel") + ln("f-unl", [[780, 167], [850, 167]], "fuel") + ln("f-byp", [[705, 194], [705, 232], [300, 232], [300, 190]], "fuel");
+  f += ln("f-mpv", [[915, 190], [915, 240]], "fuel") + ln("f-ffx", [[915, 284], [915, 330]], "fuel") + ln("f-pri", [[850, 345], [810, 345]], "fuel") + ln("f-sec", [[850, 370], [810, 370]], "fuel");
+  f += ln("f-purgeline", [[285, 140], [285, 28], [70, 28]], "fuel") + ln("f-p3", [[500, 290], [500, 330]], "air") + ln("f-purge", [[580, 370], [600, 405], [915, 405], [915, 380]], "air");
+  f += box("boost", 40, 330, 130, 50, "BOOST PUMP", "engine-driven") + box("filt", 40, 240, 130, 50, "FIREWALL FILTER", "pressure switch") + box("hx", 40, 140, 130, 50, "OIL-TO-FUEL HX");
+  f += box("hpp", 220, 140, 130, 50, "HP FUEL PUMP", "≤ 1,050 psi") + box("fcu", 430, 140, 150, 60, "FUEL VALVE · 3D CAM", "N1 governor · P3 bellows") + box("unload", 630, 145, 150, 44, "PUMP UNLOADING", "condition lever");
+  f += box("mpv", 850, 140, 130, 50, "MIN PRESS VALVE", "opens ≈100 psi") + box("ffx", 850, 240, 130, 44, "FLOW TRANSMITTER") + box("fdiv", 850, 330, 130, 50, "FLOW DIVIDER");
+  f += box("noz", 620, 330, 190, 60, "14 NOZZLES", "primary · secondary") + box("purge", 420, 330, 160, 50, "P3 PURGE TANK");
+  f += T(70, 20, "TO GRAVITY-FEED LINE (purge)", "lbl", "start") + T(505, 286, "P3 AIR", "stn") + T(640, 245, "bypass (fuel cut off)", "lbl") + `<text class="n1t" id="fuelStatus" x="200" y="420" text-anchor="middle"></text>`;
+  $("#pp-fuel").innerHTML = f;
+
+  // ----- lubrication -----
+  let o = "";
+  o += ln("o-feed", [[800, 205], [760, 205]], "oil") + ln("o-sens", [[690, 180], [690, 130]], "oil") + ln("o-brg", [[620, 205], [540, 205]], "oil") + ln("o-nose", [[380, 205], [320, 205]], "oil");
+  o += ln("o-tqm", [[235, 180], [235, 130]], "oil") + ln("o-prop", [[150, 200], [118, 200], [118, 42], [130, 42]], "hot") + ln("o-chip", [[235, 230], [235, 250]], "scav");
+  o += ln("o-scav1", [[460, 230], [460, 320]], "scav") + ln("o-scav2", [[235, 290], [235, 345], [380, 345]], "scav") + ln("o-cool", [[540, 345], [620, 345]], "scav") + ln("o-hx", [[760, 345], [800, 345]], "scav") + ln("o-ret", [[875, 320], [875, 240]], "scav");
+  o += box("otank", 800, 170, 150, 70, "OIL TANK 2.5 gal", "in compressor inlet case") + box("opump", 620, 180, 140, 50, "PRESSURE PUMP", "regulator · filter") + box("osens", 620, 90, 140, 40, "PRESS / TEMP BULBS");
+  o += box("brg", 380, 180, 160, 50, "BEARINGS", "gas generator · turbines") + box("nose", 150, 180, 170, 50, "NOSE CASE", "reduction gear") + box("tqm", 150, 90, 170, 40, "TORQUEMETER");
+  o += box("propoil", 130, 20, 210, 44, "PROP GOVERNOR → PROP", "boosted supply oil") + box("chip", 150, 250, 170, 40, "CHIP DETECTOR");
+  o += box("scav", 380, 320, 160, 50, "SCAVENGE PUMPS") + box("cool", 620, 320, 140, 50, "OIL COOLER", "thermostatic") + box("ohx", 800, 320, 150, 50, "OIL-TO-FUEL HEATER");
+  o += `<text class="n1t" id="lubeStatus" x="500" y="420" text-anchor="middle"></text>`;
+  $("#pp-lube").innerHTML = o;
+}
+
+const PP_LEGEND = {
+  gas: [["#3a8be0", "Compressor air (cold)"], ["#ee5a24", "Combustion gas (hot)"], ["#3a8be0", "N1 shaft"], ["#d24a35", "Power turbine / prop shaft"]],
+  ctl: [["#2fb062", "Power lever path"], ["#d14bd1", "Propeller lever path"], ["#3a6fd8", "Condition lever path"], ["#c08a1e", "Governor oil"], ["#e8607a", "Py air (topping)"], ["#2a8ad8", "Fuel"]],
+  fuel: [["#2a8ad8", "Fuel"], ["#e8607a", "P3 air (purge)"]],
+  lube: [["#c08a1e", "Pressure oil"], ["#ee7d1f", "Propeller supply oil"], ["#23904e", "Scavenge oil"]]
+};
+function ppRenderDiagram() {
+  const e = PP.E[ppSide], F = PP.fault, k = ppSide;
+  const set = (svg, map) => $$(`#${svg} [data-ln]`).forEach(l => l.classList.toggle("on", !!map[l.dataset.ln]));
+  const blk = (svg, ids) => $$(`#${svg} [data-blk]`).forEach(b => b.classList.toggle("on", ids.includes(b.dataset.blk)));
+  if (ppTab === "gas") {
+    const run = e.n1 > 1;
+    $$("#pp-gas [data-gas]").forEach(p => { const on = p.dataset.gas === "cold" ? run : e.lit; p.classList.toggle("on", on); p.style.animationDuration = Math.max(0.35, 2.4 - e.n1 / 50) + "s"; });
+    $('#pp-gas [data-bleed]').classList.toggle("open", !!e.bleedOpen && run);
+    $('#pp-gas [data-spark]').classList.toggle("on", !!e.ign);
+    const rx = Math.max(3, Math.abs(Math.cos(e.blade * Math.PI / 2)) * 16);
+    $("#gasBladeT").setAttribute("rx", rx.toFixed(1)); $("#gasBladeB").setAttribute("rx", rx.toFixed(1));
+    $("#gasN1").textContent = `N1 ${e.n1.toFixed(1)}% · bleed ${e.bleedOpen ? "open" : "closed"}`;
+    $("#gasNp").textContent = `Np ${Math.round(e.np)} rpm · ${e.mode}`;
+    $("#gasITT").textContent = `ITT ${Math.round(e.itt)} °C`;
+  } else if (ppTab === "ctl") {
+    const beta = ["BETA", "GROUND FINE", "REVERSE"].includes(e.mode), alpha = e.mode === "ALPHA";
+    set("pp-ctl", { "pl-cam": e.lit, "cam-fcu": e.lit, "cam-beta": e.lit && beta, "fcu-n1": e.lit || e.ff > 0, "cl-fcu": e.lit, "cl-cut": e.cl < CL_GATE,
+      "prl-csu": e.lit && (alpha || e.mode === "CSU FAILED"), "prl-fth": e.pr < PR_FTH, "pump-beta": e.lit && e.mode !== "FEATHERED", "beta-csu": e.lit && e.mode !== "FEATHERED", "csu-servo": e.lit && e.mode !== "FEATHERED",
+      "fth-dump": e.pr < PR_FTH && e.lit, "top-fcu": e.topping, "servo-beta": e.lit && beta, "cut-noz": e.lit });
+    const on = [];
+    if (e.lit) on.push("fcu"); if (alpha) on.push("pgov"); if (beta) on.push("beta"); if (e.topping) on.push("topping"); if (e.pr < PR_FTH) on.push("feath"); if (e.cl < CL_GATE) on.push("unload");
+    blk("pp-ctl", on);
+    $("#ctlStatus").textContent = `${SIDE[k].toUpperCase()} ENGINE · ${e.mode} · ${alpha ? "CSU governs Np" : beta ? "beta valve sets blade angle" : e.mode === "FEATHERED" ? "feathering valve / no oil" : e.topping ? "topping governor limiting" : "—"}`;
+  } else if (ppTab === "fuel") {
+    const turning = e.n1 > 5, fuelTo = e.ff > 0;
+    set("pp-fuel", { "f-boost": turning && !F.boost[k], "f-filt": turning, "f-hx": turning, "f-hpp": turning && !F.hp[k], "f-fv": turning && !F.hp[k], "f-unl": fuelTo, "f-byp": turning && e.cl < CL_GATE,
+      "f-mpv": fuelTo, "f-ffx": fuelTo, "f-pri": fuelTo, "f-sec": fuelTo && e.n1 >= 37, "f-purgeline": turning && !F.hp[k], "f-p3": e.lit, "f-purge": e.purgeT > 0 });
+    blk("pp-fuel", [F.boost[k] ? "boost" : "", F.hp[k] ? "hpp" : "", e.purgeT > 0 ? "purge" : "", e.cl < CL_GATE ? "unload" : ""]);
+    $("#fuelStatus").textContent = `${SIDE[k]} · FF ${Math.round(e.ff)} pph · ${e.cl < CL_GATE ? "FUEL CUTOFF" : "fuel ON"}${e.purgeT > 0 ? " · PURGING" : ""}`;
+  } else {
+    const run = e.n1 > 3;
+    set("pp-lube", { "o-feed": run, "o-sens": run, "o-brg": run, "o-nose": run, "o-tqm": run, "o-prop": e.lit && e.mode !== "FEATHERED", "o-chip": run, "o-scav1": run, "o-scav2": run, "o-cool": run, "o-hx": run, "o-ret": run });
+    blk("pp-lube", F.chip[k] ? ["chip"] : []);
+    $("#lubeStatus").textContent = `${SIDE[k]} · oil ${Math.round(e.oilP)} psi · ${Math.round(e.oilT)} °C${F.chip[k] ? " · CHIP DETECT" : ""}`;
+  }
+}
+
+function ppSelect(id) {
+  ppSel = id;
+  $$("#ppSvgs .comp").forEach(g => g.classList.toggle("sel", g.dataset.pcomp === id));
+  const c = PCOMP[id];
+  $("#ppInfo").innerHTML = `<div class="eyebrow">${esc(c.group)}</div><h4>${esc(c.name)}</h4><div class="now" id="ppInfoNow">Now: ${esc(c.state ? c.state(PP.E[ppSide]) : "")}</div><p>${esc(c.desc)}</p>`;
+}
+function ppShowTab(t) {
+  ppTab = t;
+  ["gas", "ctl", "fuel", "lube"].forEach(x => { $("#pp-" + x).toggleAttribute("hidden", x !== t); $("#ppt-" + x).setAttribute("aria-pressed", String(x === t)); });
+  $("#ppLegend").innerHTML = PP_LEGEND[t].map(l => `<span><i style="background:${l[0]}"></i>${l[1]}</span>`).join("");
+  ppRenderDiagram();
+}
+
+function initPowerplant() {
+  PP = ppFresh(); ppSide = "L"; ppTab = "gas"; ppSel = null;
+  $("#ppSubnav").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  buildPedestal(); buildInstruments(); ppSvg();
+  $("#ppScenSel").innerHTML = PP_SCEN.map((s, i) => `<option value="${i}">${i + 1}. ${esc(s.t)}</option>`).join("");
+  $("#ppScenSel").addEventListener("change", e => ppApply(+e.target.value));
+  $("#ppPrev").addEventListener("click", () => ppApply(ppScen - 1));
+  $("#ppNext").addEventListener("click", () => ppApply(ppScen + 1));
+  $("#ppTabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (b) ppShowTab(b.dataset.tab); });
+  $$("[data-eng]").forEach(b => b.addEventListener("click", () => { ppSide = b.dataset.eng; $$("[data-eng]").forEach(x => x.setAttribute("aria-pressed", String(x === b))); ppRender(); }));
+  const sv = $("#ppSvgs");
+  sv.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) ppSelect(g.dataset.pcomp); });
+  sv.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); ppSelect(e.target.closest(".comp").dataset.pcomp); } });
+  ppShowTab("gas");
+  ppApply(1);
+  $("#ppInfo").innerHTML = `<h3>Component details</h3><p>Select any part of a diagram (turbines, governors, valves, pumps) to see what it does and its live state for the engine shown.</p>`;
+  ppTimer = setInterval(() => ppStep(0.1), 100);
 }
 
 /* ================= boot ================= */
