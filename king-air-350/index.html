@@ -691,16 +691,19 @@ const CHAPTERS = [
   { n: 14, id: "landing-gear",      t: "Landing Gear and Brakes" },
   { n: 15, id: "flight-controls",   t: "Flight Controls" },
   { n: 16, id: "avionics",          t: "Avionics" },
-  { n: 17, id: "miscellaneous",     t: "Miscellaneous Systems" }
+  { n: 17, id: "miscellaneous",     t: "Miscellaneous Systems" },
+  { tag: "APP", id: "appendix",      t: "Appendix", kind: "Appendix" },
+  { tag: "IPP", id: "panel-poster",  t: "Instrument Panel Poster", kind: "Reference" }
 ];
 
+const num = c => c.n ? String(c.n).padStart(2, "0") : c.tag;
 const $ = (s, r) => (r || document).querySelector(s);
 const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 
 function buildToc() {
   $("#toc").innerHTML = CHAPTERS.map(c =>
-    `<li><a href="#${c.id}" data-ch="${c.id}"><span class="n">${String(c.n).padStart(2, "0")}</span><span>${esc(c.t)}</span><span class="st${c.ready ? " ready" : ""}"></span></a></li>`
+    `<li><a href="#${c.id}" data-ch="${c.id}"><span class="n">${num(c)}</span><span>${esc(c.t)}</span><span class="st${c.ready ? " ready" : ""}"></span></a></li>`
   ).join("");
 }
 
@@ -716,18 +719,18 @@ function renderHome() {
     <section class="block">
       <h2>Contents</h2>
       <div class="ch-grid">
-        ${CHAPTERS.map(c => `<a class="ch-card${c.ready ? " ready" : ""}" href="#${c.id}"><span class="n">${String(c.n).padStart(2, "0")}</span><span class="t">${esc(c.t)}</span><span class="s">${c.ready ? "Ready · interactive schematic" : "Section set up · content pending"}</span></a>`).join("")}
+        ${CHAPTERS.map(c => `<a class="ch-card${c.ready ? " ready" : ""}" href="#${c.id}"><span class="n">${num(c)}</span><span class="t">${esc(c.t)}</span><span class="s">${c.ready ? "Ready · interactive schematic" : "Section set up · content pending"}</span></a>`).join("")}
       </div>
     </section>
   </div>`;
 }
 
 function renderPlaceholder(c) {
-  const prev = CHAPTERS[c.n - 2], next = CHAPTERS[c.n];
+  const i = CHAPTERS.indexOf(c), prev = CHAPTERS[i - 1], next = CHAPTERS[i + 1];
   $("#main").innerHTML = `
   <div class="view">
     <header class="chapter-head">
-      <div class="eyebrow">Chapter ${c.n}</div>
+      <div class="eyebrow">${c.n ? "Chapter " + c.n : c.kind}</div>
       <h1>${esc(c.t)}</h1>
     </header>
     <div class="placeholder">
