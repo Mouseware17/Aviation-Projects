@@ -131,7 +131,8 @@ main {
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
   padding-block: 28px 64px;
 }
-.view { max-width: 1240px; margin: 0 auto; display: grid; gap: 40px; }
+.view { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
+.view > *, section.block > *, .mw-stack > * { min-width: 0; }
 .prose { max-width: 68ch; display: grid; gap: 12px; }
 .eyebrow { font-family: var(--f-mono); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .chapter-head { display: grid; gap: 10px; }
@@ -140,7 +141,7 @@ main {
 .disclaimer { font-size: .85rem; color: var(--muted); border-left: 3px solid var(--line); padding-left: 12px; max-width: 70ch; }
 
 section.block { display: grid; gap: 16px; scroll-margin-top: 80px; }
-section.block > h2 { font-size: 1.9rem; text-transform: uppercase; letter-spacing: .02em; display: flex; align-items: baseline; gap: 12px; }
+section.block > h2 { font-size: 1.9rem; text-transform: uppercase; letter-spacing: .02em; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
 section.block > h2 .ref { font-family: var(--f-mono); font-size: .72rem; color: var(--muted); letter-spacing: .06em; font-weight: 500; }
 h3 { font-size: 1.3rem; text-transform: uppercase; letter-spacing: .03em; }
 
@@ -359,6 +360,104 @@ details.eqlist ul { margin: 0; padding-left: 16px; }
 .placeholder { border: 2px dashed var(--line); border-radius: 8px; padding: 32px 20px; display: grid; gap: 8px; justify-items: start; color: var(--muted); }
 .placeholder h3 { color: var(--fg); }
 
+
+/* ---------- master warning ---------- */
+.mw-stack { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.glare {
+  background: linear-gradient(#25292e, #16191c); border-radius: 22px 22px 6px 6px; padding: 18px 16px 16px;
+  display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: center;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+}
+.flashers { display: flex; gap: 8px; }
+.flasher {
+  width: 86px; height: 64px; border-radius: 4px; border: 2px solid #0a0b0c; cursor: pointer;
+  display: grid; place-content: center; gap: 2px; text-align: center; line-height: 1;
+  font-family: var(--f-display); font-weight: 700; letter-spacing: .06em; font-size: .9rem;
+  background: #2a1414; color: #6c3a37;
+}
+.flasher small { font-size: .55rem; letter-spacing: .1em; font-weight: 600; opacity: .8; }
+.flasher.mc { background: #2a2512; color: #6e6233; }
+.flasher.on.mw { background: #e2342a; color: #fff3f1; box-shadow: 0 0 18px rgba(226,52,42,.7); }
+.flasher.on.mc { background: #f2b81c; color: #241a00; box-shadow: 0 0 18px rgba(242,184,28,.6); }
+.flasher.on.blink { animation: blink .5s steps(1) infinite; }
+@keyframes blink { 50% { filter: brightness(.35); box-shadow: none; } }
+.wpanel { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 5px; background: #0e0f10; padding: 8px; border-radius: 4px; width: min(560px, 100%); }
+.cpanel { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; background: #121416; padding: 10px; border-radius: 6px; }
+.lens {
+  min-height: 34px; padding: 4px 3px; border-radius: 3px; border: 1px solid #000000; cursor: pointer;
+  font-family: var(--f-display); font-weight: 700; font-size: .74rem; letter-spacing: .03em; line-height: 1.05; text-transform: uppercase;
+  display: grid; place-items: center; text-align: center; background: #1d2023;
+}
+.lens.blank { cursor: default; color: #3a3f44; }
+.lens { overflow-wrap: anywhere; min-width: 0; }
+@media (max-width: 560px) { .lens { font-size: .58rem; padding: 3px 1px; letter-spacing: 0; } .wpanel, .cpanel { gap: 3px; padding: 5px; } .glare { padding: 12px 8px; } .flasher { width: 72px; height: 56px; font-size: .78rem; } }
+.lens.w { background: #3a1311; color: #8a3a35; }
+.lens.c { color: #8b7a3c; } .lens.a { color: #3f7f55; } .lens.s { color: #8f969c; }
+.lens.lit.w { background: #e2342a; color: #fff5f3; box-shadow: 0 0 10px rgba(226,52,42,.6); }
+.lens.lit.c { background: #f2b81c; color: #241a00; box-shadow: 0 0 10px rgba(242,184,28,.5); }
+.lens.lit.a { background: #2fb062; color: #03200d; box-shadow: 0 0 10px rgba(47,176,98,.5); }
+.lens.lit.s { background: #f1f3f4; color: #1a1d20; box-shadow: 0 0 10px rgba(241,243,244,.4); }
+.lens.sel { outline: 2px solid var(--accent); outline-offset: 2px; }
+.lens:not(.blank):hover { filter: brightness(1.25); }
+.ptt { width: 56px; height: 56px; border-radius: 50%; border: 3px solid #50565c; background: #2b2f33; color: #c8ced3; font-family: var(--f-display); font-size: .62rem; letter-spacing: .08em; font-weight: 700; cursor: pointer; line-height: 1.05; }
+.ptt[aria-pressed="true"] { background: #e9ecee; color: #16191c; }
+.cp-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.seg button { border: none; background: var(--surface); padding: 6px 12px; cursor: pointer; font-family: var(--f-display); text-transform: uppercase; letter-spacing: .05em; font-size: .9rem; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.keyrow { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .85rem; color: var(--muted); align-items: center; }
+.keyrow i { display: inline-block; width: 26px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.ann-detail h4 { font-size: 1.6rem; text-transform: uppercase; letter-spacing: .02em; }
+.ann-detail .cause { font-size: 1.08rem; }
+.ann-detail .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.chip.red { background: #e2342a; color: #ffffff; } .chip.white { background: #f1f3f4; color: #1a1d20; border: 1px solid var(--line); }
+.ann-detail .more { color: var(--fg); font-size: .96rem; }
+.ann-detail a.rel { font-family: var(--f-display); text-transform: uppercase; letter-spacing: .05em; text-decoration: none; }
+
+/* ---------- fuel ---------- */
+.fl { fill: none; stroke: var(--wire-dead); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: .55; transition: stroke .25s, opacity .25s; }
+.fl.on { opacity: 1; stroke-width: 5; stroke-dasharray: 9 7; animation: flow .7s linear infinite; }
+.fl.on.k-fuel { stroke: var(--pw-bat); } .fl.on.k-press { stroke: #ee7d1f; } .fl.on.k-xfeed { stroke: var(--pw-ctl); } .fl.on.k-ret { stroke: #2ea7e0; } .fl.on.k-motive { stroke: #ee7d1f; }
+.fl-base { fill: none; stroke: var(--wire-case); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; opacity: .12; }
+.bridge { fill: none; stroke: var(--canvas); stroke-width: 11; }
+@keyframes flow { to { stroke-dashoffset: -16; } }
+.farrow { opacity: 0; transition: opacity .2s; }
+.farrow.on { opacity: 1; }
+.farrow path { stroke: var(--canvas); stroke-width: 1.2; }
+.farrow.k-fuel path { fill: var(--pw-bat); } .farrow.k-press path, .farrow.k-motive path { fill: #ee7d1f; } .farrow.k-xfeed path { fill: #c99a00; } .farrow.k-ret path { fill: #2ea7e0; }
+.tank-o { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.8; }
+.tank-f { fill: var(--pw-bat); opacity: .78; transition: y .3s, height .3s; }
+.tank-t { font-size: 12px; font-weight: 700; letter-spacing: .05em; pointer-events: none; }
+.tank-q { font-family: var(--f-mono); font-size: 11px; font-weight: 700; pointer-events: none; }
+.pump { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; }
+.pump.on { fill: #ee7d1f; }
+.pump.fail { fill: var(--fault); }
+.vlv { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; transition: fill .2s; }
+.vlv.open { fill: var(--ok); } .vlv.closed { fill: var(--sym-fill); } .vlv.transit { fill: var(--pw-ctl); } .vlv.fail { fill: var(--fault); }
+.vbar { stroke: var(--sym); stroke-width: 2.4; stroke-linecap: round; transition: transform .25s; transform-box: fill-box; transform-origin: center; }
+.vbar.open { transform: rotate(90deg); }
+.engbox { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.8; }
+.engbox.run { fill: var(--accent-soft); stroke: var(--accent); }
+.engbox.out { fill: var(--sym-fill); stroke: var(--fault); stroke-dasharray: 4 3; }
+.fsw { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.4; }
+.fsw.lo { fill: var(--fault); }
+.firewall { stroke: var(--muted); stroke-width: 1.5; stroke-dasharray: 6 4; }
+.fus { fill: var(--surface-2); stroke: var(--line); stroke-width: 1.5; }
+.fuel-legend i { height: 6px; }
+.fwbtns { display: flex; gap: 10px; flex-wrap: wrap; }
+.fwbtn { width: 108px; border-radius: 4px; border: 2px solid #0a0b0c; background: #2b2f33; color: #c8ced3; cursor: pointer; padding: 4px; display: grid; gap: 3px; font-family: var(--f-display); font-weight: 700; letter-spacing: .05em; line-height: 1; }
+.fwbtn .top { background: #3a1311; color: #8a3a35; padding: 5px 2px; border-radius: 2px; font-size: .76rem; }
+.fwbtn .bot { background: #1d2023; color: #6b7076; padding: 5px 2px; border-radius: 2px; font-size: .76rem; }
+.fwbtn.closed .bot { background: #e2342a; color: #fff5f3; }
+.fwbtn.transit .bot { background: #e2342a; color: #fff5f3; animation: blink .5s steps(1) infinite; }
+.qty-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.flowread { font-family: var(--f-mono); font-size: .8rem; color: var(--placard-dim); text-align: center; }
+.speed { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: .85rem; }
+.ann-grid.fuel { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.ann.red { background: #e2342a; color: #fff5f3; box-shadow: 0 0 10px rgba(226,52,42,.5); }
+.cap-table td:last-child { font-family: var(--f-mono); }
+#fschem .lbl { paint-order: stroke; stroke: var(--canvas); stroke-width: 3px; stroke-linejoin: round; }
+
 @media (max-width: 1120px) {
   .sim { grid-template-columns: minmax(0, 1fr); }
   .side { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -377,7 +476,7 @@ details.eqlist ul { margin: 0; padding-left: 16px; }
   .eng-row { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rotor.spin, .ann.flash { animation: none; }
+  .rotor.spin, .ann.flash, .fl.on, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
   * { transition: none !important; }
 }
 </style>
@@ -669,6 +768,309 @@ details.eqlist ul { margin: 0; padding-left: 16px; }
 </div>
 </template>
 
+<template id="tpl-master-warning">
+<div class="view">
+  <header class="chapter-head">
+    <div class="eyebrow">Chapter 4</div>
+    <h1>Master Warning System</h1>
+    <p class="lede">Warning and caution annunciators are the first sign of trouble in a system or component. The King Air 350 sorts them by urgency. Red needs immediate action, yellow needs attention, green confirms something you selected, and white reports a condition that may be normal or not.</p>
+    <p class="disclaimer">Study aid built from a King Air 300/350 pilot training manual chapter, King Air 350 content only. It is not an approved document. The POH/AFM governs.</p>
+    <div class="subnav" id="mwSubnav">
+      <button data-go="mw-panels">Interactive panels</button>
+      <button data-go="mw-how">How it works</button>
+      <button data-go="mw-dim">Dimming &amp; testing</button>
+      <button data-go="mw-ref">Annunciator reference</button>
+    </div>
+  </header>
+
+  <section class="block" id="mw-panels">
+    <h2>Warning &amp; caution/advisory/status panels <span class="ref">Figures 4-2, 4-3</span></h2>
+    <p class="prose">Click any annunciator to light it. The cause appears underneath. A red warning sets off both MASTER WARNING flashers and a yellow caution sets off MASTER CAUTION. Press a flasher to reset it, as you would in the airplane. Click a lit annunciator again to clear the fault.</p>
+    <div class="mw-stack">
+      <div class="glare">
+        <div class="flashers">
+          <button type="button" class="flasher mw" id="mwFlash" aria-label="Master warning flasher, press to reset">MASTER<br>WARNING<small>PRESS TO RESET</small></button>
+          <button type="button" class="flasher mc" id="mcFlash" aria-label="Master caution flasher, press to reset">MASTER<br>CAUTION<small>PRESS TO RESET</small></button>
+        </div>
+        <div class="wpanel" id="wpanel" role="group" aria-label="Warning annunciator panel"></div>
+        <button type="button" class="ptt" id="pttBtn" aria-pressed="false">PRESS<br>TO<br>TEST</button>
+      </div>
+      <div class="cp-head">
+        <div class="seg" role="group" aria-label="Panel version">
+          <button type="button" id="cpv-old" data-cpv="old" aria-pressed="true">Prior to FL289</button>
+          <button type="button" id="cpv-new" data-cpv="new" aria-pressed="false">FL289 and after</button>
+        </div>
+        <button type="button" class="btn" id="mwClear">Clear all faults</button>
+      </div>
+      <div class="cpanel" id="cpanel" role="group" aria-label="Caution, advisory and status annunciator panel"></div>
+      <div class="keyrow">
+        <span><i style="background:#e2342a"></i>Warning (red)</span>
+        <span><i style="background:#f2b81c"></i>Caution (yellow)</span>
+        <span><i style="background:#2fb062"></i>Advisory (green)</span>
+        <span><i style="background:#f1f3f4;border:1px solid var(--line)"></i>Status (white)</span>
+      </div>
+      <div class="card ann-detail" id="annDetail" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="block" id="mw-how">
+    <h2>How the system works</h2>
+    <div class="two-col">
+      <div class="card"><h3>Layout</h3><p>The red warning annunciator panel sits in the center of the glareshield, with a PRESS TO TEST button immediately to its right. The caution/advisory/status panel is on the center subpanel. Two red MASTER WARNING flashers, one in front of each pilot, are in the glareshield, with a yellow MASTER CAUTION flasher just inboard of each. All annunciators are the word-readout type.</p></div>
+      <div class="card"><h3>Warning (red)</h3><p>A fault that needs the pilot's immediate attention and reaction lights its red annunciator and starts both MASTER WARNING flashers. The annunciator stays on until the fault is corrected. Pressing either flasher silences both, even with the fault still present. A new warning reactivates them. When the fault clears, the annunciator goes out but the flashers keep flashing until one is pressed.</p></div>
+      <div class="card"><h3>Caution (yellow)</h3><p>A fault that needs the pilot's attention, but not an immediate reaction, lights a yellow caution and both MASTER CAUTION flashers. Pressing a flasher resets the circuit, and any new caution sets it off again. The caution annunciator itself goes out only when the condition is corrected.</p></div>
+      <div class="card"><h3>Advisory (green) &amp; status (white)</h3><p>On the 350, green advisories confirm that an operation the pilot selected actually happened. White status annunciators show a condition that may be normal or abnormal and may or may not have been pilot-initiated. Neither has a master flasher, and they go out only when the condition changes.</p></div>
+      <div class="card"><h3>Autofeather lights</h3><p>Two green AUTOFEATHER annunciators sit on the pilot's glareshield next to the left fire extinguisher switch on airplanes prior to FL-120. From FL-120 they are next to the torquemeters on the instrument panel.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="mw-dim">
+    <h2>Dimming &amp; testing</h2>
+    <div class="two-col">
+      <div class="card">
+        <h3>King Air 350 dimming</h3>
+        <p>The flashers, all annunciators, the firewall fuel valve pushbutton lights, the gear handle lights and the gear position lights have BRIGHT and DIM modes, with intensity set by a photoelectric cell. DIM is selected automatically only when <b>all</b> of these are true:</p>
+        <ul class="tight"><li>A generator is on line.</li><li>Pilot's or copilot's overhead floodlights are OFF.</li><li>MASTER PANEL LIGHTS switch is ON.</li><li>Pilot's flight lights are ON.</li><li>Cockpit ambient light, sensed by the photocell in the overhead light control panel, is below a preset level.</li></ul>
+        <p>Otherwise BRIGHT is used. Fire extinguisher pushbutton lights never dim. The glareshield AUTOFEATHER lights use their own rheostat.</p>
+      </div>
+      <div class="card">
+        <h3>Test &amp; lamp replacement</h3>
+        <p>Test the lamps before every flight, and any time you doubt a lamp. PRESS TO TEST lights every annunciator and both pairs of flashers. Replace any lamp that stays dark.</p>
+        <p>To replace one, press the center of the annunciator and release so the lens pops out, then pull it from the panel. Swap the failed bulb for a spare taken from an unused annunciator position, and press the lens back in until it locks.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="mw-ref">
+    <h2>Annunciator reference <span class="ref">Tables 4-4 to 4-7</span></h2>
+    <div class="bus-table-wrap"><table><thead><tr><th>Annunciator</th><th>Type</th><th>Cause for illumination</th></tr></thead><tbody id="mwTable"></tbody></table></div>
+    <p class="disclaimer">* Optional equipment. BATTERY CHARGE: aircraft prior to FL215 and FM10. PROP GND SOL: FL115 and subsequent, FM10 and subsequent, FN2 and subsequent.</p>
+  </section>
+</div>
+</template>
+
+<template id="tpl-fuel">
+<div class="view">
+  <header class="chapter-head">
+    <div class="eyebrow">Chapter 5</div>
+    <h1>Fuel System</h1>
+    <p class="lede">Two separate wing fuel systems, one per engine, joined by a valve-controlled crossfeed. Each side has a main system that gravity-feeds into the nacelle tank, plus an auxiliary tank whose fuel is jet-pumped into the nacelle automatically. Total usable fuel is 539 gallons.</p>
+    <p class="disclaimer">Study aid built from a King Air 300/350 pilot training manual chapter, King Air 350 content only. It is not an approved document. The POH/AFM governs all procedures and limitations.</p>
+    <div class="subnav" id="fSubnav">
+      <button data-go="f-glance">At a glance</button>
+      <button data-go="f-sim">Interactive schematic</button>
+      <button data-go="f-tanks">Tanks &amp; capacity</button>
+      <button data-go="f-path">Fuel path to the engine</button>
+      <button data-go="f-pumps">Pumps &amp; firewall valves</button>
+      <button data-go="f-xfer">Aux transfer</button>
+      <button data-go="f-xfeed">Crossfeed</button>
+      <button data-go="f-qty">Quantity indication</button>
+      <button data-go="f-vents">Vents &amp; drains</button>
+      <button data-go="f-limits">Limitations &amp; handling</button>
+    </div>
+  </header>
+
+  <section class="block" id="f-glance">
+    <h2>At a glance</h2>
+    <div class="specs">
+      <div class="spec"><span class="v">539 gal</span><span class="k">Total usable fuel, about 3,611 lb at 6.7 lb/gal</span></div>
+      <div class="spec"><span class="v">190 gal / side</span><span class="k">Main system, about 1,273 lb per side, including a 54 gal nacelle tank</span></div>
+      <div class="spec"><span class="v">79.5 gal / side</span><span class="k">Auxiliary tank, about 533 lb per side, used first</span></div>
+      <div class="spec"><span class="v">1,250 pph @ 30 psi</span><span class="k">Engine-driven boost pump capacity</span></div>
+      <div class="spec"><span class="v">≤ 1,050 psi</span><span class="k">Engine-driven high-pressure pump output</span></div>
+      <div class="spec"><span class="v">9–11 psi</span><span class="k">Boost pressure that lights / clears FUEL PRES LO</span></div>
+      <div class="spec"><span class="v">6 ±1 psi · 11 s</span><span class="k">Motive flow pressure and delay for NO FUEL XFR</span></div>
+      <div class="spec"><span class="v">≈ 300 lb</span><span class="k">Main fuel left when FUEL QTY lights (45 gal, 30 min at max continuous)</span></div>
+      <div class="spec"><span class="v">300 lb</span><span class="k">Maximum fuel imbalance between wing systems</span></div>
+      <div class="spec"><span class="v">265 lb</span><span class="k">Takeoff prohibited below this in each main system, or in the yellow arc</span></div>
+    </div>
+  </section>
+
+  <section class="block" id="f-sim">
+    <h2>Interactive fuel schematic <span class="ref">Figures 5-1, 5-6 to 5-10</span></h2>
+    <p class="prose">A top-down view of both wing fuel systems. Animated lines and arrows show where fuel is moving. Use the fuel control panel, firewall valves and engine controls below, load a scenario, or inject a failure. Time runs faster than real time so tank levels move visibly. Annunciator delays run in real seconds. Select any component on the schematic for its description.</p>
+    <div class="sim">
+      <div class="diagram-card">
+        <div class="scen">
+          <div class="scen-row">
+            <label for="fScenSel">Scenario</label>
+            <select id="fScenSel"></select>
+            <button class="btn" id="fPrev" aria-label="Previous scenario">◀ Prev</button>
+            <button class="btn" id="fNext" aria-label="Next scenario">Next ▶</button>
+          </div>
+          <p class="scen-cap" id="fScenCap"></p>
+        </div>
+        <div class="svg-wrap"><svg id="fschem" viewBox="0 0 1100 520" role="img" aria-label="King Air 350 fuel system schematic, top view"></svg></div>
+        <div class="legend fuel-legend">
+          <span><i style="background:var(--pw-bat)"></i>Fuel (gravity / suction / transfer)</span>
+          <span><i style="background:#ee7d1f"></i>Fuel under pump pressure</span>
+          <span><i style="background:var(--pw-ctl)"></i>Crossfeed</span>
+          <span><i style="background:#2ea7e0"></i>Fuel return (overflow)</span>
+          <span><i style="background:var(--wire-dead)"></i>No flow</span>
+        </div>
+      </div>
+      <div class="side">
+        <div class="card info" id="fInfo" aria-live="polite"></div>
+        <div class="card"><h3>System events</h3><ol class="log" id="fLog"></ol></div>
+      </div>
+    </div>
+
+    <div class="cockpit">
+      <div class="panel">
+        <h3>Fuel control panel</h3>
+        <div class="sw-row" id="fSwitches"></div>
+        <div class="qty-row" id="fGauges"></div>
+        <h3>Glareshield · firewall fuel valves</h3>
+        <div class="fwbtns" id="fwBtns"></div>
+      </div>
+      <div class="panel">
+        <h3>Engines</h3>
+        <div class="eng-row" id="fEngines"></div>
+        <h3>Annunciators</h3>
+        <div class="ann-grid fuel" id="fAnns"></div>
+        <h3>Inject a failure</h3>
+        <div class="faults" id="fFaults"></div>
+        <div class="speed"><span class="ann-note">Simulation speed</span><div class="vsel" id="fSpeed"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="f-tanks">
+    <h2>Tanks &amp; capacity <span class="ref">Figures 5-2, 5-3</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p><b>Main system (each wing).</b> Two leading-edge bladder cells, two box-section bladder cells, one integral wet-wing cell and the nacelle tank. All are joined by gravity feed lines that drain into the nacelle tank, and each engine pumps directly from its own nacelle tank. The main filler is near the wingtip on the leading edge, with an anti-siphon valve that prevents fuel loss or bladder collapse if the cap is left improperly installed.</p>
+        <p><b>Auxiliary system.</b> One tank each side in the wing center section, with its own filler and anti-siphon valve on top of the center section, inboard of each nacelle. The aux tanks sit lower than the nacelle tanks and cannot gravity-feed. A jet pump in each aux sump moves the fuel instead. Because that transfer keeps the nacelle tank full, aux fuel is used first.</p>
+      </div>
+      <div class="bus-table-wrap">
+        <table class="cap-table">
+          <thead><tr><th>Cell (each wing)</th><th>Usable gal</th></tr></thead>
+          <tbody>
+            <tr><td>Wing leading edge, outboard</td><td>13</td></tr>
+            <tr><td>Wing leading edge, inboard</td><td>40</td></tr>
+            <tr><td>Integral (wet wing) cell</td><td>35</td></tr>
+            <tr><td>Box section cell</td><td>25</td></tr>
+            <tr><td>Box section cell</td><td>23</td></tr>
+            <tr><td>Nacelle tank</td><td>54</td></tr>
+            <tr><td><b>Main system total</b></td><td><b>190 (≈1,273 lb)</b></td></tr>
+            <tr><td>Auxiliary tank</td><td>79.5 (≈533 lb)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="f-path">
+    <h2>Fuel path to the engine</h2>
+    <p class="prose">Outer wing and aux fuel reach the nacelle tank automatically, with no pilot action. The outer cells gravity-feed through a line from the aft inboard cell, forward along the outboard side of the nacelle tank. A gravity flow check valve at its end stops fuel from flowing back into the wing. From the nacelle tank:</p>
+    <ol class="steps" id="fSteps"></ol>
+  </section>
+
+  <section class="block" id="f-pumps">
+    <h2>Pumps &amp; firewall valves</h2>
+    <div class="two-col">
+      <div class="card"><h3>Engine-driven high-pressure pump</h3><p>Mounted with the FCU on the accessory case and protected by an internal strainer. Output is up to 1,050 psi, varying with N1 and FCU operation. If it fails, the engine flames out.</p></div>
+      <div class="card"><h3>Engine-driven boost pump</h3><p>Turns whenever N1 turns and supplies the high-pressure pump in all conditions except crossfeed or aviation gasoline. Capacity is 1,250 pph at 30 psi. Its pressure also provides motive flow for aux transfer.</p></div>
+      <div class="card"><h3>Electric standby boost pump</h3><p>In the bottom of each nacelle tank. It backs up the engine-driven boost pump and provides the pressure for crossfeed. A lever-lock switch on the fuel panel controls it. Power comes from the respective gen bus (two 10 A breakers below the fuel panel) and from the triple-fed bus, with a diode network keeping the two sources apart. Either boost pump alone meets the engine's minimum inlet pressure. The engine keeps running with one or both boost pumps failed.</p></div>
+      <div class="card"><h3>Firewall fuel valves</h3><p>Motorized valves just behind each firewall, operated by alternate-action pushbuttons in the glareshield below each end of the warning panel. Push to close, push again to open. The <b>FW VALVE CLOSED</b> light is on with the valve closed, out with it open, and flashing while it travels or isn't in the selected position. Closing a valve also arms that side's fire extinguisher (EXTINGUISHER PUSH lights) regardless of the battery switch.</p></div>
+    </div>
+    <div class="callout"><b>Caution</b>Operation with FUEL PRES LO on, or on suction lift after both boost pumps fail, is limited to 10 hours total between overhaul or replacement of the engine-driven high-pressure pump. Windmilling time does not count toward the 10 hours.</div>
+  </section>
+
+  <section class="block" id="f-xfer">
+    <h2>Auxiliary fuel transfer (motive flow) <span class="ref">Figures 5-6 to 5-9</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Boost pump pressure, from the engine-driven or the standby pump, is the motive flow that drives the jet transfer pump. The line runs along the outboard side of the nacelle, through the normally closed <b>motive flow valve</b> just aft of the firewall, past a check valve that keeps the engine from drawing air when no boost pump runs, and on to the jet pump in the aux tank sump.</p>
+        <p>Transfer is faster than the engine burns fuel, so the excess leaves an overflow tube at the top of the nacelle tank. It passes a 1½ psi relief valve and returns to the aux tank.</p>
+        <p>A 6 ±1 psi switch beyond the motive flow valve confirms motive pressure. <b>L/R NO FUEL XFR</b> lights when pressure is below that while the float switch still senses fuel in the aux tank. An 11 s delay filters out transients. If the light stays on, AUX TRANSFER to <b>OVERRIDE</b> bypasses the transfer module and powers the valve directly. Override cannot help if both boost pumps or the motive flow valve itself have failed.</p>
+      </div>
+      <div class="card">
+        <h3>With the switch in AUTO, the transfer module…</h3>
+        <ul class="tight">
+          <li><b>Opens</b> the motive flow valve when the boost pump pressure switch senses pressure <i>and</i> the float switch senses aux fuel.</li>
+          <li><b>Closes</b> it 6–7 s after the float switch senses an empty aux tank. The delay prevents cycling from sloshing.</li>
+          <li><b>Closes</b> it when boost pressure drops below 10 psi (FUEL PRES LO).</li>
+          <li><b>Closes</b> it whenever that engine's ignition is powered (start switch or auto-ignition), which lights NO FUEL XFR.</li>
+          <li><b>Closes</b> it on the side <i>receiving</i> crossfeed. The supplying (dead-engine) side keeps transferring.</li>
+        </ul>
+        <p class="ann-note" style="color:var(--muted)">The jet pump isn't harmed by running dry, but it draws moist air into the main system from the vented aux tank.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="f-xfeed">
+    <h2>Crossfeed <span class="ref">Figure 5-10</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>A crossfeed line joins each nacelle tank to the opposite engine. It runs from the inboard side of each nacelle, aft through the center section, controlled by a valve at the aft inboard corner of the left nacelle. Crossfeed is for <b>single-engine operation only</b>. It supplies the operating engine from the other side and does not move fuel from tank to tank.</p>
+        <p>Selecting CROSSFEED draws power from a 5 A breaker on the fuel panel to open the crossfeed valve. At the same time the transfer module turns on the standby pump on the supplying side and closes the motive flow valve on the receiving side. On the 350 the green <b>FUEL CROSSFEED</b> light confirms the valve has opened. With both standby pumps running and the valve open, each engine feeds normally because the pressures balance.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="callout"><b>Precaution</b>AUX TRANSFER must be in AUTO on the receiving side. In OVERRIDE its motive flow valve stays open, and incoming crossfeed fuel starts filling the receiving side's tanks through the transfer line. That fuel can be dumped overboard.</div>
+        <div class="callout"><b>Precaution</b>Leave both standby pump switches OFF. Crossfeed turns on the pump it needs.</div>
+        <div class="callout"><b>Precaution</b>If the dead engine's firewall valve was closed at shutdown, its FUEL PRES LO stays on and its aux fuel is unusable, because there is no motive flow pressure.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="f-qty">
+    <h2>Quantity indication</h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Capacitance gaging, compensated for specific gravity, reads in pounds on a linear scale (×100). Each side is independent. There is one probe in the nacelle cell, one in the aft inboard cell, two in the wet-wing cell, two in the inboard leading-edge cell and two in the center-section (aux) tank. Each probe is two concentric tubes. Fuel, with a dielectric constant of about 2, displaces air (constant 1) between them, so capacitance rises in direct proportion to fuel volume.</p>
+        <p>The FUEL QUANTITY switch is spring-loaded to <b>MAIN</b>. Hold <b>AUXILIARY</b> to read the aux tanks. Hold <b>TEST</b> to test the low-fuel sensing.</p>
+      </div>
+      <div class="card">
+        <h3>Low fuel: L/R FUEL QTY</h3>
+        <p>Fiber-optic sensors in each nacelle tank light FUEL QTY, with MASTER CAUTION, when a side's main system drops below about 300 lb. That's 45 gal, about 30 minutes at maximum continuous power. A 5–7 s delay screens out sloshing, and a holding circuit keeps the light on 3–5 s once lit. Holding TEST lights both after about 5 s. On release they go out after about 5 s.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="f-vents">
+    <h2>Vents, drains &amp; manifold purge <span class="ref">Figures 5-11, 5-13, 5-14</span></h2>
+    <div class="two-col">
+      <div class="card"><h3>Vents</h3><p>Each side vents through a recessed vent, which resists icing, coupled to a heated ram vent under the wing beside the nacelle. Vent float valves in the integral cell and nacelle tank, plus a float check valve in the line to the aux tank, pass air both ways but seal against fuel. Wingtip air inlets with check valves are backup paths and a siphon break. Cold fuel that expands on the ground travels wing → nacelle → return line → aux tank → wingtip → leading-edge vent line, and out the ram vents.</p></div>
+      <div class="card"><h3>Fuel manifold purge</h3><p>Uses P3 air stored in a purge tank to blow residual fuel out of the fuel manifold into the combustion chamber at shutdown, where it is consumed. Covered in the Powerplant chapter.</p></div>
+    </div>
+    <div class="bus-table-wrap">
+      <table><thead><tr><th>Drain (each wing)</th><th>Location</th></tr></thead><tbody>
+        <tr><td>Flush fuel drain (wet-wing cell sump)</td><td>Underside of wing, forward of aileron</td></tr>
+        <tr><td>Gravity line drain</td><td>Outboard of nacelle, underside of wing (just aft of wheel well)</td></tr>
+        <tr><td>Fuel drain (leading-edge tank)</td><td>Outboard of nacelle, underside of wing</td></tr>
+        <tr><td>Strainer drain (nacelle sump)</td><td>Bottom of nacelle, outboard of the two nacelle drains</td></tr>
+        <tr><td>Filter drain (firewall fuel filter)</td><td>Forward of wheel well, right of the filter</td></tr>
+        <tr><td>Inboard fuel tank drain (aux tank)</td><td>Underside of wing by the wing root</td></tr>
+      </tbody></table>
+    </div>
+    <div class="callout"><b>Note</b>The inboard nacelle drain is the standby pump drain. Do not drain it on preflight. Never twist the drain tool on flush drains, because twisting unseats the O-ring and causes a leak. Water settles slowly in jet fuel. Let the airplane sit about four hours after fueling before sampling.</div>
+  </section>
+
+  <section class="block" id="f-limits">
+    <h2>Limitations &amp; fuel handling</h2>
+    <div class="two-col">
+      <ul class="tight card">
+        <li>FUEL PRES LO on, or suction lift: 10 hours maximum before high-pressure pump overhaul or replacement.</li>
+        <li>King Air 350 maximum zero fuel weight: 12,500 lb.</li>
+        <li>Aviation gasoline: 150 hours maximum between engine overhauls. Roughly every 55 gal of avgas added uses one hour per engine.</li>
+        <li>With avgas aboard, operation is prohibited with either standby pump inoperative. Crossfeed capability is required for climbs above 20,000 ft pressure altitude.</li>
+        <li>Fill the main tanks before the aux tanks, to limit wing bending moment.</li>
+        <li>Maximum fuel imbalance: 300 lb.</li>
+        <li>No takeoff with fuel gauges in the yellow arc, or with less than 265 lb in each main system.</li>
+        <li>Crossfeed only with one engine inoperative.</li>
+        <li>Fuel anti-icing additive required below −45 °C OAT.</li>
+      </ul>
+      <div class="mw-stack">
+        <div class="callout warning"><b>Warning</b>One operative standby pump is required for takeoff with recommended fuels. Crossfeed is then unavailable from the side with the inoperative standby pump.</div>
+        <div class="card"><h3>Fuels &amp; additives</h3><p>Jet A, Jet A-1, Jet B, JP-4, JP-5 and JP-8 mix in any ratio. Avgas grades 80/87 through 115/145 are emergency fuels. Use the lowest octane available, because it has the least lead. Anti-icing additive is MIL-I-27686. BIOBOR JF biocide at 135 or 270 ppm may be used alone or with the anti-icing additive.</p></div>
+        <div class="card"><h3>Handling</h3><p>Dissolved water is the main contamination problem. Cooling in flight releases it as supercooled droplets that can ice a filter, with the worst range at 0 to −2 °F. Know your supplier, insist on filtered fuel, inspect filters for sludge, use clean equipment, allow settling, and drain every sump. Ground the airplane to the servicing unit and the ramp when fueling.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+</template>
+
 <script>
 (function () {
 "use strict";
@@ -676,10 +1078,9 @@ details.eqlist ul { margin: 0; padding-left: 16px; }
 /* ================= Chapters (order follows the training manual contents) ================= */
 const CHAPTERS = [
   { n: 1,  id: "aircraft-general",  t: "Aircraft General" },
-  { n: 2,  id: "electrical",        t: "Electrical Power Systems", ready: true },
-  { n: 3,  id: "lighting",          t: "Lighting" },
-  { n: 4,  id: "master-warning",    t: "Master Warning System" },
-  { n: 5,  id: "fuel",              t: "Fuel System" },
+  { n: 2,  id: "electrical",        t: "Electrical Power Systems", ready: "Ready · interactive schematic" },
+  { n: 4,  id: "master-warning",    t: "Master Warning System", ready: "Ready · interactive annunciator panels" },
+  { n: 5,  id: "fuel",              t: "Fuel System", ready: "Ready · interactive fuel-flow schematic" },
   { n: 6,  id: "apu",               t: "Auxiliary Power Unit" },
   { n: 7,  id: "powerplant",        t: "Powerplant" },
   { n: 8,  id: "fire-protection",   t: "Fire Protection" },
@@ -719,7 +1120,7 @@ function renderHome() {
     <section class="block">
       <h2>Contents</h2>
       <div class="ch-grid">
-        ${CHAPTERS.map(c => `<a class="ch-card${c.ready ? " ready" : ""}" href="#${c.id}"><span class="n">${num(c)}</span><span class="t">${esc(c.t)}</span><span class="s">${c.ready ? "Ready · interactive schematic" : "Section set up · content pending"}</span></a>`).join("")}
+        ${CHAPTERS.map(c => `<a class="ch-card${c.ready ? " ready" : ""}" href="#${c.id}"><span class="n">${num(c)}</span><span class="t">${esc(c.t)}</span><span class="s">${c.ready || "Section set up · content pending"}</span></a>`).join("")}
       </div>
     </section>
   </div>`;
@@ -744,7 +1145,7 @@ function renderPlaceholder(c) {
   </div>`;
 }
 
-let simStarted = false;
+const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel() };
 function route() {
   const id = (location.hash || "").replace("#", "");
   const ch = CHAPTERS.find(c => c.id === id);
@@ -752,7 +1153,7 @@ function route() {
   $("#homeLink").setAttribute("aria-current", ch ? "false" : "page");
   stopSim();
   if (!ch) renderHome();
-  else if (ch.id === "electrical") { $("#main").innerHTML = ""; $("#main").appendChild($("#tpl-electrical").content.cloneNode(true)); initElectrical(); }
+  else if (TPL[ch.id]) { $("#main").innerHTML = ""; $("#main").appendChild($("#tpl-" + ch.id).content.cloneNode(true)); TPL[ch.id](); }
   else renderPlaceholder(ch);
   window.scrollTo(0, 0);
   $("#rail").classList.remove("open"); $("#menuBtn").setAttribute("aria-expanded", "false");
@@ -1395,6 +1796,7 @@ function gaugeSVG(g) {
   const pt = (a, r) => [60 + r * Math.sin(a * Math.PI / 180), 60 - r * Math.cos(a * Math.PI / 180)];
   let s = `<svg viewBox="0 0 120 104" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="#1a1d21" stroke="#596169" stroke-width="2"/>`;
   for (let v = g.min; v <= g.max; v += (g.max - g.min) / 12) { const a = ang(v), p1 = pt(a, 47), p2 = pt(a, 41); s += `<line x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="#d9dee3" stroke-width="1.2"/>`; }
+  if (g.amber) { const p1 = pt(ang(g.amber[0]), 47), p2 = pt(ang(g.amber[1]), 47); s += `<path d="M${p1[0]},${p1[1]} A47,47 0 0 1 ${p2[0]},${p2[1]}" fill="none" stroke="#f2b81c" stroke-width="4"/>`; }
   if (g.red !== undefined) { const a1 = ang(g.red), a2 = ang(g.max), p1 = pt(a1, 47), p2 = pt(a2, 47); s += `<path d="M${p1[0]},${p1[1]} A47,47 0 0 1 ${p2[0]},${p2[1]}" fill="none" stroke="#e5483a" stroke-width="3"/>`; }
   g.ticks.forEach(v => { const p = pt(ang(v), 31); s += `<text x="${p[0]}" y="${p[1] + 3}" font-size="9" text-anchor="middle">${v}</text>`; });
   s += `<line id="${g.id}N" x1="60" y1="60" x2="60" y2="16" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" style="transition:transform .3s;transform-origin:60px 60px"/><circle cx="60" cy="60" r="5" fill="#d9dee3"/></svg>`;
@@ -1539,7 +1941,7 @@ function applyScenario(i) {
   step(0.01);
 }
 
-function stopSim() { if (timer) { clearInterval(timer); timer = null; } }
+function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } MW = null; }
 
 function initElectrical() {
   buildSchematic();
@@ -1577,6 +1979,527 @@ function initElectrical() {
   select("ctr");
   stopSim();
   timer = setInterval(() => step(0.2), 200);
+}
+
+
+/* ================= Chapter 4: Master warning ================= */
+const ANN = {};
+function annDef(name, t, cause, more, rel) { ANN[name] = { t, cause, more: more || "", rel: rel || "" }; }
+function annPair(key, t, cause, more, rel) {
+  ["L", "R"].forEach(k => {
+    const f = s => s.replace(/\{Side\}/g, SIDE[k]).replace(/\{side\}/g, SIDE[k].toLowerCase()).replace(/\{S\}/g, k);
+    annDef(k + " " + key, t, f(cause), f(more || ""), rel);
+  });
+}
+// warning (red)
+annDef("#1 AC BUS", "w", "No. 1 AC bus failure.", "The inverter monitor lights this when voltage or frequency on the No. 1 26 V or 115 V AC bus goes out of tolerance, for whatever reason. Placing the No. 1 inverter switch to BUS TRANSFER reconnects those AC buses to the No. 2 inverter. A faulted AC bus trips its own breaker on the fuel panel.", "electrical");
+annDef("#2 AC BUS", "w", "No. 2 AC bus failure.", "The inverter monitor lights this when voltage or frequency on the No. 2 26 V or 115 V AC bus goes out of tolerance. Placing the No. 2 inverter switch to BUS TRANSFER reconnects those AC buses to the No. 1 inverter.", "electrical");
+annDef("DOOR UNLOCKED", "w", "Airstair door or cargo door is open or not secure.");
+annDef("CABIN ALT HI", "w", "Cabin pressure altitude exceeds 12,000 feet.");
+annDef("CABIN DIFF HI", "w", "Cabin differential pressure exceeds 6.9 psi.");
+annDef("A/P TRIM FAIL", "w", "Improper trim, or no trim, from an autopilot trim command. (Optional equipment.)");
+annDef("A/P FAIL", "w", "The autopilot monitor has sensed a failure. (Optional equipment.)");
+annPair("FUEL PRES LO", "w", "Fuel pressure failure on the {side} side.", "A pressure switch above the {side} firewall fuel filter closes at 9–11 psi of falling boost pressure (and opens again at 9–11 psi rising). Turn the {side} standby boost pump ON unless a fuel leak is indicated. Low boost pressure also makes the transfer module close the {side} motive flow valve, so aux transfer on that side stops. Operation with this light on is limited to 10 hours before high-pressure pump overhaul.", "fuel");
+annPair("OIL PRES LO", "w", "Low oil pressure, {side} engine.");
+annPair("BLEED FAIL", "w", "Melted or failed plastic {side} bleed-air failure warning line.", "The plastic sensing line runs alongside the bleed-air ducting. When hot bleed air leaks, the line melts and loses pressure, and that lights the warning.");
+// caution (yellow)
+annPair("DC GEN", "c", "{Side} generator is off line.", "The {side} GCU has opened the line contactor. Confirm on the loadmeter, then GEN switch to RESET for about 1 s and back to ON. If it won't reset, turn it OFF, keep the other generator at or below 100%, and shed non-essential load.", "electrical");
+annPair("GEN TIE OPEN", "c", "{Side} generator bus is isolated from the center bus.", "The {side} gen tie is open, either selected open, tripped by its Hall-effect sensor (>275 A toward that gen bus), or open because no generator or external power is available (load shedding). If the loadmeter is normal and below 100%, BUS SENSE to RESET.", "electrical");
+annDef("HYD FLUID LOW", "c", "Hydraulic fluid in the landing gear power pack is low.");
+annDef("RVS NOT READY", "c", "Propeller levers are not in the high-rpm, low-pitch position with the landing gear extended.");
+annPair("CHIP DETECT", "c", "Metal contamination detected in the {side} engine oil.");
+annPair("NO FUEL XFR", "c", "No {side} auxiliary fuel transfer.", "Motive flow pressure at the 6 ±1 psi switch is low while the float switch still senses fuel in the {side} aux tank. An 11 s delay filters transients. Common causes are ignition on, crossfeed toward this side, low boost pressure, or a transfer module or motive flow valve fault. If the module has failed, AUX TRANSFER to OVERRIDE powers the valve directly.", "fuel");
+annDef("BAT TIE OPEN", "c", "Battery is isolated from the generator buses.", "The battery bus tie is open. Check center bus voltage. At 24–28 V, BUS SENSE RESET. At zero, suspect a center bus fault and follow the POH (GEN TIES OPEN, manual gear extension).", "electrical");
+annDef("DUCT OVERTEMP", "c", "Cabin environmental duct air is too hot.");
+annPair("ENG ICE FAIL", "c", "The {side} engine's selected anti-ice system is inoperative.");
+annPair("FUEL QTY", "c", "{Side} fuel quantity: less than 30 minutes remaining at maximum continuous power.", "A fiber-optic sensor in the {side} nacelle tank detects that the main system is below about 300 lb (45 gal). A 5–7 s delay screens out sloshing, and the light holds 3–5 s once lit. Test it with the FUEL QUANTITY switch in TEST.", "fuel");
+annDef("BATTERY CHARGE", "c", "Battery charge rate is too high. (Aircraft prior to FL215 and FM10.)", "Lights when charge current exceeds 7 A for 6 s. It is normal for a few minutes after a battery start, which acts as a self-test. In flight, a steady or rising charge rate means turning the battery OFF.", "electrical");
+annDef("EXT PWR", "c", "The external power connector is plugged in.", "Steady with external power on line. It flashes if the power unit or EXT PWR switch is off, or if voltage is low.", "electrical");
+annPair("BL AIR OFF", "c", "{Side} bleed-air valve switch is not open.");
+annDef("AUTOFTHER OFF", "c", "Autofeather switch is not armed with the landing gear extended.");
+annDef("PITCH TRIM OFF", "c", "Electric trim is de-energized by the trim disconnect switch on the control wheel, with the PITCH TRIM switch on the pedestal turned on.");
+annDef("OXY NOT ARMED", "c", "The oxygen arming handle has not been pulled, or the system failed to charge.");
+annDef("RUD BOOST OFF", "c", "Rudder boost switch is off.");
+annDef("PROP GND SOL", "c", "One or both ground-idle low-pitch-stop solenoids are powered by 28 volts. (FL115 and subsequent, FM10 and subsequent, FN2 and subsequent.)");
+// advisory (green)
+annPair("IGNITION ON", "a", "{Side} IGNITION AND ENGINE START switch is on, or {side} auto-ignition is armed with {side} engine torque below 17%.", "While the ignition circuit is powered, the transfer module also removes power from the {side} motive flow valve, so {side} aux transfer stops and NO FUEL XFR may follow.", "fuel");
+annPair("ENG ANTI-ICE", "a", "{Side} engine anti-ice vanes are in position for icing conditions.");
+annDef("FUEL CROSSFEED", "a", "Fuel crossfeed is selected. On the 350 it confirms the crossfeed valve has actually opened.", "The standby pump on the supplying side runs automatically and the receiving side's motive flow valve closes. Crossfeed is for single-engine operation only.", "fuel");
+annDef("WING DEICE", "a", "The wing surface deice system is in operation.");
+annPair("BK DEICE ON", "a", "{Side} brake deice system is in operation. (Optional equipment.)");
+annDef("MAN TIES CLOSE", "a", "Generator bus ties are manually closed.", "Latched by GEN TIES MAN CLOSE. It goes out when a generator comes on line and the GCUs take over holding the ties. Don't use it after a dual generator failure, because it reconnects the gen bus loads.", "electrical");
+annDef("ELEC HEAT ON", "a", "Electric heat is on.");
+annDef("TAIL DEICE", "a", "The horizontal stabilizer surface deice system is in operation.");
+// status (white)
+annPair("PROP PITCH", "s", "{Side} propeller is below the flight idle stop.");
+annDef("CABIN ALTITUDE", "s", "Cabin altitude exceeds 10,000 feet.");
+annDef("LDG/TAXI LIGHT", "s", "Landing lights or the taxi light are on with the landing gear up.");
+annDef("PASS OXY ON", "s", "The passenger oxygen system is charged.");
+annDef("AIR COND N1 LOW", "s", "Right engine N1 is too low for the air-conditioning load.");
+
+const WARN_LAYOUT = [[null, "#1 AC BUS", "DOOR UNLOCKED", "#2 AC BUS", null], ["L FUEL PRES LO", null, "CABIN ALT HI", "CABIN DIFF HI", "R FUEL PRES LO"], ["L OIL PRES LO", null, "A/P TRIM FAIL", null, "R OIL PRES LO"], [null, "L BLEED FAIL", "A/P FAIL", "R BLEED FAIL", null]];
+const CP_ROWS = {
+  top: [["L DC GEN", "L GEN TIE OPEN", "HYD FLUID LOW", "RVS NOT READY", "R GEN TIE OPEN", "R DC GEN"], ["L CHIP DETECT", "L NO FUEL XFR", "BAT TIE OPEN", "DUCT OVERTEMP", "R NO FUEL XFR", "R CHIP DETECT"]],
+  icing: ["L ENG ICE FAIL", "L FUEL QTY", "BATTERY CHARGE", "EXT PWR", "R FUEL QTY", "R ENG ICE FAIL"],
+  air: ["L BL AIR OFF", "AUTOFTHER OFF", "PITCH TRIM OFF", "OXY NOT ARMED", "RUD BOOST OFF", "R BL AIR OFF"],
+  ign: ["L IGNITION ON", "L ENG ANTI-ICE", "FUEL CROSSFEED", "PROP GND SOL", "R ENG ANTI-ICE", "R IGNITION ON"],
+  deice: ["WING DEICE", "L BK DEICE ON", "MAN TIES CLOSE", "ELEC HEAT ON", "R BK DEICE ON", "TAIL DEICE"],
+  status: ["L PROP PITCH", "CABIN ALTITUDE", "LDG/TAXI LIGHT", "PASS OXY ON", "AIR COND N1 LOW", "R PROP PITCH"]
+};
+const CP_LAYOUT = {
+  old: [...CP_ROWS.top, CP_ROWS.icing, CP_ROWS.air, CP_ROWS.ign, CP_ROWS.deice, CP_ROWS.status],
+  new: [...CP_ROWS.top, CP_ROWS.icing.map(n => n === "BATTERY CHARGE" ? null : n), CP_ROWS.air,
+    [null, null, null, "PROP GND SOL", null, null], CP_ROWS.ign.map(n => n === "PROP GND SOL" ? null : n), CP_ROWS.deice, CP_ROWS.status]
+};
+const TYPE_NAME = { w: "Warning", c: "Caution", a: "Advisory", s: "Status" };
+const TYPE_CHIP = { w: "red", c: "amber", a: "green", s: "white" };
+const TYPE_NOTE = {
+  w: "Red warning: needs the pilot's immediate attention and reaction. Both MASTER WARNING flashers start. The annunciator stays on until the fault is corrected.",
+  c: "Yellow caution: needs attention but not immediate reaction. Both MASTER CAUTION flashers start. The annunciator stays on until the condition is corrected.",
+  a: "Green advisory: confirms an operation the pilot initiated actually occurred. No master flasher.",
+  s: "White status: a condition that may be normal or abnormal, pilot-initiated or not. No master flasher."
+};
+let MW = null;
+
+function initMasterWarning() {
+  MW = { lit: new Set(), sel: null, mw: false, mc: false, test: false, ver: "old" };
+  $("#mwSubnav").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  const lens = n => n ? `<button type="button" class="lens ${ANN[n].t}" data-ann="${esc(n)}" aria-pressed="false">${esc(n)}</button>` : `<div class="lens blank" aria-hidden="true">———</div>`;
+  $("#wpanel").innerHTML = WARN_LAYOUT.flat().map(lens).join("");
+  const drawCP = () => { $("#cpanel").innerHTML = CP_LAYOUT[MW.ver].flat().map(lens).join(""); renderMW(); };
+  drawCP();
+  const onLens = e => {
+    const b = e.target.closest("[data-ann]"); if (!b) return;
+    const n = b.dataset.ann, t = ANN[n].t;
+    if (MW.lit.has(n) && MW.sel === n) MW.lit.delete(n);
+    else if (!MW.lit.has(n)) { MW.lit.add(n); if (t === "w") MW.mw = true; if (t === "c") MW.mc = true; }
+    MW.sel = n; renderMW();
+  };
+  $("#wpanel").addEventListener("click", onLens); $("#cpanel").addEventListener("click", onLens);
+  $("#mwFlash").addEventListener("click", () => { MW.mw = false; renderMW(); });
+  $("#mcFlash").addEventListener("click", () => { MW.mc = false; renderMW(); });
+  $("#pttBtn").addEventListener("click", () => { MW.test = true; renderMW(); setTimeout(() => { if (MW) { MW.test = false; renderMW(); } }, 3000); });
+  $$("[data-cpv]").forEach(b => b.addEventListener("click", () => { MW.ver = b.dataset.cpv; $$("[data-cpv]").forEach(x => x.setAttribute("aria-pressed", String(x === b))); drawCP(); }));
+  $("#mwClear").addEventListener("click", () => { MW.lit.clear(); renderMW(); });
+  const order = ["w", "c", "a", "s"];
+  $("#mwTable").innerHTML = Object.keys(ANN).sort((a, b) => order.indexOf(ANN[a].t) - order.indexOf(ANN[b].t)).map(n =>
+    `<tr><td><span class="chip ${TYPE_CHIP[ANN[n].t]}">${esc(n)}</span></td><td>${TYPE_NAME[ANN[n].t]}</td><td>${esc(ANN[n].cause)}</td></tr>`).join("");
+  renderMW();
+}
+
+function renderMW() {
+  if (!MW || !$("#wpanel")) return;
+  $$(".lens[data-ann]").forEach(el => {
+    const n = el.dataset.ann, on = MW.test || MW.lit.has(n);
+    el.classList.toggle("lit", on); el.classList.toggle("sel", MW.sel === n);
+    el.setAttribute("aria-pressed", String(MW.lit.has(n)));
+  });
+  const fl = (el, on) => { el.classList.toggle("on", on); el.classList.toggle("blink", on && !MW.test); };
+  fl($("#mwFlash"), MW.mw || MW.test); fl($("#mcFlash"), MW.mc || MW.test);
+  $("#pttBtn").setAttribute("aria-pressed", String(MW.test));
+  const d = $("#annDetail");
+  if (!MW.sel) {
+    d.innerHTML = `<h3>Select an annunciator</h3><p>Click any lens on the warning panel or the caution/advisory/status panel. Its cause for illumination appears here, with extra system detail where this guide covers that system. ${MW.lit.size ? MW.lit.size + " annunciator(s) currently lit." : ""}</p>`;
+    return;
+  }
+  const a = ANN[MW.sel], rel = CHAPTERS.find(c => c.id === a.rel);
+  d.innerHTML = `<div class="meta"><span class="chip ${TYPE_CHIP[a.t]}">${TYPE_NAME[a.t]}</span><span class="eyebrow">${MW.lit.has(MW.sel) ? "Lit · click it again to clear" : "Extinguished · click to light"}</span></div>
+    <h4>${esc(MW.sel)}</h4><p class="cause"><b>Cause:</b> ${esc(a.cause)}</p>${a.more ? `<p class="more">${esc(a.more)}</p>` : ""}
+    <p class="ann-note" style="color:var(--muted)">${TYPE_NOTE[a.t]}</p>${rel ? `<a class="rel" href="#${rel.id}">More in Chapter ${rel.n}: ${esc(rel.t)} →</a>` : ""}`;
+}
+
+/* ================= Chapter 5: Fuel ================= */
+const CAP = { wing: 911, nac: 362, aux: 533 };   // lb per side (136 / 54 / 79.5 gal at 6.7 lb/gal)
+const BURN = 370, JET = 650, GRAV = 1200, XFILL = 300;   // lb/hr
+
+function fFresh() {
+  return { q: { L: { wing: CAP.wing, nac: CAP.nac, aux: CAP.aux }, R: { wing: CAP.wing, nac: CAP.nac, aux: CAP.aux } },
+    eng: { L: true, R: true }, ign: { L: false, R: false }, stby: { L: "OFF", R: "OFF" }, aux: { L: "AUTO", R: "AUTO" }, xf: "OFF", qsel: "MAIN",
+    fw: { L: "OPEN", R: "OPEN" }, fwT: { L: 0, R: 0 },
+    fault: { edp: { L: false, R: false }, stbyp: { L: false, R: false }, mfv: { L: false, R: false }, tm: { L: false, R: false } },
+    tm: { nfx: { L: 0, R: 0 }, fq: { L: 0, R: 0 }, empty: { L: 0, R: 0 }, test: 0 }, lit: { nfx: { L: false, R: false }, fq: { L: false, R: false } },
+    overboard: 0, t: 0, speed: 60 };
+}
+let F = fFresh(), FD = null, fTimer = null, fSel = null, fScen = 0, fLogArr = [], fSpeed = 60;
+const OTHER = { L: "R", R: "L" };
+
+function fDerive() {
+  const d = { fwOpen: {}, stbyOn: {}, pumping: {}, edp: {}, src: {}, supply: {}, press: {}, fed: {}, mfOpen: {}, motive: {}, transfer: {}, autoCmd: {} };
+  d.xfOpen = F.xf !== "OFF";
+  d.recv = d.xfOpen ? F.xf : null; d.feed = d.xfOpen ? OTHER[F.xf] : null;
+  ["L", "R"].forEach(s => {
+    d.fwOpen[s] = F.fw[s] === "OPEN" && F.fwT[s] <= 0;
+    d.stbyOn[s] = !F.fault.stbyp[s] && (F.stby[s] === "ON" || s === d.feed);
+    d.pumping[s] = d.stbyOn[s] && F.q[s].nac > 0.5;
+    d.edp[s] = F.eng[s] && !F.fault.edp[s];
+  });
+  ["L", "R"].forEach(s => {
+    d.src[s] = (s === d.recv && d.pumping[d.feed] && !d.pumping[s]) ? d.feed : s;
+    d.supply[s] = d.fwOpen[s] && F.q[d.src[s]].nac > 0.5;
+    d.press[s] = d.supply[s] && (d.pumping[d.src[s]] || d.edp[s]);
+    d.fed[s] = F.eng[s] && d.supply[s];
+  });
+  ["L", "R"].forEach(s => {
+    const float = F.q[s].aux > 0.5 || F.tm.empty[s] < 6.5;
+    d.autoCmd[s] = F.aux[s] === "AUTO" && !F.fault.tm[s] && d.press[s] && float && !F.ign[s] && s !== d.recv;
+    d.mfOpen[s] = !F.fault.mfv[s] && (F.aux[s] === "OVERRIDE" || d.autoCmd[s]);
+    d.motive[s] = d.mfOpen[s] && d.press[s];
+    d.transfer[s] = d.motive[s] && F.q[s].aux > 0.5;
+    d["float" + s] = float;
+  });
+  d.xfFlow = d.xfOpen && d.src[d.recv] === d.feed && d.fed[d.recv];
+  d.xfill = d.xfFlow && d.motive[d.recv];   // override on the receiving side: crossfed fuel drives its jet pump
+  return d;
+}
+
+function fLog(msg, cls) { fLogArr.unshift({ t: F.t, msg, cls: cls || "" }); if (fLogArr.length > 40) fLogArr.pop(); const h = $("#fLog"); if (h) h.innerHTML = fLogArr.map(e => `<li class="${e.cls}"><span class="t">${fmtT(e.t)}</span><span class="m">${esc(e.msg)}</span></li>`).join(""); }
+function fmtT(t) { const m = Math.floor(t / 60); return m + ":" + String(Math.floor(t % 60)).padStart(2, "0"); }
+
+function fStep(dtReal) {
+  const prev = FD;
+  ["L", "R"].forEach(s => { if (F.fwT[s] > 0) F.fwT[s] = Math.max(0, F.fwT[s] - dtReal); });
+  let d = fDerive();
+  // flameout when no fuel reaches a running engine
+  ["L", "R"].forEach(s => { if (F.eng[s] && !d.supply[s]) { F.eng[s] = false; fLog(`${SIDE[s]} engine flames out: no fuel reaching the engine${!d.fwOpen[s] ? " (firewall valve closed)" : ""}.`, "bad"); } });
+  d = fDerive();
+  const dt = dtReal * fSpeed; F.t += dt; const h = dt / 3600;
+  const fl = { grav: {}, ret: {}, burn: {} };
+  ["L", "R"].forEach(s => {
+    if (d.fed[s]) { const src = F.q[d.src[s]]; const b = Math.min(BURN * h, src.nac); src.nac -= b; fl.burn[s] = BURN; } else fl.burn[s] = 0;
+  });
+  ["L", "R"].forEach(s => {
+    const q = F.q[s];
+    if (d.transfer[s]) { const a = Math.min(JET * h, q.aux); q.aux -= a; q.nac += a; }
+  });
+  if (d.xfill) { const a = Math.min(XFILL * h, F.q[d.feed].nac); F.q[d.feed].nac -= a; F.q[d.recv].nac += a; }
+  ["L", "R"].forEach(s => {
+    const q = F.q[s];
+    const space = CAP.nac - q.nac;
+    fl.grav[s] = false;
+    if (space > 0.01 && q.wing > 0.01) { const g = Math.min(GRAV * h, space, q.wing); q.wing -= g; q.nac += g; fl.grav[s] = true; }
+    fl.ret[s] = false;
+    if (q.nac > CAP.nac) {
+      const ex = q.nac - CAP.nac; q.nac = CAP.nac; fl.ret[s] = true;
+      const toAux = Math.min(ex, CAP.aux - q.aux); q.aux += toAux;
+      if (ex - toAux > 0.001) { if (F.overboard < 0.5) fLog(`${SIDE[s]} aux tank full: excess fuel is venting overboard.`, "bad"); F.overboard += ex - toAux; }
+    }
+    if (q.aux <= 0.5) F.tm.empty[s] += dtReal; else F.tm.empty[s] = 0;
+  });
+  d = fDerive();
+  d.flow = fl;
+  // annunciator timers (real seconds)
+  ["L", "R"].forEach(s => {
+    const nfxCond = d["float" + s] && F.q[s].aux > 0.5 && !d.motive[s];
+    F.tm.nfx[s] = nfxCond ? F.tm.nfx[s] + dtReal : 0;
+    const was = F.lit.nfx[s]; F.lit.nfx[s] = F.tm.nfx[s] >= 11;
+    if (F.lit.nfx[s] && !was) fLog(`${SIDE[s]} NO FUEL XFR: aux fuel present but no motive flow pressure for 11 s.`, "warn");
+    const main = F.q[s].wing + F.q[s].nac;
+    const fqCond = main < 300 || F.qsel === "TEST";
+    F.tm.fq[s] = fqCond ? F.tm.fq[s] + dtReal : Math.max(0, Math.min(F.tm.fq[s], 6) - dtReal);
+    const wasF = F.lit.fq[s];
+    F.lit.fq[s] = fqCond ? F.tm.fq[s] >= 6 : (wasF && F.tm.fq[s] > 2);
+    if (F.lit.fq[s] && !wasF && main < 300) fLog(`${SIDE[s]} FUEL QTY: under 300 lb in the ${SIDE[s].toLowerCase()} main system.`, "warn");
+  });
+  if (F.qsel === "TEST") F.tm.test += dtReal; else F.tm.test = 0;
+  // transition messages
+  if (prev) ["L", "R"].forEach(s => {
+    if (prev.press[s] !== d.press[s]) fLog(d.press[s] ? `${SIDE[s]} boost pressure restored.` : `${SIDE[s]} boost pressure below 10 psi: FUEL PRES LO.`, d.press[s] ? "" : "bad");
+    if (prev.mfOpen[s] !== d.mfOpen[s]) fLog(`${SIDE[s]} motive flow valve ${d.mfOpen[s] ? "opens" : "closes"}${d.mfOpen[s] && F.aux[s] === "OVERRIDE" ? " (OVERRIDE)" : ""}.`);
+    if (prev.transfer[s] && !d.transfer[s] && F.q[s].aux <= 0.5) fLog(`${SIDE[s]} aux tank empty. Transfer stops, and the wing cells now gravity-feed the nacelle.`);
+    if (!prev.stbyOn[s] && d.stbyOn[s] && s === d.feed) fLog(`Crossfeed: ${SIDE[s].toLowerCase()} standby pump energized automatically.`);
+  });
+  if (prev && prev.xfOpen !== d.xfOpen) fLog(d.xfOpen ? `Crossfeed valve open: ${SIDE[d.feed].toLowerCase()} nacelle supplies the ${SIDE[d.recv].toLowerCase()} engine. FUEL CROSSFEED on.` : "Crossfeed valve closed.");
+  if (prev && !prev.xfill && d.xfill) fLog(`AUX TRANSFER in OVERRIDE on the receiving side: crossfed fuel is filling the ${SIDE[d.recv].toLowerCase()} tanks. Possible overboard dump.`, "bad");
+  FD = d;
+  fRender();
+}
+
+/* --- schematic --- */
+const FW = 1100;
+function buildFuelSchematic() {
+  const base = [], lines = [], arrows = [], syms = [];
+  const pts = a => a.map(p => p.join(",")).join(" ");
+  const path = (key, a, kind, bridge) => {
+    if (bridge) base.push(`<polyline class="bridge" points="${pts(a)}"/>`);
+    base.push(`<polyline class="fl-base" points="${pts(a)}"/>`);
+    lines.push(`<polyline class="fl k-${kind}" data-fl="${key}" points="${pts(a)}"/>`);
+    for (let i = 0; i < a.length - 1; i++) {
+      const [x1, y1] = a[i], [x2, y2] = a[i + 1], len = Math.hypot(x2 - x1, y2 - y1);
+      if (len < 34) continue;
+      const ang = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
+      const n = len > 160 ? 2 : 1;
+      for (let j = 1; j <= n; j++) { const t = j / (n + 1); arrows.push(`<g class="farrow k-${kind}" data-fa="${key}" transform="translate(${x1 + (x2 - x1) * t},${y1 + (y2 - y1) * t}) rotate(${ang})"><path d="M-7,-7 L7,0 L-7,7 Z"/></g>`); }
+    }
+  };
+  const T = (x, y, s, cls, anchor) => `<text x="${x}" y="${y}" class="${cls || "lbl"}" text-anchor="${anchor || "middle"}">${s}</text>`;
+  const comp = (id, inner, hit) => syms.push(`<g class="comp" data-fcomp="${id}" tabindex="0" role="button" aria-label="${esc(FCOMP[id].name)}"><rect class="hit" x="${hit[0]}" y="${hit[1]}" width="${hit[2]}" height="${hit[3]}" rx="4"/>${inner}</g>`);
+  const valve = (key, x, y, horiz) => `<circle class="vlv" data-vlv="${key}" cx="${x}" cy="${y}" r="8"/><line class="vbar" data-vbar="${key}" x1="${horiz ? x : x - 6}" y1="${horiz ? y - 6 : y}" x2="${horiz ? x : x + 6}" y2="${horiz ? y + 6 : y}"/>`;
+  const pump = (key, x, y, r) => `<circle class="pump" data-pump="${key}" cx="${x}" cy="${y}" r="${r || 8}"/><path d="M${x - 4},${y - 4} L${x + 5},${y} L${x - 4},${y + 4} Z" class="sym-solid" style="pointer-events:none"/>`;
+  const check = (x, y, rot) => `<g transform="translate(${x},${y}) rotate(${rot || 0})"><rect class="sym" x="-6" y="-6" width="12" height="12" rx="1"/><path class="sym-solid" d="M-3,-4 L4,0 L-3,4 Z"/></g>`;
+
+  syms.push(`<rect class="fus" x="532" y="6" width="36" height="508" rx="18"/>`);
+  syms.push(T(550, 500, "FUS", "lbl", "middle"));
+
+  ["L", "R"].forEach(s => {
+    const X = x => s === "L" ? x : FW - x;
+    const A = a => s === "L" ? a : ({ start: "end", end: "start", middle: "middle" }[a]);
+    const P = (x, y) => [X(x), y];
+    // flow lines
+    path("grav" + s, [P(300, 385), P(345, 385), P(345, 300), P(355, 300)], "fuel", true);
+    path("tank" + s, [P(400, 307), P(400, 222)], "press");
+    path("feedA" + s, [P(400, 222), P(400, 152)], "press");
+    path("feedB" + s, [P(400, 152), P(400, 72)], "press");
+    path("mot" + s, [P(400, 152), P(318, 152), P(318, 470), P(462, 470), P(462, 458)], "motive");
+    path("jet" + s, [P(490, 448), P(490, 318), P(445, 318)], "fuel");
+    path("ret" + s, [P(445, 245), P(515, 245), P(515, 400)], "ret");
+    syms.push(`<line class="firewall" x1="${X(360)}" y1="192" x2="${X(440)}" y2="192"/>`, T(X(424), 196, "FIREWALL", "lbl", A("start")));
+
+    // tanks
+    const wingPts = [P(40, 350), P(300, 335), P(300, 428), P(70, 428)];
+    syms.push(`<clipPath id="wclip${s}"><polygon points="${pts(wingPts)}"/></clipPath>`);
+    comp("wing" + s, `<polygon class="tank-o" points="${pts(wingPts)}"/><rect class="tank-f" data-tank="wing${s}" clip-path="url(#wclip${s})" x="${Math.min(X(30), X(310))}" y="335" width="280" height="93"/>
+      ${T(X(170), 392, "WING CELLS · 136 GAL", "tank-t")}${T(X(170), 408, "", "tank-q")}`.replace('class="tank-q" text-anchor="middle"></text>', `class="tank-q" text-anchor="middle" data-tq="wing${s}"></text>`), [Math.min(X(36), X(304)), 330, 268, 102]);
+    comp("nac" + s, `<rect class="tank-o" x="${X(s === "L" ? 355 : 445)}" y="232" width="90" height="98" rx="6"/><rect class="tank-f" data-tank="nac${s}" x="${X(s === "L" ? 357 : 443)}" y="234" width="86" height="94" rx="4"/>
+      ${T(X(400), 346, "NACELLE · 54 GAL", "tank-t")}<text x="${X(400)}" y="360" class="tank-q" text-anchor="middle" data-tq="nac${s}"></text>`, [X(s === "L" ? 352 : 448), 228, 96, 136]);
+    comp("aux" + s, `<rect class="tank-o" x="${X(s === "L" ? 450 : 530)}" y="400" width="80" height="60" rx="5"/><rect class="tank-f" data-tank="aux${s}" x="${X(s === "L" ? 452 : 528)}" y="402" width="76" height="56" rx="3"/>
+      ${T(X(500), 482, "AUX · 79.5 GAL", "tank-t")}<text x="${X(500)}" y="496" class="tank-q" text-anchor="middle" data-tq="aux${s}"></text>`, [X(s === "L" ? 446 : 534), 396, 88, 104]);
+    // pumps, valves, engine column
+    comp("stby" + s, pump("stby" + s, X(400), 316, 9), [X(400) - 12, 304, 24, 24]);
+    comp("fw" + s, valve("fw" + s, X(400), 205, false) + T(X(424), 209, "FW VALVE", "lbl", A("start")), [X(s === "L" ? 390 : 490), 194, 100, 22]);
+    comp("edp" + s, pump("edp" + s, X(400), 175) + T(X(424), 179, "BOOST PUMP (ENG)", "lbl", A("start")), [X(s === "L" ? 390 : 520), 165, 130, 20]);
+    comp("filter" + s, `<rect class="sym" x="${X(400) - 6}" y="146" width="12" height="12" transform="rotate(45 ${X(400)} 152)"/><circle class="fsw" data-psw="${s}" cx="${X(414)}" cy="146" r="4.5"/>${T(X(424), 156, "FILTER · PRESS SW", "lbl", A("start"))}`, [X(s === "L" ? 390 : 520), 140, 130, 22]);
+    comp("heater" + s, `<rect class="sym" x="${X(400) - 9}" y="127" width="18" height="10" rx="2"/>${T(X(424), 136, "FUEL HEATER", "lbl", A("start"))}`, [X(s === "L" ? 388 : 510), 123, 122, 18]);
+    comp("fcu" + s, `<rect class="sym" x="${X(400) - 12}" y="103" width="24" height="14" rx="2"/>${T(X(424), 114, "HP PUMP / FCU", "lbl", A("start"))}`, [X(s === "L" ? 386 : 514), 100, 128, 20]);
+    comp("ff" + s, `<circle class="sym" cx="${X(400)}" cy="88" r="6"/>${T(X(424), 92, "FLOW XMTR", "lbl", A("start"))}`, [X(s === "L" ? 392 : 488), 80, 96, 16]);
+    comp("eng" + s, `<rect class="engbox" data-eng="${s}" x="${X(400) - 32}" y="26" width="64" height="46" rx="6"/>${T(X(400), 46, "ENGINE", "lbl-b")}${T(X(400), 61, "PT6A-60A", "lbl")}<text class="n1t" data-ffr="${s}" x="${X(400)}" y="16" text-anchor="middle"></text>`, [X(400) - 36, 4, 72, 72]);
+    comp("mfv" + s, valve("mfv" + s, X(318), 205, false) + T(X(306), 209, "MOTIVE FLOW VALVE", "lbl", A("end")), [X(s === "L" ? 206 : 330), 195, 124, 22]);
+    comp("ck" + s, check(X(318), 232, 90) + T(X(306), 236, "CHECK VALVE", "lbl", A("end")), [X(s === "L" ? 236 : 326), 223, 90, 20]);
+    comp("mps" + s, `<circle class="fsw" data-mps="${s}" cx="${X(318)}" cy="258" r="6"/>${T(X(306), 262, "6 PSI SWITCH", "lbl", A("end"))}`, [X(s === "L" ? 236 : 326), 249, 90, 20]);
+    comp("jet" + s, `<path class="sym-solid" d="M${X(456)},446 L${X(470)},452 L${X(456)},458 Z"/>${T(X(452), 446, "JET PUMP", "lbl", A("end"))}`, [X(s === "L" ? 400 : 476), 436, 76, 26]);
+    comp("relief" + s, `<rect class="sym" x="${X(515) - 7}" y="322" width="14" height="14" rx="2"/>${T(X(515), 352, "1.5 PSI", "lbl")}`, [X(515) - 20, 318, 40, 40]);
+    comp("grav" + s, check(X(326), 385, s === "L" ? 0 : 180) + T(X(326), 374, "GRAVITY CHECK", "lbl"), [X(326) - 34, 362, 68, 32]);
+  });
+  path("xfLR", [[400, 222], [700, 222]], "xfeed");
+  path("xfRL", [[700, 222], [400, 222]], "xfeed");
+  comp("xfv", valve("xfv", 550, 222, true) + T(550, 208, "CROSSFEED VALVE", "lbl"), [500, 196, 100, 36]);
+
+  $("#fschem").innerHTML = `<g>${base.join("")}</g><g>${lines.join("")}</g><g>${arrows.join("")}</g><g>${syms.join("")}</g>`;
+}
+
+const FCOMP = {};
+(function () {
+  const pair = (key, group, name, desc, state) => ["L", "R"].forEach(s => { const f = t => t.replace(/\{Side\}/g, SIDE[s]).replace(/\{side\}/g, SIDE[s].toLowerCase()); FCOMP[key + s] = { group, name: f(name), desc: f(desc), state: () => state(s) }; });
+  const lb = v => Math.round(v) + " lb";
+  pair("wing", "Tanks", "{Side} wing cells", "Two leading-edge bladder cells (13 and 40 gal), two box-section bladder cells (25 and 23 gal) and the integral wet-wing cell (35 gal): 136 gal of the 190-gal main system. They are interconnected and gravity-feed into the nacelle tank through a line from the aft inboard cell. Filler near the wingtip on the leading edge.", s => `${lb(F.q[s].wing)} · ${FD && FD.flow.grav[s] ? "gravity feeding the nacelle" : "holding (nacelle full)"}`);
+  pair("nac", "Tanks", "{Side} nacelle tank", "54 gal. The engine always draws from its own nacelle tank. Aux transfer and gravity feed from the wing cells keep it full. Excess leaves an overflow tube at the top and returns to the aux tank. It holds the standby boost pump, the outlet strainer and a fiber-optic low-level sensor.", s => `${lb(F.q[s].nac)}`);
+  pair("aux", "Tanks", "{Side} auxiliary tank", "79.5 gal in the wing center section. It sits lower than the nacelle tank and can't gravity-feed, so a jet pump in its sump transfers its fuel automatically. That is why aux fuel is used first. It has its own filler and anti-siphon valve.", s => `${lb(F.q[s].aux)} · ${FD && FD.transfer[s] ? "transferring" : "not transferring"}`);
+  pair("stby", "Pumps", "{Side} electric standby boost pump", "In the bottom of the nacelle tank. It backs up the engine-driven boost pump, supplies crossfeed pressure, and can provide motive flow. Powered from the {side} gen bus (two 10 A breakers) and the triple-fed bus through a diode network. Crossfeed turns it on automatically on the supplying side.", s => `${FD && FD.stbyOn[s] ? "RUNNING" : "OFF"}${F.fault.stbyp[s] ? " · FAILED" : ""}${FD && FD.stbyOn[s] && s === FD.feed && F.stby[s] === "OFF" ? " (energized by crossfeed)" : ""}`);
+  pair("fw", "Valves", "{Side} firewall fuel valve", "A motorized valve just behind the firewall, controlled by the {side} alternate-action pushbutton in the glareshield. FW VALVE CLOSED is on when closed and flashes in transit. Closing it arms the {side} fire extinguisher. It sits downstream of the crossfeed junction, so a closed valve on a dead engine still lets that side's nacelle supply crossfeed. With no motive pressure, though, that side's aux fuel becomes unusable.", s => F.fwT[s] > 0 ? "IN TRANSIT" : F.fw[s]);
+  pair("edp", "Pumps", "{Side} engine-driven boost pump", "Turns whenever N1 turns. It pushes 1,250 pph at 30 psi to the high-pressure pump in all conditions except crossfeed or avgas operation. Its pressure is also the normal motive flow for aux transfer.", s => `${F.fault.edp[s] ? "FAILED" : F.eng[s] ? "Running" : "Stopped (engine off)"}`);
+  pair("filter", "Engine fuel", "{Side} main fuel filter & pressure switch", "On the lower center of the firewall. It has a bypass valve for a clogged filter and a drain for preflight. The pressure switch directly above it closes at 9–11 psi of falling boost pressure and lights {side} FUEL PRES LO. The motive flow line also tees off here.", s => FD && FD.press[s] ? "Boost pressure normal" : "LOW PRESSURE · FUEL PRES LO");
+  pair("heater", "Engine fuel", "{Side} oil-to-fuel heater", "Warms fuel with engine oil before the FCU. Fuel temperature before the heater is assumed to equal OAT. Below −45 °C an anti-icing additive is required.", s => F.eng[s] ? "Heating" : "Inactive");
+  pair("fcu", "Engine fuel", "{Side} high-pressure pump & FCU", "The engine-driven high-pressure pump, with an internal strainer, delivers up to 1,050 psi. The fuel control unit meters it to the nozzles. If this pump fails, the engine flames out. With both boost pumps failed it can run on suction lift, limited to 10 hours.", s => F.eng[s] ? (FD && FD.press[s] ? "Normal feed" : "SUCTION LIFT (10 h limit)") : "Not running");
+  pair("ff", "Engine fuel", "{Side} fuel flow transmitter", "Next to the FCU. It sends a signal to the DC-powered fuel flow gauge, which reads pounds per hour.", s => F.eng[s] ? `${BURN} pph` : "0 pph");
+  pair("eng", "Engine", "{Side} engine", "PT6A-60A. The simulation assumes about 370 lb/hr per engine, roughly the manual's 55 gal/hr planning figure.", s => F.eng[s] ? `Running · fed from ${SIDE[FD ? FD.src[s] : s].toLowerCase()} nacelle${FD && FD.src[s] !== s ? " (crossfeed)" : ""}` : "Shut down");
+  pair("mfv", "Aux transfer", "{Side} motive flow valve", "Normally closed, just aft of the firewall. The transfer module opens it with AUX TRANSFER in AUTO when boost pressure and aux fuel are both sensed. It closes it for an empty aux tank (6–7 s delay), low boost pressure, ignition on, or crossfeed toward this side. OVERRIDE powers it directly.", s => `${FD && FD.mfOpen[s] ? "OPEN" : "CLOSED"}${F.fault.mfv[s] ? " · FAILED" : ""} · switch ${F.aux[s]}`);
+  pair("ck", "Aux transfer", "{Side} motive flow check valve", "Right after the motive flow valve. It stops the engine from drawing air back through the motive line when no boost pump is running.", s => FD && FD.motive[s] ? "Flowing" : "No flow");
+  pair("mps", "Aux transfer", "{Side} motive flow pressure switch (6 ±1 psi)", "Confirms motive flow pressure. Below 6 ±1 psi with fuel still in the aux tank, it lights {side} NO FUEL XFR after an 11 s delay.", s => FD && FD.motive[s] ? "Pressure sensed" : "No pressure");
+  pair("jet", "Aux transfer", "{Side} jet transfer pump", "A venturi pump in the aux tank sump with no moving parts. Motive fuel flowing through it entrains aux fuel and carries it to the nacelle tank, faster than the engine burns.", s => FD && FD.transfer[s] ? `Transferring about ${JET} pph` : "Idle");
+  pair("relief", "Aux transfer", "{Side} overflow return & 1.5 psi relief valve", "Transfer outpaces burn, so excess fuel leaves an overflow tube at the top of the nacelle tank, passes a 1½ psi relief valve and returns to the aux tank.", s => FD && FD.flow && FD.flow.ret[s] ? "Returning fuel to aux" : "No return flow");
+  pair("grav", "Tanks", "{Side} gravity flow check valve", "At the end of the gravity feed line just aft of the firewall, below the motive flow valve. It lets wing fuel into the nacelle tank but prevents backflow into the wing cells.", s => FD && FD.flow && FD.flow.grav[s] ? "Gravity flow" : "No flow");
+  FCOMP.xfv = { group: "Valves", name: "Crossfeed valve", desc: "Solenoid valve at the aft inboard corner of the left nacelle (drawn on the centerline here), opened by the CROSSFEED FLOW switch through a 5 A breaker. It joins each nacelle's supply line to the opposite engine. Single-engine use only. It does not move fuel between tanks.", state: () => FD && FD.xfOpen ? `OPEN · ${SIDE[FD.feed].toLowerCase()} → ${SIDE[FD.recv].toLowerCase()} engine` : "CLOSED" };
+})();
+
+const F_STEPS = [
+  ["Nacelle tank & standby pump", "Each engine draws from its own nacelle tank. The electric standby boost pump sits in the tank bottom and runs only when selected, or when crossfeed calls for it."],
+  ["Firewall fuel valve", "A motorized shutoff valve just behind the firewall, controlled from the glareshield."],
+  ["Engine-driven boost pump", "Raises fuel to boost pressure (30 psi, 1,250 pph) for the high-pressure pump. Its pressure also drives aux transfer."],
+  ["Main fuel filter & pressure switch", "On the lower center of the firewall, with a bypass and a drain. The switch above it senses boost pressure for FUEL PRES LO. The motive flow line tees off here."],
+  ["Oil-to-fuel heater", "Engine oil warms the fuel so ice crystals don't form ahead of the FCU."],
+  ["High-pressure pump & FCU", "Up to 1,050 psi. The fuel control unit meters fuel to the nozzles."],
+  ["Fuel flow transmitter → nozzles", "Sends fuel flow (pph) to the cockpit gauge. The manifold purge system clears residual fuel at shutdown."]
+];
+
+const F_SCEN = [
+  { t: "Normal cruise: aux fuel used first", cap: "Both engines running, all switches normal. Engine boost pressure drives each jet pump, which moves aux fuel into the nacelle tank faster than the engine burns it. The excess returns to the aux tank through the overflow line. The wing cells stay full until the aux tanks are empty.", apply() {} },
+  { t: "Aux tanks empty: wing cells gravity-feed", cap: "With the aux tanks dry, the transfer module closes the motive flow valves 6–7 s after the float switch senses empty. The outer wing cells now gravity-feed the nacelle tanks through the gravity flow check valves.", apply(f) { f.q.L.aux = 0; f.q.R.aux = 0; f.tm.empty = { L: 10, R: 10 }; } },
+  { t: "Left engine-driven boost pump failure", cap: "Boost pressure drops below 10 psi: L FUEL PRES LO, the motive flow valve closes, and L NO FUEL XFR follows after 11 s. The engine keeps running on suction lift. Turn the LEFT STANDBY PUMP ON to restore pressure and aux transfer.", apply(f) { f.fault.edp.L = true; } },
+  { t: "Both left boost pumps failed: suction lift", cap: "Engine-driven and standby boost pumps are both failed on the left. The high-pressure pump keeps the engine running on suction lift (10 hour limit). With no motive flow, left aux fuel can't transfer. Crossfeed from the right side is one way to feed the left engine with pressure.", apply(f) { f.fault.edp.L = true; f.fault.stbyp.L = true; } },
+  { t: "Left transfer module failure: use OVERRIDE", cap: "The module no longer powers the motive flow valve, so L NO FUEL XFR lights after 11 s. Move LEFT AUX TRANSFER to OVERRIDE to power the valve directly and restore transfer.", apply(f) { f.fault.tm.L = true; } },
+  { t: "Left motive flow valve failed closed", cap: "The valve itself won't open, so neither AUTO nor OVERRIDE restores transfer. Left aux fuel is unusable, and the aux gauge stays put while the left main fuel goes down.", apply(f) { f.fault.mfv.L = true; } },
+  { t: "Ignition on: transfer interrupted", cap: "Whenever ignition is powered (start switch or auto-ignition below 17% torque), the module removes power from that side's motive flow valve. L IGNITION ON lights, and L NO FUEL XFR follows after 11 s while the ignition stays on.", apply(f) { f.ign.L = true; } },
+  { t: "Single engine: crossfeed right tank → left engine", cap: "The right engine is shut down with its firewall valve open. CROSSFEED FLOW toward the LEFT engine opens the crossfeed valve and starts the right standby pump automatically. The left motive flow valve closes because it is the receiving side, so L NO FUEL XFR comes on. The right side keeps transferring its aux fuel with standby pump motive flow.", apply(f) { f.eng.R = false; f.xf = "L"; } },
+  { t: "Crossfeed with the dead engine's firewall valve closed", cap: "The right firewall valve was closed at shutdown. Crossfeed still works because the crossfeed line tees off upstream of the firewall valve. But R FUEL PRES LO stays on and the right aux fuel is unusable, with no motive flow pressure behind the closed valve.", apply(f) { f.eng.R = false; f.fw.R = "CLOSED"; f.xf = "L"; } },
+  { t: "Crossfeed error: receiving side in OVERRIDE", cap: "LEFT AUX TRANSFER was left in OVERRIDE while crossfeeding to the left engine. The left motive flow valve stays open, so crossfed fuel drives the left jet pump and fills the left tanks. With the left aux already full, the excess vents overboard. Return the switch to AUTO.", apply(f) { f.eng.R = false; f.xf = "L"; f.aux.L = "OVERRIDE"; } },
+  { t: "Low fuel: FUEL QTY", cap: "Aux tanks and wing cells empty, nacelles only. When a main system drops below about 300 lb, FUEL QTY lights after a 5–7 s delay, about 30 minutes at maximum continuous power. Also try holding the FUEL QTY switch at TEST.", apply(f) { ["L", "R"].forEach(s => { f.q[s].aux = 0; f.q[s].wing = 0; f.q[s].nac = 320; f.tm.empty[s] = 10; }); } },
+  { t: "On the ground, engines off", cap: "Battery on, engines off, standby pumps off. There's no boost pressure, so both FUEL PRES LO lights are on, and with fuel in the aux tanks both NO FUEL XFR lights come on after 11 s. Switch a standby pump ON and watch its side transfer.", apply(f) { f.eng.L = false; f.eng.R = false; } }
+];
+
+const F_SW = [
+  { group: "Left", items: [{ id: "stbyL", name: "STBY PUMP", pos: [["ON", "ON"], ["OFF", "OFF"]] }, { id: "auxL", name: "AUX XFER", pos: [["OVERRIDE", "OVERRIDE"], ["AUTO", "AUTO"]] }] },
+  { group: "Center", items: [{ id: "xf", name: "CROSSFEED FLOW", pos: [["L", "◄ LEFT ENG"], ["OFF", "OFF"], ["R", "RIGHT ENG ►"]] }, { id: "qsel", name: "FUEL QTY", pos: [["TEST", "TEST", 1], ["MAIN", "MAIN"], ["AUX", "AUXILIARY", 1]] }] },
+  { group: "Right", items: [{ id: "stbyR", name: "STBY PUMP", pos: [["ON", "ON"], ["OFF", "OFF"]] }, { id: "auxR", name: "AUX XFER", pos: [["OVERRIDE", "OVERRIDE"], ["AUTO", "AUTO"]] }] }
+];
+let qselTimer = null;
+function fSwVal(id) { if (id === "xf") return F.xf; if (id === "qsel") return F.qsel; const k = id.slice(-1); return id.startsWith("stby") ? F.stby[k] : F.aux[k]; }
+function fSetSw(id, v) {
+  if (id === "xf") {
+    if (v !== "OFF" && F.eng.L && F.eng.R) fLog("Crossfeed is permitted only with one engine inoperative. With both engines running, pressures balance and each engine feeds normally.", "warn");
+    F.xf = v;
+  } else if (id === "qsel") {
+    F.qsel = v; clearTimeout(qselTimer);
+    if (v !== "MAIN") qselTimer = setTimeout(() => { F.qsel = "MAIN"; fRender(); }, v === "TEST" ? 8000 : 4000);
+  } else { const k = id.slice(-1); if (id.startsWith("stby")) F.stby[k] = v; else F.aux[k] = v; }
+  fStep(0.001);
+}
+
+function fRender() {
+  if (!$("#fschem") || !FD) return;
+  const d = FD;
+  const act = {}, kind = {};
+  ["L", "R"].forEach(s => {
+    act["grav" + s] = !!(d.flow && d.flow.grav[s]);
+    act["tank" + s] = (d.fed[s] && d.src[s] === s) || (d.xfFlow && s === d.feed) || (d.press[s] && d.pumping[s]);
+    kind["tank" + s] = d.pumping[s] ? "press" : "fuel";
+    act["feedA" + s] = d.fed[s] || (d.press[s] && d.motive[s]);
+    act["feedB" + s] = d.fed[s];
+    kind["feedA" + s] = kind["feedB" + s] = d.press[s] ? "press" : "fuel";
+    act["mot" + s] = d.motive[s];
+    act["jet" + s] = d.transfer[s] || (d.motive[s] && d.xfill && s === d.recv);
+    act["ret" + s] = !!(d.flow && d.flow.ret[s]);
+  });
+  act.xfLR = d.xfFlow && d.feed === "L"; act.xfRL = d.xfFlow && d.feed === "R";
+  $$("#fschem [data-fl]").forEach(el => {
+    const k = el.dataset.fl; el.classList.toggle("on", !!act[k]);
+    if (kind[k]) { el.classList.remove("k-fuel", "k-press"); el.classList.add("k-" + kind[k]); }
+  });
+  $$("#fschem [data-fa]").forEach(el => {
+    const k = el.dataset.fa; el.classList.toggle("on", !!act[k]);
+    if (kind[k]) { el.classList.remove("k-fuel", "k-press"); el.classList.add("k-" + kind[k]); }
+  });
+  const H = { wing: 93, nac: 94, aux: 56 }, Y0 = { wing: 428, nac: 328, aux: 458 };
+  ["L", "R"].forEach(s => ["wing", "nac", "aux"].forEach(t => {
+    const fr = Math.max(0, Math.min(1, F.q[s][t] / CAP[t])), r = $(`#fschem [data-tank="${t}${s}"]`);
+    r.setAttribute("y", Y0[t] - H[t] * fr); r.setAttribute("height", H[t] * fr);
+    $(`#fschem [data-tq="${t}${s}"]`).textContent = Math.round(F.q[s][t]) + " lb";
+  }));
+  ["L", "R"].forEach(s => {
+    const fwv = $(`#fschem [data-vlv="fw${s}"]`), st = F.fwT[s] > 0 ? "transit" : F.fw[s] === "OPEN" ? "open" : "closed";
+    fwv.setAttribute("class", "vlv " + st); $(`#fschem [data-vbar="fw${s}"]`).classList.toggle("open", st === "open");
+    $(`#fschem [data-vlv="mfv${s}"]`).setAttribute("class", "vlv " + (F.fault.mfv[s] ? "fail" : d.mfOpen[s] ? "open" : "closed"));
+    $(`#fschem [data-vbar="mfv${s}"]`).classList.toggle("open", d.mfOpen[s]);
+    $(`#fschem [data-pump="stby${s}"]`).setAttribute("class", "pump" + (F.fault.stbyp[s] ? " fail" : d.stbyOn[s] ? " on" : ""));
+    $(`#fschem [data-pump="edp${s}"]`).setAttribute("class", "pump" + (F.fault.edp[s] ? " fail" : d.edp[s] ? " on" : ""));
+    $(`#fschem [data-psw="${s}"]`).classList.toggle("lo", !d.press[s]);
+    $(`#fschem [data-mps="${s}"]`).classList.toggle("lo", !d.motive[s] && F.q[s].aux > 0.5);
+    $(`#fschem [data-eng="${s}"]`).setAttribute("class", "engbox " + (F.eng[s] ? "run" : "out"));
+    $(`#fschem [data-ffr="${s}"]`).textContent = F.eng[s] ? `FF ${BURN} PPH` : "SHUT DOWN";
+  });
+  $('#fschem [data-vlv="xfv"]').setAttribute("class", "vlv " + (d.xfOpen ? "open" : "closed"));
+  $('#fschem [data-vbar="xfv"]').classList.toggle("open", d.xfOpen);
+
+  // switches
+  $$("#fSwitches button[data-fsw]").forEach(b => b.setAttribute("aria-pressed", String(fSwVal(b.dataset.fsw) === b.dataset.val)));
+  // gauges
+  ["L", "R"].forEach(s => {
+    const v = F.qsel === "AUX" ? F.q[s].aux : F.q[s].wing + F.q[s].nac;
+    setGaugeTo("fq" + s, FQ_G, v / 100, `${F.qsel === "AUX" ? "AUX" : "MAIN"} ${Math.round(v)} lb`);
+  });
+  // firewall buttons
+  ["L", "R"].forEach(s => { const b = $("#fwb" + s); b.classList.toggle("closed", F.fw[s] === "CLOSED" && F.fwT[s] <= 0); b.classList.toggle("transit", F.fwT[s] > 0); });
+  // engines
+  ["L", "R"].forEach(s => {
+    let h;
+    if (!F.eng[s]) h = "Shut down.";
+    else if (!d.press[s]) h = `Running on suction lift (HP pump only). FUEL PRES LO.`;
+    else h = `Running · ${BURN} pph from the ${SIDE[d.src[s]].toLowerCase()} nacelle${d.src[s] !== s ? " via crossfeed" : ""}${d.pumping[d.src[s]] ? " (standby pump pressure)" : ""}.`;
+    $("#fhint" + s).textContent = h;
+    $("#feng" + s).textContent = F.eng[s] ? "Shut down (condition lever cutoff)" : "Start engine";
+    $("#fign" + s).setAttribute("aria-pressed", String(F.ign[s]));
+    $("#fign" + s).textContent = F.ign[s] ? "Ignition: ON" : "Ignition: OFF";
+  });
+  // annunciators
+  const A = { LPL: ["red", !d.press.L], XF: ["green", d.xfOpen], RPL: ["red", !d.press.R], LNFX: ["amber", F.lit.nfx.L], RNFX: ["amber", F.lit.nfx.R], LFQ: ["amber", F.lit.fq.L], RFQ: ["amber", F.lit.fq.R], LIGN: ["green", F.ign.L], RIGN: ["green", F.ign.R] };
+  Object.keys(A).forEach(k => { const el = $("#fann-" + k); if (el) el.className = "ann" + (A[k][1] ? " " + A[k][0] : ""); });
+  $$("#fFaults [data-ff]").forEach(b => { const [t, s] = b.dataset.ff.split(":"); b.setAttribute("aria-pressed", String(F.fault[t][s])); });
+  $$("#fSpeed [data-sp]").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.sp === fSpeed)));
+  // info panel live state
+  const n = $("#fInfoNow"); if (n && fSel) n.textContent = "Now: " + FCOMP[fSel].state();
+}
+
+const FQ_G = { min: 0, max: 14, ticks: [0, 4, 8, 12], amber: [0, 2.65] };
+function setGaugeTo(id, G, v, txt) {
+  const a = -120 + 240 * (Math.max(G.min, Math.min(G.max, v)) - G.min) / (G.max - G.min);
+  const n = $("#" + id + "N"); if (n) n.style.transform = `rotate(${a}deg)`;
+  const t = $("#" + id + "V"); if (t) t.textContent = txt;
+}
+
+function fSelect(id, scroll) {
+  fSel = id;
+  $$("#fschem .comp").forEach(g => g.classList.toggle("sel", g.dataset.fcomp === id));
+  const c = FCOMP[id];
+  $("#fInfo").innerHTML = `<div class="eyebrow">${esc(c.group)}</div><h4>${esc(c.name)}</h4><div class="now" id="fInfoNow">Now: ${esc(c.state())}</div><p>${esc(c.desc)}</p>`;
+  if (scroll) $("#f-sim").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function fApply(i) {
+  fScen = Math.max(0, Math.min(F_SCEN.length - 1, i));
+  F = fFresh(); F_SCEN[fScen].apply(F); FD = null; fLogArr = [];
+  fLog(`Loaded scenario: ${F_SCEN[fScen].t}.`);
+  $("#fScenSel").value = String(fScen);
+  $("#fScenCap").textContent = F_SCEN[fScen].cap;
+  fStep(0.001);
+}
+
+function initFuel() {
+  buildFuelSchematic();
+  $("#fSubnav").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  $("#fScenSel").innerHTML = F_SCEN.map((s, i) => `<option value="${i}">${i + 1}. ${esc(s.t)}</option>`).join("");
+  $("#fScenSel").addEventListener("change", e => fApply(+e.target.value));
+  $("#fPrev").addEventListener("click", () => fApply(fScen - 1));
+  $("#fNext").addEventListener("click", () => fApply(fScen + 1));
+  // switches
+  $("#fSwitches").innerHTML = F_SW.map(g => `<div class="sw-group"><div class="gname">${g.group}</div><div class="sws">${g.items.map(s =>
+    `<div class="tog"><div class="name">${s.name}</div><div class="pos" role="group" aria-label="${s.name} ${g.group}">${s.pos.map(p =>
+      `<button type="button" id="fsw-${s.id}-${p[0]}" data-fsw="${s.id}" data-val="${p[0]}" class="${p[2] ? "mom" : ""}" aria-pressed="false">${p[1]}</button>`).join("")}</div></div>`).join("")}</div></div>`).join("");
+  $("#fSwitches").addEventListener("click", e => { const b = e.target.closest("[data-fsw]"); if (b) fSetSw(b.dataset.fsw, b.dataset.val); });
+  $("#fGauges").innerHTML = ["L", "R"].map(s => `<div class="gauge">${gaugeSVG(Object.assign({ id: "fq" + s }, FQ_G))}<div class="gl">${SIDE[s]} fuel · lb × 100</div><div class="gv" id="fq${s}V"></div></div>`).join("");
+  $("#fwBtns").innerHTML = ["L", "R"].map(s => `<button type="button" class="fwbtn" id="fwb${s}" aria-label="${SIDE[s]} firewall fuel valve pushbutton"><span class="top">ENG FIRE<br>${s} F/W VALVE</span><span class="bot">PUSH · CLOSED</span></button>`).join("");
+  ["L", "R"].forEach(s => $("#fwb" + s).addEventListener("click", () => {
+    F.fw[s] = F.fw[s] === "OPEN" ? "CLOSED" : "OPEN"; F.fwT[s] = 2;
+    fLog(`${SIDE[s]} firewall valve ${F.fw[s] === "OPEN" ? "opening" : "closing"} (FW VALVE CLOSED flashes in transit).${F.fw[s] === "CLOSED" ? " Fire extinguisher armed." : ""}`);
+    fStep(0.001);
+  }));
+  $("#fEngines").innerHTML = ["L", "R"].map(s => `<div class="eng"><div class="hd"><span>${SIDE[s]} engine</span></div><div class="hint" id="fhint${s}"></div>
+    <div class="faults"><button class="pbtn" type="button" id="feng${s}"></button><button class="pbtn" type="button" id="fign${s}" aria-pressed="false"></button></div></div>`).join("");
+  ["L", "R"].forEach(s => {
+    $("#feng" + s).addEventListener("click", () => {
+      if (F.eng[s]) { F.eng[s] = false; fLog(`${SIDE[s]} engine shut down.`); }
+      else if (FD && FD.supply[s]) { F.eng[s] = true; fLog(`${SIDE[s]} engine started.`); }
+      else fLog(`${SIDE[s]} engine can't start: no fuel reaches it (check the firewall valve and nacelle quantity).`, "warn");
+      fStep(0.001);
+    });
+    $("#fign" + s).addEventListener("click", () => { F.ign[s] = !F.ign[s]; fLog(`${SIDE[s]} ignition ${F.ign[s] ? "ON: motive flow valve power removed" : "OFF"}.`); fStep(0.001); });
+  });
+  $("#fAnns").innerHTML = [["LPL", "L FUEL PRES LO"], ["XF", "FUEL CROSSFEED"], ["RPL", "R FUEL PRES LO"], ["LNFX", "L NO FUEL XFR"], ["", ""], ["RNFX", "R NO FUEL XFR"], ["LFQ", "L FUEL QTY"], ["", ""], ["RFQ", "R FUEL QTY"], ["LIGN", "L IGNITION ON"], ["", ""], ["RIGN", "R IGNITION ON"]]
+    .map(a => a[0] ? `<div class="ann" id="fann-${a[0]}">${a[1]}</div>` : `<div class="ann" aria-hidden="true"></div>`).join("");
+  const FAULTS_F = [["edp", "Eng-driven boost pump"], ["stbyp", "Standby pump"], ["tm", "Transfer module"], ["mfv", "Motive flow valve"]];
+  $("#fFaults").innerHTML = ["L", "R"].map(s => FAULTS_F.map(f => `<button type="button" class="pbtn" id="ff-${f[0]}${s}" data-ff="${f[0]}:${s}" aria-pressed="false">${s} ${f[1]}</button>`).join("")).join("") + `<button type="button" class="pbtn" id="fRepair">Repair all</button>`;
+  $("#fFaults").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.id === "fRepair") { ["edp", "stbyp", "tm", "mfv"].forEach(t => F.fault[t] = { L: false, R: false }); fLog("All fuel system failures repaired."); }
+    else { const [t, s] = b.dataset.ff.split(":"); F.fault[t][s] = !F.fault[t][s]; fLog(`${F.fault[t][s] ? "Failure" : "Repaired"}: ${b.textContent}.`, F.fault[t][s] ? "bad" : ""); }
+    fStep(0.001);
+  });
+  $("#fSpeed").innerHTML = [[1, "Real time"], [10, "×10"], [60, "×60"], [240, "×240"]].map(x => `<button type="button" id="fsp-${x[0]}" data-sp="${x[0]}" aria-pressed="false">${x[1]}</button>`).join("");
+  $("#fSpeed").addEventListener("click", e => { const b = e.target.closest("[data-sp]"); if (b) { fSpeed = +b.dataset.sp; fRender(); } });
+  const sv = $("#fschem");
+  sv.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) fSelect(g.dataset.fcomp); });
+  sv.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); fSelect(e.target.closest(".comp").dataset.fcomp); } });
+  $("#fSteps").innerHTML = F_STEPS.map(s => `<li><div><h4>${esc(s[0])}</h4><p>${esc(s[1])}</p></div></li>`).join("");
+  fApply(0);
+  fSelect("nacL");
+  fTimer = setInterval(() => fStep(0.25), 250);
 }
 
 /* ================= boot ================= */
