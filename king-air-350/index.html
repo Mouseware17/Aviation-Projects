@@ -134,6 +134,7 @@ main {
 .view { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; }
 .view > *, section.block > *, .mw-stack > * { min-width: 0; }
 .prose { max-width: 68ch; display: grid; gap: 12px; }
+p.prose { display: block; }
 .eyebrow { font-family: var(--f-mono); font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .chapter-head { display: grid; gap: 10px; }
 .chapter-head h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); text-transform: uppercase; letter-spacing: .01em; font-weight: 700; }
@@ -533,6 +534,17 @@ input.lever:focus-visible { outline: 2px solid var(--placard); outline-offset: 2
 .pbtn.envb[aria-pressed="true"] { background: var(--placard); color: #1d2228; border-color: var(--placard); }
 .pbtn.liftb[aria-pressed="true"] { background: #f2b81c; color: #241a00; border-color: #f2b81c; }
 
+/* ---------- propellers ---------- */
+.oil{fill:none;stroke-width:8;stroke-linejoin:round;stroke-linecap:round;opacity:.9}
+.oil.press{stroke:#e2342a}
+.oil.static{stroke:#2a73c4}
+.oil.none{stroke:var(--wire-dead);opacity:.35}
+.oilf{fill:none;stroke:#fff;stroke-width:2.5;stroke-dasharray:4 12;opacity:0}
+.oilf.on{opacity:.9;animation:flow .6s linear infinite}
+.case{fill:var(--wire-dead)}
+g[data-case].on .case{fill:#2a73c4}
+.spool{fill:var(--sym-fill);stroke:var(--sym);stroke-width:1.6}
+
 @media (max-width: 1120px) {
   .sim { grid-template-columns: minmax(0, 1fr); }
   .side { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -551,7 +563,7 @@ input.lever:focus-visible { outline: 2px solid var(--placard); outline-offset: 2
   .eng-row { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
+  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .oilf.on, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
   * { transition: none !important; }
 }
 </style>
@@ -1388,6 +1400,258 @@ input.lever:focus-visible { outline: 2px solid var(--placard); outline-offset: 2
 </div>
 </template>
 
+
+<template id="tpl-propellers">
+<div class="view">
+  <header class="chapter-head">
+    <div class="eyebrow">Chapter 6</div>
+    <h1>Propellers</h1>
+    <p class="lede">Each PT6A-60A drives a four-blade Hartzell constant-speed, full-feathering, reversing propeller. Oil pressure from the governor pump drives the blades toward low pitch and reverse. Feathering springs and counterweights always push them back toward feather. Every mode, from governing and beta to ground fine, reverse and feather, comes down to which device is metering that oil.</p>
+    <p class="disclaimer">Study aid built from the King Air 300/350 training manual propeller section, King Air 350 values only. It is not an approved document. The POH/AFM governs. The simulator's rpm, torque and blade angle response is a teaching model, not performance data.</p>
+    <div class="subnav" id="pvSubnav">
+      <button data-go="pv-glance">At a glance</button>
+      <button data-go="pv-sim">Interactive propeller</button>
+      <button data-go="pv-forces">Pitch-change forces</button>
+      <button data-go="pv-gov">Primary governor</button>
+      <button data-go="pv-lps">Low pitch stop &amp; beta valve</button>
+      <button data-go="pv-gf">Ground fine &amp; reverse</button>
+      <button data-go="pv-glps">Flight &amp; ground stops</button>
+      <button data-go="pv-prot">Overspeed protection</button>
+      <button data-go="pv-ctl">Levers &amp; feathering</button>
+      <button data-go="pv-af">Autofeather</button>
+      <button data-go="pv-sync">Synchrophaser</button>
+    </div>
+  </header>
+
+  <section class="block" id="pv-glance">
+    <h2>At a glance <span class="ref">Figure 7-29</span></h2>
+    <div class="specs">
+      <div class="spec"><span class="v">1,450–1,700 rpm</span><span class="k">Primary governor range. 1,700 for takeoff; 1,500 for max range and recommended cruise.</span></div>
+      <div class="spec"><span class="v">≈ 1,768 rpm</span><span class="k">Overspeed governor (≈ 1,565 ±45 in TEST)</span></div>
+      <div class="spec"><span class="v">106 % / 95 %</span><span class="k">Fuel topping governor: forward range / ground fine and reverse, as % of selected rpm</span></div>
+      <div class="spec"><span class="v">≈ 375 psi</span><span class="k">Governor pump output, driven by the Np shaft</span></div>
+      <div class="spec"><span class="v">79.3°</span><span class="k">Feather</span></div>
+      <div class="spec"><span class="v">30–45°</span><span class="k">Typical cruise blade angle</span></div>
+      <div class="spec"><span class="v">+12° / +2°</span><span class="k">Flight / ground low pitch stop</span></div>
+      <div class="spec"><span class="v">−3° / −14°</span><span class="k">Ground fine (zero thrust) / maximum reverse</span></div>
+      <div class="spec"><span class="v">&gt; 1,050 rpm</span><span class="k">Keep ground rpm above 1,050 (or below 400). Worst resonance is 850–900 rpm.</span></div>
+      <div class="spec"><span class="v">88 % · 17 % · 10 %</span><span class="k">Autofeather: N1 arm switch · torque arm/disarm · torque to feather</span></div>
+    </div>
+    <p class="disclaimer">All blade angles are approximate, measured at the 42-inch station (42 in from the propeller centerline), because the blade's twist changes the angle along its length.</p>
+  </section>
+
+  <section class="block" id="pv-sim">
+    <h2>Interactive propeller <span class="ref">Figures 7-30 to 7-48</span></h2>
+    <p class="prose">Set the power and propeller levers, change airspeed, land, reverse, feather, or fail something. The hydraulic schematic shows oil going to or leaving the dome, the flyweights and pilot valve, the beta valve and reverse lever, and the dome and feedback ring moving. The blade-angle view shows the blades and the airflow they see. Moving a power lever below IDLE needs <b>Lift</b>, as in the airplane.</p>
+
+    <div class="diagram-card">
+      <div class="scen">
+        <div class="scen-row">
+          <label for="pvScenSel">Scenario</label>
+          <select id="pvScenSel"></select>
+          <button class="btn" id="pvPrev" aria-label="Previous scenario">◀ Prev</button>
+          <button class="btn" id="pvNext" aria-label="Next scenario">Next ▶</button>
+        </div>
+        <p class="scen-cap" id="pvScenCap"></p>
+      </div>
+    </div>
+
+    <div class="pp-top">
+      <div class="panel">
+        <h3>Power &amp; propeller levers</h3>
+        <div class="pedestal" id="pvPedestal"></div>
+        <div class="lift" id="pvLiftRow"></div>
+        <p class="hintbar" id="pvHint" aria-live="polite"></p>
+        <div class="qset" id="pvQset"></div>
+        <h3>Subpanel switches · engines · flight condition</h3>
+        <div class="sw-row" id="pvSwitches"></div>
+        <div class="envrow" id="pvEnv"></div>
+        <h3>Inject a fault</h3>
+        <div class="faults" id="pvFaults"></div>
+      </div>
+      <div class="panel">
+        <h3>Propeller instruments (L · R)</h3>
+        <div class="inst" id="pvInst"></div>
+        <h3>Synchroscope</h3>
+        <div class="envrow" id="pvSyncRow"></div>
+        <h3>Annunciators</h3>
+        <div class="ann-grid" id="pvAnns"></div>
+        <h3>What each propeller is doing</h3>
+        <div class="modes" id="pvModes"></div>
+      </div>
+    </div>
+
+    <div class="sim">
+      <div class="diagram-card">
+        <div class="dtabs">
+          <div class="seg" role="group" aria-label="Diagram" id="pvTabs">
+            <button type="button" id="pvt-hyd" data-tab="hyd" aria-pressed="true">Governor &amp; beta valve</button>
+            <button type="button" id="pvt-blade" data-tab="blade" aria-pressed="false">Blade angle</button>
+            <button type="button" id="pvt-af" data-tab="af" aria-pressed="false">Autofeather circuit</button>
+          </div>
+          <label>Engine</label>
+          <div class="seg" role="group" aria-label="Propeller shown">
+            <button type="button" id="pve-L" data-pveng="L" aria-pressed="true">Left</button>
+            <button type="button" id="pve-R" data-pveng="R" aria-pressed="false">Right</button>
+          </div>
+        </div>
+        <div class="svg-wrap" id="pvSvgs">
+          <svg id="pv-hyd" viewBox="0 0 1000 470" role="img" aria-label="Propeller governor, beta valve and pitch-change mechanism"></svg>
+          <svg id="pv-blade" viewBox="0 0 1000 470" role="img" aria-label="Propeller blade angle and relative airflow" hidden></svg>
+          <svg id="pv-af" viewBox="0 0 1000 470" role="img" aria-label="Autofeather circuit" hidden></svg>
+        </div>
+        <div class="legend" id="pvLegend"></div>
+      </div>
+      <div class="side">
+        <div class="card info" id="pvInfo" aria-live="polite"></div>
+        <div class="card"><h3>Propeller events</h3><ol class="log" id="pvLog"></ol></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pv-forces">
+    <h2>Pitch-change forces <span class="ref">Figures 7-27, 7-28</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>The governor pump, driven by the Np shaft, raises engine oil to about <b>375 psi</b>. That oil reaches the propeller dome through a <b>transfer gland</b> around the propeller shaft. More oil in the dome moves the dome forward and the blades to <b>lower pitch</b> (higher rpm), and eventually to reverse.</p>
+        <p><b>Feathering springs and counterweights</b> push constantly the other way, toward <b>high pitch</b> (lower rpm) and feather. Propeller control is a balance between the two. There are <b>no high-pitch stop locks</b>, so the propeller feathers after every shutdown, and any loss of oil pressure sends it toward feather.</p>
+      </div>
+      <div class="bus-table-wrap"><table><thead><tr><th>Blade angle (42-in station)</th><th>Meaning</th></tr></thead><tbody>
+        <tr><td class="num">79.3°</td><td>Feather</td></tr>
+        <tr><td class="num">30–45°</td><td>Typical cruise (governing)</td></tr>
+        <tr><td class="num">+12°</td><td>Flight low pitch stop (power levers at IDLE or above, in flight)</td></tr>
+        <tr><td class="num">+9°</td><td>PROP PITCH proximity switch, ≈ 9° or less</td></tr>
+        <tr><td class="num">+2°</td><td>Ground low pitch stop (on the ground, power levers at IDLE)</td></tr>
+        <tr><td class="num">−3°</td><td>Ground fine, zero thrust (at the GROUND FINE gate)</td></tr>
+        <tr><td class="num">−14°</td><td>Maximum reverse</td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <section class="block" id="pv-gov">
+    <h2>Primary governor <span class="ref">Figures 7-30 to 7-34</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Mounted on top of the reduction gearbox, the primary governor turns a variable-pitch propeller into a constant-speed one. <b>Flyweights</b> geared to the propeller shaft are balanced against a <b>speeder spring</b> whose tension the prop lever sets. The flyweights move a free-floating <b>pilot valve</b>, which decides whether oil goes to the dome, stays trapped, or drains to the case.</p>
+        <p>The governor makes small corrections constantly, and the pilot notices few of them. If the governor control linkage fails, an external spring on the governor drives it to <b>1,700 rpm</b>.</p>
+      </div>
+      <div class="bus-table-wrap"><table><thead><tr><th>Condition</th><th>Cause</th><th>Flyweights / pilot valve</th><th>Result</th></tr></thead><tbody>
+        <tr><td><span class="chip green">Onspeed</span></td><td>Np = selected</td><td>Centered; valve in the middle</td><td>Oil trapped. Constant pitch and rpm.</td></tr>
+        <tr><td><span class="chip amber">Overspeed</span></td><td>Descent or power increase</td><td>Fly out; valve rises</td><td>Oil drains from the dome. Higher pitch, rpm comes back down.</td></tr>
+        <tr><td><span class="chip amber">Underspeed</span></td><td>Climb or power reduction</td><td>Droop in; valve drops</td><td>Oil to the dome. Lower pitch, rpm comes back up.</td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <section class="block" id="pv-lps">
+    <h2>Low pitch stop &amp; the beta valve <span class="ref">Figure 7-35</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>If the governor could keep reducing blade angle, the propeller would become a flat disc. That means huge drag and blanked airflow over the wing and tail. So a <b>hydraulic low pitch stop</b> limits it. On a reversing propeller this stop has to be movable.</p>
+        <p>Four <b>flanges</b> on the dome meet four <b>low-pitch stop nuts</b> on four spring-loaded <b>polished rods</b> at about 15°. Below that, the dome drags the rods, the <b>feedback ring</b> and the <b>carbon block</b> forward. That moves the bottom of the <b>reverse lever</b>, which pulls the <b>beta valve</b> forward to cut off oil to the dome. The blades stop at the flight low pitch stop. Pull the beta valve further forward and it <b>dumps</b> dome oil to the gearbox sump. A mechanical stop limits its forward travel.</p>
+        <p>Whenever Np is <i>below</i> the selected rpm (a stabilized underspeed), the blades are sitting on the low pitch stop. That stop is the flight stop in the air and the ground stop on the ground.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>The reverse lever</h3><ul class="tight">
+          <li><b>Top:</b> reversing linkage from the power lever (cam box and push-pull control) <i>and</i> the ground low pitch stop solenoid.</li>
+          <li><b>Middle:</b> the beta valve in the primary governor.</li>
+          <li><b>Bottom:</b> the feedback ring, carbon block and polished rods, which report blade angle.</li>
+        </ul><p>When the blades are above the flight stop, the feedback ring is fully aft and the beta valve is aft (open), so the governor alone controls pitch. Rearward beta valve travel doesn't affect normal governing.</p></div>
+        <div class="callout"><b>Fail-safe</b>The beta valve is spring-loaded to cut off oil and dump the dome if its linkage fails, which drives the blades toward high pitch.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pv-gf">
+    <h2>Ground fine &amp; reverse <span class="ref">Figures 7-36, 7-38</span></h2>
+    <p class="prose">From IDLE to full forward thrust, the cam box geometry doesn't move the beta valve. Aft of IDLE, the power lever pulls the top of the reverse lever aft. That opens the beta valve, oil flows to the dome, and the blade angle decreases. The dome's forward travel comes back through the polished rods and feedback ring and closes the valve at the angle the lever selected. The lever has effectively moved the low pitch stop. Moving the lever forward pushes the valve fully forward, dumps oil until the feedback re-centers it, and the blade angle rises.</p>
+    <ol class="steps">
+      <li><div><h4>Flight idle → ground low pitch stop (touchdown)</h4><p>On approach, decreasing airspeed lowers blade angle to hold governor rpm until the beta valve cuts off at +12°. At touchdown the right main gear safety switch energizes the ground low pitch stop solenoids. They pull the reverse lever aft, oil flows, and the blades settle at <b>+2°</b>.</p><button class="show" type="button" data-pvsc="5">Load in the simulator →</button></div></li>
+      <li><div><h4>Ground low pitch stop → ground fine gate</h4><p>Lift over the IDLE gate and pull aft. The blades go progressively from +2° to <b>−3°</b> (zero thrust) at the GROUND FINE gate. <b>N1 stays at idle</b> (62–70% per the condition lever). Ground fine is for taxi.</p><button class="show" type="button" data-pvsc="1">Load in the simulator →</button></div></li>
+      <li><div><h4>Ground fine gate → full reverse</h4><p>Lift again and pull aft. The blades go from −3° to <b>−14°</b> while N1 rises progressively to a maximum of <b>87 ±1%</b>. The fuel topping governor, reset to 95% of selected rpm, keeps the primary governor in underspeed so the beta valve stays in charge.</p><button class="show" type="button" data-pvsc="2">Load in the simulator →</button></div></li>
+    </ol>
+    <div class="two-col">
+      <div class="card"><h3>PROP PITCH annunciators</h3><p>White L/R PROP PITCH lights show the blade angle has dropped below the flight low pitch stop. The FAA requires an alert any time pitch drops more than 8° below the flight stop without direct pilot action, as happens at touchdown. A magnetic proximity sensor watches the feedback ring (≈ 9° or less).</p></div>
+      <div class="callout warning"><b>Caution</b>Don't pull the power levers into GROUND FINE or REVERSE with the propellers feathered, or with the engines shut down. With the blades above the flight stop the beta valve is already aft and open and the feedback ring can't move, so forcing the lever damages the reversing linkage.</div>
+    </div>
+  </section>
+
+  <section class="block" id="pv-glps">
+    <h2>Flight &amp; ground low pitch stops (King Air 350) <span class="ref">Figure 7-40</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>A lower blade angle on the ground gives higher rpm without excess thrust, and keeps the prop above 1,050 rpm out of the resonance range. So each engine has a <b>ground low pitch stop solenoid</b> that acts on the top of the reverse lever, just as the power lever does.</p>
+        <ul class="tight">
+          <li><b>Energized by</b> the <b>right main landing gear safety switch</b> (on ground). Backup: a power-quadrant switch that closes when <b>either power lever is lifted at the IDLE gate</b>.</li>
+          <li><b>Interrupted by</b> a microswitch on each power lever above <b>68–70% N1</b>. As power comes up for takeoff, the blades step from +2° to +12°, and Np dips momentarily under the extra rotational drag. That helps prevent surging.</li>
+          <li>Voltage drops from about 28 V to about 14 V 2 s after energizing (resistors), to keep the solenoids cool. Protected by the PROP GOV TEST breaker. A GROUND LOW PITCH STOP TEST switch is provided.</li>
+          <li>The stop only matters once the governor is in <b>underspeed</b>. While Np is onspeed, the blades stay above the flight stop no matter what the power levers or solenoid do.</li>
+        </ul>
+      </div>
+      <div class="mw-stack">
+        <div class="callout warning"><b>Warning</b>Do not lift the power levers at the IDLE gate in flight. Doing so energizes the ground low pitch stop solenoids. If the governor is in underspeed, the blades drop from +12° to +2°, causing excessive drag and a high sink rate.</div>
+        <div class="card"><h3>Resonance &amp; ground ops</h3><p>Keep ground rpm above 1,050 or below 400. 850–900 rpm is the worst, especially with a quartering tailwind. Feathered at idle is acceptable because it's below the resonance range. Avoid long feathered running on the ground, though: without prop blast, exhaust heat builds up around the nacelle, nose avionics and fuselage.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pv-prot">
+    <h2>Overspeed protection <span class="ref">Figure 7-41</span></h2>
+    <div class="two-col">
+      <div class="card"><h3>Overspeed governor</h3><p>On the left side of the reduction gearbox, set at about <b>1,768 rpm</b>. It has flyweights and a pilot valve like the primary governor, but it can only <b>drain</b> dome oil, never add it, and the pilot can't select its speed. Because the prop is driven by a free turbine, a primary-governor failure can overspeed it quickly. A tach stabilized near 1,768 means the primary has failed and the overspeed governor is working. For the pre-takeoff check, the PROP GOV TEST switch resets it to about 1,565 rpm. The autofeather dump solenoid (normally closed) sits on its oil line.</p></div>
+      <div class="card"><h3>Fuel topping governor (FTG)</h3><p>Part of the primary governor. If neither governor can change blade angle, for example with a frozen hub, the FTG bleeds Py/P3 air in the FCU to cut fuel and power. It limits Np to about <b>106%</b> of selected rpm in the forward range. In GROUND FINE and REVERSE the power lever resets it to about <b>95%</b>, so the primary governor stays in underspeed and the beta valve, not the governor, positions the blades. In those ranges, Np is a function of N1 and power lever position.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="pv-ctl">
+    <h2>Levers &amp; feathering <span class="ref">Figures 7-42, 7-43</span></h2>
+    <div class="two-col">
+      <div class="card"><h3>Power levers</h3><p><b>Forward range:</b> select N1 through the FCU. <b>Ground fine:</b> blade angle proportional to aft travel, FTG reset to 95%, N1 unchanged. <b>Reverse:</b> blade angle proportional to aft travel, N1 to sustain reverse power, FTG reset to 95%. Gates at IDLE and GROUND FINE must be lifted over.</p></div>
+      <div class="card"><h3>Propeller levers</h3><p>Full forward sets 1,700 rpm. Full aft, ahead of the feather detent, sets 1,450 rpm. A detent at low rpm guards the FEATHER position (red and white stripes). RVS NOT READY lights if the gear is down and the prop levers aren't at HIGH RPM.</p></div>
+      <div class="card"><h3>Feathering</h3><p>Prop lever into the feather detent opens the <b>feathering dump valve</b>. Dome oil drains and the springs and counterweights feather the blades. Because the prop and N1 shafts aren't connected, you can feather with the engine at idle without harm. With autofeather not armed, an engine shut down in cruise keeps windmilling onspeed, and in sync, until it is feathered or loses all oil pressure.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="pv-af">
+    <h2>Autofeather <span class="ref">Figures 7-44 to 7-47</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>The AUTOFEATHER switch (ARM – OFF – TEST) lets a failed engine's propeller feather by itself. It energizes a normally closed dump valve that drains the dome. It is required to be operable for all flights and armed for takeoff, climb and approach.</p>
+        <ul class="tight">
+          <li><b>Armed</b> when both power levers are above about <b>88% N1</b> (power lever switches) and both torques are above <b>17%</b>. Both green L/R AUTOFEATHER lights come on.</li>
+          <li>When one engine's torque drops below <b>17%</b>, the <i>opposite</i> engine's autofeather disarms and its light goes out.</li>
+          <li>If it keeps dropping below <b>10%</b>, that engine's dump valve opens and the propeller feathers. Its light goes out too.</li>
+          <li>Retarding either power lever below 88%, or the last engine's torque falling below 17%, disarms the whole system.</li>
+        </ul>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>Autofeather test</h3>
+          <ol class="tight">
+            <li>Power levers at about <b>22% torque</b>.</li>
+            <li>AUTOFEATHER switch: hold to <b>TEST</b>. This bypasses the 88% switches, and both lights come on.</li>
+            <li>Retard one power lever. At about 17% the <i>opposite</i> light goes out. At about 10% the prop starts to feather. The light blinks and torque fluctuates as it moves in and out of feather.</li>
+            <li>Repeat on the other side, then retard both to IDLE: neither feathers, and both lights go out.</li>
+            <li>Arm for takeoff. Then, at LOW IDLE, check manual feathering.</li>
+          </ol>
+          <button class="show" type="button" data-pvsc="10">Run the test in the simulator →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pv-sync">
+    <h2>Synchrophaser &amp; synchroscope <span class="ref">Figure 7-48</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>An electronic system, certified for all phases including takeoff and landing, that matches the two propellers' rpm and holds a set blade phase between them to cut beat and cabin noise. It isn't master-slave. It brings the <b>slower</b> prop up to the faster one, by at most about <b>20 rpm</b>, and never lets rpm drop below what the lever selected.</p>
+        <p>A magnetic pickup at each spinner bulkhead sends one pulse per revolution to a control box ahead of the pedestal. The box biases coils next to each primary governor's flyweights. Synchronize manually to within 20 rpm, then press the sync button (350). To change rpm with sync on, move both prop levers together. If it won't match, it's at the end of its range.</p>
+      </div>
+      <div class="card"><h3>Synchroscope</h3><p>A black-and-white cross that spins clockwise when the <b>right</b> propeller is faster, counterclockwise when the <b>left</b> is faster, and stops when they're synchronized. It is to the left of the oil pressure and temperature gauges.</p></div>
+    </div>
+  </section>
+</div>
+</template>
+
 <script>
 (function () {
 "use strict";
@@ -1398,7 +1662,7 @@ const CHAPTERS = [
   { n: 2,  id: "electrical",        t: "Electrical Power Systems", ready: "Ready · interactive schematic" },
   { n: 4,  id: "master-warning",    t: "Master Warning System", ready: "Ready · interactive annunciator panels" },
   { n: 5,  id: "fuel",              t: "Fuel System", ready: "Ready · interactive fuel-flow schematic" },
-  { n: 6,  id: "propellers",        t: "Propellers" },
+  { n: 6,  id: "propellers",        t: "Propellers", ready: "Ready · interactive propeller & governor" },
   { n: 7,  id: "powerplant",        t: "Powerplant", ready: "Ready · interactive pedestal & engine" },
   { n: 8,  id: "fire-protection",   t: "Fire Protection" },
   { n: 9,  id: "pneumatics",        t: "Pneumatics" },
@@ -1462,7 +1726,7 @@ function renderPlaceholder(c) {
   </div>`;
 }
 
-const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant() };
+const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers() };
 function route() {
   const id = (location.hash || "").replace("#", "");
   const ch = CHAPTERS.find(c => c.id === id);
@@ -2258,7 +2522,7 @@ function applyScenario(i) {
   step(0.01);
 }
 
-function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; MW = null; }
+function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; MW = null; }
 
 function initElectrical() {
   buildSchematic();
@@ -3369,6 +3633,528 @@ function initPowerplant() {
   ppApply(1);
   $("#ppInfo").innerHTML = `<h3>Component details</h3><p>Select any part of a diagram (turbines, governors, valves, pumps) to see what it does and its live state for the engine shown.</p>`;
   ppTimer = setInterval(() => ppStep(0.1), 100);
+}
+
+
+/* ================= Chapter 6: Propellers ================= */
+const PV_IDLE = 24, PV_GF = 14, PV_FTH = 10, FEATHER_DEG = 79.3;
+let PV = null, pvG = [], pvTimer = null, pvSide = "L", pvTab = "hyd", pvSel = null, pvScen = 0, pvScript = null, pvLogArr = [];
+
+function pvEngine() {
+  return { pl: PV_IDLE, pr: 100, run: true, n1: 62, shp: 60, np: 1250, beta: 2, ftg: 0, tq: 8, sol: true, stop: 2, mode: "", why: "", pv: -1, bv: "CUTOFF", bvPos: 0,
+    oil: true, flow: "trapped", dump: "", os: false, afLight: false, afDump: false, bias: 0, err: 0, phi: 0, prevBeta: 2, rot: 0, warned: {} };
+}
+function pvFresh() {
+  return { E: { L: pvEngine(), R: pvEngine() }, env: { flight: false, ktas: 200, gs: 0, gear: true, lifted: false },
+    sw: { af: "OFF", govTest: false, glpsTest: false, sync: false }, fault: { gov: { L: false, R: false }, hub: { L: false, R: false } },
+    lift: false, together: true, t: 0, syncAng: 0 };
+}
+function pvLog(msg, cls) {
+  pvLogArr.unshift({ t: PV.t, msg, cls: cls || "" }); if (pvLogArr.length > 50) pvLogArr.pop();
+  const h = $("#pvLog"); if (h) h.innerHTML = pvLogArr.map(e => `<li class="${e.cls}"><span class="t">${e.t.toFixed(1)}s</span><span class="m">${esc(e.msg)}</span></li>`).join("");
+}
+function pvOnce(e, key, cond, msg, cls) { if (cond && !e.warned[key]) { e.warned[key] = true; pvLog(msg, cls); } if (!cond) e.warned[key] = false; }
+const pvSel1 = e => e.pr < PV_FTH ? 1450 : 1450 + clamp01((e.pr - 12) / 88) * 250;
+const pvRange = e => e.pl >= PV_IDLE ? "FWD" : e.pl >= PV_GF ? "GF" : "REV";
+const pvN1cmd = e => !e.run ? 0 : e.pl >= PV_IDLE ? 62 + (e.pl - PV_IDLE) / (100 - PV_IDLE) * 42 : e.pl >= PV_GF ? 62 : 62 + (PV_GF - e.pl) / PV_GF * 25;
+
+function pvStep(dt) {
+  PV.t += dt;
+  const env = PV.env, F = PV.fault, sw = PV.sw;
+  // ground speed: accelerates with forward thrust, decelerates otherwise (reverse decelerates harder)
+  if (!env.flight) {
+    const thrust = (PV.E.L.tq + PV.E.R.tq) / 2, rev = pvRange(PV.E.L) === "REV" || pvRange(PV.E.R) === "REV";
+    if (thrust > 60 && !rev && !env.brakes && PV.E.L.beta > 8 && PV.E.R.beta > 8) env.gs = Math.min(110, env.gs + 4 * dt);
+    else env.gs = Math.max(0, env.gs - (rev ? 6 : 2.5) * dt);
+    env.gear = true;
+  }
+  const V = (env.flight ? env.ktas : env.gs) * 0.5144;
+  ["L", "R"].forEach(k => {
+    const e = PV.E[k], S = SIDE[k], rng = pvRange(e), sel = pvSel1(e);
+    // engine
+    e.n1 += (pvN1cmd(e) - e.n1) * dt / (e.run ? 1.5 : 3);
+    if (e.n1 < 0.1) e.n1 = 0;
+    const dens = env.flight ? 0.75 : 1;
+    const shpRaw = e.run ? 1180 * dens * Math.pow(clamp01((e.n1 - 55) / 49), 1.8) + 25 * clamp01(e.n1 / 62) : 0;
+    const lim = (rng === "FWD" ? 1.06 : 0.95) * sel;
+    e.ftg += (clamp01((e.np - lim) / 25) - e.ftg) * dt / 0.25;
+    e.shp = shpRaw * (1 - 0.92 * e.ftg);
+    // ground low pitch stop solenoid (350): right gear safety switch on ground, or power levers lifted at IDLE; opened above 68–70% N1 by the power lever switch
+    e.sol = (!env.flight || PV.lift || sw.glpsTest) && pvN1cmd(e) < 69 && e.run;
+    e.stop = rng === "FWD" ? (e.sol ? 2 : 12) : rng === "GF" ? 2 + (e.pl - PV_IDLE) / (PV_IDLE - PV_GF) * 5 : -3 - (PV_GF - e.pl) / PV_GF * 11;
+    // oil: governor pump is driven by the Np shaft; supply from engine oil
+    e.oil = e.np > 250 && (e.run || env.flight);
+    // aerodynamics (teaching model)
+    const U = Math.max(e.np, 1) * 0.10472 * 1.07, vi = 10 * Math.sqrt(Math.max(0, e.shp) / 1050);
+    e.phi = Math.atan2(V + vi, Math.max(U, 5)) * 180 / Math.PI;
+    let a;
+    if (e.beta < 0) a = 0.05 + 0.03 * -e.beta + 0.0005 * e.beta * e.beta;
+    else { const x = e.beta - e.phi; a = 0.08 + 0.06 * x + 0.0012 * x * Math.abs(x); a = e.beta > 60 ? Math.min(Math.max(a, 0.015), 1.5) : Math.max(Math.min(a, 1.5), -0.7); }
+    const r = e.np / 1700, pabs = 1250 * r * r * r * a + 8 * r;
+    e.np += (e.shp - pabs) / Math.max(e.np, 150) * 900 * dt;
+    if (!e.run && !env.flight) e.np -= e.np * 0.2 * dt;
+    e.np = Math.max(0, e.np);
+    // governors
+    const set = sel + e.bias;
+    e.err = e.np - set;
+    let rate = F.gov[k] ? -25 : Math.max(-30, Math.min(30, 0.3 * e.err));
+    e.pv = F.gov[k] ? -1 : Math.max(-1, Math.min(1, e.err / 40));
+    const osSet = sw.govTest ? 1565 : 1768;
+    e.os = e.np > osSet && e.oil;
+    if (e.os) rate = Math.max(rate, Math.min(40, 0.3 * (e.np - osSet)));
+    const featherCmd = e.pr < PV_FTH || e.afDump || !e.oil;
+    const b0 = e.beta;
+    e.dump = "";
+    if (F.hub[k]) { /* frozen hub: blades can't move */ }
+    else if (featherCmd) { e.beta = Math.min(FEATHER_DEG, e.beta + 16 * dt); e.dump = e.pr < PV_FTH ? "feather" : e.afDump ? "autofeather" : "nooil"; }
+    else if (rng !== "FWD") {
+      // ground fine / reverse: the beta valve ports oil to (or from) the dome until the blades reach the lever-selected angle
+      const d = e.stop - e.beta; e.beta += Math.sign(d) * Math.min(Math.abs(d), 12 * dt);
+      if (Math.abs(d) > 0.05) e.dump = d > 0 ? "beta" : "";
+    }
+    else {
+      let nb = e.beta + rate * dt;
+      if (nb < e.stop) nb = e.beta >= e.stop ? e.stop : Math.min(e.stop, e.beta + 20 * dt);
+      e.beta = Math.max(-14, Math.min(FEATHER_DEG, nb));
+      if (e.beta < b0 - 0.0001 && b0 < e.stop) e.dump = "";
+      if (b0 < e.stop - 0.05) e.dump = "beta";
+      else if (e.os && e.beta > b0) e.dump = "os";
+      else if (e.beta > b0 + 0.01) e.dump = "pilot";
+    }
+    const br = (e.beta - b0) / dt;
+    e.flow = !e.oil && e.beta >= FEATHER_DEG - 0.1 ? "none" : br < -0.25 ? "fill" : br > 0.25 ? "dump" : e.oil ? "trapped" : "none";
+    // beta valve position (relative to its oil cut-off point)
+    const dxTop = -(12 - (rng === "FWD" ? e.stop : e.stop)), dxBot = Math.max(0, 15 - e.beta);
+    e.bvPos = dxTop + dxBot - 3;
+    e.bv = e.bvPos < -0.6 ? "OPEN" : e.bvPos > 0.6 ? "DUMP" : "CUT-OFF";
+    if (rng !== "FWD" || e.sol) { if (Math.abs(e.beta - e.stop) < 0.3) e.bv = "CUT-OFF"; }
+    e.tq = e.run ? e.shp / 1050 * 1700 / Math.max(e.np, 300) * 100 : 0;
+    // mode
+    const onStop = e.beta <= e.stop + 0.3;
+    if (featherCmd && !F.hub[k] && e.beta < FEATHER_DEG - 0.2) { e.mode = "FEATHERING"; e.why = e.dump === "feather" ? "Prop lever in FEATHER: the feathering valve dumps dome oil; springs and counterweights drive the blades toward 79.3°." : e.dump === "autofeather" ? "Autofeather dump valve open: dome oil drains and the blades move toward feather." : "No governor oil pressure: springs and counterweights drive the blades toward feather."; }
+    else if (e.beta > 70) { e.mode = e.beta >= FEATHER_DEG - 0.2 ? "FEATHERED" : "FEATHERING"; e.why = e.dump === "feather" ? "Prop lever in FEATHER: the feathering valve dumps dome oil; springs and counterweights drive the blades to 79.3°." : e.dump === "autofeather" ? "Autofeather dump valve open: dome oil drains and the blades feather." : !e.oil ? "No governor oil pressure: springs and counterweights hold the blades feathered." : "Unfeathering: governor oil is driving the blades back toward low pitch."; }
+    else if (F.hub[k]) { e.mode = "HUB FROZEN"; e.why = `Blades stuck at ${e.beta.toFixed(0)}°. Neither governor can change pitch, so the fuel topping governor cuts fuel to hold Np near ${Math.round(lim)} rpm (${rng === "FWD" ? "106" : "95"}% of selected).`; }
+    else if (e.os) { e.mode = "O/S GOV"; e.why = `Overspeed governor dumping dome oil to hold about ${osSet} rpm${sw.govTest ? " (TEST reset)" : ""}.${F.gov[k] ? " The primary governor has failed toward low pitch." : ""}`; }
+    else if (rng === "REV") { e.mode = "REVERSE"; e.why = `Beta valve sets blades at ${e.stop.toFixed(1)}°. N1 rises with aft lever travel (max 87%). The FTG at 95% (${Math.round(lim)} rpm) keeps the governor in underspeed${e.ftg > 0.1 ? " and is now trimming fuel" : ""}.`; }
+    else if (rng === "GF") { e.mode = "GROUND FINE"; e.why = `Beta valve sets blades at ${e.stop.toFixed(1)}° (between +2° and −3°). N1 stays at idle and the FTG is reset to 95%${e.ftg > 0.1 ? ", and it is trimming fuel to hold about " + Math.round(lim) + " rpm" : ""}.`; }
+    else if (e.ftg > 0.1) { e.mode = "FTG"; e.why = `Fuel topping governor reducing fuel (P3/Py bleed) to limit Np to about ${Math.round(lim)} rpm.`; }
+    else if (onStop && e.err < -8) { e.mode = e.stop < 5 ? "GROUND STOP" : "FLIGHT STOP"; e.why = `Underspeed: Np ${Math.round(e.np)} is below ${Math.round(set)}, so the blades rest on the ${e.stop < 5 ? "ground low pitch stop (+2°)" : "flight low pitch stop (+12°)"}. The beta valve has cut off dome oil.`; }
+    else if (Math.abs(e.err) <= 8) { e.mode = "ONSPEED"; e.why = `Flyweights balanced against the speeder spring at ${Math.round(set)} rpm. The pilot valve is centered and oil is trapped in the dome.`; }
+    else if (e.err > 0) { e.mode = "OVERSPEED"; e.why = "Flyweights out, pilot valve up: dome oil drains to the case and blade angle increases."; }
+    else { e.mode = "UNDERSPEED"; e.why = "Flyweights in, pilot valve down: governor oil flows to the dome and blade angle decreases."; }
+    e.rot = (e.rot + e.np * 0.06 * dt * 20) % 360;
+    // event log
+    pvOnce(e, "pp", e.beta < 9 && e.oil, `${S} PROP PITCH: blades below the flight low pitch stop (${e.beta.toFixed(0)}°).`, "");
+    pvOnce(e, "flightLift", env.flight && e.beta < 9 && e.beta > -1 && rng === "FWD", `${S} blades dropped to the ground low pitch stop IN FLIGHT. That's excessive drag and a high sink rate. Lower the power levers out of the lift position.`, "bad");
+    pvOnce(e, "os", e.os, `${S} overspeed governor active at about ${osSet} rpm.`, sw.govTest ? "" : "bad");
+    pvOnce(e, "ftg", e.ftg > 0.2, `${S} fuel topping governor limiting Np (~${Math.round(lim)} rpm).`, rng === "FWD" ? "bad" : "");
+    pvOnce(e, "res", !env.flight && e.run && e.np > 820 && e.np < 930 && e.beta < 70, `${S} Np in the 850–900 rpm resonance range. Keep ground rpm above 1,050 or below 400.`, "warn");
+    pvOnce(e, "fth", e.beta >= FEATHER_DEG - 0.2, `${S} propeller feathered.`, "");
+  });
+  // autofeather (Figure 7-44 logic)
+  const E = PV.E, plSw = k => E[k].pl >= 71; // power lever switches at about the 88% N1 lever position
+  const power = sw.af === "TEST" || (sw.af === "ARM" && plSw("L") && plSw("R"));
+  ["L", "R"].forEach(k => {
+    const o = OTHER[k], relay = power && E[o].tq > 17;
+    E[k].relay = relay; E[k].afLight = relay && E[k].tq >= 10;
+    const was = E[k].afDump; E[k].afDump = relay && E[k].tq < 10;
+    if (E[k].afDump && !was) pvLog(`${SIDE[k]} torque below 10% with autofeather armed: dump valve opens and the propeller feathers.`, "warn");
+  });
+  PV.afPower = power;
+  // synchrophaser
+  const L = E.L, R = E.R, selL = pvSel1(L), selR = pvSel1(R);
+  const both = L.mode === "ONSPEED" || L.mode === "OVERSPEED" || L.mode === "UNDERSPEED";
+  const bothR = R.mode === "ONSPEED" || R.mode === "OVERSPEED" || R.mode === "UNDERSPEED";
+  if (sw.sync && both && bothR) {
+    const d = selR - selL;
+    L.bias += ((d > 0 ? Math.min(20, d) : 0) - L.bias) * dt / 2; R.bias += ((d < 0 ? Math.min(20, -d) : 0) - R.bias) * dt / 2;
+  } else { L.bias += (0 - L.bias) * dt / 2; R.bias += (0 - R.bias) * dt / 2; }
+  PV.syncAng = (PV.syncAng + (R.np - L.np) * 4 * dt) % 360;
+  if (pvScript) pvRunScript();
+  pvRender();
+}
+
+function pvRunScript() {
+  const s = pvScript;
+  while (s.i < s.steps.length) {
+    const st = s.steps[s.i];
+    if (st.wait !== undefined && PV.t - s.t0 < st.wait) return;
+    if (st.until && !st.until(PV)) return;
+    st.do(PV); if (st.msg) pvLog("Demo: " + st.msg); s.i++; s.t0 = PV.t;
+  }
+  pvScript = null;
+}
+
+/* ---------- scenarios ---------- */
+const pvBoth = (P, f) => ["L", "R"].forEach(k => f(P.E[k], k));
+function pvCruise(P, ktas) { P.env.flight = true; P.env.ktas = ktas || 200; P.env.gear = false; pvBoth(P, e => { e.pr = 12 + 50 / 250 * 88; e.pl = 80; e.n1 = 92.9; e.np = 1500; e.beta = 42; e.prevBeta = 42; e.sol = false; e.stop = 12; }); }
+const PV_SCEN = [
+  { t: "Ground idle: blades on the ground low pitch stop", cap: "Engines at low idle on the ground, prop levers at HIGH RPM. Idle power can't turn the prop at 1,700, so the governor is in underspeed and the blades rest on the +2° ground low pitch stop at about 1,250 rpm. The right gear safety switch energizes the stop solenoids. PROP PITCH is on because the blades are below the flight stop.", apply() {} },
+  { t: "Taxi in ground fine", cap: "Power levers lifted over the IDLE gate into GROUND FINE. The reverse lever opens the beta valve and the blades move toward −3° (zero thrust) as you pull aft. N1 stays at idle. Drag the power levers within ground fine and watch the dome, feedback ring and beta valve follow.", apply(P) { P.env.gs = 12; pvBoth(P, e => { e.pl = 19; e.beta = 0; }); } },
+  { t: "Landing roll: full reverse", cap: "Lifted through GROUND FINE into REVERSE. Blades go to −14° as N1 rises toward 87%. The fuel topping governor is reset to 95% of selected (about 1,615 rpm), so the primary governor stays in underspeed and the beta valve keeps control. Bring the levers forward to GROUND FINE as the airplane slows.", apply(P) { P.env.gs = 90; pvBoth(P, e => { e.pl = 1; e.beta = -12; e.n1 = 85; e.np = 1550; }); } },
+  { t: "Demo: takeoff (ground stop → flight stop)", cap: "Power comes up for takeoff. Above 68–70% N1 the power lever switches open the ground low pitch stop circuit, the blades step from +2° to +12°, and Np dips momentarily under the extra rotational drag. Then power drives Np up to 1,700 and the governor goes onspeed at about 15–16°.", apply() {},
+    script: [{ wait: 2, do: P => pvBoth(P, e => { e.pl = 92; }), msg: "power levers to takeoff power." }] },
+  { t: "Demo: cruise, descent and climb (constant speed)", cap: "Cruise at 1,500 rpm and 200 KTAS. The demo pushes airspeed up (a descent): momentary overspeed, the pilot valve rises, oil drains, and blade angle increases. Then airspeed drops (a climb): underspeed, oil to the dome, and blade angle decreases. Np returns to 1,500 each time. Try the airspeed slider yourself.", apply(P) { pvCruise(P); },
+    script: [{ wait: 3, do: P => { P.env.ktas = 260; }, msg: "nose over into a descent: airspeed 260 KTAS." }, { wait: 6, do: P => { P.env.ktas = 160; }, msg: "pitch up into a climb: airspeed 160 KTAS." }, { wait: 6, do: P => { P.env.ktas = 200; }, msg: "level off: 200 KTAS." }] },
+  { t: "Demo: approach, touchdown and reverse", cap: "Final approach at flight idle. As airspeed decays the governor lowers blade angle to hold 1,700 until the blades reach the +12° flight stop. At touchdown the right gear safety switch energizes the ground low pitch stop solenoids and the blades drop to +2° (PROP PITCH on). Then ground fine, reverse, and back to ground fine to taxi.", apply(P) { P.env.flight = true; P.env.ktas = 115; P.env.gear = true; pvBoth(P, e => { e.pl = PV_IDLE; e.n1 = 62; e.np = 1700; e.beta = 18; e.sol = false; e.stop = 12; }); },
+    script: [{ wait: 3, do: P => { P.env.ktas = 95; }, msg: "slowing on short final: 95 KTAS." }, { wait: 3, do: P => { P.env.ktas = 85; }, msg: "flare: 85 KTAS." }, { wait: 3, do: P => { P.env.flight = false; P.env.gs = 85; }, msg: "touchdown. The right gear safety switch energizes the ground low pitch stop solenoids." }, { wait: 3, do: P => { P.lift = true; pvBoth(P, e => { e.pl = 19; }); }, msg: "power levers lifted into GROUND FINE." }, { wait: 2, do: P => pvBoth(P, e => { e.pl = 2; }), msg: "lifted again: full REVERSE." }, { wait: 6, do: P => { P.lift = false; pvBoth(P, e => { e.pl = 19; }); }, msg: "back to GROUND FINE as the airplane slows to taxi speed." }] },
+  { t: "Demo: feathering check on the ground", cap: "At low idle, the prop levers go into the FEATHER detent. The feathering valve dumps dome oil and the counterweights and springs drive the blades to 79.3°. Np falls to about 500, below the resonance range. Because it's a free turbine, the engine isn't harmed. Then the props unfeather.", apply() {},
+    script: [{ wait: 2, do: P => pvBoth(P, e => { e.pr = 2; }), msg: "prop levers to FEATHER." }, { wait: 9, do: P => pvBoth(P, e => { e.pr = 100; }), msg: "prop levers back to HIGH RPM: unfeathering." }] },
+  { t: "Demo: overspeed governor test", cap: "PROP GOV TEST held, prop levers at HIGH RPM. The test resets the overspeed governor to about 1,565 rpm. As power comes up, the prop governs on the overspeed governor at about 1,565 instead of 1,700, which proves it works. On release, normal governing returns.", apply(P) { P.sw.govTest = true; P.env.brakes = true; },
+    script: [{ wait: 2, do: P => pvBoth(P, e => { e.pl = 85; }), msg: "power levers advanced with PROP GOV TEST held." }, { wait: 16, do: P => { P.sw.govTest = false; }, msg: "PROP GOV TEST released." }] },
+  { t: "Primary governor failure (cruise)", cap: "After 3 s the left primary governor fails toward low pitch. It keeps sending oil to the dome, so the blades go to the flight stop and Np runs away until the overspeed governor dumps oil and holds about 1,768 rpm. The fuel topping governor also pulls fuel back, so torque drops. A tach stabilized near 1,768 is the clue.", apply(P) { pvCruise(P); pvSide = "L"; },
+    script: [{ wait: 3, do: P => { P.fault.gov.L = true; }, msg: "left primary governor fails (low pitch)." }] },
+  { t: "Frozen propeller hub (cruise)", cap: "The left hub is frozen at its cruise blade angle, so neither governor can change pitch. When power is added, Np climbs until the fuel topping governor bleeds FCU air and cuts fuel, holding about 106% of selected (1,590 rpm at 1,500 selected). More power lever does nothing.", apply(P) { pvCruise(P); P.fault.hub.L = true; pvSide = "L"; },
+    script: [{ wait: 3, do: P => pvBoth(P, e => { e.pl = 100; }), msg: "power levers to maximum." }] },
+  { t: "Demo: autofeather test", cap: "On the ground at about 25% torque, AUTOFEATHER held to TEST (it bypasses the 88% N1 switches), and both green lights come on. Retarding the left power lever drops left torque below 17%, so the RIGHT light goes out. Below 10% the left dump valve opens and the prop starts to feather. Torque then rises and it unfeathers, so the light blinks and torque fluctuates. Then the right side, then both to idle: no feathering.", apply(P) { P.sw.af = "TEST"; pvBoth(P, e => { e.pl = 38; e.n1 = 70; e.np = 1500; e.beta = 12; }); },
+    script: [{ wait: 4, do: P => { P.E.L.pl = 30; }, msg: "retard the left power lever." }, { wait: 2, do: P => { P.E.L.pl = PV_IDLE; }, msg: "left power lever to IDLE." }, { wait: 9, do: P => { P.E.L.pl = 38; }, msg: "left power lever back up." }, { wait: 5, do: P => { P.E.R.pl = PV_IDLE; }, msg: "retard the right power lever to IDLE." }, { wait: 9, do: P => { P.E.R.pl = 38; }, msg: "right power lever back up." }, { wait: 5, do: P => pvBoth(P, e => { e.pl = PV_IDLE; }), msg: "both power levers to IDLE: the system disarms and neither feathers." }] },
+  { t: "Engine failure after takeoff, autofeather ARMED", cap: "Climbing out at takeoff power with AUTOFEATHER armed (both levers above 88% N1 and both torques above 17%). After 3 s the left engine fails. Left torque below 17% disarms the RIGHT system. Below 10%, the left dump valve feathers the left prop automatically.", apply(P) { P.env.flight = true; P.env.ktas = 130; P.env.gear = true; P.sw.af = "ARM"; pvBoth(P, e => { e.pl = 92; e.n1 = 99.6; e.np = 1700; e.beta = 30; e.sol = false; e.stop = 12; }); pvSide = "L"; },
+    script: [{ wait: 3, do: P => { P.E.L.run = false; }, msg: "left engine fails." }] },
+  { t: "Engine failure in cruise, autofeather OFF", cap: "With autofeather off, the failed right engine's propeller keeps windmilling onspeed. The governor flattens the blades to hold 1,500 rpm using airflow, which means lots of drag. Feather it manually: right prop lever to FEATHER.", apply(P) { pvCruise(P); pvSide = "R"; },
+    script: [{ wait: 3, do: P => { P.E.R.run = false; }, msg: "right engine flames out." }] },
+  { t: "Lifting the power levers in flight (don't)", cap: "Slow (70 KTAS), at flight idle, with the props in underspeed on the +12° flight stop. Lifting the power levers at the IDLE gate in flight energizes the ground low pitch stop solenoids. The flight stop is gone, so the blades drop well below +12° (PROP PITCH lights) until the windmilling prop is governed at a much flatter angle. In the airplane that means excessive drag and a high sink rate. Release the lift to restore the flight stop.", apply(P) { P.env.flight = true; P.env.ktas = 70; P.env.gear = true; pvBoth(P, e => { e.pl = PV_IDLE; e.n1 = 62; e.np = 1550; e.beta = 12; e.sol = false; e.stop = 12; }); },
+    script: [{ wait: 4, do: P => { P.lift = true; }, msg: "power levers lifted at the IDLE gate in flight." }] },
+  { t: "Synchrophaser", cap: "In cruise with the right prop set about 12 rpm faster than the left. The synchroscope spins clockwise (right faster). Press PROP SYNC ON: the control box biases the slower (left) governor up by up to 20 rpm until the two match and the synchroscope stops.", apply(P) { pvCruise(P); P.E.R.pr = 12 + 62 / 250 * 88; P.E.R.np = 1512; } }
+];
+
+function pvApply(i) {
+  pvScen = Math.max(0, Math.min(PV_SCEN.length - 1, i));
+  const sc = PV_SCEN[pvScen];
+  PV = pvFresh(); pvLogArr = []; sc.apply(PV);
+  pvScript = sc.script ? { steps: sc.script, i: 0, t0: 0 } : null;
+  pvLog(`Loaded: ${sc.t}.`);
+  $("#pvScenSel").value = String(pvScen); $("#pvScenCap").textContent = sc.cap;
+  $$("[data-pveng]").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.pveng === pvSide)));
+  pvSync(); pvStep(0.01);
+}
+
+/* ---------- controls ---------- */
+const PV_LEVERS = [
+  { g: "pwr", key: "pl", name: "Power", cls: "pwr", marks: [[100, "Max"], [92, "Takeoff"], [71, "88% N1"], [PV_IDLE, "Idle", 1], [19, "Gnd fine"], [PV_GF, "", 1], [5, "Reverse"]] },
+  { g: "prp", key: "pr", name: "Propeller", cls: "prp", marks: [[100, "High rpm 1700"], [47, "1550"], [12, "Low 1450"], [5, "Feather"]], stripe: [0, PV_FTH] }
+];
+function pvHint(m) { const h = $("#pvHint"); if (h) h.textContent = m; }
+function pvLeverInput(g, k, v) {
+  const L = PV_LEVERS.find(x => x.g === g), e = PV.E[k], prev = e[L.key];
+  if (g === "pwr") {
+    if (PV.env.flight && v < PV_IDLE) { v = PV_IDLE; pvHint("In flight the power levers stay at or above IDLE. Ground fine and reverse are ground-only."); }
+    else if (prev >= PV_IDLE && v < PV_IDLE && !PV.lift) { v = PV_IDLE; pvHint("Lift the power levers to pass the IDLE gate into GROUND FINE."); }
+    else if (prev >= PV_GF && v < PV_GF && !PV.lift) { v = Math.max(v, PV_GF); pvHint("Lift again to pass the GROUND FINE gate into REVERSE."); }
+    else if (v < PV_IDLE && e.beta > 60) { v = PV_IDLE; pvHint("Not with the propeller feathered. Forcing the lever into ground fine or reverse damages the reversing linkage."); }
+  }
+  e[L.key] = v;
+  if (PV.together) PV.E[OTHER[k]][L.key] = v;
+  pvScript = null; pvSync();
+}
+function pvSync() {
+  PV_LEVERS.forEach(L => ["L", "R"].forEach(k => { const el = $(`#pvlv-${L.g}-${k}`); if (el && Math.abs(+el.value - PV.E[k][L.key]) > 0.3) el.value = PV.E[k][L.key]; }));
+  const lb = $("#pvlift"); if (lb) lb.setAttribute("aria-pressed", String(PV.lift));
+  const t = $("#pvtogether"); if (t) t.checked = PV.together;
+  $$("#pvSwitches button[data-pvs]").forEach(b => {
+    const [f, k] = b.dataset.pvs.split(":"); let val;
+    if (f === "af") val = PV.sw.af; else if (f === "gt") val = PV.sw.govTest ? "TEST" : "OFF"; else if (f === "gl") val = PV.sw.glpsTest ? "TEST" : "OFF"; else if (f === "sync") val = PV.sw.sync ? "ON" : "OFF"; else val = PV.E[k].run ? "RUN" : "OFF";
+    b.setAttribute("aria-pressed", String(val === b.dataset.val));
+  });
+  $$("#pvEnv [data-pvenv]").forEach(b => { const f = b.dataset.pvenv; b.setAttribute("aria-pressed", String(f === "flight" ? PV.env.flight : f === "ground" ? !PV.env.flight : PV.env.gear)); });
+  const s = $("#pvKtas"); if (s) { s.value = PV.env.ktas; s.disabled = !PV.env.flight; }
+  $$("#pvFaults [data-pvf]").forEach(b => { const [t, k] = b.dataset.pvf.split(":"); b.setAttribute("aria-pressed", String(t === "eng" ? !PV.E[k].run : PV.fault[t][k])); });
+}
+const PV_QSET = [
+  ["Ground idle", P => pvBoth(P, e => { e.pl = PV_IDLE; e.pr = 100; })],
+  ["Taxi (ground fine)", P => { if (P.env.flight) return pvHint("Ground fine is ground-only."); pvBoth(P, e => { if (e.beta < 60) e.pl = 19; }); }],
+  ["Full reverse", P => { if (P.env.flight) return pvHint("Reverse is ground-only."); pvBoth(P, e => { if (e.beta < 60) e.pl = 1; }); }],
+  ["Takeoff power", P => pvBoth(P, e => { e.pl = 92; e.pr = 100; })],
+  ["Cruise 1,500 rpm", P => pvBoth(P, e => { e.pl = 80; e.pr = 12 + 50 / 250 * 88; })],
+  ["Flight idle", P => pvBoth(P, e => { e.pl = PV_IDLE; })],
+  ["Feather", P => pvBoth(P, e => { e.pr = 2; })],
+  ["Unfeather (1,700)", P => pvBoth(P, e => { e.pr = 100; })]
+];
+function pvBuildControls() {
+  $("#pvPedestal").innerHTML = PV_LEVERS.map(L => {
+    const marks = L.marks.map(m => `<span class="${m[2] ? "gate" : ""}" style="top:${100 - m[0]}%">${m[1]}${m[2] ? " ▬" : ""}</span>`).join("");
+    const stripe = L.stripe ? `<div class="stripe" style="top:${100 - L.stripe[1]}%;height:${L.stripe[1] - L.stripe[0]}%"></div>` : "";
+    return `<div class="lgroup"><div class="gname">${L.name}</div><div class="lrow"><div class="placard" aria-hidden="true">${stripe}${marks}</div>${["L", "R"].map(k =>
+      `<div class="lever-col"><input type="range" class="lever ${L.cls}" id="pvlv-${L.g}-${k}" min="0" max="100" step="0.5" value="0" aria-label="${SIDE[k]} ${L.name.toLowerCase()} lever"><b>${k}</b></div>`).join("")}</div></div>`;
+  }).join("");
+  PV_LEVERS.forEach(L => ["L", "R"].forEach(k => {
+    const el = $(`#pvlv-${L.g}-${k}`);
+    el.addEventListener("input", () => pvLeverInput(L.g, k, +el.value));
+    el.addEventListener("change", () => { if (L.g === "pwr" && PV.lift && !PV.env.flight) { PV.lift = false; pvSync(); } });
+  }));
+  $("#pvLiftRow").innerHTML = `<button type="button" class="pbtn liftb" id="pvlift" aria-pressed="false">Lift power levers (IDLE / GROUND FINE gates)</button><label class="envrow"><input type="checkbox" id="pvtogether" checked> Move L &amp; R together</label>`;
+  $("#pvlift").addEventListener("click", () => { PV.lift = !PV.lift; if (PV.lift && PV.env.flight) pvLog("Power levers lifted at the IDLE gate IN FLIGHT: ground low pitch stop solenoids energized.", "bad"); pvHint(PV.lift ? (PV.env.flight ? "Lifted in flight. Watch the blade angle if the props are in underspeed." : "Lifted. Drag the power levers aft past the gate.") : ""); pvSync(); });
+  $("#pvtogether").addEventListener("change", e => { PV.together = e.target.checked; });
+  $("#pvQset").innerHTML = PV_QSET.map((q, i) => `<button type="button" class="pbtn" id="pvq-${i}" data-pvq="${i}">${q[0]}</button>`).join("");
+  $("#pvQset").addEventListener("click", e => { const b = e.target.closest("[data-pvq]"); if (b) { pvScript = null; PV_QSET[+b.dataset.pvq][1](PV); pvSync(); } });
+  const tog = (name, f, k, opts, ring) => `<div class="tog${ring ? " ring" : ""}"><div class="name">${name}</div><div class="pos">${opts.map(o => `<button type="button" id="pvs-${f}-${k || "x"}-${o[0]}" data-pvs="${f}:${k || ""}" data-val="${o[0]}" class="${o[2] ? "mom" : ""}" aria-pressed="false">${o[1]}</button>`).join("")}</div></div>`;
+  $("#pvSwitches").innerHTML = `<div class="sw-group"><div class="gname">Subpanel</div><div class="sws">${tog("Autofeather", "af", "", [["ARM", "ARM"], ["OFF", "OFF"], ["TEST", "TEST", 1]])}${tog("Prop gov test", "gt", "", [["TEST", "TEST", 1], ["OFF", "OFF"]])}${tog("Gnd low pitch stop", "gl", "", [["TEST", "TEST", 1], ["OFF", "OFF"]])}${tog("Prop sync", "sync", "", [["ON", "ON"], ["OFF", "OFF"]])}</div></div>
+    <div class="sw-group"><div class="gname">Engines</div><div class="sws">${tog("Left eng", "eng", "L", [["RUN", "RUNNING"], ["OFF", "SHUT DOWN"]])}${tog("Right eng", "eng", "R", [["RUN", "RUNNING"], ["OFF", "SHUT DOWN"]])}</div></div>`;
+  $("#pvSwitches").addEventListener("click", e => {
+    const b = e.target.closest("[data-pvs]"); if (!b) return; const [f, k] = b.dataset.pvs.split(":"), v = b.dataset.val;
+    if (f === "af") { PV.sw.af = v; pvLog(`AUTOFEATHER ${v}.`); }
+    else if (f === "gt") { PV.sw.govTest = v === "TEST"; pvLog(PV.sw.govTest ? "PROP GOV TEST: overspeed governors reset to about 1,565 rpm." : "PROP GOV TEST released."); }
+    else if (f === "gl") { PV.sw.glpsTest = v === "TEST"; pvLog(`Ground low pitch stop test ${PV.sw.glpsTest ? "ON" : "OFF"}.`); }
+    else if (f === "sync") { PV.sw.sync = v === "ON"; pvLog(`Prop synchrophaser ${v}.`); }
+    else { PV.E[k].run = v === "RUN"; pvLog(`${SIDE[k]} engine ${PV.E[k].run ? "running" : "shut down / failed"}.`, PV.E[k].run ? "" : "warn"); }
+    pvScript = null; pvSync();
+  });
+  $("#pvEnv").innerHTML = `<div class="seg" role="group" aria-label="Phase"><button type="button" id="pvenv-ground" data-pvenv="ground">On ground</button><button type="button" id="pvenv-flight" data-pvenv="flight">In flight</button></div>
+    <button type="button" class="pbtn" id="pvTouch">Touch down</button>
+    <label for="pvKtas">TAS</label><input type="range" id="pvKtas" min="70" max="300" step="5"><span id="pvKtasV" class="mono"></span>
+    <button type="button" class="pbtn envb" id="pvenv-gear" data-pvenv="gear">Gear down</button>`;
+  $("#pvEnv").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.id === "pvTouch") { if (PV.env.flight) { PV.env.flight = false; PV.env.gs = Math.min(110, PV.env.ktas); pvLog("Touchdown: the right gear safety switch energizes the ground low pitch stop solenoids."); } }
+    else if (b.dataset.pvenv === "flight") { if (!PV.env.flight) { PV.env.flight = true; PV.env.ktas = Math.max(110, PV.env.gs); pvBoth(PV, x => { if (x.pl < PV_IDLE) x.pl = PV_IDLE; }); PV.lift = false; pvLog("Airborne: the right gear safety switch de-energizes the ground low pitch stop."); } }
+    else if (b.dataset.pvenv === "ground") { if (PV.env.flight) { PV.env.flight = false; PV.env.gs = 0; } }
+    else if (b.dataset.pvenv === "gear") { if (PV.env.flight) PV.env.gear = !PV.env.gear; }
+    pvScript = null; pvSync();
+  });
+  $("#pvKtas").addEventListener("input", e => { PV.env.ktas = +e.target.value; pvScript = null; });
+  $("#pvFaults").innerHTML = ["L", "R"].map(k => [["gov", "primary governor fails (low pitch)"], ["hub", "frozen hub"], ["eng", "engine failure"]].map(f => `<button type="button" class="pbtn" id="pvf-${f[0]}-${k}" data-pvf="${f[0]}:${k}" aria-pressed="false">${k} ${f[1]}</button>`).join("")).join("") + `<button type="button" class="pbtn" id="pvRepair">Repair all</button>`;
+  $("#pvFaults").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.id === "pvRepair") { PV.fault = { gov: { L: false, R: false }, hub: { L: false, R: false } }; pvBoth(PV, x => { x.run = true; }); pvLog("All propeller and engine faults cleared."); }
+    else { const [t, k] = b.dataset.pvf.split(":"); if (t === "eng") PV.E[k].run = !PV.E[k].run; else PV.fault[t][k] = !PV.fault[t][k]; pvLog(`${b.textContent}: ${t === "eng" ? (PV.E[k].run ? "restarted" : "failed") : PV.fault[t][k] ? "active" : "cleared"}.`, "warn"); }
+    pvScript = null; pvSync();
+  });
+  // instruments
+  const G = [
+    { id: "np", name: "Prop", unit: "rpm", min: 0, max: 2000, labels: [[0, "0"], [500, "5"], [1000, "10"], [1500, "15"], [2000, "20"]], green: [1450, 1700], red: [1700] },
+    { id: "tq", name: "Torque", unit: "%", min: 0, max: 120, labels: [[0, "0"], [40, "40"], [80, "80"], [120, "120"]], green: [0, 100], red: [100] }
+  ];
+  $("#pvInst").innerHTML = G.map(g => ["L", null, "R"].map(k => k ? `<div class="ig">${engGaugeSVG(g, `pvg-${g.id}-${k}`)}<div class="iv" id="pvg-${g.id}-${k}V"></div></div>` : `<div class="ilabel">${g.name}<small>${g.unit}</small></div>`).join("")).join("") +
+    ["L", null, "R"].map(k => k ? `<div class="ig"><div class="iv" id="pvx-${k}"></div></div>` : `<div class="ilabel">N1 · β<small>% · deg</small></div>`).join("");
+  pvG = G;
+  $("#pvSyncRow").innerHTML = `<svg viewBox="0 0 80 80" width="72" height="72" aria-label="Synchroscope"><circle cx="40" cy="40" r="36" fill="#141618" stroke="#5b636b" stroke-width="2"/><g id="pvScope" style="transform-origin:40px 40px"><path d="M40,8 L48,40 L40,72 L32,40 Z" fill="#f1f3f4"/><path d="M8,40 L40,32 L72,40 L40,48 Z" fill="#1a1d20" stroke="#f1f3f4"/></g></svg><span id="pvSyncTxt"></span>`;
+  $("#pvAnns").innerHTML = [["LAF", "L AUTOFEATHER"], ["AFO", "AUTOFTHER OFF"], ["RVS", "RVS NOT READY"], ["RAF", "R AUTOFEATHER"], ["LPP", "L PROP PITCH"], ["", ""], ["", ""], ["RPP", "R PROP PITCH"]].map(a => a[0] ? `<div class="ann" id="pva-${a[0]}">${a[1]}</div>` : `<div class="ann" aria-hidden="true"></div>`).join("");
+  $("#pvModes").innerHTML = ["L", "R"].map(k => `<div class="mode"><div class="mh"><span>${SIDE[k]}</span><span class="mchip" id="pvchip-${k}"></span></div><div class="mt" id="pvwhy-${k}"></div></div>`).join("");
+}
+
+/* ---------- diagrams ---------- */
+const PVC = {};
+function pvc(id, group, name, desc, state) { PVC[id] = { group, name, desc, state }; }
+pvc("plever", "Cockpit", "Propeller lever", "Sets speeder spring tension on the primary governor from 1,450 (aft) to 1,700 rpm (forward). Into the striped FEATHER detent it opens the feathering dump valve.", e => e.pr < PV_FTH ? "FEATHER" : `${Math.round(pvSel1(e))} rpm selected`);
+pvc("pgov", "Governors", "Primary governor: flyweights, speeder spring, pilot valve", "Flyweights geared to the prop shaft balance against the speeder spring. Onspeed: pilot valve centered, oil trapped. Overspeed: valve rises and dome oil drains to the case, raising pitch. Underspeed: valve drops and governor oil flows to the dome, lowering pitch. If the control linkage fails, an external spring drives it to 1,700 rpm.", e => `${e.mode} · set ${Math.round(pvSel1(e) + e.bias)} · Np ${Math.round(e.np)}`);
+pvc("pump", "Governors", "Governor pump", "Part of the primary governor and driven by the Np shaft. Raises engine oil to about 375 psi, regulated, to drive the blades toward low pitch and reverse.", e => e.oil ? "≈ 375 psi available" : "No pressure");
+pvc("ftg", "Governors", "Fuel topping governor", "Inside the primary governor. If blade angle can't be changed, it bleeds FCU air pressure to cut fuel and power, limiting Np to about 106% of selected in the forward range and about 95% in ground fine and reverse. The power lever resets it, through the reset post and air-bleed link.", e => e.ftg > 0.1 ? "LIMITING (cutting fuel)" : `Standby · limit ${Math.round((pvRange(e) === "FWD" ? 1.06 : 0.95) * pvSel1(e))} rpm`);
+pvc("beta", "Low pitch stop", "Beta valve (low pitch stop valve)", "On the primary governor, positioned by the middle of the reverse lever. Aft is open (governor in control). Its first forward motion cuts off oil to the dome, forming the hydraulic low pitch stop. Further forward it dumps dome oil to the gearbox sump. It is spring-loaded to cut off and dump if its linkage fails.", e => e.bv);
+pvc("rlever", "Low pitch stop", "Reverse lever", "Top: reversing linkage from the power lever (cam box, push-pull control) and the ground low pitch stop solenoid. Middle: beta valve. Bottom: feedback ring through the carbon block. It sums the commanded stop with the actual blade position.", e => `stop ${e.stop.toFixed(1)}°`);
+pvc("sol", "Low pitch stop", "Ground low pitch stop solenoid", "Pulls the top of the reverse lever aft to move the stop from +12° to +2°. Energized by the right main gear safety switch on the ground, or by lifting either power lever at the IDLE gate. Opened by each power lever's switch above 68–70% N1. Voltage drops to about 14 V after 2 s. Protected by the PROP GOV TEST breaker.", e => e.sol ? "ENERGIZED (+2° stop)" : "Off (+12° flight stop)");
+pvc("pwrlink", "Cockpit", "Power lever reversing linkage", "From the power lever through the cam box and push-pull control to the top of the reverse lever. From IDLE to full forward thrust it doesn't move the beta valve. Aft of IDLE it pulls the beta valve open to select lower blade angles (ground fine to −3°, reverse to −14°).", e => `${pvRange(e)} · lever ${e.pl.toFixed(0)}`);
+pvc("dome", "Propeller", "Propeller dome, piston & feather springs", "Oil in the dome moves it forward, carrying the blades toward low pitch and reverse. Feathering springs (with the blade counterweights) push it aft toward feather. There are no high-pitch locks, so the prop feathers after shutdown.", e => `${e.flow === "fill" ? "filling (pitch decreasing)" : e.flow === "dump" ? "draining (pitch increasing)" : e.flow === "trapped" ? "oil trapped (pitch constant)" : "no oil"} · β ${e.beta.toFixed(1)}°`);
+pvc("gland", "Propeller", "Transfer gland", "Surrounds the propeller shaft and lets governor oil enter and leave the rotating dome.", () => "");
+pvc("ring", "Low pitch stop", "Feedback ring, polished rods & stop nuts", "Four spring-loaded polished rods connect the dome to the feedback ring behind the prop. Below about 15° the dome flanges hit the low-pitch stop nuts and drag the rods and ring forward. The carbon block carries that motion to the bottom of the reverse lever, closing the beta valve at the stop.", e => `ring ${Math.max(0, 15 - e.beta).toFixed(1)}° forward of rest`);
+pvc("ppsw", "Indication", "PROP PITCH proximity switch", "A magnetic proximity sensor on the feedback ring. It lights L/R PROP PITCH when the blades are below the flight low pitch stop (about 9° or less).", e => e.beta < 9 ? "PROP PITCH ON" : "Off");
+pvc("osgov", "Governors", "Overspeed governor", "On the left of the reduction gearbox, set at about 1,768 rpm. It can only drain dome oil, raising pitch. PROP GOV TEST resets it to about 1,565 ±45 rpm. Its oil line carries the autofeather dump solenoid.", e => e.os ? "DUMPING" : `Standby · ${PV.sw.govTest ? "1,565 (TEST)" : "1,768"} rpm`);
+pvc("afsol", "Autofeather", "Autofeather dump solenoid (N.C.)", "Normally closed. Energized by the autofeather circuit when that engine's torque drops below 10% while armed. It drains the dome so the prop feathers.", e => e.afDump ? "OPEN (feathering)" : "Closed");
+pvc("fv", "Propeller", "Feathering valve", "Opened by the prop lever in the FEATHER detent. It dumps all dome oil quickly so the springs and counterweights feather the blades.", e => e.pr < PV_FTH ? "OPEN" : "Closed");
+pvc("blade", "Propeller", "Blade angle", "The angle between the blade chord and the plane of rotation at the 42-inch station. Feather 79.3°, cruise 30–45°, flight stop +12°, ground stop +2°, zero thrust −3°, maximum reverse −14°.", e => `${e.beta.toFixed(1)}° · inflow ${e.phi.toFixed(1)}° · α ${(e.beta - e.phi).toFixed(1)}°`);
+pvc("afsw", "Autofeather", "AUTOFEATHER switch", "ARM · OFF · TEST. TEST bypasses the 88% N1 power lever switches so the system can be checked at low power (about 22% torque).", () => PV.sw.af);
+pvc("plsw", "Autofeather", "Power lever switches (88% N1)", "Closed with the power lever above about 88% N1. In ARM both must be closed, so retarding either lever disarms the system.", e => pvN1cmd(e) >= 88 ? "Closed" : "Open");
+pvc("tq17", "Autofeather", "17% torque switches", "Each engine's torque above 17% powers the opposite engine's arming relay. A failing engine below 17% therefore disarms the good engine's autofeather.", e => e.tq > 17 ? "Above 17%" : "Below 17%");
+pvc("relay", "Autofeather", "Arming relay", "Energized when the system has power and the opposite torque is above 17%. Its contacts feed the green AUTOFEATHER light, or the dump valve once torque falls below 10%.", e => e.relay ? "Energized" : "Off");
+pvc("tq10", "Autofeather", "10% torque switch", "When torque falls below 10% it switches the armed relay's output from the light to the dump valve.", e => e.tq < 10 ? "Below 10%" : "Above 10%");
+pvc("aflight", "Autofeather", "AUTOFEATHER light (green)", "On when that engine's autofeather is armed and ready. Goes out when armed but disarmed by the other engine, or when feathering begins.", e => e.afLight ? "ON" : "Off");
+
+function pvSvgs() {
+  const T = (x, y, s, cls, anchor) => `<text x="${x}" y="${y}" class="${cls || "lbl"}" text-anchor="${anchor || "middle"}">${s}</text>`;
+  const comp = (id, inner, hit) => `<g class="comp" data-pvcomp="${id}" tabindex="0" role="button" aria-label="${esc(PVC[id].name)}"><rect class="hit" x="${hit[0]}" y="${hit[1]}" width="${hit[2]}" height="${hit[3]}" rx="4"/>${inner}</g>`;
+  const pl = pts => pts.map(p => p.join(",")).join(" ");
+  const oil = (key, pts) => `<polyline class="oil" data-oil="${key}" points="${pl(pts)}"/><polyline class="oilf" data-oilf="${key}" points="${pl(pts)}"/><polyline class="oilf" data-oilr="${key}" points="${pl(pts.slice().reverse())}"/>`;
+  const box = (id, x, y, w, h, t, sub) => comp(id, `<rect class="blk" data-pvblk="${id}" x="${x}" y="${y}" width="${w}" height="${h}" rx="5"/>${T(x + w / 2, y + (sub ? h / 2 - 2 : h / 2 + 4), t, "blk-t")}${sub ? T(x + w / 2, y + h / 2 + 12, sub, "blk-s") : ""}`, [x - 3, y - 3, w + 6, h + 6]);
+
+  // ---------- hydraulic schematic ----------
+  let h = "";
+  h += oil("supply", [[370, 26], [370, 168]]);
+  h += oil("bv2pv", [[318, 185], [270, 185]]);
+  h += oil("dome", [[240, 200], [240, 230], [150, 230], [150, 330], [600, 330]]);
+  h += oil("os", [[430, 330], [430, 265], [880, 265], [880, 200]]);
+  h += oil("fv", [[150, 288], [180, 288]]);
+  h += `<g data-case="pilot"><path class="case" d="M280,200 l-9,16 h18 z"/>${T(280, 230, "CASE", "lbl")}</g><g data-case="beta"><path class="case" d="M420,194 l-10,18 h20 z"/>${T(420, 226, "DUMP", "lbl")}</g>
+    <g data-case="fv"><path class="case" d="M292,288 l18,-10 v20 z"/></g><g data-case="os"><path class="case" d="M940,194 l-10,18 h20 z"/>${T(940, 226, "TO CASE", "lbl")}</g>`;
+  h += comp("plever", `<line x1="60" y1="30" x2="230" y2="80" stroke="var(--sym)" stroke-width="2"/><circle cx="60" cy="30" r="7" class="sym"/>${T(60, 58, "PROP LEVER", "lbl-b")}<text class="n1t" id="pvhSel" x="60" y="74" text-anchor="middle"></text>`, [24, 14, 100, 66]);
+  h += comp("pgov", `<rect class="casing" x="190" y="60" width="200" height="180" rx="8"/>${T(280, 52, "PRIMARY GOVERNOR", "lbl-b")}
+    <path d="M250,72 l-8,5 l16,5 l-16,5 l16,5 l-16,5 l8,5" fill="none" stroke="var(--sym)" stroke-width="2"/>${T(282, 88, "SPEEDER", "lbl", "start")}${T(282, 100, "SPRING", "lbl", "start")}
+    <g id="pvFwL" style="transform-origin:250px 122px"><line x1="250" y1="122" x2="226" y2="112" stroke="var(--sym)" stroke-width="2.5"/><circle cx="226" cy="112" r="6" fill="var(--sym)"/></g>
+    <g id="pvFwR" style="transform-origin:250px 122px"><line x1="250" y1="122" x2="274" y2="112" stroke="var(--sym)" stroke-width="2.5"/><circle cx="274" cy="112" r="6" fill="var(--sym)"/></g>
+    <rect id="pvPilot" class="spool" x="240" y="140" width="20" height="44" rx="2"/>${T(234, 160, "PILOT", "lbl", "end")}${T(234, 172, "VALVE", "lbl", "end")}
+    <text class="n1t" id="pvhGov" x="300" y="258" text-anchor="middle"></text>`, [186, 40, 210, 222]);
+  h += comp("pump", `<circle class="sym" cx="362" cy="110" r="8"/><circle class="sym" cx="378" cy="110" r="8"/><line x1="387" y1="110" x2="402" y2="110" stroke="var(--muted)"/>${T(406, 106, "GOV PUMP", "lbl", "start")}${T(406, 118, "≈375 psi", "lbl", "start")}${T(370, 20, "ENGINE OIL", "lbl")}`, [350, 96, 120, 30]);
+  h += comp("beta", `<rect class="casing" x="300" y="168" width="96" height="34" rx="4"/><rect id="pvBeta" class="spool" x="318" y="174" width="44" height="22" rx="3"/>${T(348, 162, "BETA VALVE", "lbl-b")}<text class="n1t" id="pvhBv" x="348" y="216" text-anchor="middle"></text>`, [296, 150, 104, 72]);
+  h += comp("ftg", `<rect class="blk" data-pvblk="ftg" x="20" y="120" width="140" height="46" rx="5"/>${T(90, 140, "FUEL TOPPING GOV", "blk-t")}${T(90, 156, "→ FCU (P3/Py bleed)", "blk-s")}`, [16, 116, 148, 54]);
+  h += comp("fv", `<rect class="blk" data-pvblk="fv" x="180" y="272" width="110" height="34" rx="5"/>${T(235, 293, "FEATHER VALVE", "blk-t")}`, [176, 268, 118, 42]);
+  // reverse lever + linkages
+  h += comp("rlever", `<line id="pvRL" x1="560" y1="40" x2="560" y2="400" stroke="var(--sym)" stroke-width="7" stroke-linecap="round"/><line id="pvRod" x1="396" y1="185" x2="560" y2="185" stroke="var(--sym)" stroke-width="3"/>${T(574, 150, "REVERSE", "lbl", "start")}${T(574, 162, "LEVER", "lbl", "start")}`, [540, 30, 70, 380]);
+  h += comp("pwrlink", `<line id="pvPL" x1="560" y1="50" x2="700" y2="50" stroke="var(--sym)" stroke-width="3"/><rect class="blk" data-pvblk="pwrlink" x="700" y="32" width="170" height="36" rx="5"/>${T(785, 48, "POWER LEVER LINKAGE", "blk-t")}${T(785, 62, "cam box · push-pull", "blk-s")}`, [698, 28, 176, 44]);
+  h += comp("sol", `<line id="pvSL" x1="560" y1="100" x2="700" y2="100" stroke="var(--sym)" stroke-width="3"/><rect class="blk" data-pvblk="sol" x="700" y="84" width="170" height="36" rx="5"/>${T(785, 100, "GND LOW PITCH STOP", "blk-t")}${T(785, 114, "solenoid", "blk-s")}`, [698, 80, 176, 44]);
+  h += comp("osgov", `<rect class="blk" data-pvblk="osgov" x="820" y="140" width="150" height="46" rx="5"/>${T(895, 160, "OVERSPEED GOV", "blk-t")}<text class="blk-s" id="pvhOs" x="895" y="176" text-anchor="middle"></text>`, [816, 136, 158, 54]);
+  h += comp("afsol", `<circle class="blk" data-pvblk="afsol" cx="880" cy="232" r="12"/>${T(862, 230, "AUTOFEATHER", "lbl", "end")}${T(862, 242, "SOLENOID (N.C.)", "lbl", "end")}`, [760, 216, 136, 36]);
+  h += comp("gland", `<rect class="sym" x="600" y="315" width="26" height="30" rx="2"/>${T(613, 362, "TRANSFER GLAND", "lbl")}`, [596, 310, 36, 58]);
+  h += comp("dome", `<rect class="casing" x="640" y="300" width="300" height="60" rx="26"/><line x1="626" y1="330" x2="640" y2="330" stroke="var(--sym)" stroke-width="3"/><g id="pvPiston"><rect class="spool" x="0" y="304" width="16" height="52" rx="2"/></g><polyline id="pvSpring" fill="none" stroke="var(--sym)" stroke-width="2" points=""/>${T(790, 292, "DOME · PISTON · FEATHER SPRINGS", "lbl")}<text class="n1t" id="pvhDome" x="790" y="384" text-anchor="middle"></text>`, [636, 280, 308, 112]);
+  h += comp("ring", `<line id="pvRod2" x1="600" y1="410" x2="940" y2="410" stroke="#d24a35" stroke-width="4"/><rect id="pvRing" x="590" y="392" width="14" height="36" rx="2" fill="var(--sym-fill)" stroke="var(--sym)" stroke-width="1.6"/>${T(760, 432, "POLISHED RODS · FEEDBACK RING · CARBON BLOCK", "lbl")}`, [584, 388, 360, 52]);
+  h += comp("ppsw", `<rect class="blk" data-pvblk="ppsw" x="430" y="404" width="120" height="30" rx="5"/>${T(490, 423, "PROP PITCH SW", "blk-t")}`, [426, 400, 128, 38]);
+  h += comp("blade", `<line x1="975" y1="250" x2="975" y2="380" stroke="var(--muted)" stroke-dasharray="4 4"/><g id="pvBladeH" style="transform-origin:975px 330px"><path d="M975,290 C982,300 982,350 975,372 C969,350 969,300 975,290 Z" fill="var(--sym-fill)" stroke="var(--sym)" stroke-width="1.6"/></g>`, [955, 250, 40, 140]);
+  $("#pv-hyd").innerHTML = h;
+
+  // ---------- blade angle view ----------
+  let b = "";
+  b += comp("blade", `<circle cx="190" cy="230" r="172" fill="none" stroke="var(--line)" stroke-dasharray="3 6"/><g id="pvProp">${[0, 90, 180, 270].map(a => `<g transform="rotate(${a} 190 230)"><ellipse class="pvbl" cx="190" cy="140" rx="14" ry="88" fill="var(--sym-fill)" stroke="var(--sym)" stroke-width="1.6"/></g>`).join("")}<circle cx="190" cy="230" r="26" fill="var(--surface-2)" stroke="var(--sym)" stroke-width="1.6"/></g><text class="n1t" id="pvbNp" x="190" y="440" text-anchor="middle"></text>${T(190, 24, "FRONT VIEW (rotation slowed)", "lbl")}`, [10, 30, 360, 420]);
+  // dial (Figure 7-29 style)
+  const cx = 560, cy = 120, R = 230;
+  const dir = d => [cx + R * Math.sin(d * Math.PI / 180), cy + R * Math.cos(d * Math.PI / 180)];
+  const mark = (d, txt, anchor, dy) => { const p = dir(d), q = [cx + (R + 8) * Math.sin(d * Math.PI / 180), cy + (R + 8) * Math.cos(d * Math.PI / 180)]; return `<line x1="${cx}" y1="${cy}" x2="${p[0].toFixed(1)}" y2="${p[1].toFixed(1)}" stroke="var(--muted)" stroke-dasharray="4 5"/>${T(q[0].toFixed(1), (q[1] + (dy || 0)).toFixed(1), txt, "lbl", anchor || "start")}`; };
+  b += `<path d="M${dir(30)[0]},${dir(30)[1]} A${R},${R} 0 0 0 ${dir(45)[0]},${dir(45)[1]} L${cx},${cy} Z" fill="#2fb062" opacity=".18"/>`;
+  b += mark(FEATHER_DEG, "79.3° FEATHER", "start", 4) + mark(37.5, "CRUISE 30–45°", "start", 4) + mark(12, "+12° FLIGHT STOP", "start", 12) + mark(2, "+2° GND STOP", "start", 26) + mark(0, "0°", "middle", 40) + mark(-3, "−3° GROUND FINE", "end", 26) + mark(-14, "−14° MAX REVERSE", "end", 12);
+  b += `<circle cx="${cx}" cy="${cy}" r="10" fill="var(--sym-fill)" stroke="var(--sym)"/><g id="pvNeedle" style="transform-origin:${cx}px ${cy}px"><line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy + R - 14}" stroke="var(--accent)" stroke-width="5" stroke-linecap="round"/></g>${T(cx, 22, "BLADE ANGLE · 42-INCH STATION (Figure 7-29)", "lbl-b")}<text class="n1t" id="pvbBeta" x="${cx}" y="62" text-anchor="middle"></text>`;
+  // velocity triangle
+  b += `<g transform="translate(790,300)">${T(90, -190, "BLADE SECTION · RELATIVE WIND", "lbl-b")}<line x1="-20" y1="0" x2="190" y2="0" stroke="var(--muted)" stroke-dasharray="4 4"/>${T(190, 16, "plane of rotation", "lbl", "end")}
+    <g id="pvChord"><path d="M0,0 C30,-9 110,-8 150,-1 C110,6 30,6 0,0 Z" fill="var(--sym-fill)" stroke="var(--sym)" stroke-width="1.6"/></g>
+    <line id="pvWind" x1="0" y1="0" x2="150" y2="0" stroke="#3a8be0" stroke-width="3" stroke-dasharray="7 5"/>
+    <text class="n1t" id="pvbTri" x="80" y="60" text-anchor="middle"></text><text class="lbl" id="pvbTri2" x="80" y="80" text-anchor="middle"></text></g>`;
+  $("#pv-blade").innerHTML = b;
+
+  // ---------- autofeather circuit ----------
+  let a = "";
+  const ln = (key, pts, dash) => `<polyline class="ln c-cnd" data-pvln="${key}" points="${pl(pts)}"${dash ? ' stroke-dasharray="5 5"' : ""}/>`;
+  a += ln("armL", [[160, 230], [190, 230], [190, 112], [220, 112]]) + ln("armR", [[160, 230], [190, 230], [190, 352], [220, 352]]) + ln("test", [[160, 245], [395, 245]], true);
+  a += ln("busL", [[370, 112], [395, 112], [395, 352], [370, 352]]) + ln("b2t", [[395, 230], [410, 230], [410, 112], [430, 112]]) + ln("b2tR", [[410, 230], [410, 352], [430, 352]]);
+  a += ln("tL2rR", [[560, 112], [640, 112]]) + ln("tR2rL", [[560, 352], [640, 352]]);
+  a += ln("rR2light", [[780, 112], [800, 112], [800, 128], [820, 128]]) + ln("rR2dump", [[780, 112], [800, 112], [800, 188], [820, 188]]) + ln("rL2light", [[780, 352], [800, 352], [800, 318], [820, 318]]) + ln("rL2dump", [[780, 352], [800, 352], [800, 378], [820, 378]]);
+  a += ln("t10R", [[890, 60], [890, 40], [800, 40], [800, 112]], true) + ln("t10L", [[890, 430], [890, 450], [800, 450], [800, 352]], true);
+  a += box("afsw", 40, 200, 120, 60, "AUTOFEATHER", "") + `<text class="n1t" id="pvaSw" x="100" y="250" text-anchor="middle"></text>`;
+  ["L", "R"].forEach(k => {
+    const y = k === "L" ? 90 : 330;
+    a += box("plsw", 220, y, 150, 44, `${k} PWR LEVER SW`, "closed > 88% N1").replace(`data-pvblk="plsw"`, `data-pvblk="plsw${k}"`);
+    a += box("tq17", 430, y, 130, 44, `${k} TORQUE > 17%`, "").replace(`data-pvblk="tq17"`, `data-pvblk="tq17${k}"`);
+    a += box("relay", 640, y, 140, 44, `${OTHER[k] === "R" ? "R" : "L"} ARMING RELAY`, "").replace(`data-pvblk="relay"`, `data-pvblk="relay${OTHER[k]}"`);
+    const ly = k === "L" ? 110 : 300, dy = k === "L" ? 170 : 360, ty = k === "L" ? 60 : 410, o = OTHER[k];
+    a += box("aflight", 820, ly, 140, 36, `${o} AUTOFEATHER LIGHT`, "").replace(`data-pvblk="aflight"`, `data-pvblk="aflight${o}"`);
+    a += box("afsol", 820, dy, 140, 36, `${o} DUMP VALVE`, "").replace(`data-pvblk="afsol"`, `data-pvblk="afsol${o}"`);
+    a += box("tq10", 830, ty - (k === "L" ? 40 : 0), 120, 36, `${o} TORQUE < 10%`, "").replace(`data-pvblk="tq10"`, `data-pvblk="tq10${o}"`);
+  });
+  a += T(500, 466, "Each engine's > 17% torque switch powers the OPPOSITE engine's arming relay (Figure 7-44)", "lbl");
+  $("#pv-af").innerHTML = a;
+}
+const PV_LEGEND = {
+  hyd: [["#e2342a", "Oil to dome (pitch decreasing)"], ["#2a73c4", "Oil from dome / trapped"], ["var(--wire-dead)", "No oil"]],
+  blade: [["var(--accent)", "Blade angle"], ["#3a8be0", "Relative wind (inflow angle)"], ["#2fb062", "Typical cruise band"]],
+  af: [["#3a6fd8", "Energized circuit"]]
+};
+function pvRenderDiagram() {
+  const e = PV.E[pvSide], rng = pvRange(e);
+  if (pvTab === "hyd") {
+    const supply = e.oil, fill = e.flow === "fill", dump = e.flow === "dump", trap = e.flow === "trapped";
+    const setOil = (key, state) => {
+      $$(`#pv-hyd [data-oil="${key}"]`).forEach(l => l.setAttribute("class", "oil " + (state === "none" ? "none" : state === "fill" ? "press" : "static")));
+      $$(`#pv-hyd [data-oilf="${key}"]`).forEach(l => l.classList.toggle("on", state === "fill" || state === "fwd"));
+      $$(`#pv-hyd [data-oilr="${key}"]`).forEach(l => l.classList.toggle("on", state === "dump"));
+    };
+    setOil("supply", supply ? "fill" : "none");
+    setOil("bv2pv", supply && e.bv === "OPEN" ? "fill" : supply ? "static" : "none");
+    setOil("dome", fill ? "fill" : dump ? "dump" : trap ? "static" : "none");
+    setOil("os", (e.os || e.afDump) && dump ? "dump" : e.oil ? "static" : "none");
+    setOil("fv", e.dump === "feather" ? "dump" : e.oil ? "static" : "none");
+    const dmap = { pilot: e.dump === "pilot", beta: e.dump === "beta", fv: e.dump === "feather", os: e.dump === "os" || e.dump === "autofeather" };
+    $$("#pv-hyd [data-case]").forEach(g => g.classList.toggle("on", !!dmap[g.dataset.case]));
+    $("#pvFwL").style.transform = `rotate(${e.pv * 18}deg)`; $("#pvFwR").style.transform = `rotate(${-e.pv * 18}deg)`;
+    $("#pvPilot").setAttribute("y", (142 - e.pv * 12).toFixed(1));
+    $("#pvBeta").setAttribute("x", (318 + Math.max(-14, Math.min(14, e.bvPos * 1.5))).toFixed(1));
+    const ring = Math.max(0, 15 - e.beta) * 1.5, top = -(12 - e.stop) * 1.5;
+    const xt = 560 + top, xb = 590 + ring + 7, xm = xt + (xb - xt) * (145 / 360);
+    $("#pvRL").setAttribute("x1", xt.toFixed(1)); $("#pvRL").setAttribute("x2", xb.toFixed(1));
+    $("#pvRod").setAttribute("x2", xm.toFixed(1)); $("#pvPL").setAttribute("x1", (xt + (xb - xt) * (10 / 360)).toFixed(1)); $("#pvSL").setAttribute("x1", (xt + (xb - xt) * (60 / 360)).toFixed(1));
+    $("#pvRing").setAttribute("x", (590 + ring).toFixed(1)); $("#pvRod2").setAttribute("x1", (604 + ring).toFixed(1));
+    const px = 650 + (FEATHER_DEG - e.beta) / 93.3 * 200;
+    $("#pvPiston").setAttribute("transform", `translate(${px.toFixed(1)},0)`);
+    const s0 = px + 16, s1 = 930, n = 10; let pts = [];
+    for (let i = 0; i <= n; i++) pts.push(`${(s0 + (s1 - s0) * i / n).toFixed(1)},${i === 0 || i === n ? 330 : (i % 2 ? 314 : 346)}`);
+    $("#pvSpring").setAttribute("points", pts.join(" "));
+    $("#pvBladeH").style.transform = `rotate(${e.beta}deg)`;
+    $("#pvhSel").textContent = e.pr < PV_FTH ? "FEATHER" : `${Math.round(pvSel1(e) + e.bias)} rpm`;
+    $("#pvhGov").textContent = `${e.mode} · Np ${Math.round(e.np)}`;
+    $("#pvhBv").textContent = e.bv;
+    $("#pvhOs").textContent = `${PV.sw.govTest ? "1,565 TEST" : "1,768 rpm"}${e.os ? " · DUMPING" : ""}`;
+    $("#pvhDome").textContent = `β ${e.beta.toFixed(1)}° · stop ${e.stop.toFixed(1)}°${e.oil ? "" : " · NO OIL"}`;
+    const on = []; if (e.ftg > 0.1) on.push("ftg"); if (e.pr < PV_FTH) on.push("fv"); if (e.sol) on.push("sol"); if (rng !== "FWD") on.push("pwrlink"); if (e.os) on.push("osgov"); if (e.afDump) on.push("afsol"); if (e.beta < 9) on.push("ppsw");
+    $$("#pv-hyd [data-pvblk]").forEach(x => x.classList.toggle("on", on.includes(x.dataset.pvblk)));
+  } else if (pvTab === "blade") {
+    const w = 3 + 13 * Math.abs(Math.cos(e.beta * Math.PI / 180));
+    $$("#pv-blade .pvbl").forEach(el => el.setAttribute("rx", w.toFixed(1)));
+    $("#pvProp").setAttribute("transform", `rotate(${e.rot.toFixed(1)} 190 230)`);
+    $("#pvbNp").textContent = `Np ${Math.round(e.np)} rpm · ${e.mode}`;
+    $("#pvNeedle").style.transform = `rotate(${-e.beta}deg)`;
+    $("#pvbBeta").textContent = `β ${e.beta.toFixed(1)}°`;
+    $("#pvChord").setAttribute("transform", `rotate(${-e.beta})`);
+    $("#pvWind").setAttribute("transform", `rotate(${-e.phi})`);
+    const aoa = e.beta - e.phi;
+    $("#pvbTri").textContent = `β ${e.beta.toFixed(0)}° − φ ${e.phi.toFixed(0)}° = α ${aoa.toFixed(0)}°`;
+    $("#pvbTri2").textContent = e.beta > 70 ? "feathered: blade edge-on to the airflow" : e.beta < 0 ? "negative pitch: thrust reversed" : aoa < -1 ? "negative α: airflow is driving the prop (windmilling)" : "positive α: engine power turns the prop, making thrust";
+  } else {
+    const E = PV.E, sw = PV.sw, pw = PV.afPower;
+    const lit = { armL: sw.af === "ARM" && E.L.pl >= 71, armR: sw.af === "ARM" && E.R.pl >= 71, test: sw.af === "TEST", busL: pw, b2t: pw, b2tR: pw, tL2rR: pw && E.L.tq > 17, tR2rL: pw && E.R.tq > 17,
+      rL2light: E.L.afLight, rL2dump: E.L.afDump, rR2light: E.R.afLight, rR2dump: E.R.afDump, t10L: E.L.relay && E.L.tq < 10, t10R: E.R.relay && E.R.tq < 10 };
+    $$("#pv-af [data-pvln]").forEach(l => l.classList.toggle("on", !!lit[l.dataset.pvln]));
+    const on = { plswL: E.L.pl >= 71 || sw.af === "TEST", plswR: E.R.pl >= 71 || sw.af === "TEST", tq17L: E.L.tq > 17, tq17R: E.R.tq > 17, relayL: E.L.relay, relayR: E.R.relay, aflightL: E.L.afLight, aflightR: E.R.afLight, afsolL: E.L.afDump, afsolR: E.R.afDump, tq10L: E.L.tq < 10, tq10R: E.R.tq < 10, afsw: sw.af !== "OFF" };
+    $$("#pv-af [data-pvblk]").forEach(x => x.classList.toggle("on", !!on[x.dataset.pvblk]));
+    $("#pvaSw").textContent = sw.af;
+  }
+  const n = $("#pvInfoNow"); if (n && pvSel) n.textContent = "Now: " + (PVC[pvSel].state ? PVC[pvSel].state(e) : "");
+}
+function pvRender() {
+  if (!$("#pvInst") || !PV) return;
+  ["L", "R"].forEach(k => {
+    const e = PV.E[k];
+    pvG.forEach(g => {
+      const v = g.id === "np" ? e.np : e.tq, a = -135 + 270 * (Math.max(g.min, Math.min(g.max, v)) - g.min) / (g.max - g.min);
+      $(`#pvg-${g.id}-${k}N`).style.transform = `rotate(${a}deg)`;
+      const t = $(`#pvg-${g.id}-${k}V`); t.textContent = g.id === "np" ? Math.round(v) + "" : v.toFixed(0) + "%";
+      t.className = "iv" + ((g.id === "np" && v > 1712) || (g.id === "tq" && v > 101) ? " over" : "");
+    });
+    $("#pvx-" + k).textContent = `${e.n1.toFixed(0)}% · ${e.beta.toFixed(1)}°`;
+    const chip = $("#pvchip-" + k); chip.textContent = e.mode;
+    chip.className = "mchip " + ({ ONSPEED: "alpha", OVERSPEED: "beta", UNDERSPEED: "beta", "FLIGHT STOP": "beta", "GROUND STOP": "beta", "GROUND FINE": "beta", REVERSE: "rev", FEATHERED: "feather", FEATHERING: "feather", "O/S GOV": "rev", FTG: "rev", "HUB FROZEN": "rev" }[e.mode] || "");
+    $("#pvwhy-" + k).textContent = e.why;
+  });
+  $("#pvScope").style.transform = `rotate(${PV.syncAng}deg)`;
+  const d = PV.E.R.np - PV.E.L.np;
+  $("#pvSyncTxt").textContent = Math.abs(d) < 1.5 ? `Synchronized${PV.sw.sync ? " (sync ON)" : ""}` : `${d > 0 ? "Right" : "Left"} faster by ${Math.abs(d).toFixed(0)} rpm · scope turning ${d > 0 ? "clockwise" : "counterclockwise"}${PV.sw.sync ? " · sync ON" : ""}`;
+  const kt = $("#pvKtasV"); if (kt) kt.textContent = PV.env.flight ? `${PV.env.ktas} KTAS` : `ground ${Math.round(PV.env.gs)} kt`;
+  const E = PV.E, gearDn = PV.env.gear || !PV.env.flight;
+  const A = { LAF: ["green", E.L.afLight], RAF: ["green", E.R.afLight], LPP: ["white", E.L.beta < 9 && E.L.oil], RPP: ["white", E.R.beta < 9 && E.R.oil], RVS: ["amber", gearDn && (E.L.pr < 98 || E.R.pr < 98)], AFO: ["amber", gearDn && PV.sw.af !== "ARM"] };
+  Object.keys(A).forEach(k => { const el = $("#pva-" + k); if (el) el.className = "ann" + (A[k][1] ? " " + A[k][0] : ""); });
+  pvRenderDiagram();
+}
+function pvSelect(id) {
+  pvSel = id;
+  $$("#pvSvgs .comp").forEach(g => g.classList.toggle("sel", g.dataset.pvcomp === id));
+  const c = PVC[id];
+  $("#pvInfo").innerHTML = `<div class="eyebrow">${esc(c.group)}</div><h4>${esc(c.name)}</h4><div class="now" id="pvInfoNow">Now: ${esc(c.state ? c.state(PV.E[pvSide]) : "")}</div><p>${esc(c.desc)}</p>`;
+}
+function pvShowTab(t) {
+  pvTab = t;
+  ["hyd", "blade", "af"].forEach(x => { $("#pv-" + x).toggleAttribute("hidden", x !== t); $("#pvt-" + x).setAttribute("aria-pressed", String(x === t)); });
+  $("#pvLegend").innerHTML = PV_LEGEND[t].map(l => `<span><i style="background:${l[0]}"></i>${l[1]}</span>`).join("");
+  pvRenderDiagram();
+}
+function initPropellers() {
+  PV = pvFresh(); pvSide = "L"; pvTab = "hyd"; pvSel = null;
+  $("#pvSubnav").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  pvBuildControls(); pvSvgs();
+  $("#pvScenSel").innerHTML = PV_SCEN.map((s, i) => `<option value="${i}">${i + 1}. ${esc(s.t)}</option>`).join("");
+  $("#pvScenSel").addEventListener("change", e => pvApply(+e.target.value));
+  $("#pvPrev").addEventListener("click", () => pvApply(pvScen - 1));
+  $("#pvNext").addEventListener("click", () => pvApply(pvScen + 1));
+  $("#pvTabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (b) pvShowTab(b.dataset.tab); });
+  $$("[data-pveng]").forEach(b => b.addEventListener("click", () => { pvSide = b.dataset.pveng; $$("[data-pveng]").forEach(x => x.setAttribute("aria-pressed", String(x === b))); pvRender(); }));
+  const sv = $("#pvSvgs");
+  sv.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) pvSelect(g.dataset.pvcomp); });
+  sv.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); pvSelect(e.target.closest(".comp").dataset.pvcomp); } });
+  document.querySelector("main").addEventListener("click", e => { const b = e.target.closest("[data-pvsc]"); if (b) { pvApply(+b.dataset.pvsc); $("#pv-sim").scrollIntoView({ behavior: "smooth", block: "start" }); } });
+  pvShowTab("hyd");
+  pvApply(0);
+  $("#pvInfo").innerHTML = `<h3>Component details</h3><p>Select any part of a diagram (flyweights, pilot valve, beta valve, reverse lever, dome, feedback ring, governors, autofeather relays) for what it does and its live state.</p>`;
+  pvTimer = setInterval(() => pvStep(0.05), 50);
 }
 
 /* ================= boot ================= */
