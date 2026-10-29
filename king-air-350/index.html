@@ -469,6 +469,7 @@ details.eqlist ul { margin: 0; padding-left: 16px; }
 .placard { position: relative; width: 78px; height: 230px; font-family: var(--f-display); font-size: .66rem; letter-spacing: .05em; text-transform: uppercase; color: var(--placard); }
 .placard span { position: absolute; right: 0; transform: translateY(-50%); text-align: right; line-height: 1; white-space: nowrap; }
 .placard span.gate { color: #ffcf4a; }
+.placard span.fth { z-index: 1; background: #1a1d21; color: #f1f3f4; padding: 1px 3px; border-radius: 2px; }
 .placard .stripe { position: absolute; right: 0; width: 70px; background: repeating-linear-gradient(0deg, #d23b2e 0 6px, #f3f3f3 6px 12px); opacity: .85; border-radius: 2px; }
 .lever-col { display: grid; justify-items: center; gap: 4px; }
 .lever-col b { font-family: var(--f-display); font-size: .8rem; letter-spacing: .1em; }
@@ -544,6 +545,22 @@ input.lever:focus-visible { outline: 2px solid var(--placard); outline-offset: 2
 .case{fill:var(--wire-dead)}
 g[data-case].on .case{fill:#2a73c4}
 .spool{fill:var(--sym-fill);stroke:var(--sym);stroke-width:1.6}
+
+.sim.near { margin-bottom: 16px; }
+.sim.near .info { max-height: 460px; overflow: auto; }
+.pp-top.ctlrow { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); }
+.pp-top.lower { margin-top: 16px; }
+/* ---------- pneumatics ---------- */
+.fl.on.k-hp { stroke: #2a8fe0; } .fl.on.k-reg { stroke: #2fb062; } .fl.on.k-vac { stroke: #d9a400; }
+.fl.on.k-warn { stroke: #e2342a; stroke-width: 3.5; stroke-dasharray: none; animation: none; }
+.farrow.k-hp path { fill: #2a8fe0; } .farrow.k-reg path { fill: #2fb062; } .farrow.k-vac path { fill: #d9a400; } .farrow.k-warn { display: none; }
+.melt { fill: #e2342a; opacity: 0; transition: opacity .3s; }
+g[data-melt].on .melt { opacity: .35; }
+g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
+.blk.alarm { stroke: #e2342a; stroke-width: 2.6; }
+.fl.ovl:not(.on) { opacity: 0; }
+.hrs { font-family: var(--f-mono); font-size: 13px; font-weight: 700; fill: #f1f3f4; letter-spacing: .12em; }
+.hrbox { font-family: var(--f-mono); font-size: 1.15rem; font-weight: 700; letter-spacing: .14em; background: #1a1d21; color: #f1f3f4; border: 1px solid var(--panel-line); border-radius: 4px; padding: 4px 10px; }
 
 @media (max-width: 1120px) {
   .sim { grid-template-columns: minmax(0, 1fr); }
@@ -1210,30 +1227,7 @@ g[data-case].on .case{fill:#2a73c4}
       </div>
     </div>
 
-    <div class="pp-top">
-      <div class="panel">
-        <h3>Control pedestal</h3>
-        <div class="pedestal" id="pedestal"></div>
-        <div class="lift" id="liftRow"></div>
-        <p class="hintbar" id="ppHint" aria-live="polite"></p>
-        <div class="qset" id="qset"></div>
-        <h3>Ignition &amp; engine start · environment</h3>
-        <div class="sw-row" id="ppSwitches"></div>
-        <div class="envrow" id="envRow"></div>
-        <h3>Inject a fault</h3>
-        <div class="faults" id="ppFaults"></div>
-      </div>
-      <div class="panel">
-        <h3>Engine instruments (L · R)</h3>
-        <div class="inst" id="instPanel"></div>
-        <h3>Operating mode</h3>
-        <div class="modes" id="modes"></div>
-        <h3>Annunciators</h3>
-        <div class="ann-grid" id="ppAnns"></div>
-      </div>
-    </div>
-
-    <div class="sim">
+    <div class="sim near">
       <div class="diagram-card">
         <div class="dtabs">
           <div class="seg" role="group" aria-label="Diagram" id="ppTabs">
@@ -1258,8 +1252,36 @@ g[data-case].on .case{fill:#2a73c4}
       </div>
       <div class="side">
         <div class="card info" id="ppInfo" aria-live="polite"></div>
-        <div class="card"><h3>Engine events</h3><ol class="log" id="ppLog"></ol></div>
       </div>
+    </div>
+
+    <div class="pp-top ctlrow">
+      <div class="panel">
+        <h3>Control pedestal</h3>
+        <div class="pedestal" id="pedestal"></div>
+        <div class="lift" id="liftRow"></div>
+        <p class="hintbar" id="ppHint" aria-live="polite"></p>
+        <div class="qset" id="qset"></div>
+        <h3>Ignition &amp; engine start · environment</h3>
+        <div class="sw-row" id="ppSwitches"></div>
+        <div class="envrow" id="envRow"></div>
+      </div>
+      <div class="panel">
+        <h3>Engine instruments (L · R)</h3>
+        <div class="inst" id="instPanel"></div>
+        <h3>Operating mode</h3>
+        <div class="modes" id="modes"></div>
+        <h3>Annunciators</h3>
+        <div class="ann-grid" id="ppAnns"></div>
+      </div>
+    </div>
+
+    <div class="pp-top lower">
+      <div class="panel">
+        <h3>Inject a fault</h3>
+        <div class="faults" id="ppFaults"></div>
+      </div>
+      <div class="card"><h3>Engine events</h3><ol class="log" id="ppLog"></ol></div>
     </div>
   </section>
 
@@ -1456,32 +1478,7 @@ g[data-case].on .case{fill:#2a73c4}
       </div>
     </div>
 
-    <div class="pp-top">
-      <div class="panel">
-        <h3>Power &amp; propeller levers</h3>
-        <div class="pedestal" id="pvPedestal"></div>
-        <div class="lift" id="pvLiftRow"></div>
-        <p class="hintbar" id="pvHint" aria-live="polite"></p>
-        <div class="qset" id="pvQset"></div>
-        <h3>Subpanel switches · engines · flight condition</h3>
-        <div class="sw-row" id="pvSwitches"></div>
-        <div class="envrow" id="pvEnv"></div>
-        <h3>Inject a fault</h3>
-        <div class="faults" id="pvFaults"></div>
-      </div>
-      <div class="panel">
-        <h3>Propeller instruments (L · R)</h3>
-        <div class="inst" id="pvInst"></div>
-        <h3>Synchroscope</h3>
-        <div class="envrow" id="pvSyncRow"></div>
-        <h3>Annunciators</h3>
-        <div class="ann-grid" id="pvAnns"></div>
-        <h3>What each propeller is doing</h3>
-        <div class="modes" id="pvModes"></div>
-      </div>
-    </div>
-
-    <div class="sim">
+    <div class="sim near">
       <div class="diagram-card">
         <div class="dtabs">
           <div class="seg" role="group" aria-label="Diagram" id="pvTabs">
@@ -1504,8 +1501,38 @@ g[data-case].on .case{fill:#2a73c4}
       </div>
       <div class="side">
         <div class="card info" id="pvInfo" aria-live="polite"></div>
-        <div class="card"><h3>Propeller events</h3><ol class="log" id="pvLog"></ol></div>
       </div>
+    </div>
+
+    <div class="pp-top ctlrow">
+      <div class="panel">
+        <h3>Power &amp; propeller levers</h3>
+        <div class="pedestal" id="pvPedestal"></div>
+        <div class="lift" id="pvLiftRow"></div>
+        <p class="hintbar" id="pvHint" aria-live="polite"></p>
+        <div class="qset" id="pvQset"></div>
+        <h3>Subpanel switches · engines · flight condition</h3>
+        <div class="sw-row" id="pvSwitches"></div>
+        <div class="envrow" id="pvEnv"></div>
+      </div>
+      <div class="panel">
+        <h3>Propeller instruments (L · R)</h3>
+        <div class="inst" id="pvInst"></div>
+        <h3>Synchroscope</h3>
+        <div class="envrow" id="pvSyncRow"></div>
+        <h3>Annunciators</h3>
+        <div class="ann-grid" id="pvAnns"></div>
+        <h3>What each propeller is doing</h3>
+        <div class="modes" id="pvModes"></div>
+      </div>
+    </div>
+
+    <div class="pp-top lower">
+      <div class="panel">
+        <h3>Inject a fault</h3>
+        <div class="faults" id="pvFaults"></div>
+      </div>
+      <div class="card"><h3>Propeller events</h3><ol class="log" id="pvLog"></ol></div>
     </div>
   </section>
 
@@ -1652,6 +1679,168 @@ g[data-case].on .case{fill:#2a73c4}
 </div>
 </template>
 
+<template id="tpl-pneumatics">
+<div class="view">
+  <header class="chapter-head">
+    <div class="eyebrow">Chapter 9</div>
+    <h1>Pneumatics</h1>
+    <p class="lede">Hot P3 bleed air from both engines meets at a tee in the fuselage and is regulated to 18 psi. That one manifold inflates the deice boots and the door seal, pressurizes the hydraulic fill can and the bleed-air warning tubes, runs the flight hourmeter, and drives an ejector that makes the vacuum for the gyros, the pressurization controller and boot hold-down. Either engine can supply all of it.</p>
+    <p class="disclaimer">Study aid built from the King Air 300/350 training manual pneumatics section. It is not an approved document. The POH/AFM governs. The simulator's pressures, timing and response are a teaching model, not performance data.</p>
+    <div class="subnav" id="pnSubnav">
+      <button data-go="pn-glance">At a glance</button>
+      <button data-go="pn-sim">Interactive schematic</button>
+      <button data-go="pn-source">Air source</button>
+      <button data-go="pn-vac">Vacuum</button>
+      <button data-go="pn-ctl">Bleed air control</button>
+      <button data-go="pn-warn">Bleed air warning</button>
+      <button data-go="pn-users">What uses the air</button>
+    </div>
+  </header>
+
+  <section class="block" id="pn-glance">
+    <h2>At a glance <span class="ref">Figures 9-1 to 9-3</span></h2>
+    <div class="specs">
+      <div class="spec"><span class="v">90–120 psi</span><span class="k">P3 bleed air from each engine compressor</span></div>
+      <div class="spec"><span class="v">≈ 700 °F</span><span class="k">Bleed air temperature at the engine. It cools to about 70 °F above ambient by the time it reaches the fuselage tee.</span></div>
+      <div class="spec"><span class="v">18 ± 1 psi</span><span class="k">Regulated manifold pressure with an engine at 70–80% N1</span></div>
+      <div class="spec"><span class="v">21 psi</span><span class="k">Relief valve in the 18 psi regulator, in case the regulator fails</span></div>
+      <div class="spec"><span class="v">15 → 6 in Hg</span><span class="k">Ejector vacuum capacity, sea level to 31,000 ft</span></div>
+      <div class="spec"><span class="v">4.3–5.9 in Hg</span><span class="k">Regulated vacuum. Expect about 5.9 (+0, −0.2) at sea level, even on one engine at 70–80% N1.</span></div>
+      <div class="spec"><span class="v">4 psi</span><span class="k">Door seal regulator. The seal inflates after liftoff.</span></div>
+      <div class="spec"><span class="v">&lt; 2 psi</span><span class="k">Warning-tube pressure that lights L or R BLEED FAIL</span></div>
+    </div>
+  </section>
+
+  <section class="block" id="pn-sim">
+    <h2>Interactive pneumatic schematic <span class="ref">Figures 9-1, 9-4, 9-5</span></h2>
+    <p class="prose">The schematic follows Figure 9-1, with the same colors: <b>blue</b> for high-pressure bleed air, <b>green</b> for regulated 18 psi air and <b>yellow</b> for vacuum. Moving lines and arrows show where air is going. Vacuum arrows point toward the ejector, because that's the way the air moves. Start or stop the engines, move the BLEED AIR VALVE switches, take off, cycle the boots, or break a bleed line. Select any component for its description.</p>
+    <div class="diagram-card">
+      <div class="scen">
+        <div class="scen-row">
+          <label for="pnScenSel">Scenario</label>
+          <select id="pnScenSel"></select>
+          <button class="btn" id="pnPrev" aria-label="Previous scenario">◀ Prev</button>
+          <button class="btn" id="pnNext" aria-label="Next scenario">Next ▶</button>
+        </div>
+        <p class="scen-cap" id="pnScenCap"></p>
+      </div>
+    </div>
+    <div class="sim">
+      <div class="diagram-card">
+        <div class="svg-wrap"><svg id="pnschem" viewBox="0 0 1100 610" role="img" aria-label="King Air 350 pneumatic and vacuum system schematic"></svg></div>
+        <div class="legend">
+          <span><i style="background:#2a8fe0"></i>High-pressure bleed air</span>
+          <span><i style="background:#2fb062"></i>Regulated bleed air (18 psi)</span>
+          <span><i style="background:#d9a400"></i>Vacuum</span>
+          <span><i style="background:#e2342a"></i>Bleed-air warning tube</span>
+          <span><i style="background:var(--wire-dead)"></i>No pressure</span>
+        </div>
+      </div>
+      <div class="side">
+        <div class="card info" id="pnInfo" aria-live="polite"></div>
+        <div class="card"><h3>System events</h3><ol class="log" id="pnLog"></ol></div>
+      </div>
+    </div>
+    <div class="cockpit">
+      <div class="panel">
+        <h3>Bleed air valves · engines</h3>
+        <div class="sw-row" id="pnSwitches"></div>
+        <div class="eng-row" id="pnEngines"></div>
+        <h3>Flight condition · deice</h3>
+        <div class="envrow" id="pnEnv"></div>
+        <h3>Inject a failure</h3>
+        <div class="faults" id="pnFaults"></div>
+      </div>
+      <div class="panel">
+        <h3>Copilot's right subpanel</h3>
+        <div class="qty-row" id="pnGauges"></div>
+        <h3>Flight hourmeter</h3>
+        <div class="envrow" id="pnHours"></div>
+        <h3>Annunciators</h3>
+        <div class="ann-grid" id="pnAnns"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pn-source">
+    <h2>Pneumatic air source <span class="ref">Figures 9-1, 9-2</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>High-pressure <b>P3 bleed air</b>, 90 to 120 psi, is taken from each engine compressor. The manual places the tap at the fourth stage, at up to about 700 °F. It goes through a normally-open, firewall-mounted <b>pneumatic air valve</b> and into the fuselage, where the two lines meet at a <b>tee</b>. The plumbing sheds heat on the way, so the air is only about 70 °F above ambient at the tee.</p>
+        <p>A <b>check valve</b> in each engine's line stops reverse flow. With one engine inoperative, the good engine's air can't escape back through the dead engine's line. Normally one engine supplies enough air for every pneumatic and vacuum user.</p>
+        <p>Downstream of the tee, the air passes through the <b>18 psi pressure regulator</b> under the right seat deck, just forward of the main spar. It has a built-in <b>relief valve</b> set at <b>21 psi</b> in case the regulator fails. With an engine at 70–80% N1 it gives 18 ± 1 psi.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>Pneumatic pressure gage</h3><p>On the copilot's right subpanel. It reads the pressure available to the pneumatic manifold, in psi. The green arc runs from 10 to just below 20 psi, with a red line at 20.</p></div>
+        <div class="card"><h3>Also tapped off the high-pressure line</h3><p>The <b>window defogging regulator</b>, upstream of the 18 psi regulator, and each side's <b>brake deice valve</b>, between that engine's pneumatic air valve and its check valve. Rudder boost pressure transducers are on the King Air 300 only.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pn-vac">
+    <h2>Vacuum air source <span class="ref">Figures 9-1, 9-3</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>There's no vacuum pump. Regulated air flows through an <b>ejector</b>, a pressure line that narrows into a venturi and then exhausts overboard. The vacuum line is attached at the narrowest point, where pressure is lowest, so the moving air pulls air out of the vacuum line.</p>
+        <p>The ejector can make about <b>15 in Hg</b> at sea level, falling to about <b>6 in Hg</b> at 31,000 ft. It supplies vacuum, regulated to 4.3–5.9 in Hg, to:</p>
+        <ul class="tight">
+          <li>the <b>air-driven gyro instruments</b>, through a vacuum regulator in the nose compartment on the left side of the pressure bulkhead. The regulator has a foam filter, and another filter in the nose gives the gyros a clean, sheltered air source.</li>
+          <li>the <b>pressurization controller</b>, outflow valve and safety valve.</li>
+          <li>the <b>deice distributor valve</b>, which uses vacuum to hold the boots down (deflated) between cycles.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Gyro suction gage</h3><p>To the left of the pneumatic pressure gage, calibrated in inches of mercury. Even with only one engine at 70–80% N1, it should read about <b>5.9 (+0, −0.2) in Hg</b> at sea level.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="pn-ctl">
+    <h2>Bleed air control <span class="ref">Figure 9-4</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Two <b>BLEED AIR VALVE</b> switches, one per engine, control the bleed air that enters the cabin for pressurization and environmental use and the pneumatic air. Each has three positions:</p>
+      </div>
+      <div class="bus-table-wrap"><table><thead><tr><th>Switch position</th><th>Environmental flow control valve</th><th>Pneumatic (instrument) air valve</th></tr></thead><tbody>
+        <tr><td><b>OPEN</b></td><td>Open</td><td>Open</td></tr>
+        <tr><td><b>ENVIR OFF</b></td><td>Closed</td><td>Open</td></tr>
+        <tr><td><b>PNEU &amp; ENVIR OFF</b></td><td>Closed</td><td>Closed, so bleed air stops at the firewall</td></tr>
+      </tbody></table></div>
+    </div>
+    <p class="disclaimer">The Master Warning chapter lists L/R BL AIR OFF as a caution for a bleed air valve switch that isn't OPEN. The simulator shows it that way.</p>
+  </section>
+
+  <section class="block" id="pn-warn">
+    <h2>Engine bleed air warning <span class="ref">Figures 9-5, 9-6</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>A ruptured bleed line can quickly heat-damage the skin and structure around it. To catch that, <b>ethylene vinyl acetate (EVA) plastic tubes</b> run next to the environmental and pneumatic bleed lines from each engine to the cabin. The tubes are pressurized with 18 psi air tapped off the manifold through an orifice.</p>
+        <p>Heat from a ruptured line melts the tubing, the air escapes, and tube pressure falls. Below <b>2 psi</b> a normally-closed pressure switch under the cockpit floor (one per side) closes and lights that side's <b>BLEED FAIL</b> warning.</p>
+        <p>Then turn off all bleed air on that side: BLEED AIR VALVE switch to <b>PNEU &amp; ENVIR OFF</b>. Both shutoff valves close and bleed air stops at the engine firewall. <b>The BLEED FAIL light stays on</b>, because the tube is still melted.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>Why both lights are on before start</h3><p>The tubes are fed from the manifold, so with no engine running they have no pressure and both switches close. The lights go out once an engine builds manifold pressure. That also means one engine keeps both sides' tubes pressurized. In the simulator, the same thing happens if both sides are shut off.</p>
+          <button class="show" type="button" data-pnsc="1">Watch it during engine start →</button></div>
+        <div class="card"><h3>Caution: emergency exits</h3><p>Take care removing or installing the emergency exits so you don't damage the bleed air lines, and make sure they're properly reconnected when the hatches go back in.</p>
+          <button class="show" type="button" data-pnsc="6">Run a bleed line rupture →</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pn-users">
+    <h2>What uses the pneumatic air <span class="ref">Figure 9-1</span></h2>
+    <div class="comp-grid">
+      <div class="comp-card"><h4>Surface deice boots</h4><p>Regulated air through the deice distributor valve inflates the boots. Between cycles the distributor connects the boots to vacuum, which holds them down. See Ice and Rain Protection for the controls.</p><button class="show" type="button" data-pnsc="5">Cycle the boots →</button></div>
+      <div class="comp-card"><h4>Cabin door seal</h4><p>Manifold air goes through a 4 psi regulator to a normally-open valve controlled by the <b>left</b> landing gear safety switch, which holds it closed on the ground. At liftoff the switch changes, the valve opens and the seal inflates.</p><button class="show" type="button" data-pnsc="3">Take off →</button></div>
+      <div class="comp-card"><h4>Hydraulic fill can</h4><p>Pneumatic pressure in the landing gear hydraulic fill can keeps the fluid from vaporizing and gives the hydraulic pump a positive feed. After shutdown it bleeds off through a small orifice.</p></div>
+      <div class="comp-card"><h4>Flight hourmeter</h4><p>A valve controlled by the <b>right</b> landing gear safety switch (normally closed, open in flight) sends air to a pressure switch that runs the flight hourmeter, so it only counts time in the air.</p></div>
+      <div class="comp-card"><h4>Bleed air warning tubes</h4><p>Pressurized from the manifold through two orifices. A melted tube lights that side's BLEED FAIL.</p></div>
+      <div class="comp-card"><h4>Window defog</h4><p>Bleed air from a separate regulator under the floor goes to the cockpit side windows (all 300s and 350s) and, where installed, the cabin windows (optional on the 350). It works whenever either engine is running. Warm, dry air goes to the inside surface of each window.</p></div>
+      <div class="comp-card"><h4>Brake deice</h4><p>Each side's normally-closed brake deice valve takes hot high-pressure bleed air from that engine's line to the brakes. See Ice and Rain Protection and Landing Gear for its operation.</p></div>
+      <div class="comp-card"><h4>Rudder boost (300 only)</h4><p>On the King Air 300, pressure transducers in each engine's bleed line feed the rudder boost system. The 350 doesn't use them.</p></div>
+    </div>
+  </section>
+</div>
+</template>
+
 <script>
 (function () {
 "use strict";
@@ -1665,7 +1854,7 @@ const CHAPTERS = [
   { n: 6,  id: "propellers",        t: "Propellers", ready: "Ready · interactive propeller & governor" },
   { n: 7,  id: "powerplant",        t: "Powerplant", ready: "Ready · interactive pedestal & engine" },
   { n: 8,  id: "fire-protection",   t: "Fire Protection" },
-  { n: 9,  id: "pneumatics",        t: "Pneumatics" },
+  { n: 9,  id: "pneumatics",        t: "Pneumatics", ready: "Ready · interactive pneumatic & vacuum schematic" },
   { n: 10, id: "ice-rain",          t: "Ice and Rain Protection" },
   { n: 11, id: "air-conditioning",  t: "Air Conditioning" },
   { n: 12, id: "pressurization",    t: "Pressurization" },
@@ -1726,7 +1915,7 @@ function renderPlaceholder(c) {
   </div>`;
 }
 
-const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers() };
+const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics() };
 function route() {
   const id = (location.hash || "").replace("#", "");
   const ch = CHAPTERS.find(c => c.id === id);
@@ -2522,7 +2711,7 @@ function applyScenario(i) {
   step(0.01);
 }
 
-function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; MW = null; }
+function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; if (pnTimer) { clearInterval(pnTimer); pnTimer = null; } pnScript = null; MW = null; }
 
 function initElectrical() {
   buildSchematic();
@@ -3274,7 +3463,7 @@ function ppApply(i) {
 /* ---------- pedestal & controls ---------- */
 const LEVERS = [
   { g: "pwr", name: "Power", cls: "pwr", marks: [[100, "Takeoff"], [62, "Cruise"], [PL_IDLE, "Idle", 1], [19, "Gnd fine"], [PL_GF, "", 1], [5, "Reverse"]], gates: [PL_IDLE, PL_GF] },
-  { g: "prp", name: "Propeller", cls: "prp", marks: [[100, "High rpm 1700"], [56, "1575"], [12, "Low 1450"], [5, "Feather"]], stripe: [0, PR_FTH] },
+  { g: "prp", name: "Propeller", cls: "prp", marks: [[100, "High rpm 1700"], [56, "1575"], [15, "Low 1450"], [5, "Feather"]], stripe: [0, PR_FTH] },
   { g: "cnd", name: "Condition", cls: "cnd", marks: [[100, "Hi idle 70%"], [CL_GATE, "Low idle 62%", 1], [3, "Fuel cutoff"]], gates: [CL_GATE] }
 ];
 const LKEY = { pwr: "pl", prp: "pr", cnd: "cl" };
@@ -3327,7 +3516,7 @@ const QSET = [
 
 function buildPedestal() {
   $("#pedestal").innerHTML = LEVERS.map(L => {
-    const marks = L.marks.map(m => `<span class="${m[2] ? "gate" : ""}" style="top:${100 - m[0]}%">${m[1]}${m[2] ? " ▬" : ""}</span>`).join("");
+    const marks = L.marks.map(m => `<span class="${m[2] ? "gate" : m[1] === "Feather" ? "fth" : ""}" style="top:${100 - m[0]}%">${m[1]}${m[2] ? " ▬" : ""}</span>`).join("");
     const stripe = L.stripe ? `<div class="stripe" style="top:${100 - L.stripe[1]}%;height:${L.stripe[1] - L.stripe[0]}%"></div>` : "";
     return `<div class="lgroup"><div class="gname">${L.name}</div><div class="lrow"><div class="placard" aria-hidden="true">${stripe}${marks}</div>${["L", "R"].map(k =>
       `<div class="lever-col"><input type="range" class="lever ${L.cls}" id="lv-${L.g}-${k}" min="0" max="100" step="0.5" value="0" aria-label="${SIDE[k]} ${L.name.toLowerCase()} lever"><b>${k}</b></div>`).join("")}</div></div>`;
@@ -3831,7 +4020,7 @@ function pvApply(i) {
 /* ---------- controls ---------- */
 const PV_LEVERS = [
   { g: "pwr", key: "pl", name: "Power", cls: "pwr", marks: [[100, "Max"], [92, "Takeoff"], [71, "88% N1"], [PV_IDLE, "Idle", 1], [19, "Gnd fine"], [PV_GF, "", 1], [5, "Reverse"]] },
-  { g: "prp", key: "pr", name: "Propeller", cls: "prp", marks: [[100, "High rpm 1700"], [47, "1550"], [12, "Low 1450"], [5, "Feather"]], stripe: [0, PV_FTH] }
+  { g: "prp", key: "pr", name: "Propeller", cls: "prp", marks: [[100, "High rpm 1700"], [47, "1550"], [15, "Low 1450"], [5, "Feather"]], stripe: [0, PV_FTH] }
 ];
 function pvHint(m) { const h = $("#pvHint"); if (h) h.textContent = m; }
 function pvLeverInput(g, k, v) {
@@ -3871,7 +4060,7 @@ const PV_QSET = [
 ];
 function pvBuildControls() {
   $("#pvPedestal").innerHTML = PV_LEVERS.map(L => {
-    const marks = L.marks.map(m => `<span class="${m[2] ? "gate" : ""}" style="top:${100 - m[0]}%">${m[1]}${m[2] ? " ▬" : ""}</span>`).join("");
+    const marks = L.marks.map(m => `<span class="${m[2] ? "gate" : m[1] === "Feather" ? "fth" : ""}" style="top:${100 - m[0]}%">${m[1]}${m[2] ? " ▬" : ""}</span>`).join("");
     const stripe = L.stripe ? `<div class="stripe" style="top:${100 - L.stripe[1]}%;height:${L.stripe[1] - L.stripe[0]}%"></div>` : "";
     return `<div class="lgroup"><div class="gname">${L.name}</div><div class="lrow"><div class="placard" aria-hidden="true">${stripe}${marks}</div>${["L", "R"].map(k =>
       `<div class="lever-col"><input type="range" class="lever ${L.cls}" id="pvlv-${L.g}-${k}" min="0" max="100" step="0.5" value="0" aria-label="${SIDE[k]} ${L.name.toLowerCase()} lever"><b>${k}</b></div>`).join("")}</div></div>`;
@@ -4155,6 +4344,348 @@ function initPropellers() {
   pvApply(0);
   $("#pvInfo").innerHTML = `<h3>Component details</h3><p>Select any part of a diagram (flyweights, pilot valve, beta valve, reverse lever, dome, feedback ring, governors, autofeather relays) for what it does and its live state.</p>`;
   pvTimer = setInterval(() => pvStep(0.05), 50);
+}
+
+/* ================= Chapter 9: Pneumatics ================= */
+const PN_N1 = { OFF: 0, IDLE: 62, MID: 75, HIGH: 95 };
+let PN = null, PND = null, pnTimer = null, pnSel = null, pnScen = 0, pnScript = null, pnLogArr = [];
+
+function pnFresh() {
+  return { t: 0, n1cmd: { L: "OFF", R: "OFF" }, n1: { L: 0, R: 0 }, bleed: { L: "OPEN", R: "OPEN" }, flight: false, alt: 0,
+    brake: false, cycle: 0, man: 0, vac: 0, fill: 0, seal: 0, tube: { L: 0, R: 0 }, melt: { L: 0, R: 0 },
+    fault: { rup: { L: false, R: false }, reg: false }, hours: 1873.4, hourAcc: 0, warned: {} };
+}
+function pnLog(msg, cls) {
+  pnLogArr.unshift({ t: PN.t, msg, cls: cls || "" }); if (pnLogArr.length > 50) pnLogArr.pop();
+  const h = $("#pnLog"); if (h) h.innerHTML = pnLogArr.map(e => `<li class="${e.cls}"><span class="t">${e.t.toFixed(1)}s</span><span class="m">${esc(e.msg)}</span></li>`).join("");
+}
+function pnOnce(key, cond, msg, cls) { if (cond && !PN.warned[key]) { PN.warned[key] = true; pnLog(msg, cls); } if (!cond) PN.warned[key] = false; }
+
+function pnStep(dt) {
+  const P = PN; P.t += dt;
+  const d = { p3: {}, up: {}, valve: {}, env: {}, check: {}, brake: {}, leak: {}, fail: {}, off: {} };
+  ["L", "R"].forEach(k => {
+    P.n1[k] += (PN_N1[P.n1cmd[k]] - P.n1[k]) * dt / (P.n1cmd[k] === "OFF" ? 4 : 2.5);
+    if (P.n1[k] < 0.2) P.n1[k] = 0;
+    d.p3[k] = 120 * clamp01((P.n1[k] - 35) / 65);
+    d.valve[k] = P.bleed[k] !== "PNEU";                       // pneumatic air valve: N.O., closed only in PNEU & ENVIR OFF
+    d.env[k] = P.bleed[k] === "OPEN" && d.p3[k] > 5;           // environmental flow control valve open and flowing
+    d.leak[k] = P.fault.rup[k] && d.valve[k] && d.p3[k] > 5;   // hot air escaping from a broken line
+    d.up[k] = d.valve[k] ? d.p3[k] * (P.fault.rup[k] ? 0.35 : 1) : 0;
+    d.off[k] = P.bleed[k] !== "OPEN";
+  });
+  d.tee = Math.max(d.up.L, d.up.R);
+  ["L", "R"].forEach(k => { d.check[k] = d.up[k] > 1 && d.up[k] >= d.tee - 2; d.brake[k] = P.brake && d.up[k] > 5; });
+  // boot cycle (single cycle: inflate, then vacuum hold-down)
+  if (P.cycle > 0) { P.cycle = Math.max(0, P.cycle - dt); if (P.cycle === 0) pnLog("Deice cycle complete: distributor returns the boots to vacuum hold-down."); }
+  d.inflate = P.cycle > 0 && P.man > 5;
+  // 18 psi regulator (relief at 21 psi), manifold pressure
+  const set = P.fault.reg ? 21 : 18;
+  let target = Math.min(set, d.tee * 0.9);
+  if (d.inflate) target = Math.max(0, target - 2.5);
+  P.man += (target - P.man) * dt / (target > P.man ? 0.8 : 1.6);
+  if (P.man < 0.05) P.man = 0;
+  // ejector vacuum: capacity falls from ~15 in Hg (SL) to ~6 in Hg (31,000 ft); regulated to 5.9
+  d.cap = Math.max(0, (15 - 9 * (P.flight ? P.alt : 0) / 31000) * clamp01(P.man / 18));
+  const vt = Math.min(5.9, d.cap);
+  P.vac += (vt - P.vac) * dt / 1.2; if (P.vac < 0.02) P.vac = 0;
+  // fill can: charges from manifold, bleeds off slowly through an orifice
+  P.fill += (P.man - P.fill) * dt / (P.man > P.fill ? 1 : 20);
+  // door seal: 4 psi regulator, N.O. valve held closed on the ground by the left gear safety switch
+  d.sealOpen = P.flight;
+  P.seal += ((d.sealOpen ? Math.min(4, P.man) : 0) - P.seal) * dt / 1.2;
+  // hourmeter: right gear safety switch valve (N.C., open in flight) -> pressure switch
+  d.hourOpen = P.flight;
+  d.hourRun = d.hourOpen && P.man > 2;
+  if (d.hourRun) { P.hourAcc += dt; if (P.hourAcc >= 3) { P.hourAcc = 0; P.hours += 0.1; } }
+  // bleed air warning tubes: fed from the manifold through orifices; heat from a leak melts the tube
+  ["L", "R"].forEach(k => {
+    if (d.leak[k]) P.melt[k] = Math.min(1, P.melt[k] + dt / 2.5);
+    const melted = P.melt[k] >= 1;
+    P.tube[k] += ((melted ? 0 : P.man) - P.tube[k]) * dt / (melted ? 0.8 : 1.5);
+    d.fail[k] = P.tube[k] < 2;
+  });
+  d.defog = d.tee > 5;
+  PND = d;
+  // events
+  pnOnce("press", P.man > 15, `Pneumatic pressure ${P.man.toFixed(0)} psi: manifold up. Bleed-air warning tubes pressurizing.`);
+  pnOnce("nopress", P.t > 0.5 && P.man < 2 && (P.flight || P.n1.L > 40 || P.n1.R > 40), "No pneumatic pressure: no vacuum for the gyros, no boots, no door seal.", "bad");
+  ["L", "R"].forEach(k => {
+    pnOnce("chk" + k, !d.check[k] && d.tee > 5, `${SIDE[k]} check valve closed: the ${k === "L" ? "right" : "left"} engine's air can't escape back through the ${SIDE[k].toLowerCase()} line.`);
+    pnOnce("fail" + k, d.fail[k] && P.t > 0.5, `${k} BLEED FAIL: ${SIDE[k].toLowerCase()} warning tube below 2 psi${P.melt[k] >= 1 ? " (tube melted by escaping bleed air)" : " (no manifold pressure)"}.`, P.melt[k] >= 1 ? "bad" : "warn");
+    pnOnce("leak" + k, d.leak[k], `${SIDE[k]} bleed line ruptured: hot air is escaping into the ${k === "L" ? "left" : "right"} wing and nacelle.`, "bad");
+    pnOnce("brk" + k, P.brake && !d.brake[k], `${SIDE[k]} brake deice valve has no bleed air (it's fed from the ${SIDE[k].toLowerCase()} engine's line).`, "warn");
+  });
+  pnOnce("relief", P.man > 19.5, "Regulator failed: the relief valve is holding about 21 psi, above the red line.", "bad");
+  pnOnce("vaclo", P.vac > 0.1 && P.vac < 4.3, `Suction ${P.vac.toFixed(1)} in Hg is below the 4.3–5.9 regulated range.`, "warn");
+  if (pnScript) pnRunScript();
+  pnRender();
+}
+function pnRunScript() {
+  const s = pnScript;
+  while (s.i < s.steps.length) {
+    const st = s.steps[s.i];
+    if (st.wait !== undefined && PN.t - s.t0 < st.wait) return;
+    st.do(PN); if (st.msg) pnLog("Demo: " + st.msg); s.i++; s.t0 = PN.t;
+  }
+  pnScript = null;
+}
+
+/* ---------- scenarios ---------- */
+const pnRun = (P, v) => { P.n1cmd.L = P.n1cmd.R = v; P.n1.L = P.n1.R = PN_N1[v]; P.man = 18; P.vac = 5.9; P.fill = 18; P.tube.L = P.tube.R = 18; };
+const pnCruise = (P, alt) => { pnRun(P, "HIGH"); P.flight = true; P.alt = alt || 21000; P.seal = 4; };
+const PN_SCEN = [
+  { t: "Before start: no pneumatic pressure", cap: "Both engines shut down on the ground. No bleed air, so the manifold, vacuum and fill can are at zero. With no air to pressurize the warning tubes, both BLEED FAIL lights are on. Start an engine to watch the system come alive.", apply() {} },
+  { t: "Demo: engine start (lights go out)", cap: "The right engine starts first. As N1 rises, P3 builds, the 18 psi regulator fills the manifold and the ejector makes vacuum. Once the warning tubes pass 2 psi, BOTH BLEED FAIL lights go out, because the right engine's air pressurizes both tubes. The left check valve stays closed until the left engine starts.", apply() {},
+    script: [{ wait: 2, do: P => { P.n1cmd.R = "IDLE"; }, msg: "right engine start: N1 rising to low idle." }, { wait: 10, do: P => { P.n1cmd.L = "IDLE"; }, msg: "left engine start." }] },
+  { t: "Both engines running, on the ground", cap: "Normal ground operation at idle. 18 psi on the pneumatic gage and about 5.9 in Hg suction. Both check valves are open and share the load. The door seal valve is held closed by the left gear safety switch, and the hourmeter valve by the right one.", apply(P) { pnRun(P, "IDLE"); } },
+  { t: "Demo: takeoff (door seal and hourmeter)", cap: "Power up for takeoff on the ground. At liftoff the gear safety switches change: the left one lets the door seal valve open, so the seal inflates through its 4 psi regulator. The right one opens the hourmeter valve, so the pressure switch starts the flight hourmeter.", apply(P) { pnRun(P, "IDLE"); },
+    script: [{ wait: 2, do: P => { P.n1cmd.L = P.n1cmd.R = "HIGH"; }, msg: "power levers up for takeoff." }, { wait: 5, do: P => { P.flight = true; P.alt = 500; }, msg: "liftoff: the gear safety switches change state." }, { wait: 4, do: P => { P.alt = 5000; }, msg: "climbing through 5,000 ft." }] },
+  { t: "Single engine: left engine shut down", cap: "Cruise with the left engine shut down. The right engine supplies the whole system and pressure stays at 18 psi. The left check valve closes so right-engine air can't leak back out of the dead engine's line. The left environmental bleed and left brake deice have no air.", apply(P) { pnCruise(P); P.n1cmd.L = "OFF"; P.n1.L = 0; } },
+  { t: "Demo: surface deice single cycle", cap: "In cruise. The deice distributor valve normally connects the boots to vacuum, holding them flat. A cycle sends 18 psi air to inflate them (the pressure gage dips slightly while they fill), then returns them to vacuum. The cycle length here is illustrative.", apply(P) { pnCruise(P); },
+    script: [{ wait: 2, do: P => { P.cycle = 6; }, msg: "surface deice: single cycle." }] },
+  { t: "Demo: left bleed line rupture", cap: "A left bleed line breaks in flight. Escaping hot air melts the EVA warning tube, its pressure falls below 2 psi and L BLEED FAIL lights. The crew selects the left BLEED AIR VALVE switch to PNEU & ENVIR OFF: both left shutoff valves close and hot air stops at the firewall. L BLEED FAIL stays on because the tube is melted. L BL AIR OFF comes on and the right engine carries the system.", apply(P) { pnCruise(P); },
+    script: [{ wait: 2, do: P => { P.fault.rup.L = true; }, msg: "left bleed air line ruptures." }, { wait: 6, do: P => { P.bleed.L = "PNEU"; }, msg: "left BLEED AIR VALVE switch to PNEU & ENVIR OFF." }] },
+  { t: "Bleed air valves at ENVIR OFF", cap: "Both BLEED AIR VALVE switches at ENVIR OFF. The environmental flow control valves close, so no bleed air goes to the cabin for pressurization and heating, and both BL AIR OFF cautions are on. The pneumatic air valves stay open, so pneumatics and vacuum are normal.", apply(P) { pnCruise(P); P.bleed.L = P.bleed.R = "ENVIR"; } },
+  { t: "Both switches PNEU & ENVIR OFF", cap: "Both switches at PNEU & ENVIR OFF in flight. All bleed air stops at the firewalls. Pressure and suction bleed away: no gyro vacuum, no boots, no door seal, no environmental air. As the warning tubes depressurize, both BLEED FAIL lights come on even though nothing has melted. Put a switch back to OPEN to recover.", apply(P) { pnCruise(P); },
+    script: [{ wait: 2, do: P => { P.bleed.L = P.bleed.R = "PNEU"; }, msg: "both BLEED AIR VALVE switches to PNEU & ENVIR OFF." }] },
+  { t: "18 psi regulator failure", cap: "The 18 psi regulator fails open. The built-in relief valve, set at 21 psi, limits manifold pressure, so the gage sits above its red line instead of at 18.", apply(P) { pnCruise(P); },
+    script: [{ wait: 2, do: P => { P.fault.reg = true; }, msg: "18 psi pressure regulator fails." }] },
+  { t: "High altitude: ejector capacity", cap: "Climbing from 25,000 ft to 35,000 ft. The ejector's vacuum capacity falls with altitude, about 15 in Hg at sea level to 6 at 31,000 ft. Above that, regulated suction can no longer be held at 5.9 and the gage drops. Values above 31,000 ft are extrapolated.", apply(P) { pnCruise(P, 25000); },
+    script: [{ wait: 2, do: P => { P.alt = 31000; }, msg: "climbing through 31,000 ft." }, { wait: 4, do: P => { P.alt = 35000; }, msg: "level at 35,000 ft." }] }
+];
+function pnApply(i) {
+  pnScen = Math.max(0, Math.min(PN_SCEN.length - 1, i));
+  const sc = PN_SCEN[pnScen];
+  PN = pnFresh(); pnLogArr = []; sc.apply(PN);
+  pnScript = sc.script ? { steps: sc.script, i: 0, t0: 0 } : null;
+  pnLog(`Loaded: ${sc.t}.`);
+  $("#pnScenSel").value = String(pnScen); $("#pnScenCap").textContent = sc.cap;
+  pnStep(0.01);
+}
+
+/* ---------- components ---------- */
+const PNC = {
+  p3: { group: "Air source", name: "P3 bleed air", desc: "High-pressure compressor discharge air from each engine, 90 to 120 psi and up to about 700 °F at the engine.", state: () => ["L", "R"].map(k => `${k} ${Math.round(PND.p3[k])} psi`).join(" · ") },
+  pvalve: { group: "Air source", name: "Pneumatic air valves (N.O.)", desc: "Firewall-mounted, normally open. They close only with that side's BLEED AIR VALVE switch at PNEU & ENVIR OFF, which stops bleed air at the firewall.", state: () => ["L", "R"].map(k => `${k} ${PND.valve[k] ? "open" : "closed"}`).join(" · ") },
+  envv: { group: "Bleed air control", name: "Environmental flow control valves", desc: "Send bleed air to the cabin for pressurization and heating (Environmental chapter). Open only with the switch at OPEN. ENVIR OFF and PNEU & ENVIR OFF close them.", state: () => ["L", "R"].map(k => `${k} ${PN.bleed[k] === "OPEN" ? "open" : "closed"}${PND.env[k] ? ", flowing" : ""}`).join(" · ") },
+  check: { group: "Air source", name: "Check valves", desc: "One in each engine's line upstream of the tee. They stop reverse flow, so with one engine inoperative the good engine's air can't escape back through the dead engine's line.", state: () => ["L", "R"].map(k => `${k} ${PND.check[k] ? "open" : "closed"}`).join(" · ") },
+  reg: { group: "Regulation", name: "18 psi pressure regulator", desc: "Under the right seat deck, just forward of the main spar. Regulates the tee's P3 air to 18 ± 1 psi (engine at 70–80% N1). A built-in relief valve set at 21 psi protects against regulator failure.", state: () => `${PN.man.toFixed(1)} psi out${PN.fault.reg ? " · FAILED, relief valve limiting" : ""}` },
+  gauge: { group: "Indication", name: "Pneumatic pressure gage", desc: "Copilot's right subpanel. Shows the pressure available to the pneumatic manifold in psi.", state: () => `${PN.man.toFixed(1)} psi` },
+  defog: { group: "Users", name: "Window defogging regulator", desc: "Takes bleed air from the high-pressure side, upstream of the 18 psi regulator, and sends warm, dry air to the cockpit side windows and (if installed) the cabin windows. Works whenever either engine is running.", state: () => PND.defog ? "air flowing" : "no air" },
+  brake: { group: "Users", name: "Brake deice valves (N.C.)", desc: "Each takes hot high-pressure air from its own engine's line, between the pneumatic air valve and the check valve, to that side's brakes. Normally closed, opened by the brake deice switch.", state: () => !PN.brake ? "switch off, valves closed" : ["L", "R"].map(k => `${k} ${PND.brake[k] ? "flowing" : "no air"}`).join(" · ") },
+  orifice: { group: "Bleed air warning", name: "Orifices & EVA warning tubes", desc: "Manifold air at 18 psi pressurizes plastic EVA tubes that run beside each side's bleed lines from the engine to the cabin. Heat from a ruptured line melts the tube and its pressure drops.", state: () => ["L", "R"].map(k => `${k} ${PN.tube[k].toFixed(1)} psi${PN.melt[k] >= 1 ? " (melted)" : ""}`).join(" · ") },
+  psw: { group: "Bleed air warning", name: "Bleed air warning pressure switches", desc: "One per side, under the cockpit floorboard. Normally closed, held open by tube pressure. Below 2 psi the switch closes and lights that side's BLEED FAIL warning.", state: () => ["L", "R"].map(k => `${k} ${PND.fail[k] ? "closed: BLEED FAIL" : "open"}`).join(" · ") },
+  seal4: { group: "Users", name: "4 psi regulator", desc: "Reduces manifold air to 4 psi for the cabin door seal.", state: () => `${Math.min(4, PN.man).toFixed(1)} psi available` },
+  sealv: { group: "Users", name: "Door seal valve (N.O.)", desc: "Normally open, held closed on the ground by the LEFT landing gear safety switch. After liftoff the switch changes, the valve opens and the door seal inflates.", state: () => PND.sealOpen ? "open (in flight)" : "closed (on ground)" },
+  seal: { group: "Users", name: "Airstair door seal", desc: "An inflatable seal around the cabin entrance door, inflated with 4 psi air in flight.", state: () => `${PN.seal.toFixed(1)} psi · ${PN.seal > 1 ? "inflated" : "deflated"}` },
+  fill: { group: "Users", name: "Landing gear hydraulic fill can", desc: "Pressurized to keep the hydraulic fluid from vaporizing and to give the pump a positive feed. After shutdown the pressure bleeds off through a small orifice.", state: () => `${PN.fill.toFixed(1)} psi` },
+  hourv: { group: "Users", name: "Hourmeter valve (N.C.)", desc: "Normally closed, opened in flight by the RIGHT landing gear safety switch.", state: () => PND.hourOpen ? "open (in flight)" : "closed (on ground)" },
+  hourps: { group: "Users", name: "Hourmeter pressure switch", desc: "Closes with air pressure from the hourmeter valve and powers the flight hourmeter.", state: () => PND.hourRun ? "closed: hourmeter running" : "open" },
+  hourm: { group: "Indication", name: "Flight hourmeter", desc: "Records flight time only, because its air comes through the right gear safety switch valve. The simulator runs it faster than real time.", state: () => `${PN.hours.toFixed(1)} h${PND.hourRun ? " · running" : ""}` },
+  dist: { group: "Users", name: "Deice distributor valve", desc: "Between cycles it connects the boots to vacuum, which holds them down. During a cycle it sends regulated air to inflate them.", state: () => PND.inflate ? "inflating boots" : PN.vac > 0.5 ? "vacuum hold-down" : "no air" },
+  boots: { group: "Users", name: "Surface deice boots", desc: "Pneumatic boots on the wing and tail leading edges. They inflate to crack off ice, then vacuum pulls them flat.", state: () => PND.inflate ? "inflated" : PN.vac > 0.5 ? "held down by vacuum" : "deflated, no hold-down" },
+  ejector: { group: "Vacuum", name: "Vacuum ejector", desc: "A venturi in the regulated air line that exhausts overboard. The vacuum line joins at the throat, the point of lowest pressure. Capacity is about 15 in Hg at sea level, falling to about 6 in Hg at 31,000 ft.", state: () => `capacity ≈ ${PND.cap.toFixed(1)} in Hg` },
+  vreg: { group: "Vacuum", name: "Vacuum regulator", desc: "Nose compartment, left side of the pressure bulkhead, protected by a foam filter. Admits air to keep instrument vacuum in the 4.3–5.9 in Hg range.", state: () => `${PN.vac.toFixed(1)} in Hg` },
+  gyros: { group: "Vacuum", name: "Air-driven gyro instruments", desc: "Driven by filtered air from a sheltered source in the nose, pulled through by the vacuum.", state: () => PN.vac > 4.2 ? "normal suction" : PN.vac > 0.5 ? "low suction" : "no suction" },
+  suct: { group: "Indication", name: "Gyro suction gage", desc: "Left of the pneumatic pressure gage, in inches of mercury. About 5.9 (+0, −0.2) at sea level, even on one engine at 70–80% N1.", state: () => `${PN.vac.toFixed(1)} in Hg` },
+  pctl: { group: "Vacuum", name: "Pressurization controller, outflow & safety valves", desc: "Use vacuum to position the outflow and safety valves (Pressurization chapter).", state: () => PN.vac > 0.5 ? "vacuum available" : "no vacuum" }
+};
+
+function pnSvg() {
+  const base = [], lines = [], arrows = [], syms = [];
+  const pts = a => a.map(p => p.join(",")).join(" ");
+  const path = (key, a, kind) => {
+    base.push(`<polyline class="fl-base" points="${pts(a)}"/>`);
+    lines.push(`<polyline class="fl k-${kind}${key.startsWith("bootV") ? " ovl" : ""}" data-pl="${key}" points="${pts(a)}"/>`);
+    for (let i = 0; i < a.length - 1; i++) {
+      const [x1, y1] = a[i], [x2, y2] = a[i + 1], len = Math.hypot(x2 - x1, y2 - y1);
+      if (len < 40) continue;
+      const ang = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI, n = len > 180 ? 2 : 1;
+      for (let j = 1; j <= n; j++) { const t = j / (n + 1); arrows.push(`<g class="farrow k-${kind}" data-pa="${key}" transform="translate(${x1 + (x2 - x1) * t},${y1 + (y2 - y1) * t}) rotate(${ang})"><path d="M-6,-6 L6,0 L-6,6 Z"/></g>`); }
+    }
+  };
+  const T = (x, y, s, cls, anchor) => `<text x="${x}" y="${y}" class="${cls || "lbl"}" text-anchor="${anchor || "middle"}">${s}</text>`;
+  const comp = (id, inner, hit) => syms.push(`<g class="comp" data-pncomp="${id}" tabindex="0" role="button" aria-label="${esc(PNC[id].name)}"><rect class="hit" x="${hit[0]}" y="${hit[1]}" width="${hit[2]}" height="${hit[3]}" rx="4"/>${inner}</g>`);
+  const valve = (key, x, y, vert) => `<circle class="vlv" data-pvlv="${key}" cx="${x}" cy="${y}" r="9"/><line class="vbar" data-pvbar="${key}" x1="${vert ? x - 7 : x}" y1="${vert ? y : y - 7}" x2="${vert ? x + 7 : x}" y2="${vert ? y : y + 7}"/>`;
+  const check = (key, x, y, rot) => `<g transform="translate(${x},${y}) rotate(${rot})"><rect class="sym" data-pchk="${key}" x="-14" y="-11" width="28" height="22" rx="2"/><path class="sym-solid" d="M-8,-6 L8,0 L-8,6 Z"/></g>`;
+  const box = (x, y, w, h, t, sub, key) => `<rect class="blk" ${key ? `data-pnblk="${key}"` : ""} x="${x}" y="${y}" width="${w}" height="${h}" rx="5"/>${T(x + w / 2, y + (sub ? h / 2 - 2 : h / 2 + 4), t, "blk-t")}${sub ? T(x + w / 2, y + h / 2 + 12, sub, "blk-s") : ""}`;
+
+  // ---- high pressure (bottom) ----
+  ["L", "R"].forEach(k => {
+    const X = x => k === "L" ? x : 1100 - x, A = a => k === "L" ? a : a === "start" ? "end" : a === "end" ? "start" : a;
+    path("src" + k, [[X(20), 520], [X(130), 520]], "hp");
+    path("hp" + k, [[X(130), 520], [X(320), 520]], "hp");
+    path("chk" + k, [[X(320), 520], [X(550), 520]], "hp");
+    path("env" + k, [[X(40), 520], [X(40), 572], [X(70), 572]], "hp");
+    path("brk" + k, [[X(268), 520], [X(268), 582]], "hp");
+    path("warn" + k, [[X(538), 404], [X(60), 404], [X(60), 496], [X(310), 496]], "warn");
+    comp("p3", `${T(X(20), 506, `${k} P3 AIR`, "lbl-b", A("start"))}`, [k === "L" ? 20 : 990, 490, 90, 22]);
+    comp("pvalve", valve("pv" + k, X(130), 520) + T(X(130), 546, "PNEU AIR VALVE (N.O.)", "lbl"), [X(130) - 70, 506, 140, 46]);
+    comp("envv", valve("ev" + k, X(70), 572) + T(X(86), 576, "ENVIR VALVE → CABIN", "lbl", A("start")), [k === "L" ? 58 : 852, 560, 190, 26]);
+    comp("check", check("c" + k, X(320), 520, k === "L" ? 0 : 180) + T(X(320), 548, "CHECK VALVE", "lbl"), [X(320) - 40, 506, 80, 48]);
+    comp("brake", valve("bv" + k, X(268), 566, true) + T(X(268), 600, `${k} BRAKE DEICE (N.C.)`, "lbl"), [X(268) - 66, 552, 132, 54]);
+    // EVA warning tube + pressure switch
+    syms.push(`<g data-melt="${k}"><circle class="melt" cx="${X(200)}" cy="${508}" r="15"/></g>`);
+    comp("psw", `<rect class="blk" data-pnblk="psw${k}" x="${X(250) - 34}" y="392" width="68" height="24" rx="4"/>${T(X(250), 408, "PRESS SW", "blk-t")}${T(X(250), 430, "< 2 psi → " + k + " BLEED FAIL", "lbl")}`, [X(250) - 70, 388, 140, 48]);
+    comp("orifice", `<circle class="sym" cx="${X(520)}" cy="404" r="5"/>${T(X(300), 488, "EVA WARNING TUBE (along bleed line)", "lbl", "middle")}`, [k === "L" ? 160 : 800, 474, 140, 22]);
+  });
+  // tee, regulator, defog
+  path("tee", [[550, 520], [550, 472]], "hp");
+  path("defog", [[550, 500], [662, 500], [662, 462]], "hp");
+  comp("defog", box(600, 422, 124, 40, "WINDOW DEFOG REG", "→ side windows"), [596, 418, 132, 48]);
+  comp("reg", box(516, 432, 68, 40, "18 PSI", "relief 21", "reg"), [512, 428, 76, 48]);
+  // regulated manifold
+  path("man", [[550, 432], [550, 62]], "reg");
+  comp("gauge", `<circle class="sym" cx="550" cy="40" r="20"/><line id="pnGN" x1="550" y1="40" x2="550" y2="26" stroke="var(--sym)" stroke-width="2.5" stroke-linecap="round" style="transform-origin:550px 40px;transition:transform .3s"/>${T(580, 36, "PNEUMATIC PRESSURE", "lbl", "start")}<text class="n1t" id="pnGT" x="580" y="52"></text>`, [526, 16, 200, 48]);
+  // left users
+  path("seal1", [[550, 330], [410, 330]], "reg");
+  path("seal2", [[340, 330], [272, 330]], "reg");
+  path("seal3", [[256, 330], [160, 330]], "reg");
+  comp("seal4", box(340, 314, 70, 32, "4 PSI REG", ""), [336, 310, 78, 40]);
+  comp("sealv", valve("sv", 264, 330) + T(264, 354, "DOOR SEAL VALVE (N.O.)", "lbl") + T(264, 368, "closed on ground · L gear sw", "blk-s"), [196, 316, 136, 58]);
+  comp("seal", `<rect class="blk" data-pnblk="seal" x="40" y="312" width="120" height="36" rx="5"/>${T(100, 328, "AIRSTAIR DOOR", "blk-t")}<text class="blk-s" id="pnSealT" x="100" y="342" text-anchor="middle"></text>`, [36, 308, 128, 44]);
+  path("fill", [[550, 240], [430, 240]], "reg");
+  comp("fill", `<circle class="blk" data-pnblk="fill" cx="412" cy="240" r="18"/><rect id="pnFillLvl" x="398" y="240" width="28" height="12" fill="#2fb062" opacity=".5"/>${T(390, 236, "LANDING GEAR", "lbl", "end")}${T(390, 250, "HYDRAULIC FILL CAN", "lbl", "end")}`, [250, 218, 184, 44]);
+  path("hour1", [[550, 120], [432, 120]], "reg");
+  path("hour2", [[416, 120], [360, 120]], "reg");
+  comp("hourv", valve("hv", 424, 120) + T(424, 146, "VALVE (N.C.)", "lbl") + T(424, 160, "open in flight · R gear sw", "blk-s"), [366, 106, 116, 60]);
+  comp("hourps", box(300, 106, 60, 28, "P SW", "", "hourps"), [296, 102, 68, 36]);
+  syms.push(`<line x1="300" y1="120" x2="246" y2="120" stroke="var(--sym)" stroke-width="1.6" stroke-dasharray="3 3"/>`);
+  comp("hourm", `<circle class="blk" data-pnblk="hourm" cx="200" cy="120" r="44"/>${T(200, 104, "FLIGHT", "blk-t")}${T(200, 116, "HOURS", "blk-s")}<rect x="166" y="124" width="68" height="20" rx="3" fill="#1a1d21"/><text id="pnHrT" x="200" y="139" text-anchor="middle" class="hrs"></text>`, [152, 72, 96, 96]);
+  // right users: deice distributor + boots
+  path("dist", [[550, 120], [640, 120]], "reg");
+  path("bootP1", [[760, 108], [880, 108]], "reg"); path("bootP2", [[760, 136], [880, 136]], "reg");
+  path("bootV1", [[880, 108], [760, 108]], "vac"); path("bootV2", [[880, 136], [760, 136]], "vac");
+  comp("dist", box(640, 94, 120, 56, "DEICE", "DISTRIBUTOR VALVE", "dist"), [636, 90, 128, 64]);
+  comp("boots", `<rect class="blk" data-pnblk="boots" x="880" y="96" width="150" height="52" rx="26"/>${T(955, 118, "DEICE BOOTS", "blk-t")}<text class="blk-s" id="pnBootT" x="955" y="134" text-anchor="middle"></text>`, [876, 92, 158, 60]);
+  // ejector + vacuum
+  path("ej", [[550, 230], [618, 230]], "reg");
+  path("exh", [[700, 230], [800, 230]], "reg");
+  path("vDist", [[660, 150], [660, 212]], "vac");
+  path("vMain", [[990, 320], [660, 320], [660, 250]], "vac");
+  path("vPctl", [[700, 362], [700, 320]], "vac");
+  path("vGyro", [[800, 288], [800, 320]], "vac");
+  comp("ejector", `<path class="sym" d="M618,214 C640,214 650,224 660,226 C670,224 680,214 700,214 L700,246 C680,246 670,236 660,234 C650,236 640,246 618,246 Z"/>${T(810, 234, "EXHAUST OVERBOARD", "lbl", "start")}${T(620, 202, "EJECTOR", "lbl-b", "end")}`, [600, 200, 110, 54]);
+  comp("pctl", `<circle class="sym" cx="700" cy="366" r="5"/>${T(712, 352, "PRESSURIZATION CONTROLLER,", "lbl", "start")}${T(712, 366, "OUTFLOW & SAFETY VALVES", "lbl", "start")}`, [690, 338, 200, 36]);
+  comp("gyros", box(744, 256, 112, 32, "GYRO INSTRUMENTS", ""), [740, 252, 120, 40]);
+  comp("suct", `<circle class="sym" cx="890" cy="272" r="16"/><line id="pnSN" x1="890" y1="272" x2="890" y2="261" stroke="var(--sym)" stroke-width="2.2" stroke-linecap="round" style="transform-origin:890px 272px;transition:transform .3s"/>${T(914, 268, "GYRO SUCTION", "lbl", "start")}<text class="n1t" id="pnST" x="914" y="284"></text>`, [870, 252, 150, 40]);
+  syms.push(`<line x1="890" y1="288" x2="890" y2="320" stroke="var(--sym)" stroke-width="1.4"/>`);
+  comp("vreg", box(990, 304, 90, 32, "VACUUM REG", "") + T(1035, 352, "filtered air in", "blk-s"), [986, 300, 98, 58]);
+
+  $("#pnschem").innerHTML = base.join("") + lines.join("") + syms.join("") + arrows.join("");
+}
+
+function pnRender() {
+  if (!$("#pnschem") || !PND) return;
+  const P = PN, d = PND, on = {};
+  ["L", "R"].forEach(k => {
+    on["src" + k] = d.p3[k] > 5 && (d.valve[k] || d.env[k]);
+    on["hp" + k] = d.up[k] > 1;
+    on["chk" + k] = d.check[k];
+    on["env" + k] = d.env[k];
+    on["brk" + k] = d.brake[k];
+    on["warn" + k] = P.tube[k] >= 2;
+  });
+  on.tee = d.tee > 1; on.defog = d.defog; on.man = P.man > 1;
+  on.seal1 = on.seal2 = P.man > 1; on.seal3 = d.sealOpen && P.man > 1;
+  on.fill = P.man > 1; on.hour1 = P.man > 1; on.hour2 = d.hourOpen && P.man > 1;
+  on.dist = P.man > 1; on.bootP1 = on.bootP2 = d.inflate; on.bootV1 = on.bootV2 = !d.inflate && P.vac > 0.5;
+  on.ej = on.exh = P.man > 1; on.vDist = !d.inflate && P.vac > 0.5; on.vMain = on.vPctl = on.vGyro = P.vac > 0.5;
+  $$("#pnschem [data-pl]").forEach(el => el.classList.toggle("on", !!on[el.dataset.pl]));
+  $$("#pnschem [data-pa]").forEach(el => el.classList.toggle("on", !!on[el.dataset.pa]));
+  const vs = (key, open, fail) => { const c = $(`#pnschem [data-pvlv="${key}"]`), b = $(`#pnschem [data-pvbar="${key}"]`); if (c) c.setAttribute("class", "vlv " + (fail ? "fail" : open ? "open" : "closed")); if (b) b.classList.toggle("open", !!open); };
+  ["L", "R"].forEach(k => {
+    vs("pv" + k, d.valve[k]); vs("ev" + k, P.bleed[k] === "OPEN"); vs("bv" + k, P.brake);
+    const c = $(`#pnschem [data-pchk="c${k}"]`); if (c) c.style.fill = d.check[k] ? "var(--ok)" : "";
+    const m = $(`#pnschem [data-melt="${k}"]`); m.classList.toggle("on", d.leak[k] || P.melt[k] >= 1); m.classList.toggle("hot", d.leak[k]);
+  });
+  vs("sv", d.sealOpen); vs("hv", d.hourOpen);
+  const blk = { reg: P.man > 1, dist: P.man > 1, boots: d.inflate, seal: P.seal > 1, fill: P.fill > 1, hourps: d.hourRun, hourm: d.hourRun, pswL: d.fail.L, pswR: d.fail.R };
+  $$("#pnschem [data-pnblk]").forEach(x => x.classList.toggle("on", !!blk[x.dataset.pnblk]));
+  ["pswL", "pswR"].forEach(k => { const x = $(`#pnschem [data-pnblk="${k}"]`); x.classList.toggle("alarm", !!blk[k]); });
+  $("#pnGN").style.transform = `rotate(${-120 + 240 * Math.min(24, P.man) / 24}deg)`; $("#pnGT").textContent = `${P.man.toFixed(1)} psi`;
+  $("#pnSN").style.transform = `rotate(${-120 + 240 * Math.min(7, P.vac) / 7}deg)`; $("#pnST").textContent = `${P.vac.toFixed(1)} in Hg`;
+  $("#pnSealT").textContent = P.seal > 1 ? `seal inflated ${P.seal.toFixed(1)} psi` : "seal deflated";
+  $("#pnBootT").textContent = d.inflate ? "INFLATING" : P.vac > 0.5 ? "held down by vacuum" : "no hold-down";
+  $("#pnFillLvl").setAttribute("opacity", P.fill > 1 ? ".75" : ".2");
+  $("#pnHrT").textContent = P.hours.toFixed(1).padStart(6, "0");
+  // cockpit
+  const setG = (id, v, G, txt, over) => { const a = -120 + 240 * (Math.max(G.min, Math.min(G.max, v)) - G.min) / (G.max - G.min); $("#" + id + "N").style.transform = `rotate(${a}deg)`; const el = $("#" + id + "V"); el.textContent = txt; el.classList.toggle("over", !!over); };
+  setG("pnp", P.man, PN_G.p, `${P.man.toFixed(1)} psi`, P.man > 20 || (P.man < 10 && (P.n1.L > 40 || P.n1.R > 40)));
+  setG("pns", P.vac, PN_G.s, `${P.vac.toFixed(1)} in Hg`, P.vac < 4.3 && (P.n1.L > 40 || P.n1.R > 40));
+  $("#pnHrBig").textContent = P.hours.toFixed(1); $("#pnHrRun").textContent = d.hourRun ? "running (in flight)" : "stopped";
+  const A = { LBF: ["red", d.fail.L], RBF: ["red", d.fail.R], LBO: ["amber", d.off.L], RBO: ["amber", d.off.R] };
+  Object.keys(A).forEach(k => { const el = $("#pna-" + k); if (el) el.className = "ann" + (A[k][1] ? " " + A[k][0] : ""); });
+  $$("[data-pnsw]").forEach(b => { const [k, f] = b.dataset.pnsw.split(":"); b.setAttribute("aria-pressed", String(f === "bleed" ? P.bleed[k] === b.dataset.val : P.n1cmd[k] === b.dataset.val)); });
+  ["L", "R"].forEach(k => { $("#pnN1" + k).textContent = `N1 ${P.n1[k].toFixed(0)}% · P3 ${Math.round(d.p3[k])} psi`; });
+  $("#pnFlt-g").setAttribute("aria-pressed", String(!P.flight)); $("#pnFlt-f").setAttribute("aria-pressed", String(P.flight));
+  const alt = $("#pnAlt"); alt.disabled = !P.flight; if (document.activeElement !== alt) alt.value = P.alt; $("#pnAltV").textContent = P.flight ? `${Math.round(P.alt).toLocaleString()} ft` : "on ground";
+  $("#pnBrake").setAttribute("aria-pressed", String(P.brake)); $("#pnBrake").textContent = `Brake deice ${P.brake ? "ON" : "OFF"}`;
+  $("#pnCycle").classList.toggle("on", P.cycle > 0);
+  [["rupL", P.fault.rup.L], ["rupR", P.fault.rup.R], ["reg", P.fault.reg]].forEach(([k, v]) => $("#pnf-" + k).setAttribute("aria-pressed", String(v)));
+  const n = $("#pnInfoNow"); if (n && pnSel) n.textContent = "Now: " + PNC[pnSel].state();
+}
+const PN_G = { p: { min: 0, max: 24, ticks: [0, 5, 10, 15, 20], green: [10, 19.5], red: 20 }, s: { min: 2, max: 7, ticks: [3, 4, 5, 6], green: [3, 6] } };
+function pnGaugeSVG(id, g) {
+  let s = gaugeSVG(Object.assign({ id }, g));
+  const ang = v => -120 + 240 * (v - g.min) / (g.max - g.min), pt = (a, r) => [60 + r * Math.sin(a * Math.PI / 180), 60 - r * Math.cos(a * Math.PI / 180)];
+  const p1 = pt(ang(g.green[0]), 47), p2 = pt(ang(g.green[1]), 47);
+  return s.replace(`<line id="${id}N"`, `<path d="M${p1[0]},${p1[1]} A47,47 0 0 1 ${p2[0]},${p2[1]}" fill="none" stroke="#2fb062" stroke-width="4"/><line id="${id}N"`);
+}
+
+function pnSelect(id) {
+  pnSel = id;
+  $$("#pnschem .comp").forEach(g => g.classList.toggle("sel", g.dataset.pncomp === id));
+  const c = PNC[id];
+  $("#pnInfo").innerHTML = `<div class="eyebrow">${esc(c.group)}</div><h4>${esc(c.name)}</h4><div class="now" id="pnInfoNow">Now: ${esc(c.state())}</div><p>${esc(c.desc)}</p>`;
+}
+
+function initPneumatics() {
+  PN = pnFresh(); pnSel = null;
+  pnSvg();
+  $("#pnSubnav").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  $("#pnScenSel").innerHTML = PN_SCEN.map((s, i) => `<option value="${i}">${i + 1}. ${esc(s.t)}</option>`).join("");
+  $("#pnScenSel").addEventListener("change", e => pnApply(+e.target.value));
+  $("#pnPrev").addEventListener("click", () => pnApply(pnScen - 1));
+  $("#pnNext").addEventListener("click", () => pnApply(pnScen + 1));
+  const sw = (k, f, opts) => `<div class="tog"><div class="name">${k === "L" ? "Left" : "Right"}</div><div class="pos" role="group" aria-label="${SIDE[k]} ${f === "bleed" ? "bleed air valve" : "engine"}">${opts.map(o => `<button type="button" data-pnsw="${k}:${f}" data-val="${o[0]}" aria-pressed="false">${o[1]}</button>`).join("")}</div></div>`;
+  $("#pnSwitches").innerHTML = `<div class="sw-group"><div class="gname">Bleed air valves</div><div class="sws">${["L", "R"].map(k => sw(k, "bleed", [["OPEN", "Open"], ["ENVIR", "Envir off"], ["PNEU", "Pneu &amp; envir off"]])).join("")}</div></div>`;
+  $("#pnEngines").innerHTML = ["L", "R"].map(k => `<div class="eng"><div class="hd"><span>${SIDE[k]} engine</span></div><div class="pos seg" role="group" aria-label="${SIDE[k]} engine power">${[["OFF", "Off"], ["IDLE", "Low idle"], ["MID", "75% N1"], ["HIGH", "95% N1"]].map(o => `<button type="button" data-pnsw="${k}:eng" data-val="${o[0]}" aria-pressed="false">${o[1]}</button>`).join("")}</div><div class="hint" id="pnN1${k}"></div></div>`).join("");
+  const onSw = e => {
+    const b = e.target.closest("[data-pnsw]"); if (!b) return; pnScript = null;
+    const [k, f] = b.dataset.pnsw.split(":"), v = b.dataset.val;
+    if (f === "bleed") { if (PN.bleed[k] !== v) pnLog(`${SIDE[k]} BLEED AIR VALVE switch: ${{ OPEN: "OPEN", ENVIR: "ENVIR OFF", PNEU: "PNEU & ENVIR OFF" }[v]}.`); PN.bleed[k] = v; }
+    else { if (PN.n1cmd[k] !== v) pnLog(`${SIDE[k]} engine ${v === "OFF" ? "shut down" : PN.n1cmd[k] === "OFF" ? "started" : "power set"} (${{ OFF: "off", IDLE: "low idle", MID: "75% N1", HIGH: "95% N1" }[v]}).`); PN.n1cmd[k] = v; }
+    pnStep(0.001);
+  };
+  $("#pnSwitches").addEventListener("click", onSw); $("#pnEngines").addEventListener("click", onSw);
+  $("#pnEnv").innerHTML = `<div class="seg" role="group" aria-label="Flight condition"><button type="button" id="pnFlt-g">On ground</button><button type="button" id="pnFlt-f">In flight</button></div>
+    <label for="pnAlt">Altitude</label><input type="range" id="pnAlt" min="0" max="35000" step="500"><span class="flowread" id="pnAltV"></span>
+    <button type="button" class="pbtn" id="pnCycle">Surface deice: single cycle</button><button type="button" class="pbtn" id="pnBrake" aria-pressed="false"></button>`;
+  $("#pnFlt-g").addEventListener("click", () => { pnScript = null; if (PN.flight) pnLog("Landed: gear safety switches back to ground mode."); PN.flight = false; pnStep(0.001); });
+  $("#pnFlt-f").addEventListener("click", () => { pnScript = null; if (!PN.flight) { pnLog("Liftoff: the gear safety switches change state."); PN.alt = Math.max(PN.alt, 1000); } PN.flight = true; pnStep(0.001); });
+  $("#pnAlt").addEventListener("input", e => { PN.alt = +e.target.value; pnStep(0.001); });
+  $("#pnCycle").addEventListener("click", () => { pnScript = null; if (PN.man < 5) { pnLog("No pneumatic pressure: the boots can't inflate.", "warn"); return; } PN.cycle = 6; pnLog("Surface deice: single cycle. Distributor valve sends 18 psi air to the boots."); pnStep(0.001); });
+  $("#pnBrake").addEventListener("click", () => { PN.brake = !PN.brake; pnLog(`Brake deice ${PN.brake ? "ON: brake deice valves open" : "OFF"}.`); pnStep(0.001); });
+  $("#pnFaults").innerHTML = `<button type="button" class="pbtn" id="pnf-rupL" aria-pressed="false">L bleed line rupture</button><button type="button" class="pbtn" id="pnf-rupR" aria-pressed="false">R bleed line rupture</button><button type="button" class="pbtn" id="pnf-reg" aria-pressed="false">18 psi regulator fails</button><button type="button" class="pbtn" id="pnRepair">Repair all</button>`;
+  $("#pnFaults").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return; pnScript = null;
+    if (b.id === "pnRepair") { PN.fault = { rup: { L: false, R: false }, reg: false }; PN.melt = { L: 0, R: 0 }; pnLog("All failures repaired, warning tubes replaced."); }
+    else if (b.id === "pnf-reg") { PN.fault.reg = !PN.fault.reg; pnLog(PN.fault.reg ? "18 psi regulator fails." : "Regulator repaired."); }
+    else { const k = b.id.slice(-1); PN.fault.rup[k] = !PN.fault.rup[k]; pnLog(PN.fault.rup[k] ? `${SIDE[k]} bleed line ruptures.` : `${SIDE[k]} bleed line repaired (the melted tube stays melted until Repair all).`); }
+    pnStep(0.001);
+  });
+  $("#pnGauges").innerHTML = `<div class="gauge">${pnGaugeSVG("pns", PN_G.s)}<div class="gl">Gyro suction · in Hg</div><div class="gv" id="pnsV"></div></div><div class="gauge">${pnGaugeSVG("pnp", PN_G.p)}<div class="gl">Pneumatic pressure · psi</div><div class="gv" id="pnpV"></div></div>`;
+  $("#pnHours").innerHTML = `<span class="hrbox" id="pnHrBig"></span><span class="flowread" id="pnHrRun"></span>`;
+  $("#pnAnns").innerHTML = [["LBF", "L BLEED FAIL"], ["RBF", "R BLEED FAIL"], ["LBO", "L BL AIR OFF"], ["RBO", "R BL AIR OFF"]].map(a => `<div class="ann" id="pna-${a[0]}">${a[1]}</div>`).join("");
+  const sv = $("#pnschem");
+  sv.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) pnSelect(g.dataset.pncomp); });
+  sv.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); pnSelect(e.target.closest(".comp").dataset.pncomp); } });
+  document.querySelector("main").addEventListener("click", e => { const b = e.target.closest("[data-pnsc]"); if (b) { pnApply(+b.dataset.pnsc); $("#pn-sim").scrollIntoView({ behavior: "smooth", block: "start" }); } });
+  $("#pnInfo").innerHTML = `<h3>Component details</h3><p>Select any valve, regulator, gage or user on the schematic for what it does and its live state.</p>`;
+  pnApply(0);
+  pnTimer = setInterval(() => pnStep(0.05), 50);
 }
 
 /* ================= boot ================= */
