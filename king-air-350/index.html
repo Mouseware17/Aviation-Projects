@@ -614,6 +614,86 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 .fpbtn .lens.on.blink { animation: blink .5s steps(1) infinite; }
 .fp-log { max-height: 260px; overflow: auto; }
 
+/* ---------- ice & rain protection ---------- */
+.ic-air { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.5; }
+.ic-nac { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.5; }
+.ic-boot { fill: none; stroke: #6b747d; stroke-width: 6; stroke-linecap: round; transition: stroke .3s, stroke-width .3s; }
+.ic-boot.on { stroke: #2fb062; stroke-width: 11; }
+.ic-ice { fill: none; stroke: #9fd8ff; stroke-linecap: round; opacity: 0; transition: stroke-width .4s, opacity .4s; }
+.ic-lip { fill: none; stroke: var(--wire-dead); stroke-width: 5; stroke-linecap: round; }
+.ic-lip.on { stroke: #ee7d1f; }
+.ic-vane { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.2; transition: fill .3s; }
+.ic-vane.moving { fill: #9cc7ef; } .ic-vane.on { fill: #2a8fe0; }
+.ic-tiny { font-size: 8px; font-weight: 700; letter-spacing: .04em; fill: var(--fg); pointer-events: none; }
+.ic-spark { fill: #f2b81c; stroke: #b07a00; stroke-width: 1; opacity: .12; }
+.ic-spark.on { opacity: 1; animation: blink .35s steps(1) infinite; }
+.ic-ofh { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.2; }
+.ic-ofh.on { fill: #ee7d1f; fill-opacity: .55; }
+.ic-blade { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.3; }
+.ic-pice { fill: #9fd8ff; stroke: none; opacity: 0; pointer-events: none; }
+.ic-pboot { fill: var(--wire-dead); opacity: .55; transition: fill .3s, opacity .3s; }
+.ic-pboot.on { fill: #ee7d1f; opacity: 1; }
+.ic-vent { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.2; stroke-dasharray: 3 2; }
+.ic-vent.on { fill: #ee7d1f; stroke-dasharray: none; }
+.ic-mast { stroke: var(--sym); stroke-width: 4; stroke-linecap: round; }
+.ic-mast.on { stroke: #ee7d1f; }
+.ic-wspane { fill: #bcd6e8; stroke: var(--sym); stroke-width: 1; }
+.ic-wspane.on { fill: #ee7d1f; }
+.ic-stall { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.2; }
+.ic-stall.on { fill: #ee7d1f; }
+.ic-lbl { font-size: 10.5px; letter-spacing: .05em; fill: var(--muted); font-weight: 600; pointer-events: none; }
+.ic-timer { font-family: var(--f-mono); font-size: 11.5px; font-weight: 700; fill: var(--fg); }
+.ic-inset { fill: var(--canvas); stroke: var(--line); stroke-width: 1.4; }
+.ic-glass { fill: #cfe3f1; stroke: var(--sym); stroke-width: 1.4; }
+:root[data-theme="dark"] .ic-glass { fill: #24323e; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .ic-glass { fill: #24323e; } }
+.ic-wsheat { fill: #ee7d1f; opacity: 0; transition: opacity .4s; pointer-events: none; }
+.ic-wsheat.on { opacity: .28; } .ic-wsheat.on.pulse { opacity: .48; }
+.ic-wsice { fill: #e3f5ff; stroke: #9fd8ff; stroke-width: 1; opacity: 0; pointer-events: none; }
+.ic-wiper { stroke: #20262c; stroke-width: 3.5; stroke-linecap: round; }
+:root[data-theme="dark"] .ic-wiper { stroke: #d9dee3; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .ic-wiper { stroke: #d9dee3; } }
+.ic-ring { fill: none; stroke: var(--line); stroke-width: 4; }
+.ic-prog { fill: none; stroke: #ee7d1f; stroke-width: 5; }
+.ic-duct { fill: none; stroke: var(--sym); stroke-width: 2.5; stroke-linecap: round; }
+.ic-screen { fill: var(--muted); opacity: .5; }
+.ic-fvane, .ic-avane { stroke: #2a8fe0; stroke-width: 5; stroke-linecap: round; }
+.ic-flow { fill: none; stroke: #2a8fe0; stroke-width: 2.2; stroke-dasharray: 6 5; opacity: 0; }
+.ic-flow.on { opacity: .8; animation: flow .7s linear infinite; }
+.ic-flow.ice { stroke: #7cc8f2; stroke-width: 5; stroke-dasharray: 1 9; stroke-linecap: round; }
+.ic-act { display: grid; gap: 6px; }
+.ic-row { display: grid; grid-template-columns: 10px minmax(0, 8.5em) minmax(0, 1fr); gap: 8px; align-items: baseline; font-size: .86rem; }
+.ic-row .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--wire-dead); align-self: center; }
+.ic-row.on .dot { background: #2fb062; } .ic-row.arm .dot { background: #2a8fe0; } .ic-row.warn .dot { background: #f2b81c; } .ic-row.bad .dot { background: #e2342a; }
+.ic-row .n { font-weight: 600; } .ic-row .d { color: var(--muted); font-family: var(--f-mono); font-size: .76rem; }
+.ic-inst { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+.ic-inst .gauge { width: 150px; }
+.ic-inst .ann-grid { flex: 1; min-width: 220px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ic-holds { align-items: center; margin-top: 10px; }
+.ic-holds .gname { font-family: var(--f-display); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--placard-dim); margin-left: 6px; }
+.pbtn.on { background: #2fb062; color: #04220f; }
+.ofh-house { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 2.2; }
+.ofh-bolt { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.5; }
+.ofh-core { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.6; }
+.ofh-fin { stroke: var(--line); stroke-width: 1.2; }
+.ofh-port { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 2; }
+.ofh-pipe-case { fill: none; stroke: var(--sym); stroke-width: 24; stroke-linejoin: round; stroke-linecap: butt; }
+.ofh-pipe { fill: none; stroke-width: 19; stroke-linejoin: round; transition: opacity .3s; }
+.ofh-pipe.fuel { stroke: #e2342a; } .ofh-pipe.oil { stroke: #2a73c4; } .ofh-pipe.dim { opacity: .22; }
+.ofh-flow { fill: none; stroke: #fff; stroke-width: 3; stroke-dasharray: 6 14; opacity: 0; }
+.ofh-flow.on { opacity: .8; animation: flow .7s linear infinite; }
+.ofh-arr { fill: #fff; stroke: none; opacity: 0; }
+.ofh-arr.on { opacity: .95; }
+.ofh-valvebody { fill: var(--surface-2); stroke: var(--sym); stroke-width: 2; }
+.ofh-spool { fill: #aeb6be; stroke: var(--sym); stroke-width: 2; transition: x .5s; }
+.ofh-thermal { fill: #ffd9a8; stroke: var(--sym); stroke-width: 2; }
+.ofh-link { fill: none; stroke: var(--sym); stroke-width: 2; stroke-dasharray: 6 5; }
+.ofh-heat { fill: none; stroke: #ee7d1f; stroke-width: 2.6; stroke-linecap: round; opacity: 0; transition: opacity .4s; }
+.ofh-heat.on { opacity: .95; }
+.ofh-lbl { font-size: 15px; fill: var(--muted); letter-spacing: .03em; }
+.ofh-lbl-b { font-size: 16px; font-weight: 700; fill: var(--fg); letter-spacing: .05em; }
+.ofh-state { font-family: var(--f-mono); font-size: 15px; font-weight: 700; fill: var(--fg); }
+
 @media (max-width: 1120px) {
   .sim { grid-template-columns: minmax(0, 1fr); }
   .side { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -632,7 +712,7 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
   .eng-row { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .oilf.on, .flame.on, .fp-line.on, .fpbtn .lens.on.blink, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
+  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .oilf.on, .flame.on, .fp-line.on, .ic-spark.on, .ic-flow.on, .ofh-flow.on, .fpbtn .lens.on.blink, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
   * { transition: none !important; }
 }
 </style>
@@ -2049,6 +2129,224 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 </div>
 </template>
 
+<template id="tpl-ice-rain">
+<div class="view">
+  <header class="chapter-head">
+    <div class="eyebrow">Chapter 10</div>
+    <h1>Ice and Rain Protection</h1>
+    <p class="lede">The 350 is approved for flight in known icing with the required equipment working. Only two systems are true <b>deicers</b>: the surface boots and the propeller boots. Everything else is an <b>anti-icer</b>: inlet lip heat, inertial separators, windshield, fuel vent, pitot and stall-warning heat. Anti-icers are meant to stop ice forming, not to melt ice that's already there. Most of the controls are grouped on the pilot's subpanels.</p>
+    <p class="disclaimer">Study aid built from the King Air 300/350 training manual ice and rain protection section, King Air 350 only. Side window defog and brake deice are left out on purpose. It is not an approved document. The POH/AFM governs. Timers come from the manual. Ice build-up, heating rates and vane travel time in the simulator are illustrative.</p>
+    <div class="subnav" id="icSubnav">
+      <button data-go="ic-glance">At a glance</button>
+      <button data-go="ic-sim">Controls &amp; airplane</button>
+      <button data-go="ic-ofh">Oil-to-fuel heater</button>
+      <button data-go="ic-eng">Engine protection</button>
+      <button data-go="ic-ws">Windshield &amp; wipers</button>
+      <button data-go="ic-prop">Propeller deice</button>
+      <button data-go="ic-surf">Surface deice</button>
+      <button data-go="ic-heat">Fuel vent, pitot, stall</button>
+      <button data-go="ic-prec">Icing precautions</button>
+    </div>
+  </header>
+
+  <section class="block" id="ic-glance">
+    <h2>At a glance <span class="ref">Figures 10-3 to 10-5</span></h2>
+    <div class="specs">
+      <div class="spec"><span class="v">+5 °C</span><span class="k">Ice vanes extended in visible moisture at +5 °C or below. Retract them for takeoff above +10 °C (350 only).</span></div>
+      <div class="spec"><span class="v">35 s</span><span class="k">ENG ICE FAIL if a vane doesn't match its switch. It lights immediately if the actuator motor loses power.</span></div>
+      <div class="spec"><span class="v">17 %</span><span class="k">Auto-ignition fires the igniters when torque falls below this</span></div>
+      <div class="spec"><span class="v">6 s + 4 s</span><span class="k">Surface deice single cycle: wing boots, then tail boots, about 10 s total</span></div>
+      <div class="spec"><span class="v">90 s × 2</span><span class="k">Prop deice auto: one propeller, then the other, full cycle every 3 minutes, normally 26–32 A</span></div>
+      <div class="spec"><span class="v">90–110 °F</span><span class="k">Windshield temperature controller range</span></div>
+      <div class="spec"><span class="v">226 KIAS</span><span class="k">Maximum speed for effective windshield anti-icing</span></div>
+      <div class="spec"><span class="v">140 KIAS</span><span class="k">Minimum in icing, so ice doesn't form under the wing where the boots can't remove it</span></div>
+      <div class="spec"><span class="v">½–1 in</span><span class="k">Let this much ice build before cycling the boots</span></div>
+    </div>
+    <div class="bus-table-wrap"><table><thead><tr><th>King Air 350 required equipment (Figure 10-4)</th><th>VFR day</th><th>VFR night</th><th>IFR day</th><th>IFR night</th><th>Icing</th></tr></thead><tbody>
+      <tr><td>Alternate static air system</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>Engine auto-ignition system, including annunciator</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
+      <tr><td>Engine auto-ice system (ice vanes), including annunciator</td><td>2</td><td>2</td><td>2</td><td>2</td><td>2</td></tr>
+      <tr><td>Heated fuel vent</td><td>0</td><td>0</td><td>2</td><td>2</td><td>2</td></tr>
+      <tr><td>Heated windshield</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td></tr>
+      <tr><td>Pitot heat</td><td>0</td><td>0</td><td>2</td><td>2</td><td>2</td></tr>
+      <tr><td>Pneumatic pressure indicator</td><td>0</td><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>Stall warning heat (lift transducer and mounting plate)</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+      <tr><td>Surface deicer system</td><td>0</td><td>0</td><td>0</td><td>0</td><td>2</td></tr>
+      <tr><td>Propeller deicer system</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+      <tr><td>Wing ice light</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section class="block" id="ic-sim">
+    <h2>Ice protection controls &amp; airplane <span class="ref">Figures 10-3, 10-5, 10-9, 10-10</span></h2>
+    <p class="prose">Work the switches under the airplane. The external view lights up each protection as it works: <b>orange</b> for electric or exhaust heat, <b>green</b> for inflated boots, <b>blue</b> for the ice vanes. Timers show how long each cycle has run. Set the flight conditions at the bottom, or load a setup. In icing, ice (pale blue) builds on anything unprotected. Run the clock faster to see the 3-minute prop cycle.</p>
+    <div class="diagram-card">
+      <div class="scen">
+        <div class="scen-row"><label>Setup</label><div class="faults" id="icSetups"></div></div>
+        <p class="scen-cap" id="icCond"></p>
+      </div>
+    </div>
+    <div class="sim near">
+      <div class="diagram-card">
+        <div class="svg-wrap"><svg id="icschem" viewBox="0 0 1000 640" role="img" aria-label="King Air 350 external view showing active ice protection"></svg></div>
+        <div class="legend">
+          <span><i style="background:#ee7d1f"></i>Heat (electric or exhaust)</span>
+          <span><i style="background:#2fb062"></i>Boots inflated</span>
+          <span><i style="background:#2a8fe0"></i>Ice vanes extended</span>
+          <span><i style="background:#9fd8ff"></i>Ice</span>
+        </div>
+      </div>
+      <div class="side">
+        <div class="card info" id="icInfo" aria-live="polite"></div>
+        <div class="card"><h3>What's working now</h3><div class="ic-act" id="icAct"></div></div>
+      </div>
+    </div>
+    <div class="cockpit">
+      <div class="panel">
+        <h3>Pilot's left subpanel</h3>
+        <div class="sw-row" id="icLeft"></div>
+        <h3>Overhead · windshield wiper</h3>
+        <div class="sw-row" id="icWiper"></div>
+        <h3>Prop ammeter · annunciators</h3>
+        <div class="ic-inst"><div class="gauge" id="icAmpG"></div><div class="ann-grid" id="icAnns"></div></div>
+      </div>
+      <div class="panel">
+        <h3>Pilot's right subpanel · ICE PROTECTION</h3>
+        <div class="sw-row" id="icRight"></div>
+        <div class="faults ic-holds" id="icHolds"></div>
+        <p class="hintbar">SURFACE DEICE and PROP MANUAL are spring-loaded: press and <b>hold</b> MANUAL. SINGLE starts one cycle.</p>
+      </div>
+    </div>
+    <div class="pp-top lower">
+      <div class="panel">
+        <h3>Flight conditions · engines</h3>
+        <div class="envrow" id="icEnv"></div>
+        <div class="envrow" id="icEnv2"></div>
+        <div class="envrow" id="icEng"></div>
+        <h3>Clock · failures</h3>
+        <div class="envrow" id="icClock"></div>
+        <div class="faults" id="icFaults"></div>
+      </div>
+      <div class="card"><h3>Events</h3><ol class="log" id="icLog"></ol></div>
+    </div>
+  </section>
+
+  <section class="block" id="ic-ofh">
+    <h2>Oil-to-fuel heat exchanger <span class="ref">Figure 10-19</span></h2>
+    <p class="prose">Mounted on each engine's accessory section, it protects the fuel control unit from ice. Hot engine oil and the fuel pass side by side through the <b>heat exchanger core</b>, and heat moves by conduction into the fuel, melting any ice particles. It works automatically whenever the engine runs. A <b>thermal element</b> in the fuel outlet positions a <b>slide valve</b> in the oil path. Switch between cold and warm fuel to see the valve move, and select any part.</p>
+    <div class="sim near">
+      <div class="diagram-card">
+        <div class="dtabs">
+          <div class="seg" role="group" aria-label="Fuel temperature" id="ofhMode">
+            <button type="button" data-ofh="cold" aria-pressed="true">Cold fuel: oil through core</button>
+            <button type="button" data-ofh="warm" aria-pressed="false">Warm fuel: oil bypasses core</button>
+          </div>
+          <div class="seg" role="group" aria-label="Engine">
+            <button type="button" id="ofhRun" aria-pressed="true">Engine running</button>
+          </div>
+        </div>
+        <div class="svg-wrap"><svg id="ofhschem" viewBox="0 0 1000 600" role="img" aria-label="Oil-to-fuel heat exchanger"></svg></div>
+        <div class="legend">
+          <span><i style="background:#e2342a"></i>Fuel</span>
+          <span><i style="background:#2a73c4"></i>Hot engine oil</span>
+          <span><i style="background:#ee7d1f"></i>Heat transfer (conduction)</span>
+        </div>
+      </div>
+      <div class="side"><div class="card info" id="ofhInfo" aria-live="polite"></div></div>
+    </div>
+    <p class="disclaimer">The manual names the thermal element and slide valve but doesn't describe the bypass in detail. The cold and warm behavior shown follows the Powerplant chapter's description: the exchanger holds a desired fuel temperature at the pump inlet. A minimum oil temperature of 55 °C is recommended for oil-to-fuel heater operation at takeoff power. See the Fuel section of the POH for the heat exchanger temperature limits.</p>
+  </section>
+
+  <section class="block" id="ic-eng">
+    <h2>Engine protection <span class="ref">Figures 10-6 to 10-11</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p><b>Inlet lip heat.</b> A scoop in each engine's left exhaust stack sends some hot exhaust into the hollow lip tube around the cowling inlet. It leaves through a line into the right exhaust stack. It works whenever the engine runs, with no switch.</p>
+        <p><b>Inertial separators (ice vanes).</b> Two movable vanes, forward and aft. Normally retracted. With ENGINE ANTI-ICE <b>ON</b>, the forward vane drops to form a venturi with a sudden turn into the intake, and the aft vane opens the bypass duct. Heavier ice, dust and sand particles carry straight on and go overboard. The air makes the turn and enters through the inlet screen. There are only two positions. Expect a small torque loss and ITT rise while extended.</p>
+        <p>The vanes are driven by electric actuators. <b>ACTUATORS MAIN</b> motors run on the triple-fed bus, <b>STANDBY</b> on each side's generator bus. Otherwise they're identical. L/R <b>ENG ANTI-ICE</b> (green) means extended. L/R <b>ENG ICE FAIL</b> (yellow) means the vane doesn't match its switch after <b>35 s</b>, or immediately if the motor has lost power. Either way, select the other actuator.</p>
+        <p><b>Auto-ignition.</b> Lever-lock ARM/OFF switches above the ice vane switches. When armed, torque below about <b>17%</b> powers the igniters and lights green <b>IGNITION ON</b>, so a flameout relights automatically. Arm it for turbulence, icing and precipitation. Leave it off on the ground to save igniter life.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>Vane rules (King Air 350)</h3><ul class="tight"><li>Extend whenever there's visible moisture at +5 °C or colder.</li><li>Retract for takeoff above +10 °C.</li><li>In flight, extend and watch the annunciators whenever you can't be sure of staying out of visible moisture at +5 °C or below.</li></ul>
+          <button class="show" type="button" data-icset="1">Climb into icing →</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="ic-ws">
+    <h2>Windshield anti-ice &amp; wipers <span class="ref">Figures 10-12 to 10-16</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Each windshield has three layers: a thick structural glass inner panel, a polyvinyl middle layer carrying the heating grid, and a bonded outer glass layer with a static-discharge <b>NESA</b> coating. Pilot and copilot sides have independent switches: <b>NORMAL</b> (up), OFF, or <b>HIGH</b> (down, lever-locked).</p>
+        <ul class="tight">
+          <li><b>NORMAL</b> heats the secondary area, almost the whole windshield.</li>
+          <li><b>HIGH</b> heats the smaller primary area, the <b>outboard two-thirds</b>, which warms faster.</li>
+          <li>Either way, a sensor in the glass and a controller hold <b>90–110 °F</b>.</li>
+        </ul>
+        <p>Power: 50 A circuit breakers in the power distribution panel under the aisle floor. Control: 5 A breakers on the copilot's panel. Turn it on <b>before</b> entering icing. It can also help defrost. Expect erratic magnetic compass readings with it on. Above <b>226 KIAS</b> it can't keep the glass clear, so slow down if the windshield ices.</p>
+        <p><b>Wipers:</b> one motor drives both. PARK, OFF, SLOW and FAST on the overhead panel. Never run them on a dry windshield, which can scratch the NESA coating.</p>
+      </div>
+      <div class="card"><h3>Try it</h3><p>Load the icing-cruise setup and select HIGH on one side. The inboard third of that windshield starts to ice. Then push airspeed past 226 KIAS.</p><button class="show" type="button" data-icset="2">Icing cruise, all on →</button></div>
+    </div>
+  </section>
+
+  <section class="block" id="ic-prop">
+    <h2>Propeller deice <span class="ref">Figures 10-17, 10-18</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>An electrically heated boot on each blade, slip rings, brush assemblies, a timer, two switches (AUTO and MANUAL) and an ammeter. Heat loosens the ice, then centrifugal force and the airstream throw it off.</p>
+        <p><b>AUTO:</b> the timer heats all boots on one propeller for <b>90 s</b>, then all boots on the other for 90 s, and repeats every <b>3 minutes</b> until turned off. The ammeter normally shows <b>26–32 A</b>, with a slight flick as it changes phase. Too much current trips the circuit-breaker switch. When it's turned off, the timer moves on to the start of the other propeller's phase, so it may restart on either one.</p>
+        <p><b>MANUAL</b> is a momentary backup. Hold it to power all boots on both props until the ice is gone. The prop ammeter shows nothing, but the loadmeters rise about 10%.</p>
+      </div>
+      <div class="card"><h3>Caution</h3><p>Never run prop deice with the propellers static. The slip rings pit and burn.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="ic-surf">
+    <h2>Surface deice <span class="ref">Figures 10-22 to 10-26</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Pneumatic boots on each wing (inboard and outboard) and on each side of the horizontal stabilizer. The vertical stabilizer has none and doesn't need any. Regulated bleed air inflates them through the deice distributor valve, and vacuum pulls them flat and holds them down between cycles. See Pneumatics.</p>
+        <p>SURFACE DEICE switch: SINGLE, OFF, MANUAL, spring-loaded to OFF.</p>
+        <ul class="tight">
+          <li><b>SINGLE:</b> wing boots inflate for about <b>6 s</b>, then deflate as the tail boots inflate for about <b>4 s</b>, about 10 s in all.</li>
+          <li><b>MANUAL:</b> all boots inflate together for as long as the switch is held.</li>
+        </ul>
+        <p>The distributor needs electrical power (SURF DEICE breaker, triple-fed bus). Without it, vacuum just holds the boots down. Green <b>WING DEICE</b> lights when both wing pressure switches see 14–15 psi, and green <b>TAIL DEICE</b> when the tail switch does.</p>
+      </div>
+      <div class="card"><h3>When to cycle</h3><p>Let <b>½ in to 1 in</b> of ice build first. Very thin ice can crack and cling, then later cycles build a shell outside the inflated boot. Over 1 in may be impossible to remove. In the simulator, cycle too early or too late and see what the log says.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="ic-heat">
+    <h2>Fuel vent, pitot &amp; stall warning heat <span class="ref">Figures 10-19 to 10-21</span></h2>
+    <div class="comp-grid">
+      <div class="comp-card"><h4>Fuel vent heat</h4><p>One electrically heated vent in each wing. L and R FUEL VENT switches (right subpanel), powered by the left and right generator buses. On whenever ice is expected or found.</p></div>
+      <div class="comp-card"><h4>Pitot heat</h4><p>Two heated masts on the nose. PITOT LEFT and RIGHT circuit-breaker switches, up for on. Left from the triple-fed bus, right from the right generator bus. On for takeoff and in icing. Only briefly on the ground. A slow loss of indicated airspeed at altitude may be pitot ice. If heat restores it, leave it on.</p></div>
+      <div class="comp-card"><h4>Stall warning heat</h4><p>Heats the lift transducer vane and plate on the left wing. STALL WARN switch on the right subpanel, powered by the right generator bus. On the ground, the left gear safety switch limits it to about 14 V to prevent overheating. It gets the full 28 V in flight. With ice on the wing, stall speed rises and the warning can't be trusted.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="ic-prec">
+    <h2>Precautions during icing <span class="ref">p. 10-25</span></h2>
+    <div class="two-col">
+      <ul class="tight">
+        <li>Remove all frost from wing, stabilizer and propeller leading edges, the windshield, control surfaces, hinges, pitot masts, fuel caps and vents before moving the airplane. The texture of frost, not its thickness, is what spoils the airflow.</li>
+        <li>Check fuel drains for free flow, take a good-sized sample, and use only the correct amount of anti-icing additive.</li>
+        <li>Turn the propellers by hand in their normal direction before start. Check the hubs for ice and snow.</li>
+        <li>Leave auto-ignition off until just before takeoff.</li>
+      </ul>
+      <ul class="tight">
+        <li>In icing: fuel vent heat, pitot heat, prop deice, windshield heat and stall warning heat all <b>ON</b>.</li>
+        <li>Keep at least 140 KIAS to avoid ice under the wing. Slow below 226 KIAS if the windshield ices.</li>
+        <li>Stall speeds rise as ice builds, and stall warning devices become unreliable. Keep a comfortable margin.</li>
+        <li>Ice on even the best-equipped airplane degrades performance and upsets time and fuel planning.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+</template>
+
 <script>
 (function () {
 "use strict";
@@ -2063,7 +2361,7 @@ const CHAPTERS = [
   { n: 7,  id: "powerplant",        t: "Powerplant", ready: "Ready · interactive pedestal & engine" },
   { n: 8,  id: "fire-protection",   t: "Fire Protection", ready: "Ready · labeled component views & fire test panel" },
   { n: 9,  id: "pneumatics",        t: "Pneumatics", ready: "Ready · interactive pneumatic & vacuum schematic" },
-  { n: 10, id: "ice-rain",          t: "Ice and Rain Protection" },
+  { n: 10, id: "ice-rain",          t: "Ice and Rain Protection", ready: "Ready · interactive ice protection controls & airplane" },
   { n: 11, id: "air-conditioning",  t: "Air Conditioning" },
   { n: 12, id: "pressurization",    t: "Pressurization" },
   { n: 13, id: "hydraulics",        t: "Hydraulic Power Systems" },
@@ -2123,7 +2421,7 @@ function renderPlaceholder(c) {
   </div>`;
 }
 
-const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection() };
+const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection(), "ice-rain": () => initIceRain() };
 function route() {
   const id = (location.hash || "").replace("#", "");
   const ch = CHAPTERS.find(c => c.id === id);
@@ -2919,7 +3217,7 @@ function applyScenario(i) {
   step(0.01);
 }
 
-function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; if (pnTimer) { clearInterval(pnTimer); pnTimer = null; } pnScript = null; if (fpTimer) { clearInterval(fpTimer); fpTimer = null; } MW = null; }
+function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; if (pnTimer) { clearInterval(pnTimer); pnTimer = null; } pnScript = null; if (fpTimer) { clearInterval(fpTimer); fpTimer = null; } if (icTimer) { clearInterval(icTimer); icTimer = null; } MW = null; }
 
 function initElectrical() {
   buildSchematic();
@@ -5152,6 +5450,461 @@ function initFireProtection() {
   fpLog("Ready. Battery on, both firewall valves open, both bottles charged.");
   fpStep(0.001);
   fpTimer = setInterval(() => fpStep(0.1), 100);
+}
+
+/* ================= Chapter 10: Ice and Rain Protection ================= */
+let IC = null, icTimer = null, icSel = null, icLogArr = [], ofhMode = "cold", ofhRunning = true, ofhSel = null;
+const IC_VANE_TRAVEL = 12;   // illustrative actuator travel time, s
+const IC_ICE_RATE = 0.25;    // illustrative accretion, in/min in icing
+const ICC = {
+  lip: { group: "Engine", name: "Engine inlet lip heat", desc: "A scoop in the engine's left exhaust stack sends hot exhaust into the hollow lip tube around the air inlet. It leaves through a line into the right exhaust stack. It works whenever the engine runs, with no control." },
+  vane: { group: "Engine", name: "Inertial separator (ice vanes)", desc: "Forward and aft vanes in the inlet duct. Extended (ENGINE ANTI-ICE ON), the forward vane forms a venturi and a sudden turn, and the aft vane opens the bypass so heavy ice and debris go overboard. MAIN actuator on the triple-fed bus, STANDBY on the generator bus. ENG ANTI-ICE (green) means extended. ENG ICE FAIL (yellow) means no agreement after 35 s, or immediately on loss of motor power." },
+  ign: { group: "Engine", name: "Auto-ignition", desc: "With ENG AUTO IGNITION armed, torque below about 17% powers the igniters and lights IGNITION ON, so a flameout relights automatically. Arm it for turbulence, icing and precipitation. Leave it off on the ground." },
+  ofh: { group: "Engine", name: "Oil-to-fuel heat exchanger", desc: "On the engine accessory section. Engine oil warms the fuel ahead of the fuel control unit by conduction, melting ice particles. Automatic whenever the engine runs. See the high-resolution drawing below." },
+  ws: { group: "Windshield", name: "Windshield anti-ice", desc: "Heating grid in the windshield's polyvinyl middle layer. NORMAL heats nearly the whole windshield. HIGH heats the outboard two-thirds, faster. A controller holds 90–110 °F. Not effective above 226 KIAS. Can make the magnetic compass erratic." },
+  wiper: { group: "Windshield", name: "Windshield wipers", desc: "One motor drives both wipers, from the overhead panel: PARK, OFF, SLOW, FAST. Never run them on dry glass, which can scratch the NESA coating." },
+  pboot: { group: "Propellers", name: "Propeller deice boots", desc: "An electrically heated boot on each blade, fed through brushes and slip rings. AUTO: one prop for 90 s, then the other, every 3 minutes, normally 26–32 A. MANUAL (hold): all boots on both props, no ammeter reading, loadmeters up about 10%. Never with the props static." },
+  wboot: { group: "Surface deice", name: "Wing deice boots", desc: "Inboard and outboard boots on each wing. SINGLE inflates them for about 6 s. MANUAL inflates them while held. Vacuum holds them flat otherwise. WING DEICE lights when both wing pressure switches see 14–15 psi." },
+  tboot: { group: "Surface deice", name: "Horizontal stabilizer boots", desc: "One boot on each side of the horizontal stabilizer. In a SINGLE cycle they inflate for about 4 s after the wing boots. TAIL DEICE lights at 14–15 psi. The vertical stabilizer isn't deiced." },
+  pitot: { group: "Air data", name: "Pitot masts (heated)", desc: "Two heated masts on the nose. Left from the triple-fed bus, right from the right generator bus. On for takeoff and in icing, only briefly on the ground." },
+  stall: { group: "Air data", name: "Stall warning vane & plate (heated)", desc: "Left wing leading edge. STALL WARN switch, right generator bus. About 14 V on the ground through the left gear safety switch, 28 V in flight. Ice on the wing makes stall warning unreliable anyway." },
+  vent: { group: "Fuel", name: "Heated fuel vents", desc: "One electrically heated fuel vent in each wing. L and R FUEL VENT switches, powered by the left and right generator buses." }
+};
+
+function icFresh() {
+  const lr = v => ({ L: v, R: v });
+  return { t: 0, speed: 1, flight: false, oat: 10, moist: false, ias: 180, eng: lr(true), flame: lr(0), tq: lr(10),
+    ign: lr("OFF"), eai: lr("OFF"), act: lr("MAIN"), vane: lr(0), failT: lr(0), fault: { pwr: lr(false), stuck: lr(false) },
+    ws: { P: "OFF", C: "OFF" }, wsT: { P: 50, C: 50 }, wsOn: { P: false, C: false },
+    propAuto: false, propMan: false, propSide: "L", propT: 0, propBlip: 0,
+    surfT: -1, surfMan: false, wingP: 0, tailP: 0, shedDone: { wing: false, tail: false },
+    vent: lr("OFF"), stall: false, pitot: lr("OFF"), wiper: "OFF", wAng: -62, wDir: 1,
+    ice: { wing: 0, tail: 0, propL: 0, propR: 0, wsPo: 0, wsPi: 0, wsCo: 0, wsCi: 0 }, pIce: lr(0), heatT: lr(0), gndPitotT: 0, warned: {} };
+}
+function icLog(msg, cls) {
+  icLogArr.unshift({ t: IC.t, msg, cls: cls || "" }); if (icLogArr.length > 60) icLogArr.pop();
+  const h = $("#icLog"); if (h) h.innerHTML = icLogArr.map(e => `<li class="${e.cls}"><span class="t">${fmtIcT(e.t)}</span><span class="m">${esc(e.msg)}</span></li>`).join("");
+}
+const fmtIcT = t => t < 60 ? `${t.toFixed(0)}s` : `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, "0")}`;
+function icOnce(key, cond, msg, cls) { if (cond && !IC.warned[key]) { IC.warned[key] = true; icLog(msg, cls); } if (!cond) IC.warned[key] = false; }
+const icIcing = P => P.flight && P.moist && P.oat <= 2;
+const icPneu = P => P.eng.L || P.eng.R;
+const icSurfState = P => P.surfMan ? "manual" : P.surfT < 0 ? "idle" : P.surfT < 6 ? "wing" : P.surfT < 10 ? "tail" : "idle";
+const icPropHeating = (P, k) => P.propMan || (P.propAuto && P.propSide === k);
+
+function icStep(dtReal) {
+  const P = IC, dt = dtReal * P.speed; P.t += dt;
+  const icing = icIcing(P), rate = IC_ICE_RATE / 60 * dt;
+  // engines, torque, auto-ignition
+  ["L", "R"].forEach(k => {
+    if (P.flame[k] > 0) {
+      P.flame[k] = Math.max(0, P.flame[k] - dt);
+      if (P.ign[k] === "ARM" && P.flame[k] < 3) { P.flame[k] = 0; icLog(`${SIDE[k]} engine relit by auto-ignition. Torque back above 17%, IGNITION ON goes out.`, "ok"); }
+      else if (P.flame[k] === 0) { P.eng[k] = false; icLog(`${SIDE[k]} engine did not relight: auto-ignition wasn't armed.`, "bad"); }
+    }
+    const base = !P.eng[k] ? 0 : P.flame[k] > 0 ? 0 : P.flight ? 70 : 10;
+    P.tq[k] = Math.max(0, base - (P.vane[k] > 0.99 && base > 0 ? 4 : 0));
+    // ice vanes
+    const target = P.eai[k] === "ON" ? 1 : 0, main = P.act[k] === "MAIN";
+    const noPwr = (main && P.fault.pwr[k]) || (!main && !P.eng[k]);
+    const stuck = main && P.fault.stuck[k];
+    if (!noPwr && !stuck && P.vane[k] !== target) P.vane[k] = target > P.vane[k] ? Math.min(1, P.vane[k] + dt / IC_VANE_TRAVEL) : Math.max(0, P.vane[k] - dt / IC_VANE_TRAVEL);
+    const agree = Math.abs(P.vane[k] - target) < 0.001;
+    P.failT[k] = agree ? 0 : P.failT[k] + dt;
+    P["noPwr" + k] = noPwr && !agree;
+    if (P.vane[k] >= 1 && !P["ext" + k]) { P["ext" + k] = true; icLog(`${k} ENG ANTI-ICE: ${SIDE[k].toLowerCase()} ice vanes extended. Expect slightly less torque and a little more ITT.`); }
+    if (P.vane[k] <= 0 && P["ext" + k]) { P["ext" + k] = false; icLog(`${SIDE[k]} ice vanes retracted. Torque and ITT restored.`); }
+  });
+  // windshield heat (controller 90-110 F)
+  const oatF = P.oat * 9 / 5 + 32;
+  ["P", "C"].forEach(s => {
+    const sel = P.ws[s];
+    if (sel === "OFF") P.wsOn[s] = false;
+    else if (P.wsT[s] < 90) P.wsOn[s] = true;
+    else if (P.wsT[s] > 110) P.wsOn[s] = false;
+    const heat = P.wsOn[s] ? (sel === "HIGH" ? 4 : 2) : 0, cool = (P.wsT[s] - oatF) * (P.flight ? 0.012 + P.ias / 30000 : 0.006);
+    P.wsT[s] += (heat - cool) * dt / 2;
+    const eff = sel !== "OFF" && P.wsT[s] >= 80 && !(P.flight && P.ias > 226);
+    const o = "ws" + s + "o", i = "ws" + s + "i";
+    if (icing) { P.ice[o] = eff ? Math.max(0, P.ice[o] - dt / 20) : Math.min(1, P.ice[o] + rate * 2); P.ice[i] = eff && sel === "NORMAL" ? Math.max(0, P.ice[i] - dt / 20) : Math.min(1, P.ice[i] + rate * 2); }
+    else if (P.oat > 2 || sel !== "OFF") { P.ice[o] = Math.max(0, P.ice[o] - dt / 60); P.ice[i] = Math.max(0, P.ice[i] - dt / 60); }
+  });
+  // prop deice
+  if (P.propAuto && !P.propMan) {
+    P.propT += dt;
+    if (P.propT >= 90) { P.propT = 0; P.propSide = OTHER[P.propSide]; P.propBlip = 0.6; icLog(`Prop deice timer: ${SIDE[P.propSide].toLowerCase()} propeller boots now heating (90 s).`); }
+  }
+  if (P.propBlip > 0) P.propBlip = Math.max(0, P.propBlip - dtReal);
+  ["L", "R"].forEach(k => {
+    const heating = icPropHeating(P, k);
+    P.heatT[k] = heating ? P.heatT[k] + dt : 0;
+    if (icing && !heating) P.ice["prop" + k] = Math.min(1.2, P.ice["prop" + k] + rate * 0.8);
+    if (heating && P.heatT[k] > 12 && P.ice["prop" + k] > 0.05 && P.eng[k]) { P.ice["prop" + k] = 0; icLog(`${SIDE[k]} propeller ice loosened by the boots and thrown off.`, "ok"); }
+  });
+  icOnce("static", (P.propAuto || P.propMan) && !P.eng.L && !P.eng.R, "Prop deice with the propellers static: the slip rings will pit and burn. Turn it off.", "bad");
+  // surface deice
+  const ss = icSurfState(P);
+  if (P.surfT >= 0 && !P.surfMan) { P.surfT += dt; if (P.surfT >= 10) { P.surfT = -1; icLog("Surface deice cycle complete (about 10 s). Boots back to vacuum hold-down."); } }
+  const pneu = icPneu(P);
+  const wingInf = pneu && (ss === "wing" || ss === "manual"), tailInf = pneu && (ss === "tail" || ss === "manual");
+  P.wingP += ((wingInf ? 15 : 0) - P.wingP) * Math.min(1, dt / 0.6); P.tailP += ((tailInf ? 15 : 0) - P.tailP) * Math.min(1, dt / 0.6);
+  const shed = (key, name, p) => {
+    if (p >= 14 && !P.shedDone[key]) {
+      P.shedDone[key] = true;
+      const th = P.ice[key];
+      if (th < 0.05) return;
+      if (th < 0.5) icLog(`${name}: only ${th.toFixed(2)} in of ice. Too thin: it cracked and clung. Repeated cycles can build a shell outside the boot.`, "warn");
+      else if (th <= 1.0) { P.ice[key] = 0; icLog(`${name}: ${th.toFixed(2)} in of ice cracked and shed cleanly.`, "ok"); }
+      else { P.ice[key] = th * 0.6; icLog(`${name}: ${th.toFixed(2)} in is more than 1 in. Only part of it came off.`, "bad"); }
+    }
+    if (p < 2) P.shedDone[key] = false;
+  };
+  shed("wing", "Wing boots", P.wingP); shed("tail", "Tail boots", P.tailP);
+  if (icing) { P.ice.wing = Math.min(1.6, P.ice.wing + rate); P.ice.tail = Math.min(1.6, P.ice.tail + rate); }
+  // pitot, vents, stall
+  ["L", "R"].forEach(k => {
+    P.pIce[k] = icing && P.pitot[k] === "OFF" ? P.pIce[k] + dt : 0;
+    icOnce("pi" + k, P.pIce[k] > 30, `${SIDE[k]} pitot icing: ${k === "L" ? "pilot's" : "copilot's"} airspeed unreliable. Turn on PITOT ${SIDE[k].toUpperCase()}.`, "bad");
+    icOnce("vt" + k, icing && P.vent[k] === "OFF" && P.t > 5, `${SIDE[k]} fuel vent unheated in icing. The vent can ice over.`, "warn");
+  });
+  P.gndPitotT = !P.flight && (P.pitot.L === "ON" || P.pitot.R === "ON") ? P.gndPitotT + dt : 0;
+  icOnce("gp", P.gndPitotT > 60, "Pitot heat on the ground: only for testing or short intervals to clear snow or ice.", "warn");
+  icOnce("st", icing && !P.stall, "Stall warning heat off in icing. The lift transducer can freeze up.", "warn");
+  // advisories
+  const vmc = P.moist && P.oat <= 5;
+  ["L", "R"].forEach(k => icOnce("vn" + k, vmc && P.vane[k] < 1 && P.t > 3, `Visible moisture at ${P.oat} °C: ${SIDE[k].toLowerCase()} ice vanes should be extended.`, "warn"));
+  icOnce("hot", !P.flight && P.oat > 10 && (P.eai.L === "ON" || P.eai.R === "ON"), `OAT ${P.oat} °C: retract the ice vanes for takeoff above +10 °C (King Air 350).`, "warn");
+  icOnce("ign", (icing || (P.flight && P.moist)) && (P.ign.L !== "ARM" || P.ign.R !== "ARM"), "Precipitation or icing: arm auto-ignition on both engines.", "warn");
+  icOnce("ignG", !P.flight && (P.ign.L === "ARM" || P.ign.R === "ARM") && (P.eng.L || P.eng.R), "Auto-ignition armed on the ground: idle torque is below 17%, so the igniters fire continuously. Leave it off until just before takeoff.", "warn");
+  icOnce("v140", icing && P.ias < 140, `${P.ias} KIAS in icing: below 140 KIAS ice forms under the wing where the boots can't remove it.`, "bad");
+  icOnce("v226", icing && P.ias > 226 && (P.ws.P !== "OFF" || P.ws.C !== "OFF"), `${P.ias} KIAS: above 226 KIAS windshield anti-ice can't keep up. Slow down if the windshield ices.`, "warn");
+  icOnce("dry", P.wiper !== "OFF" && P.wiper !== "PARK" && !P.moist, "Wipers on a dry windshield can scratch the NESA coating.", "bad");
+  icOnce("thick", P.ice.wing > 1, "More than 1 in of ice on the wing boots: removal may be impossible.", "bad");
+  // wipers
+  if (P.wiper === "SLOW" || P.wiper === "FAST") {
+    const w = (P.wiper === "FAST" ? 160 : 80) * dtReal;
+    P.wAng += P.wDir * w; if (P.wAng > 45) { P.wAng = 45; P.wDir = -1; } if (P.wAng < -45) { P.wAng = -45; P.wDir = 1; }
+  } else if (P.wiper === "PARK") P.wAng = Math.max(-62, P.wAng - 120 * dtReal);
+  icRender();
+}
+
+function icSvg() {
+  const T = (x, y, s, cls, anchor) => `<text x="${x}" y="${y}" class="${cls || "lbl"}" text-anchor="${anchor || "middle"}">${s}</text>`;
+  const comp = (id, inner, hit) => `<g class="comp" data-iccomp="${id}" tabindex="0" role="button" aria-label="${esc(ICC[id].name)}"><rect class="hit" x="${hit[0]}" y="${hit[1]}" width="${hit[2]}" height="${hit[3]}" rx="4"/>${inner}</g>`;
+  const X = (k, x) => k === "L" ? x : 620 - x;
+  const leY = x => 265 + (275 - x) * 0.1404;
+  let s = `<path class="ic-air" d="M310,40 C330,42 345,80 345,130 L345,470 L322,585 L298,585 L275,470 L275,130 C275,80 290,42 310,40 Z"/>`;
+  ["L", "R"].forEach(k => {
+    s += `<path class="ic-air" d="M${X(k, 275)},265 L${X(k, 40)},298 L${X(k, 40)},328 L${X(k, 275)},345 Z"/>`;
+    s += `<path class="ic-air" d="M${X(k, 298)},540 L${X(k, 205)},556 L${X(k, 205)},568 L${X(k, 298)},578 Z"/>`;
+  });
+  s += `<rect class="ic-air" x="306" y="470" width="8" height="112" rx="3"/>`;
+  // wing + tail boots and ice
+  ["L", "R"].forEach(k => {
+    const seg = (x1, x2) => `M${X(k, x1)},${leY(x1) - 5} L${X(k, x2)},${leY(x2) - 5}`;
+    s += comp("wboot", `<path class="ic-ice" data-icice="wing" d="${seg(268, 200)} ${seg(150, 56)}"/><path class="ic-boot" data-icboot="wing" d="${seg(268, 200)} ${seg(150, 56)}"/>`, [k === "L" ? 50 : 352, 258, 218, 46]);
+    const tseg = `M${X(k, 294)},536.7 L${X(k, 210)},551.2`;
+    s += comp("tboot", `<path class="ic-ice" data-icice="tail" d="${tseg}"/><path class="ic-boot" data-icboot="tail" d="${tseg}"/>`, [k === "L" ? 204 : 316, 528, 100, 30]);
+    // nacelle + engine items
+    const cx = X(k, 175);
+    s += `<rect class="ic-nac" x="${cx - 22}" y="152" width="44" height="232" rx="18"/>`;
+    s += comp("lip", `<path class="ic-lip" data-iclip="${k}" d="M${cx - 18},166 Q${cx},150 ${cx + 18},166"/>`, [cx - 22, 150, 44, 20]);
+    s += comp("vane", `<rect class="ic-vane" data-icvane="${k}" x="${cx - 16}" y="182" width="32" height="14" rx="3"/>${T(cx, 193, "VANE", "ic-tiny")}`, [cx - 18, 180, 36, 18]);
+    s += comp("ign", `<path class="ic-spark" data-icspark="${k}" d="M${cx},214 l4,9 9,1 -7,6 3,9 -9,-5 -9,5 3,-9 -7,-6 9,-1 Z"/>`, [cx - 14, 210, 28, 30]);
+    s += comp("ofh", `<circle class="ic-ofh" data-icofh="${k}" cx="${cx}" cy="356" r="9"/>${T(cx, 360, "H", "ic-tiny")}`, [cx - 12, 344, 24, 24]);
+    // props (top view)
+    s += comp("pboot", `<ellipse class="ic-blade" cx="${cx - 47}" cy="146" rx="42" ry="7"/><ellipse class="ic-blade" cx="${cx + 47}" cy="146" rx="42" ry="7"/><ellipse class="ic-pice" data-icpice="${k}" cx="${cx - 47}" cy="146" rx="44" ry="9"/><ellipse class="ic-pice" data-icpice="${k}" cx="${cx + 47}" cy="146" rx="44" ry="9"/><ellipse class="ic-pboot" data-icpboot="${k}" cx="${cx - 27}" cy="146" rx="18" ry="5"/><ellipse class="ic-pboot" data-icpboot="${k}" cx="${cx + 27}" cy="146" rx="18" ry="5"/><circle class="sym" cx="${cx}" cy="146" r="9"/>`, [cx - 92, 134, 184, 24]);
+    // fuel vent
+    s += comp("vent", `<circle class="ic-vent" data-icvent="${k}" cx="${X(k, 110)}" cy="322" r="7"/>`, [X(k, 110) - 12, 310, 24, 24]);
+    s += comp("pitot", `<line x1="${X(k, 283)}" y1="86" x2="${X(k, 270)}" y2="86" class="ic-mast" data-icpitot="${k}"/>`, [X(k, 283) - (k === "L" ? 18 : -2), 78, 18, 16]);
+    s += comp("ws", `<path class="ic-wspane" data-icws="${k === "L" ? "P" : "C"}" d="M${X(k, 288)},118 L${X(k, 298)},100 L${X(k, 308)},100 L${X(k, 308)},118 Z"/>`, [k === "L" ? 286 : 312, 98, 24, 22]);
+  });
+  s += comp("stall", `<rect class="ic-stall" x="94" y="${leY(100) - 9}" width="12" height="8" rx="2"/>`, [88, leY(100) - 14, 24, 18]);
+  // labels
+  s += T(545, 140, "PROP BOOTS", "ic-lbl", "start") + T(470, 162, "INLET LIP", "ic-lbl", "start") + T(472, 205, "ICE VANES", "ic-lbl", "start") + T(475, 232, "IGNITERS", "ic-lbl", "start") + T(472, 360, "OIL-FUEL HTR", "ic-lbl", "start");
+  s += T(352, 90, "PITOT ×2", "ic-lbl", "start") + T(352, 112, "WINDSHIELD", "ic-lbl", "start") + T(100, leY(100) - 18, "STALL VANE", "ic-lbl") + T(510, 346, "FUEL VENT (heated)", "ic-lbl");
+  s += T(472, 258, "WING BOOTS · inbd & outbd", "ic-lbl", "start") + T(420, 590, "TAIL BOOTS", "ic-lbl", "start");
+  s += `<text class="ic-timer" id="icTmWing" x="14" y="604"></text><text class="ic-timer" id="icTmTail" x="14" y="622"></text>`;
+  s += T(14, 24, "TOP VIEW · NOSE UP", "blk-s", "start");
+  // ---- inset: windshields ----
+  const panes = { P: { out: "665,170 690,60 760,60 760,170", inb: "760,60 808,60 808,170 760,170", norm: "671,165 694,66 802,66 802,165", high: "671,165 694,66 758,66 758,165", piv: 737 },
+    C: { out: "965,170 940,60 870,60 870,170", inb: "870,60 822,60 822,170 870,170", norm: "959,165 936,66 828,66 828,165", high: "959,165 936,66 872,66 872,165", piv: 893 } };
+  s += `<rect class="ic-inset" x="648" y="14" width="342" height="196" rx="8"/>${T(819, 36, "WINDSHIELDS · from the cockpit", "lbl-b")}`;
+  ["P", "C"].forEach(w => {
+    const p = panes[w];
+    s += comp("ws", `<polygon class="ic-glass" points="${p.out}"/><polygon class="ic-glass" points="${p.inb}"/><polygon class="ic-wsheat" data-icwsh="${w}N" points="${p.norm}"/><polygon class="ic-wsheat" data-icwsh="${w}H" points="${p.high}"/><polygon class="ic-wsice" data-icwsice="${w}o" points="${p.out}"/><polygon class="ic-wsice" data-icwsice="${w}i" points="${p.inb}"/>`, w === "P" ? [662, 56, 150, 118] : [818, 56, 150, 118]);
+    s += comp("wiper", `<g id="icWip${w}"><line class="ic-wiper" x1="${p.piv}" y1="168" x2="${p.piv}" y2="76"/></g><circle class="sym" cx="${p.piv}" cy="168" r="4"/>`, [p.piv - 10, 160, 20, 16]);
+    s += `<text class="ic-timer" id="icWsT${w}" x="${w === "P" ? 736 : 894}" y="187" text-anchor="middle"></text><text class="ic-lbl" id="icWsS${w}" x="${w === "P" ? 736 : 894}" y="202" text-anchor="middle"></text>`;
+  });
+  // ---- inset: propellers (front view) ----
+  s += `<rect class="ic-inset" x="648" y="220" width="342" height="210" rx="8"/>${T(819, 242, "PROPELLER BOOTS · front view", "lbl-b")}`;
+  [["L", 734], ["R", 904]].forEach(([k, cx]) => {
+    const cy = 330;
+    let g = `<circle class="ic-ring" cx="${cx}" cy="${cy}" r="72"/><circle class="ic-prog" id="icProg${k}" cx="${cx}" cy="${cy}" r="72" transform="rotate(-90 ${cx} ${cy})"/>`;
+    [45, 135, 225, 315].forEach(a => {
+      g += `<g transform="rotate(${a} ${cx} ${cy})"><ellipse class="ic-blade" cx="${cx}" cy="${cy - 40}" rx="9" ry="34"/><ellipse class="ic-pice" data-icpice="${k}" cx="${cx}" cy="${cy - 40}" rx="11" ry="36"/><rect class="ic-pboot" data-icpboot="${k}" x="${cx - 5}" y="${cy - 52}" width="10" height="34" rx="4"/></g>`;
+    });
+    g += `<circle class="sym" cx="${cx}" cy="${cy}" r="12"/>`;
+    s += comp("pboot", g, [cx - 76, cy - 76, 152, 152]);
+    s += T(cx, 260, k === "L" ? "LEFT" : "RIGHT", "blk-t") + `<text class="ic-timer" id="icPT${k}" x="${cx}" y="420" text-anchor="middle"></text>`;
+  });
+  // ---- inset: inertial separators ----
+  s += `<rect class="ic-inset" x="648" y="440" width="342" height="190" rx="8"/>${T(819, 462, "INERTIAL SEPARATORS · side view, nose left", "lbl-b")}`;
+  [["L", 660], ["R", 830]].forEach(([k, x0]) => {
+    let g = `<path class="ic-duct" d="M${x0 + 4},520 L${x0 + 100},520 M${x0 + 4},560 L${x0 + 104},560 L${x0 + 150},592"/><rect class="ic-screen" x="${x0 + 86}" y="482" width="40" height="10"/>${T(x0 + 106, 478, "SCREEN", "ic-tiny")}`;
+    g += `<line class="ic-fvane" id="icFv${k}" x1="${x0 + 40}" y1="522" x2="${x0 + 88}" y2="522"/><line class="ic-avane" id="icAv${k}" x1="${x0 + 104}" y1="560" x2="${x0 + 134}" y2="540"/>`;
+    g += `<path class="ic-flow" id="icFl${k}" d="M${x0 + 8},540 L${x0 + 80},540 Q${x0 + 100},538 ${x0 + 104},498"/>`;
+    g += `<path class="ic-flow ice" id="icFi${k}" d="M${x0 + 20},546 L${x0 + 100},552 L${x0 + 148},586"/>`;
+    g += `<text class="ic-timer" id="icVT${k}" x="${x0 + 78}" y="616" text-anchor="middle"></text>${T(x0 + 12, 512, k, "lbl-b", "start")}`;
+    s += comp("vane", g, [x0, 470, 160, 152]);
+  });
+  $("#icschem").innerHTML = s;
+}
+
+function icRender() {
+  if (!$("#icschem")) return;
+  const P = IC, ss = icSurfState(P), pneu = icPneu(P);
+  const tog = (sel, on) => $$(sel).forEach(e => e.classList.toggle("on", !!on));
+  ["L", "R"].forEach(k => {
+    tog(`[data-iclip="${k}"]`, P.eng[k] || P.flame[k] > 0);
+    tog(`[data-icofh="${k}"]`, P.eng[k]);
+    const v = $(`[data-icvane="${k}"]`); v.classList.toggle("on", P.vane[k] >= 1); v.classList.toggle("moving", P.vane[k] > 0 && P.vane[k] < 1);
+    const ignOn = P.ign[k] === "ARM" && (P.eng[k] || P.flame[k] > 0) && P.tq[k] < 17;
+    P["ignOn" + k] = ignOn;
+    tog(`[data-icspark="${k}"]`, ignOn);
+    tog(`[data-icpboot="${k}"]`, icPropHeating(P, k));
+    $$(`[data-icpice="${k}"]`).forEach(e => e.style.opacity = Math.min(1, P.ice["prop" + k]) * 0.9);
+    tog(`[data-icvent="${k}"]`, P.vent[k] === "ON");
+    tog(`[data-icpitot="${k}"]`, P.pitot[k] === "ON");
+    // separator inset
+    const x0 = k === "L" ? 660 : 830, f = P.vane[k];
+    $("#icFv" + k).setAttribute("transform", `rotate(${f * 24} ${x0 + 40} 522)`);
+    $("#icAv" + k).setAttribute("transform", `rotate(${f * 55} ${x0 + 104} 560)`);
+    $("#icFi" + k).classList.toggle("on", f >= 1 && P.moist && P.eng[k]);
+    $("#icFl" + k).classList.toggle("on", P.eng[k]);
+    const failOn = P["noPwr" + k] || P.failT[k] > 35;
+    P["fail" + k] = failOn;
+    const tgt = P.eai[k] === "ON" ? 1 : 0;
+    $("#icVT" + k).textContent = failOn ? "ENG ICE FAIL" : f >= 1 ? "EXTENDED" : f <= 0 && tgt === 0 ? "RETRACTED" : `${tgt ? "extending" : "retracting"} ${Math.round(f * 100)}% · ${P.failT[k].toFixed(0)}/35 s`;
+    // prop inset
+    const heating = icPropHeating(P, k), prog = $("#icProg" + k), C = 2 * Math.PI * 72;
+    const frac = P.propMan ? 1 : P.propAuto && P.propSide === k ? P.propT / 90 : 0;
+    prog.setAttribute("stroke-dasharray", `${(C * frac).toFixed(1)} ${C.toFixed(1)}`);
+    $("#icPT" + k).textContent = P.propMan ? "MANUAL · heating (held)" : P.propAuto ? (P.propSide === k ? `heating ${Math.floor(P.propT)} / 90 s` : `waiting · starts in ${Math.ceil(90 - P.propT)} s`) : "off";
+  });
+  tog('[data-icboot="wing"]', P.wingP > 7); tog('[data-icboot="tail"]', P.tailP > 7);
+  $$('[data-icice="wing"]').forEach(e => { e.style.strokeWidth = 4 + P.ice.wing * 14; e.style.opacity = P.ice.wing > 0.02 ? 0.95 : 0; });
+  $$('[data-icice="tail"]').forEach(e => { e.style.strokeWidth = 4 + P.ice.tail * 14; e.style.opacity = P.ice.tail > 0.02 ? 0.95 : 0; });
+  $("#icTmWing").textContent = (ss === "wing" ? `Wing boots inflated ${P.surfT.toFixed(1)} / 6 s` : ss === "manual" ? "All boots: MANUAL (held)" : "Wing boots: vacuum hold-down") + (P.ice.wing > 0.02 ? ` · ice ${P.ice.wing.toFixed(2)} in` : "");
+  $("#icTmTail").textContent = (ss === "tail" ? `Tail boots inflated ${(P.surfT - 6).toFixed(1)} / 4 s` : ss === "manual" ? "Tail boots: MANUAL (held)" : "Tail boots: vacuum hold-down") + (P.ice.tail > 0.02 ? ` · ice ${P.ice.tail.toFixed(2)} in` : "");
+  tog(".ic-stall", P.stall);
+  ["P", "C"].forEach(w => {
+    const sel = P.ws[w], on = sel !== "OFF";
+    tog(`[data-icwsh="${w}N"]`, sel === "NORMAL"); tog(`[data-icwsh="${w}H"]`, sel === "HIGH");
+    $$(`[data-icwsh="${w}N"], [data-icwsh="${w}H"]`).forEach(e => e.classList.toggle("pulse", P.wsOn[w]));
+    tog(`[data-icws="${w}"]`, on);
+    $(`[data-icwsice="${w}o"]`).style.opacity = P.ice["ws" + w + "o"] * 0.9; $(`[data-icwsice="${w}i"]`).style.opacity = P.ice["ws" + w + "i"] * 0.9;
+    $("#icWsT" + w).textContent = `${w === "P" ? "Pilot" : "Copilot"} ${sel} · ${Math.round(P.wsT[w])} °F`; $("#icWsS" + w).textContent = on ? (P.wsOn[w] ? "heating" : "holding 90–110 °F") : "";
+    $("#icWip" + w).setAttribute("transform", `rotate(${P.wAng} ${w === "P" ? 737 : 893} 168)`);
+  });
+  // annunciators
+  const A = { LEAI: ["green", P.vane.L >= 1], REAI: ["green", P.vane.R >= 1], LEIF: ["amber", P.failL], REIF: ["amber", P.failR], LIGN: ["green", P.ignOnL], RIGN: ["green", P.ignOnR], WING: ["green", P.wingP >= 14], TAIL: ["green", P.tailP >= 14] };
+  Object.keys(A).forEach(k => { const el = $("#ica-" + k); if (el) el.className = "ann" + (A[k][1] ? " " + A[k][0] : ""); });
+  ["L", "R"].forEach(k => { if (P["fail" + k] && !P.warned["f" + k]) { P.warned["f" + k] = true; icLog(`${k} ENG ICE FAIL: ${P["noPwr" + k] ? "the actuator motor has no power (lights at once)" : "vanes and switch still disagree after 35 s"}. Select the ${P.act[k] === "MAIN" ? "STANDBY" : "MAIN"} actuator.`, "bad"); } if (!P["fail" + k]) P.warned["f" + k] = false; });
+  // prop ammeter: auto 26-32 A; manual shows no load
+  const amps = P.propMan ? 0 : P.propAuto ? (P.propBlip > 0 ? 24 : 29) : 0;
+  const a = -120 + 240 * amps / 40; $("#icAmpN").style.transform = `rotate(${a}deg)`; $("#icAmpV").textContent = `${amps} A${P.propMan ? " (manual: loadmeters +10%)" : ""}`;
+  // switch states
+  $$("[data-icsw]").forEach(b => { const [g, k] = b.dataset.icsw.split(":"), cur = k ? P[g][k] : P[g]; b.setAttribute("aria-pressed", String(String(cur) === b.dataset.val)); });
+  $("#icHoldS").classList.toggle("on", P.surfT >= 0 && !P.surfMan); $("#icHoldM").classList.toggle("on", P.surfMan); $("#icHoldP").classList.toggle("on", P.propMan);
+  // environment controls
+  $("#icFl-g").setAttribute("aria-pressed", String(!P.flight)); $("#icFl-f").setAttribute("aria-pressed", String(P.flight));
+  $("#icMoist").setAttribute("aria-pressed", String(P.moist)); $("#icMoist").textContent = P.moist ? "Visible moisture: YES" : "Visible moisture: no";
+  if (document.activeElement !== $("#icOat")) $("#icOat").value = P.oat; $("#icOatV").textContent = `${P.oat > 0 ? "+" : ""}${P.oat} °C`;
+  const ias = $("#icIas"); ias.disabled = !P.flight; if (document.activeElement !== ias) ias.value = P.ias; $("#icIasV").textContent = P.flight ? `${P.ias} KIAS` : "on ground";
+  ["L", "R"].forEach(k => { $("#icRun" + k).setAttribute("aria-pressed", String(P.eng[k])); $("#icRun" + k).textContent = `${k} engine ${P.flame[k] > 0 ? "FLAMED OUT" : P.eng[k] ? "running" : "off"} · TQ ${Math.round(P.tq[k])}%`; });
+  $$("[data-icspd]").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.icspd === P.speed)));
+  [["pwrL", P.fault.pwr.L], ["pwrR", P.fault.pwr.R], ["stuckL", P.fault.stuck.L], ["stuckR", P.fault.stuck.R]].forEach(([id, v]) => $("#icf-" + id).setAttribute("aria-pressed", String(v)));
+  const icing = icIcing(P);
+  $("#icCond").innerHTML = `${P.flight ? `In flight · ${P.ias} KIAS` : "On the ground"} · OAT ${P.oat > 0 ? "+" : ""}${P.oat} °C · ${P.moist ? "visible moisture" : "dry"} · clock ${fmtIcT(P.t)} (×${P.speed}) — <b>${icing ? "ICING CONDITIONS: ice is building on anything unprotected" : P.moist && P.oat <= 5 ? "Visible moisture at +5 °C or below: extend the ice vanes" : "No icing"}</b>`;
+  // active list
+  const row = (name, st, txt) => `<div class="ic-row ${st}"><span class="dot"></span><span class="n">${name}</span><span class="d">${txt}</span></div>`;
+  const lr = (f, on) => ["L", "R"].map(k => f(k)).join(" · ");
+  let h = "";
+  h += row("Inlet lip heat", P.eng.L || P.eng.R ? "on" : "", lr(k => `${k} ${P.eng[k] ? "exhaust-heated" : "engine off"}`));
+  h += row("Ice vanes", P.failL || P.failR ? "bad" : P.vane.L >= 1 || P.vane.R >= 1 ? "on" : P.moist && P.oat <= 5 ? "warn" : "", lr(k => `${k} ${P["fail" + k] ? "FAIL" : P.vane[k] >= 1 ? "extended" : P.vane[k] > 0 ? `moving ${Math.round(P.vane[k] * 100)}%` : "retracted"} (${P.act[k].toLowerCase()})`));
+  h += row("Auto-ignition", P.ignOnL || P.ignOnR ? "on" : P.ign.L === "ARM" || P.ign.R === "ARM" ? "arm" : "", lr(k => `${k} ${P.ign[k] === "ARM" ? (P["ignOn" + k] ? `IGNITION ON (TQ ${Math.round(P.tq[k])}% < 17%)` : "armed") : "off"}`));
+  h += row("Oil-to-fuel heater", P.eng.L || P.eng.R ? "on" : "", "automatic while the engine runs");
+  h += row("Windshield", P.ws.P !== "OFF" || P.ws.C !== "OFF" ? "on" : icing ? "warn" : "", `Pilot ${P.ws.P} ${Math.round(P.wsT.P)} °F · Copilot ${P.ws.C} ${Math.round(P.wsT.C)} °F`);
+  h += row("Wipers", P.wiper === "SLOW" || P.wiper === "FAST" ? (P.moist ? "on" : "bad") : "", P.wiper);
+  h += row("Prop deice", P.propMan || P.propAuto ? "on" : icing ? "warn" : "", P.propMan ? "MANUAL: all boots, both props (held)" : P.propAuto ? `AUTO: ${SIDE[P.propSide].toLowerCase()} prop ${Math.floor(P.propT)} / 90 s · cycle 3 min` : "off");
+  h += row("Surface deice", ss !== "idle" ? "on" : "", ss === "wing" ? `wing boots ${P.surfT.toFixed(1)} / 6 s, then tail 4 s` : ss === "tail" ? `tail boots ${(P.surfT - 6).toFixed(1)} / 4 s` : ss === "manual" ? "MANUAL: all boots inflated (held)" : pneu ? `vacuum hold-down · wing ice ${P.ice.wing.toFixed(2)} in` : "no pneumatic air");
+  h += row("Fuel vent heat", P.vent.L === "ON" || P.vent.R === "ON" ? "on" : icing ? "warn" : "", lr(k => `${k} ${P.vent[k].toLowerCase()}`));
+  h += row("Pitot heat", P.pitot.L === "ON" || P.pitot.R === "ON" ? "on" : icing ? "warn" : "", lr(k => `${k} ${P.pitot[k].toLowerCase()}${P.pIce[k] > 30 ? " ICED" : ""}`));
+  h += row("Stall warning heat", P.stall ? "on" : icing ? "warn" : "", P.stall ? (P.flight ? "on · 28 V in flight" : "on · ~14 V on ground") : "off");
+  $("#icAct").innerHTML = h;
+  const n = $("#icInfoNow"); if (n && icSel) n.textContent = icNow(icSel);
+}
+function icNow(id) {
+  const P = IC;
+  const m = { lip: () => `L ${P.eng.L ? "heated" : "cold"} · R ${P.eng.R ? "heated" : "cold"}`, vane: () => ["L", "R"].map(k => `${k} ${Math.round(P.vane[k] * 100)}% extended`).join(" · "),
+    ign: () => ["L", "R"].map(k => `${k} ${P.ign[k]} TQ ${Math.round(P.tq[k])}%`).join(" · "), ofh: () => "automatic", ws: () => `Pilot ${P.ws.P} · Copilot ${P.ws.C}`, wiper: () => P.wiper,
+    pboot: () => P.propMan ? "manual, all boots" : P.propAuto ? `auto, ${SIDE[P.propSide].toLowerCase()} prop ${Math.floor(P.propT)} s` : "off", wboot: () => `${P.wingP.toFixed(0)} psi · ice ${P.ice.wing.toFixed(2)} in`,
+    tboot: () => `${P.tailP.toFixed(0)} psi · ice ${P.ice.tail.toFixed(2)} in`, pitot: () => `L ${P.pitot.L} · R ${P.pitot.R}`, stall: () => P.stall ? "on" : "off", vent: () => `L ${P.vent.L} · R ${P.vent.R}` };
+  return "Now: " + m[id]();
+}
+function icSelect(id) {
+  icSel = id;
+  $$("#icschem .comp").forEach(g => g.classList.toggle("sel", g.dataset.iccomp === id));
+  const c = ICC[id];
+  $("#icInfo").innerHTML = `<div class="eyebrow">${esc(c.group)}</div><h4>${esc(c.name)}</h4><div class="now" id="icInfoNow">${esc(icNow(id))}</div><p>${esc(c.desc)}</p>`;
+}
+
+const IC_SETUPS = [
+  ["Cold, wet taxi (+3 °C)", P => { P.oat = 3; P.moist = true; }],
+  ["Climbing into icing (−8 °C)", P => { P.flight = true; P.oat = -8; P.moist = true; P.ias = 160; P.tq.L = P.tq.R = 70; }],
+  ["Icing cruise, all on", P => { P.flight = true; P.oat = -10; P.moist = true; P.ias = 180; P.ign.L = P.ign.R = "ARM"; P.eai.L = P.eai.R = "ON"; P.vane.L = P.vane.R = 1; P.extL = P.extR = true; P.ws.P = P.ws.C = "NORMAL"; P.wsT.P = P.wsT.C = 100; P.propAuto = true; P.vent.L = P.vent.R = "ON"; P.pitot.L = P.pitot.R = "ON"; P.stall = true; P.wiper = "OFF"; P.speed = 5; }],
+  ["Warm takeoff (+15 °C), vanes left out", P => { P.oat = 15; P.eai.L = P.eai.R = "ON"; P.vane.L = P.vane.R = 1; P.extL = P.extR = true; }]
+];
+function icLoadSetup(i) {
+  IC = icFresh(); icLogArr = []; IC_SETUPS[i][1](IC);
+  icLog(`Setup: ${IC_SETUPS[i][0]}.`); icStep(0.001);
+}
+function icHold(el, on, off) {
+  const down = e => { e.preventDefault(); on(); }, up = () => off();
+  el.addEventListener("pointerdown", down); ["pointerup", "pointerleave", "pointercancel"].forEach(ev => el.addEventListener(ev, up));
+  el.addEventListener("keydown", e => { if ((e.key === " " || e.key === "Enter") && !e.repeat) { e.preventDefault(); on(); } });
+  el.addEventListener("keyup", e => { if (e.key === " " || e.key === "Enter") up(); });
+}
+
+function initIceRain() {
+  IC = icFresh(); icLogArr = []; icSel = null;
+  icSvg();
+  $("#icSubnav").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  $("#icSetups").innerHTML = IC_SETUPS.map((s, i) => `<button type="button" class="pbtn" data-icset="${i}">${esc(s[0])}</button>`).join("");
+  $("#main .view").addEventListener("click", e => { const b = e.target.closest("[data-icset]"); if (b) { icLoadSetup(+b.dataset.icset); if (!b.closest("#icSetups")) $("#ic-sim").scrollIntoView({ behavior: "smooth", block: "start" }); } });
+  const tog = (title, items) => `<div class="sw-group"><div class="gname">${title}</div><div class="sws">${items.map(([name, key, opts]) => `<div class="tog"><div class="name">${name}</div><div class="pos" role="group" aria-label="${title} ${name}">${opts.map(o => `<button type="button" data-icsw="${key}" data-val="${o[0]}" aria-pressed="false">${o[1]}</button>`).join("")}</div></div>`).join("")}</div></div>`;
+  $("#icLeft").innerHTML = tog("Eng auto-ignition", [["Left", "ign:L", [["ARM", "Arm"], ["OFF", "Off"]]], ["Right", "ign:R", [["ARM", "Arm"], ["OFF", "Off"]]]]) +
+    tog("Engine anti-ice", [["Left", "eai:L", [["ON", "On"], ["OFF", "Off"]]], ["Right", "eai:R", [["ON", "On"], ["OFF", "Off"]]]]) +
+    tog("Actuators", [["Left", "act:L", [["STANDBY", "Standby"], ["MAIN", "Main"]]], ["Right", "act:R", [["STANDBY", "Standby"], ["MAIN", "Main"]]]]);
+  $("#icWiper").innerHTML = tog("Windshield wiper", [["Both", "wiper", [["PARK", "Park"], ["OFF", "Off"], ["SLOW", "Slow"], ["FAST", "Fast"]]]]);
+  $("#icRight").innerHTML = tog("Wshld anti-ice", [["Pilot", "ws:P", [["NORMAL", "Normal"], ["OFF", "Off"], ["HIGH", "High ⇩"]]], ["Copilot", "ws:C", [["NORMAL", "Normal"], ["OFF", "Off"], ["HIGH", "High ⇩"]]]]) +
+    tog("Prop", [["Auto", "propAuto", [["true", "On"], ["false", "Off"]]]]) +
+    tog("Fuel vent", [["Left", "vent:L", [["ON", "On"], ["OFF", "Off"]]], ["Right", "vent:R", [["ON", "On"], ["OFF", "Off"]]]]) +
+    tog("Stall warn", [["Heat", "stall", [["true", "On"], ["false", "Off"]]]]) +
+    tog("Pitot", [["Left", "pitot:L", [["ON", "On"], ["OFF", "Off"]]], ["Right", "pitot:R", [["ON", "On"], ["OFF", "Off"]]]]);
+  const onSw = e => {
+    const b = e.target.closest("[data-icsw]"); if (!b) return;
+    const [g, k] = b.dataset.icsw.split(":"); let v = b.dataset.val; if (v === "true" || v === "false") v = v === "true";
+    const old = k ? IC[g][k] : IC[g]; if (old === v) return;
+    if (k) IC[g][k] = v; else IC[g] = v;
+    const nm = { ign: "auto-ignition", eai: "ENGINE ANTI-ICE", act: "ice vane ACTUATORS", ws: "windshield anti-ice", vent: "FUEL VENT", pitot: "PITOT", wiper: "WIPER", propAuto: "PROP AUTO deice", stall: "STALL WARN heat" }[g];
+    const who = k ? (g === "ws" ? (k === "P" ? "Pilot " : "Copilot ") : SIDE[k] + " ") : "";
+    icLog(`${who}${nm}: ${v === true ? "ON" : v === false ? "OFF" : v}${g === "ws" && v === "HIGH" ? " (lifted over the detent). Only the outboard two-thirds is heated now." : ""}${g === "propAuto" && v === false ? ". Timer moves on to the start of the other propeller's phase." : ""}${g === "propAuto" && v === true ? `. ${SIDE[IC.propSide]} propeller boots heating first.` : ""}${g === "ws" && v !== "OFF" ? " Magnetic compass may be erratic." : ""}`);
+    if (g === "propAuto" && v === false) { IC.propSide = OTHER[IC.propSide]; IC.propT = 0; }
+    icStep(0.001);
+  };
+  ["#icLeft", "#icWiper", "#icRight"].forEach(s => $(s).addEventListener("click", onSw));
+  $("#icHolds").innerHTML = `<span class="gname">Surface deice</span><button type="button" class="pbtn" id="icHoldS">Single (cycle)</button><button type="button" class="pbtn" id="icHoldM">Hold: Manual</button><span class="gname">Prop</span><button type="button" class="pbtn" id="icHoldP">Hold: Manual</button>`;
+  $("#icHoldS").addEventListener("click", () => {
+    if (!icPneu(IC)) { icLog("No pneumatic air (no engine running): the boots can't inflate.", "warn"); return; }
+    if (IC.surfT >= 0) return;
+    IC.surfT = 0; icLog("SURFACE DEICE SINGLE: wing boots inflate for about 6 s, then tail boots for 4 s."); icStep(0.001);
+  });
+  icHold($("#icHoldM"), () => { if (!IC.surfMan) { IC.surfMan = true; IC.surfT = -1; icLog(icPneu(IC) ? "SURFACE DEICE MANUAL held: all boots inflate together." : "SURFACE DEICE MANUAL: no pneumatic air."); icStep(0.001); } }, () => { if (IC.surfMan) { IC.surfMan = false; icLog("MANUAL released: boots deflate to vacuum hold-down."); icStep(0.001); } });
+  icHold($("#icHoldP"), () => { if (!IC.propMan) { IC.propMan = true; icLog("PROP MANUAL held: all boots on both propellers heating. Prop ammeter reads zero, loadmeters up about 10%."); icStep(0.001); } }, () => { if (IC.propMan) { IC.propMan = false; icLog("PROP MANUAL released."); icStep(0.001); } });
+  $("#icAmpG").innerHTML = `${pnGaugeSVG("icAmp", { min: 0, max: 40, ticks: [0, 10, 20, 30, 40], green: [26, 32] })}<div class="gl">Prop amps</div><div class="gv" id="icAmpV"></div>`;
+  $("#icAnns").innerHTML = [["LEIF", "L ENG ICE FAIL"], ["REIF", "R ENG ICE FAIL"], ["LEAI", "L ENG ANTI-ICE"], ["REAI", "R ENG ANTI-ICE"], ["LIGN", "L IGNITION ON"], ["RIGN", "R IGNITION ON"], ["WING", "WING DEICE"], ["TAIL", "TAIL DEICE"]].map(a => `<div class="ann" id="ica-${a[0]}">${a[1]}</div>`).join("");
+  $("#icEnv").innerHTML = `<div class="seg" role="group" aria-label="Flight condition"><button type="button" id="icFl-g">On ground</button><button type="button" id="icFl-f">In flight</button></div><button type="button" class="pbtn envb" id="icMoist" aria-pressed="false"></button>`;
+  $("#icEnv2").innerHTML = `<label for="icOat">OAT</label><input type="range" id="icOat" min="-30" max="20" step="1"><span class="flowread" id="icOatV"></span><label for="icIas">IAS</label><input type="range" id="icIas" min="100" max="260" step="5"><span class="flowread" id="icIasV"></span>`;
+  $("#icEng").innerHTML = ["L", "R"].map(k => `<button type="button" class="pbtn envb" id="icRun${k}" aria-pressed="true"></button><button type="button" class="pbtn" id="icFo${k}">${k} flameout</button>`).join("");
+  $("#icClock").innerHTML = `<span class="gname">Clock</span><div class="seg" role="group" aria-label="Simulation speed">${[1, 5, 20].map(v => `<button type="button" data-icspd="${v}">×${v}</button>`).join("")}</div><button type="button" class="pbtn" id="icClear">Clear all ice</button>`;
+  $("#icFaults").innerHTML = ["L", "R"].map(k => `<button type="button" class="pbtn" id="icf-pwr${k}" aria-pressed="false">${k} main actuator: no power</button><button type="button" class="pbtn" id="icf-stuck${k}" aria-pressed="false">${k} main actuator: won't move</button>`).join("");
+  $("#icFl-g").addEventListener("click", () => { IC.flight = false; icStep(0.001); });
+  $("#icFl-f").addEventListener("click", () => { if (!IC.flight) icLog("Airborne. The left gear safety switch gives stall warning heat the full 28 V."); IC.flight = true; icStep(0.001); });
+  $("#icMoist").addEventListener("click", () => { IC.moist = !IC.moist; icStep(0.001); });
+  $("#icOat").addEventListener("input", e => { IC.oat = +e.target.value; icStep(0.001); });
+  $("#icIas").addEventListener("input", e => { IC.ias = +e.target.value; icStep(0.001); });
+  ["L", "R"].forEach(k => {
+    $("#icRun" + k).addEventListener("click", () => { IC.eng[k] = !IC.eng[k]; IC.flame[k] = 0; icLog(`${SIDE[k]} engine ${IC.eng[k] ? "started" : "shut down"}.`); icStep(0.001); });
+    $("#icFo" + k).addEventListener("click", () => { if (!IC.eng[k]) return; IC.flame[k] = 6; icLog(`${SIDE[k]} engine flameout: torque falls below 17%.`, "bad"); icStep(0.001); });
+  });
+  $("#icClock").addEventListener("click", e => { const b = e.target.closest("[data-icspd]"); if (b) { IC.speed = +b.dataset.icspd; icStep(0.001); } });
+  $("#icClear").addEventListener("click", () => { Object.keys(IC.ice).forEach(k => IC.ice[k] = 0); icLog("All ice cleared."); icStep(0.001); });
+  $("#icFaults").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; const k = b.id.slice(-1), f = b.id.includes("pwr") ? "pwr" : "stuck"; IC.fault[f][k] = !IC.fault[f][k]; icLog(`${IC.fault[f][k] ? "Failure" : "Repaired"}: ${SIDE[k].toLowerCase()} main ice vane actuator ${f === "pwr" ? "power" : "motor"}.`, IC.fault[f][k] ? "warn" : ""); icStep(0.001); });
+  const sv = $("#icschem");
+  sv.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) icSelect(g.dataset.iccomp); });
+  sv.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); icSelect(e.target.closest(".comp").dataset.iccomp); } });
+  $("#icInfo").innerHTML = `<h3>Component details</h3><p>Select any part of the airplane or the close-ups for what it does and how it's controlled.</p>`;
+  icLog("Engines running on the ground, all ice protection off. +10 °C, dry.");
+  icStep(0.001);
+  ofhInit();
+  icTimer = setInterval(() => icStep(0.1), 100);
+}
+
+/* ---------- oil-to-fuel heat exchanger (high-resolution) ---------- */
+const OFHC = {
+  fin: { name: "Fuel in", desc: "From the firewall fuel filter and engine-driven boost pump. With no fuel temperature gauge ahead of the exchanger, assume this fuel is at OAT." },
+  fout: { name: "Fuel out (to the HP pump and FCU)", desc: "Warmed fuel goes on to the engine-driven high-pressure pump and the fuel control unit, so ice can't form at the pump filter." },
+  oin: { name: "Oil in (hot engine oil)", desc: "Hot engine oil enters at the top and flows down through the heat exchanger core." },
+  oout: { name: "Oil out", desc: "Oil leaves past the slide valve and returns to the engine oil system." },
+  core: { name: "Heat exchanger core", desc: "The oil and fuel lines run side by side through the core. Heat moves by conduction from oil to fuel, melting ice particles that may have formed in the fuel." },
+  thermal: { name: "Thermal element", desc: "Sits in the fuel outlet and senses the warmed fuel's temperature. It is linked to the slide valve." },
+  slide: { name: "Slide valve", desc: "Positioned by the thermal element. With cold fuel it sends the oil through the core. Once the fuel is warm enough it lets oil bypass the core straight to OIL OUT, holding the fuel temperature in the desired range." },
+  body: { name: "Oil-to-fuel heat exchanger", desc: "Mounted on each engine's accessory section. Fully automatic whenever the engine is running. No pilot control. A minimum oil temperature of 55 °C is recommended for heater operation at takeoff power." }
+};
+function ofhInit() {
+  const T = (x, y, s, cls, anchor) => `<text x="${x}" y="${y}" class="${cls || "ofh-lbl"}" text-anchor="${anchor || "middle"}">${s}</text>`;
+  const comp = (id, inner, hit) => `<g class="comp" data-ofhcomp="${id}" tabindex="0" role="button" aria-label="${esc(OFHC[id].name)}"><rect class="hit" x="${hit[0]}" y="${hit[1]}" width="${hit[2]}" height="${hit[3]}" rx="6"/>${inner}</g>`;
+  const arrows = (key, pts, cls) => { let a = ""; for (let i = 0; i < pts.length - 1; i++) { const [x1, y1] = pts[i], [x2, y2] = pts[i + 1], len = Math.hypot(x2 - x1, y2 - y1); if (len < 70) continue; const ang = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI; const n = len > 260 ? 2 : 1; for (let j = 1; j <= n; j++) { const t = j / (n + 1); a += `<path class="ofh-arr ${cls}" data-ofha="${key}" transform="translate(${x1 + (x2 - x1) * t},${y1 + (y2 - y1) * t}) rotate(${ang})" d="M-9,-8 L9,0 L-9,8 Z"/>`; } } return a; };
+  const pipe = (key, pts, cls) => { const p = pts.map(q => q.join(",")).join(" "); return `<polyline class="ofh-pipe-case" points="${p}"/><polyline class="ofh-pipe ${cls}" data-ofhp="${key}" points="${p}"/><polyline class="ofh-flow" data-ofhf="${key}" points="${p}"/>${arrows(key, pts, cls)}`; };
+  let s = "";
+  // housing
+  s += comp("body", `<path class="ofh-house" d="M330,96 L790,96 L790,250 L760,250 L760,280 C800,280 812,300 812,330 L812,452 C812,488 790,510 750,510 L292,510 C250,510 222,488 222,452 L222,338 C222,300 250,280 292,280 L330,280 Z"/><rect class="ofh-house" x="812" y="110" width="34" height="390" rx="4"/>${[150, 230, 380, 460].map(y => `<circle class="ofh-bolt" cx="829" cy="${y}" r="7"/>`).join("")}`, [222, 96, 624, 414]);
+  s += comp("core", `<rect class="ofh-core" x="262" y="300" width="510" height="190" rx="22"/>${Array.from({ length: 30 }, (_, i) => `<line class="ofh-fin" x1="${282 + i * 16.5}" y1="306" x2="${282 + i * 16.5}" y2="484"/>`).join("")}`, [262, 300, 510, 190]);
+  // ports
+  s += `<rect class="ofh-port" x="398" y="56" width="64" height="42" rx="4"/><rect class="ofh-port" x="488" y="56" width="64" height="42" rx="4"/><rect class="ofh-port" x="150" y="372" width="74" height="62" rx="4"/><rect class="ofh-port" x="846" y="168" width="40" height="44" rx="4"/>`;
+  // oil path (blue) under fuel
+  s += pipe("oilIn", [[520, 40], [520, 190]], "oil");
+  s += pipe("oilCore", [[520, 190], [520, 452], [690, 452], [690, 190]], "oil");
+  s += pipe("oilBy", [[520, 190], [600, 190]], "oil");
+  s += pipe("oilOut", [[690, 190], [910, 190]], "oil");
+  // fuel path (red)
+  const fuel = [[100, 403], [730, 403], [730, 340], [430, 340], [430, 30]];
+  s += pipe("fuel", fuel, "fuel");
+  // slide valve + thermal element
+  s += comp("slide", `<rect class="ofh-valvebody" x="596" y="162" width="114" height="58" rx="8"/><rect class="ofh-spool" id="ofhSpool" x="612" y="170" width="44" height="42" rx="5"/>${T(640, 152, "SLIDE VALVE", "ofh-lbl-b")}`, [592, 134, 122, 90]);
+  s += comp("thermal", `<rect class="ofh-thermal" x="410" y="176" width="40" height="38" rx="5"/><polyline class="ofh-link" points="450,186 468,128 700,128 700,162"/>${T(398, 200, "THERMAL", "ofh-lbl-b", "end")}${T(398, 218, "ELEMENT", "ofh-lbl-b", "end")}`, [300, 140, 160, 86]);
+  // heat transfer glyphs
+  s += [[600, 372], [470, 372], [520, 422], [690, 372], [360, 372], [600, 428]].map(([x, y]) => `<path class="ofh-heat" d="M${x - 10},${y + 8} q5,-8 0,-16 q-5,-8 0,-16 M${x + 2},${y + 8} q5,-8 0,-16 q-5,-8 0,-16 M${x + 14},${y + 8} q5,-8 0,-16 q-5,-8 0,-16"/>`).join("");
+  // labels + clickable ports
+  s += comp("fin", `${T(110, 365, "FUEL IN", "ofh-lbl-b", "start")}${T(110, 456, "from firewall filter", "ofh-lbl", "start")}`, [96, 345, 130, 120]);
+  s += comp("fout", `${T(430, 22, "FUEL OUT → HP PUMP / FCU", "ofh-lbl-b", "end")}`, [250, 4, 196, 40]);
+  s += comp("oin", `${T(532, 22, "OIL IN (hot)", "ofh-lbl-b", "start")}`, [508, 4, 140, 40]);
+  s += comp("oout", `${T(912, 158, "OIL OUT", "ofh-lbl-b", "end")}`, [840, 140, 90, 70]);
+  s += T(517, 540, "HEAT EXCHANGER CORE: oil and fuel side by side, heat moves by conduction", "ofh-lbl");
+  s += `<text class="ofh-state" id="ofhState" x="500" y="584" text-anchor="middle"></text>`;
+  $("#ofhschem").innerHTML = s;
+  $("#ofhMode").addEventListener("click", e => { const b = e.target.closest("[data-ofh]"); if (b) { ofhMode = b.dataset.ofh; ofhRender(); } });
+  $("#ofhRun").addEventListener("click", () => { ofhRunning = !ofhRunning; ofhRender(); });
+  const sv = $("#ofhschem");
+  const sel = g => { ofhSel = g.dataset.ofhcomp; $$("#ofhschem .comp").forEach(x => x.classList.toggle("sel", x === g)); const c = OFHC[ofhSel]; $("#ofhInfo").innerHTML = `<div class="eyebrow">Oil-to-fuel heat exchanger</div><h4>${esc(c.name)}</h4><p>${esc(c.desc)}</p>`; };
+  sv.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) sel(g); });
+  sv.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); sel(e.target.closest(".comp")); } });
+  $("#ofhInfo").innerHTML = `<h3>Component details</h3><p>Select any port, the core, the thermal element or the slide valve.</p>`;
+  ofhRender();
+}
+function ofhRender() {
+  const run = ofhRunning, cold = ofhMode === "cold";
+  $$("[data-ofh]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.ofh === ofhMode)));
+  $("#ofhRun").setAttribute("aria-pressed", String(run)); $("#ofhRun").textContent = run ? "Engine running" : "Engine stopped";
+  const on = { fuel: run, oilIn: run, oilCore: run && cold, oilBy: run && !cold, oilOut: run };
+  $$("#ofhschem [data-ofhp]").forEach(e => e.classList.toggle("dim", !on[e.dataset.ofhp]));
+  $$("#ofhschem [data-ofhf]").forEach(e => e.classList.toggle("on", !!on[e.dataset.ofhf]));
+  $$("#ofhschem [data-ofha]").forEach(e => e.classList.toggle("on", !!on[e.dataset.ofha]));
+  $$("#ofhschem .ofh-heat").forEach(e => e.classList.toggle("on", run && cold));
+  $("#ofhSpool").setAttribute("x", cold ? 604 : 650);
+  $("#ofhState").textContent = !run ? "Engine stopped: no oil or fuel flow, no heating." : cold ? "Cold fuel: slide valve sends hot oil through the core, heating the fuel." : "Warm fuel: thermal element moves the slide valve, so oil bypasses the core to OIL OUT.";
 }
 
 /* ================= boot ================= */
