@@ -746,6 +746,65 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 .ac-stat { font-size: .8rem; color: var(--placard-dim); }
 .ac-stat b { color: var(--placard); }
 
+/* ---------- pressurization ---------- */
+.pr-cabin { fill: #7cb342; fill-opacity: .08; stroke: #7cb342; stroke-width: 2; }
+.pr-static { fill: #e8c61a; fill-opacity: .35; stroke: none; }
+.pr-bulk { stroke: var(--sym); stroke-width: 5; }
+.pr-zone { font-size: 12px; font-weight: 700; letter-spacing: .1em; fill: var(--muted); pointer-events: none; }
+.pr-lbl { font-size: 11.5px; font-weight: 700; letter-spacing: .04em; fill: var(--fg); pointer-events: none; }
+.pr-state { font-family: var(--f-mono); font-size: 13px; font-weight: 700; fill: var(--fg); }
+.pr-inarrow { fill: var(--wire-dead); stroke: var(--sym); stroke-width: 1; }
+.pr-inarrow.on { fill: #e8c61a; }
+.pr-ln { fill: none; stroke: var(--wire-dead); stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; opacity: .5; }
+.pr-ln.on { opacity: 1; stroke-width: 7; }
+.pr-ln.vac.on { stroke: #ee7d1f; } .pr-ln.cp.on { stroke: #2a8fe0; } .pr-ln.cab.on { stroke: #7cb342; }
+.pr-ln.on { stroke-dasharray: 10 6; animation: flow .9s linear infinite; }
+.pr-restr { fill: var(--sym); }
+.pr-ctlbody { fill: #1a1d21; stroke: var(--sym); stroke-width: 2; }
+.pr-upper { fill: #2a8fe0; fill-opacity: .35; } .pr-upper.on { fill-opacity: .9; }
+.pr-lower { fill: #e2342a; fill-opacity: .75; }
+.pr-bellows { stroke: #f1f3f4; stroke-width: 2; }
+#pr-sys .pr-ctlbody ~ text.blk-t, #prCtlT { fill: #f1f3f4; }
+.pr-filter { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.2; }
+.pr-drain, .pr-alc, .pr-swbox, .pr-box { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.4; }
+.pr-sol { stroke: var(--sym); stroke-width: 2; }
+.pr-sol.open { fill: #2fb062; } .pr-sol.closed { fill: #e2342a; }
+.pr-lever { stroke: var(--sym); stroke-width: 4; stroke-linecap: round; }
+.pr-elec { fill: none; stroke: var(--muted); stroke-width: 2; stroke-dasharray: 4 4; }
+.pr-elec.on { stroke: #f2b81c; stroke-width: 3; }
+.pr-vbody { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 2; }
+.pr-vchamber { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1; } .pr-vchamber.on { fill: #2a8fe0; fill-opacity: .6; }
+#prSCh.on { fill: #ee7d1f; }
+.pr-poppet { fill: #6b747d; stroke: var(--sym); stroke-width: 1.2; transition: x .3s; }
+.pr-out { fill: none; stroke: #7cb342; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; opacity: 0; }
+.pr-out.on { opacity: 1; animation: blink 1s steps(2) infinite; } .pr-out.relief { stroke: #f2b81c; }
+.pr-sig { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 3 3; fill: none; }
+.pr-duct { fill: none; stroke: var(--wire-dead); stroke-width: 16; stroke-linejoin: round; opacity: .5; }
+.pr-duct.thin { stroke-width: 6; }
+.pr-duct.on { opacity: 1; } .pr-duct.amb.on { stroke: #2aa8e0; } .pr-duct.bl.on { stroke: #e2342a; } .pr-duct.mix.on { stroke: #e8c61a; }
+.pr-arrowin { fill: var(--sym); }
+.pr-valve { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 2; }
+.pr-needle { stroke: var(--sym); stroke-width: 3; stroke-linecap: round; transition: transform .3s; }
+.pr-flap { stroke: var(--sym); stroke-width: 4; } .pr-flap.on { stroke: #2aa8e0; }
+.pr-ej { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.6; }
+.pr-sol2, .pr-act { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; } .pr-sol2.on, .pr-act.on { fill: #e2342a; fill-opacity: .7; }
+.pr-ped { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.pr-ctl { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.pr-ctl svg { width: 190px; height: 190px; }
+.pr-knobs { display: grid; gap: 6px; min-width: 220px; }
+.pr-knobs label { font-family: var(--f-display); letter-spacing: .1em; font-size: .78rem; color: var(--placard-dim); }
+.pr-press { display: grid; gap: 6px; justify-items: start; }
+.pr-press .gname { font-family: var(--f-display); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--placard-dim); }
+.pr-press .pos { display: grid; gap: 4px; }
+.pr-press .pos button { min-width: 110px; }
+.pr-gauges { display: flex; gap: 18px; flex-wrap: wrap; }
+.pr-gauges .gauge { width: 170px; }
+.pr-annrow { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.pr-annrow .ann-grid { flex: 1; min-width: 240px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.pr-tone { margin-top: 8px; display: flex; gap: 8px; align-items: center; min-height: 32px; }
+.pr-tonebadge { font-family: var(--f-mono); font-weight: 700; color: #ffcf4a; animation: blink .6s steps(1) infinite; }
+#prChart { width: 100%; height: auto; }
+
 @media (max-width: 1120px) {
   .sim { grid-template-columns: minmax(0, 1fr); }
   .side { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -764,7 +823,7 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
   .eng-row { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .oilf.on, .flame.on, .fp-line.on, .ic-spark.on, .ic-flow.on, .acl.on, .ac-fan.on, .ac-sensor.on, .ofh-flow.on, .fpbtn .lens.on.blink, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
+  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .oilf.on, .flame.on, .fp-line.on, .ic-spark.on, .ic-flow.on, .acl.on, .ac-fan.on, .ac-sensor.on, .pr-ln.on, .pr-out.on, .pr-tonebadge, .ofh-flow.on, .fpbtn .lens.on.blink, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
   * { transition: none !important; }
 }
 </style>
@@ -2585,6 +2644,218 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 </div>
 </template>
 
+<template id="tpl-pressurization">
+<div class="view">
+  <header class="chapter-head">
+    <div class="eyebrow">Chapter 12</div>
+    <h1>Pressurization</h1>
+    <p class="lede">Bleed air from the two flow control units flows into the pressure vessel, the cabin between the forward and aft pressure bulkheads. Pressure is set by how fast that air is let out. A vacuum-operated <b>outflow valve</b>, metered by the pedestal <b>pressurization controller</b>, holds the cabin altitude you select. A vacuum-operated <b>safety valve</b> dumps pressure on the ground or on command. Both valves also limit differential pressure to 6.6 psid and prevent a negative differential.</p>
+    <p class="disclaimer">Study aid built from the King Air 300/350 training manual pressurization section, King Air 350 only. It is not an approved document. The POH/AFM governs. The simulator uses standard-atmosphere pressures and the manual's limits, flows and annunciator thresholds. Valve dynamics, leak rate and timing are simplified.</p>
+    <div class="subnav" id="prSubnav">
+      <button data-go="pr-glance">At a glance</button>
+      <button data-go="pr-sim">Interactive system</button>
+      <button data-go="pr-fcu">Flow control unit</button>
+      <button data-go="pr-valves">Outflow &amp; safety valves</button>
+      <button data-go="pr-ctl">Controller &amp; CABIN PRESS switch</button>
+      <button data-go="pr-ind">Indicators &amp; annunciators</button>
+      <button data-go="pr-ops">Using the system</button>
+      <button data-go="pr-mal">Malfunctions</button>
+    </div>
+  </header>
+
+  <section class="block" id="pr-glance">
+    <h2>At a glance <span class="ref">Figures 12-1, 12-2</span></h2>
+    <div class="specs">
+      <div class="spec"><span class="v">6.5 psid</span><span class="k">Normal maximum differential (6.5 +0.1/−0.0). Relief valves hold 6.6 psid. Minimum differential is 0 (no negative differential).</span></div>
+      <div class="spec"><span class="v">2,700 / 10,200 ft</span><span class="k">Approximate cabin altitude at 20,000 ft / 35,000 ft</span></div>
+      <div class="spec"><span class="v">10–14 lb/min</span><span class="k">Total inflow in flight from both flow control units. About half (5–7) with ENVIR BLEED AIR LOW.</span></div>
+      <div class="spec"><span class="v">−1,000 to 15,000 ft</span><span class="k">CABIN ALT selectable range. The rate is 150 to 2,000 ft/min.</span></div>
+      <div class="spec"><span class="v">13,500 ft</span><span class="k">350 altitude limit controllers: the outflow valve meters, and a dump raises the cabin, only up to about this cabin altitude.</span></div>
+      <div class="spec"><span class="v">10,000 / 11,500 ft</span><span class="k">CABIN ALTITUDE (white, about 10,000–10,500 ft) and CABIN ALT HI (red, about 11,500–12,000 ft), each with a tone</span></div>
+      <div class="spec"><span class="v">6.9 psid</span><span class="k">CABIN DIFF HI (red)</span></div>
+    </div>
+  </section>
+
+  <section class="block" id="pr-sim">
+    <h2>Interactive pressurization system <span class="ref">Figures 12-6, 12-10, 12-12 to 12-17</span></h2>
+    <p class="prose">Set the controller, CABIN PRESS switch and bleed air valves, then take off and climb. The <b>system schematic</b> (Figure 12-12) shows the preset and dump solenoids, vacuum, controller pressure and valve positions. The <b>flow control unit</b> view (Figure 12-6) shows one engine's inflow. The profile chart plots aircraft and cabin altitude like the manual's Situations, which you can load as setups. Select any component for its description.</p>
+    <div class="diagram-card">
+      <div class="scen">
+        <div class="scen-row"><label>Setup</label><div class="faults" id="prSetups"></div></div>
+        <p class="scen-cap" id="prCap"></p>
+      </div>
+    </div>
+    <div class="sim near">
+      <div class="diagram-card">
+        <div class="dtabs">
+          <div class="seg" role="group" aria-label="Diagram" id="prTabs">
+            <button type="button" data-tab="sys" aria-pressed="true">System schematic (12-12)</button>
+            <button type="button" data-tab="fcu" aria-pressed="false">Flow control unit (12-6)</button>
+          </div>
+          <label>FCU</label>
+          <div class="seg" role="group" aria-label="Flow control unit shown">
+            <button type="button" data-prside="L" aria-pressed="true">Left</button>
+            <button type="button" data-prside="R" aria-pressed="false">Right</button>
+          </div>
+        </div>
+        <div class="svg-wrap" id="prSvgs">
+          <svg id="pr-sys" viewBox="0 0 1000 560" role="img" aria-label="Pressurization system schematic"></svg>
+          <svg id="pr-fcu" viewBox="0 0 1000 520" role="img" aria-label="Flow control unit schematic" hidden></svg>
+        </div>
+        <div class="legend" id="prLegend"></div>
+      </div>
+      <div class="side">
+        <div class="card info" id="prInfo" aria-live="polite"></div>
+        <div class="card"><h3>What the system is doing</h3><div class="ic-act" id="prNow"></div></div>
+      </div>
+    </div>
+    <div class="cockpit">
+      <div class="panel">
+        <h3>Pedestal · pressurization controller · CABIN PRESS</h3>
+        <div class="pr-ped">
+          <div class="pr-ctl"><svg id="prDial" viewBox="0 0 220 220" aria-hidden="true"></svg>
+            <div class="pr-knobs">
+              <label for="prSet">CABIN ALT</label><input type="range" id="prSet" min="-1000" max="15000" step="100"><span class="flowread" id="prSetV"></span>
+              <div class="faults"><button type="button" class="pbtn" data-prset="-500">−500</button><button type="button" class="pbtn" data-prset="-100">−100</button><button type="button" class="pbtn" data-prset="100">+100</button><button type="button" class="pbtn" data-prset="500">+500</button></div>
+              <label for="prRate">RATE</label><input type="range" id="prRate" min="150" max="2000" step="50"><span class="flowread" id="prRateV"></span>
+            </div>
+          </div>
+          <div class="pr-press tog"><div class="gname">Cabin press</div><div class="pos" role="group" aria-label="CABIN PRESS switch"><button type="button" data-prsw="DUMP">Dump</button><button type="button" data-prsw="PRESS">Press</button><button type="button" id="prTest">Test (hold)</button></div></div>
+        </div>
+        <h3>Cabin altimeter · cabin climb</h3>
+        <div class="pr-gauges"><div class="gauge"><svg id="prAltG" viewBox="0 0 200 200" aria-hidden="true"></svg><div class="gl">Cabin alt · differential</div><div class="gv" id="prAltV"></div></div>
+          <div class="gauge"><svg id="prVsiG" viewBox="0 0 200 200" aria-hidden="true"></svg><div class="gl">Cabin climb · ft/min</div><div class="gv" id="prVsiV"></div></div></div>
+      </div>
+      <div class="panel">
+        <h3>Copilot's left subpanel</h3>
+        <div class="sw-row" id="prSw"></div>
+        <div class="faults ic-holds" id="prTests"></div>
+        <h3>Warning &amp; caution annunciators</h3>
+        <div class="pr-annrow"><button type="button" class="flasher mw" id="prMW" aria-label="Master warning flasher, press to reset">MASTER<br>WARNING<small>PRESS TO RESET</small></button><div class="ann-grid" id="prAnns"></div></div>
+        <div class="pr-tone" id="prTone"></div>
+      </div>
+    </div>
+    <div class="pp-top lower">
+      <div class="panel">
+        <h3>Airplane · conditions</h3>
+        <div class="envrow" id="prFlt"></div>
+        <div class="envrow" id="prAlt"></div>
+        <div class="envrow" id="prEnv"></div>
+        <div class="envrow" id="prClock"></div>
+        <h3>Malfunctions</h3>
+        <div class="faults" id="prFaults"></div>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>Altitude profile</h3><svg id="prChart" viewBox="0 0 520 220" aria-label="Aircraft and cabin altitude over time"></svg><div class="legend"><span><i style="background:#e2342a"></i>Aircraft</span><span><i style="background:#2a8fe0"></i>Cabin</span></div></div>
+        <div class="card"><h3>Events</h3><ol class="log" id="prLog"></ol></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pr-fcu">
+    <h2>Flow control unit (inflow) <span class="ref">Figures 12-5 to 12-7</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>An electronic flow control unit in each nacelle meters both <b>ambient</b> and <b>P3 bleed</b> air into the cabin and supplies half the total. Each has an ambient temperature sensor, an electronic controller and a valve assembly:</p>
+        <ul class="tight">
+          <li>the ambient mass-flow transducer, flow motor and modulating valve, plus a check valve so bleed air can't escape out the ambient inlet</li>
+          <li>the bleed-air flow transducer, flow motor and modulating valve, with a high-flow bypass</li>
+          <li>an air ejector, a solenoid valve and the environmental (firewall) shutoff valve</li>
+        </ul>
+        <p><b>Start-up:</b> when the unit is energized after engine start, the bleed modulating valve closes. Fully closed, it trips a shaft switch, and the controller opens the solenoid. P3 then opens the shutoff valve, and the bleed valve opens to the commanded flow.</p>
+        <p><b>Ground vs flight:</b> on the ground (left main gear safety switch) the ambient valve stays closed, so inflow is bleed only and limited by ambient temperature. After takeoff the left unit opens its ambient valve. About <b>4–6 s later</b> the right one does, so inflow rises in stages without a pressure bump. As it gets colder, ambient flow is reduced and bleed increased. At about <b>50 °F</b> ambient is shut off and the bleed bypass opens as needed.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="bus-table-wrap"><table><thead><tr><th>BLEED AIR VALVES</th><th>Solenoid / environmental shutoff valve</th></tr></thead><tbody>
+          <tr><td>OPEN</td><td>Solenoid held open electrically, so the shutoff valve opens</td></tr>
+          <tr><td>ENVIR OFF</td><td>Closed, so no bleed air to the cabin</td></tr>
+          <tr><td>PNEU &amp; ENVIR OFF</td><td>Closed, plus the pneumatic valve closes (no vacuum source from that side)</td></tr>
+        </tbody></table></div>
+        <div class="card"><h3>ENVIR BLEED AIR — NORMAL / LOW</h3><p>LOW almost closes the bypass, slightly closes the bleed valve and biases the motor signals: about <b>half</b> the inflow. Required for takeoff and landing above +10 °C and usually used on the ground. Select NORMAL shortly after takeoff for cruise. A small bump follows if the differential is low.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pr-valves">
+    <h2>Outflow &amp; safety valves <span class="ref">Figures 12-8, 12-9</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Both are on the aft pressure bulkhead, each with a silencer.</p>
+        <p><b>Outflow valve.</b> Controller pressure, metered suction from the vacuum system, acts on its center chamber against a closing spring. More suction opens it, less closes it. Once the cabin is stable, that chamber sits about <b>0.05 psi</b> below cabin pressure, holding the valve open just enough to match inflow.</p>
+        <p>Three functions:</p>
+        <ul class="tight">
+          <li>It meters outflow, on the 350 up to about 13,500 ft cabin altitude, set by the altitude limit controller.</li>
+          <li>A Schrader relief valve bleeds controller pressure to static at <b>6.6 psid</b>, so the valve opens.</li>
+          <li>A negative-relief diaphragm opens it whenever outside pressure exceeds cabin pressure.</li>
+        </ul>
+        <p><b>Safety valve.</b> The same relief and negative-relief functions. It is also the <b>dump valve</b>. When the dump solenoid admits vacuum to its main chamber it opens fully, up to about 13,500 ft cabin altitude on the 350. Because its controller pressure is slightly lower, it usually reaches maximum differential first. One valve relieving is enough.</p>
+      </div>
+      <div class="card"><h3>See it</h3><p>Load "Situation 2" and watch the system schematic at the top of the climb. The safety valve takes over at maximum differential and the cabin is pushed up with the airplane.</p><button class="show" type="button" data-prset2="1">Situation 2 →</button></div>
+    </div>
+  </section>
+
+  <section class="block" id="pr-ctl">
+    <h2>Controller &amp; CABIN PRESS switch <span class="ref">Figures 12-10 to 12-12, 12-15</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>The controller compares cabin pressure with the selected value using an aneroid bellows. A rate diaphragm and metering valve set the suction sent to the outflow valve. <b>CABIN ALT</b> sets the cabin altitude to hold. The inner <b>ACFT ALT</b> scale turns with it, fixed at <b>6.5 psid</b>, and shows the highest airplane altitude that still lets the cabin hold that value. <b>RATE</b> sets a needle valve: about 150–2,000 ft/min. Between the 12 and 1 o'clock positions is the most comfortable.</p>
+        <p>The <b>cabin preset solenoid</b> (normally open) cuts vacuum to the controller on the ground so the outflow valve springs closed, and lets you preset the controller. The <b>dump solenoid</b> (normally closed) admits vacuum to the safety valve to open it.</p>
+      </div>
+      <div class="bus-table-wrap"><table><thead><tr><th>CABIN PRESS</th><th>On the ground</th><th>In flight</th></tr></thead><tbody>
+        <tr><td><b>PRESS</b></td><td>Squat switch energizes preset, dump and door seal solenoids. Outflow closed, safety open, door seal deflated: cabin <b>unpressurized</b>.</td><td>Solenoids de-energized. Safety closes, outflow modulates, seal inflates: cabin <b>pressurized</b> as set.</td></tr>
+        <tr><td><b>DUMP</b> (lever-lock)</td><td colspan="2">Solenoids energized regardless of the squat switch. The safety valve opens fully and the cabin depressurizes (350: up to about 13,500 ft cabin). The ram air door isn't held closed.</td></tr>
+        <tr><td><b>TEST</b> (spring to PRESS)</td><td>Overrides the squat switch: in-flight configuration, so the cabin pressurizes. Used for the runup check.</td><td>No effect.</td></tr>
+        <tr><td colspan="3">With the <b>PRESS CONTROL</b> circuit breaker pulled, all electrical functions are lost. That gives normal pressurization control but no dump, either with the switch or at touchdown.</td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <section class="block" id="pr-ind">
+    <h2>Indicators &amp; annunciators <span class="ref">Figures 12-13, 12-14, 12-17</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p><b>Cabin altimeter</b> (forward of the condition levers): cabin pressure altitude on the outer scale, differential on the inner scale. <b>Cabin climb</b> indicator, just to its left: the rate of change of cabin altitude.</p>
+        <p><b>King Air 350 annunciators:</b></p>
+        <ul class="tight">
+          <li><b>CABIN ALTITUDE</b> (white status) plus a tone at about 10,000–10,500 ft cabin.</li>
+          <li><b>CABIN ALT HI</b> (red warning) plus a tone at about 11,500–12,000 ft cabin. Oxygen required.</li>
+          <li><b>CABIN DIFF HI</b> (red) above 6.9 psid: the 6.6 psid maximum has been exceeded.</li>
+        </ul>
+        <p>The tones can be canceled. The <b>CABIN ALT TEST / CABIN DIFF WARN TEST</b> switch on the copilot's left subpanel tests them. Passenger masks should drop as the cabin passes 12,500 ft. If they don't, pull the manual dropout handle.</p>
+      </div>
+      <div class="card"><h3>Try it</h3><p>Load "Dump at FL250" and watch the cabin climb through both annunciator thresholds, then stop at about 13,500 ft. That's the 350's altitude limit controller.</p><button class="show" type="button" data-prset2="5">Dump at FL250 →</button></div>
+    </div>
+  </section>
+
+  <section class="block" id="pr-ops">
+    <h2>Using the system <span class="ref">Figures 12-18 to 12-23</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <ul class="tight">
+          <li><b>Runup check:</b> bleed valves OPEN, CABIN ALT about 1,000 ft <b>below</b> field, rate at 12–1 o'clock. Hold TEST and look for a cabin descent within 20–40 s.</li>
+          <li><b>Before takeoff:</b> ACFT ALT 500–1,000 ft above planned cruise, and CABIN ALT at least 500 ft above field. CABIN PRESS in PRESS, bleed valves OPEN. ENVIR BLEED AIR LOW above +10 °C.</li>
+          <li><b>Climb:</b> NORMAL when time permits. The cabin climbs at the selected rate. For a higher cruise, reset ACFT ALT to the new altitude plus 500–1,000 ft.</li>
+          <li><b>Descent:</b> CABIN ALT about 500 ft above landing field pressure altitude (or ACFT ALT 500–1,000 ft above an intermediate level-off). Keep the airplane from catching the cabin until it has stabilized. Below the cabin altitude the valves open and the cabin follows the airplane down.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>The manual's situations</h3><ul class="tight"><li><b>1</b>: set correctly, so the cabin stays ahead and no bumps.</li><li><b>2</b>: ACFT ALT equal to cruise, so the cabin rides maximum differential with bumps.</li><li><b>3</b>: set for landing before takeoff, so maximum differential is reached around FL190.</li><li><b>5</b>: a 6,000 ft departure field. Set CABIN ALT above field, then reset for landing once stable.</li></ul>
+        <button class="show" type="button" data-prset2="0">Run Situation 1 →</button></div>
+    </div>
+  </section>
+
+  <section class="block" id="pr-mal">
+    <h2>Malfunctions <span class="ref">p. 12-23</span></h2>
+    <p class="prose">Most problems show up just after takeoff, as one of three symptoms. Troubleshoot below 10,000 ft if possible, and keep it minimal with passengers on board. Follow the POH emergency procedures first.</p>
+    <div class="comp-grid">
+      <div class="comp-card"><h4>Rapid pressurization</h4><p>Cabin descends fast after takeoff: the outflow and safety valves are both closed. Possible causes are a stuck preset solenoid, controller or diaphragm failure, an open moisture drain or a leaking line. Turn off both bleed air valves to stop inflow. Then cycling CABIN PRESS to TEST may free a stuck preset solenoid.</p><button class="show" type="button" data-prset2="7">Try it →</button></div>
+      <div class="comp-card"><h4>No pressurization</h4><p>Cabin climbs with the airplane: outflow or safety valve open. Check that CABIN PRESS is in PRESS. If it is, hold TEST to override a failed squat switch. Once above 0.5 psid, pull PRESS CONTROL (dump then unavailable). A prematurely opened outflow valve: set RATE to minimum or select a lower cabin altitude.</p><button class="show" type="button" data-prset2="6">Try it →</button></div>
+      <div class="comp-card"><h4>Cabin leakdown</h4><p>Slow cabin climb, about 500 ft/min at low differential and faster at high: an inflow problem. A flow control unit failed, possibly unnoticed earlier, or the BLEED AIR VALVE switches were left at ENVIR OFF, or a switch circuit failed (check the bleed air control breakers).</p><button class="show" type="button" data-prset2="8">Try it →</button></div>
+      <div class="comp-card"><h4>Pressure bumps</h4><p>Unusual bumps on takeoff or when the controller is reset point to sticking outflow or safety valves, often from tar and nicotine. Dirty filters show as more than 200 ft/min difference between cabin climb and descent at the same RATE.</p></div>
+    </div>
+  </section>
+</div>
+</template>
+
 <script>
 (function () {
 "use strict";
@@ -2601,7 +2872,7 @@ const CHAPTERS = [
   { n: 9,  id: "pneumatics",        t: "Pneumatics", ready: "Ready · interactive pneumatic & vacuum schematic" },
   { n: 10, id: "ice-rain",          t: "Ice and Rain Protection", ready: "Ready · interactive ice protection controls & airplane" },
   { n: 11, id: "air-conditioning",  t: "Air Conditioning", ready: "Ready · interactive environmental air flow" },
-  { n: 12, id: "pressurization",    t: "Pressurization" },
+  { n: 12, id: "pressurization",    t: "Pressurization", ready: "Ready · interactive controller, valves & flow control unit" },
   { n: 13, id: "hydraulics",        t: "Hydraulic Power Systems" },
   { n: 14, id: "landing-gear",      t: "Landing Gear and Brakes" },
   { n: 15, id: "flight-controls",   t: "Flight Controls" },
@@ -2659,7 +2930,7 @@ function renderPlaceholder(c) {
   </div>`;
 }
 
-const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection(), "ice-rain": () => initIceRain(), "air-conditioning": () => initAirConditioning() };
+const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection(), "ice-rain": () => initIceRain(), "air-conditioning": () => initAirConditioning(), "pressurization": () => initPressurization() };
 function route() {
   const id = (location.hash || "").replace("#", "");
   const ch = CHAPTERS.find(c => c.id === id);
@@ -3455,7 +3726,7 @@ function applyScenario(i) {
   step(0.01);
 }
 
-function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; if (pnTimer) { clearInterval(pnTimer); pnTimer = null; } pnScript = null; if (fpTimer) { clearInterval(fpTimer); fpTimer = null; } if (icTimer) { clearInterval(icTimer); icTimer = null; } if (acTimer) { clearInterval(acTimer); acTimer = null; } MW = null; }
+function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; if (pnTimer) { clearInterval(pnTimer); pnTimer = null; } pnScript = null; if (fpTimer) { clearInterval(fpTimer); fpTimer = null; } if (icTimer) { clearInterval(icTimer); icTimer = null; } if (acTimer) { clearInterval(acTimer); acTimer = null; } if (prTimer) { clearInterval(prTimer); prTimer = null; } MW = null; }
 
 function initElectrical() {
   buildSchematic();
@@ -6476,6 +6747,420 @@ function initAirConditioning() {
   acLog("Both engines at 62% N1 on the ground, bleed air valves OPEN, CABIN TEMP MODE AUTO, +20 °C.");
   acStep(0.001);
   acTimer = setInterval(() => acStep(0.1), 100);
+}
+
+/* ================= Chapter 12: Pressurization ================= */
+let PR = null, PRD = null, prTimer = null, prSel = null, prTab = "sys", prSide = "L", prLogArr = [];
+const prP = h => 14.696 * Math.pow(Math.max(0.01, 1 - 6.87559e-6 * h), 5.25588);            // standard atmosphere, psia
+const prH = p => (1 - Math.pow(Math.max(0.1, p) / 14.696, 1 / 5.25588)) / 6.87559e-6;         // pressure altitude, ft
+const prAcftAlt = cab => prH(prP(cab) - 6.5);                                                     // controller ACFT ALT scale (fixed 6.5 psid)
+const prCabFor = acft => prH(prP(acft) + 6.5);
+const PR_MAXD = 6.5, PR_LIMIT = 13500;
+const fmtFt = v => Math.round(v).toLocaleString();
+
+const PRC = {
+  ctl: { group: "Control", name: "Pressurization controller", desc: "Pedestal. An aneroid bellows and rate diaphragm compare cabin pressure with the CABIN ALT selection. A metering valve sets the suction (controller pressure) sent to the outflow valve. RATE adjusts a needle valve between the two chambers, about 150 to 2,000 ft/min." },
+  filter: { group: "Control", name: "Controller filter", desc: "The controller's upper chamber is vented to the cabin through an orifice and filter. Dirty filters show up as uneven cabin climb and descent rates." },
+  cpress: { group: "Control", name: "Controller pressure line", desc: "Metered suction from the controller to the outflow valve's center chamber. Through the moisture accumulation drain, an orifice and, on the 350, the altitude limit controller." },
+  preset: { group: "Control", name: "Cabin preset solenoid (N.O.)", desc: "On the vacuum line to the controller. Energized (closed) on the ground with CABIN PRESS in PRESS, or in DUMP. Vacuum is then cut off, so the outflow valve springs closed and the controller can be preset. Open in flight and in TEST." },
+  dump: { group: "Control", name: "Dump solenoid (N.C.)", desc: "Energized (open) on the ground with CABIN PRESS in PRESS, or in DUMP. Admits vacuum to the safety valve's main chamber, which opens it." },
+  vac: { group: "Vacuum", name: "Vacuum source", desc: "From the pneumatic manifold's ejector (Pneumatics chapter), through a restrictor. No pneumatic air means no vacuum: the outflow valve springs closed and the safety valve can't be dumped." },
+  sw: { group: "Electrical", name: "CABIN PRESS switch & LG safety switch", desc: "DUMP, PRESS, TEST. In PRESS the left main gear safety switch energizes the preset, dump and door seal solenoids on the ground. DUMP energizes them anywhere. TEST interrupts power upstream of the squat switch, giving the in-flight configuration on the ground. Power comes through the PRESS CONTROL breaker." },
+  ofv: { group: "Valves", name: "Outflow valve", desc: "Aft pressure bulkhead. Controller suction opens it against a spring to meter cabin air out. A Schrader relief valve opens it at 6.6 psid. A negative-relief diaphragm opens it if outside pressure exceeds cabin pressure. On the 350 an altitude limit controller stops it metering above about 13,500 ft cabin." },
+  sfv: { group: "Valves", name: "Safety (dump) valve", desc: "Aft pressure bulkhead. Opens fully when the dump solenoid admits vacuum, on the ground or in DUMP (350: up to about 13,500 ft cabin). Also 6.6 psid relief, usually the first to relieve, and negative relief." },
+  alc: { group: "Valves", name: "Altitude limit controllers (350)", desc: "One in the outflow valve control line, one in the safety valve dump line. They keep the cabin from going above about 13,500 ft even when dumped or commanded higher." },
+  drain: { group: "Control", name: "Moisture accumulation drain", desc: "In the controller pressure line. If left open, the outflow valve loses controller pressure. Its access panel is on the lower right sidewall of the baggage compartment." },
+  inflow: { group: "Inflow", name: "Inflow from the flow control units", desc: "Bleed and ambient air from both flow control units. Each supplies half: 10–14 lb/min total in flight (5–7 with LOW). Bleed only on the ground." },
+  amb: { group: "Flow control unit", name: "Ambient air inlet & modulating valve", desc: "Closed on the ground (left main gear safety switch). After takeoff the left unit opens first, the right about 4–6 s later. Reduced as it gets colder, and fully closed at about 50 °F." },
+  chk: { group: "Flow control unit", name: "Check valve", desc: "Stops bleed air escaping back out through the ambient inlet." },
+  amt: { group: "Flow control unit", name: "Ambient flow transducer & motor", desc: "The mass-flow sensor and modulating motor for the ambient side, run by the electronic controller." },
+  bleed: { group: "Flow control unit", name: "Engine bleed air & bleed modulating valve", desc: "P3 bleed air is metered by the bleed-air flow motor and modulating valve, sensed by the bleed-air flow transducer. After engine start it first closes fully, which trips the shaft switch that lets the solenoid open." },
+  byp: { group: "Flow control unit", name: "Bleed-air (high-flow) bypass", desc: "Opened as needed when ambient air is shut off (cold), to pass more bleed air around the ejector's fixed passage. Almost closed in LOW." },
+  ej: { group: "Flow control unit", name: "Air ejector", desc: "Bleed air through the ejector nozzle draws in and mixes the ambient air." },
+  sol: { group: "Flow control unit", name: "Flow control solenoid", desc: "Normally closed. Held open electrically with the BLEED AIR VALVE switch OPEN, once the controller sees the bleed valve shaft switch. It ports P3 to open the environmental shutoff valve." },
+  sov: { group: "Flow control unit", name: "Firewall (environmental) shutoff valve", desc: "Opened by P3 pressure through the solenoid. Closed with the switch at ENVIR OFF or PNEU & ENVIR OFF, or on loss of power to the switch (the solenoid is normally closed)." },
+  ecu: { group: "Flow control unit", name: "Electronic controller", desc: "Inputs: power, the NORMAL/LOW switch, the squat switch, the ambient temperature sensor and both flow transducers. Commands both flow motors so that each unit supplies half the total inflow." },
+  ats: { group: "Flow control unit", name: "Ambient temperature sensor", desc: "Lets the controller trade ambient air for bleed air as it gets colder. Ambient is fully closed at about 50 °F." }
+};
+
+function prFresh() {
+  return { t: 0, speed: 10, flight: false, field: 0, alt: 0, tgt: 0, vs: 2000, oat: 15, eng: { L: true, R: true }, bleed: { L: "OPEN", R: "OPEN" }, low: false,
+    set: 2000, rate: 500, ref: 0, cab: 0, cabRate: 0, sw: "PRESS", test: false, cb: true, altTest: false, diffTest: false, mw: false, toneOff: false,
+    seq: { L: 9, R: 9 }, ambT: { L: 0, R: 0 }, fault: { squat: false, preset: false, stuckOpen: false }, hist: [], script: null, warned: {}, prevAnn: {} };
+}
+function prLog(msg, cls) {
+  prLogArr.unshift({ t: PR.t, msg, cls: cls || "" }); if (prLogArr.length > 60) prLogArr.pop();
+  const h = $("#prLog"); if (h) h.innerHTML = prLogArr.map(e => `<li class="${e.cls}"><span class="t">${fmtIcT(e.t)}</span><span class="m">${esc(e.msg)}</span></li>`).join("");
+}
+function prOnce(key, cond, msg, cls) { if (cond && !PR.warned[key]) { PR.warned[key] = true; prLog(msg, cls); } if (!cond) PR.warned[key] = false; }
+
+function prFcu(P, k, d) {
+  // one flow control unit: lb/min (bleed, ambient, bypass) and the start-up sequence state
+  const run = P.eng[k], open = P.bleed[k] === "OPEN" && run && P.cb !== null;
+  const oatF = P.oat * 9 / 5 + 32;
+  if (!open) P.seq[k] = 0; else if (P.seq[k] < 9) P.seq[k] += d;   // 0..1.5 closing, 1.5..2.5 solenoid/shutoff, 2.5..4 opening to flow
+  const s = P.seq[k];
+  const ambAllowed = P.flight && oatF > 50 && open;
+  P.ambT[k] = ambAllowed ? P.ambT[k] + d : 0;
+  const ambOpen = ambAllowed && (k === "L" || P.ambT[k] > 5);
+  let bleed = 0, amb = 0, byp = 0;
+  const f = P.low ? 0.5 : 1;
+  if (open && s >= 2.5) {
+    const ramp = Math.min(1, (s - 2.5) / 1.5);
+    if (!P.flight) bleed = Math.max(2.5, Math.min(6, 5 - (oatF - 50) * 0.03)) * f;
+    else if (ambOpen) { bleed = Math.max(2.5, Math.min(6, 6 - (oatF - 50) * 0.05)) * f; amb = Math.max(0, 6 * f - bleed); }
+    else { bleed = (oatF < 20 ? 7 : 6) * f; byp = P.low ? 0.05 : oatF < 50 ? 0.6 : 0.3; }
+    bleed *= ramp; amb *= ramp;
+  }
+  return { run, open, seq: s, sol: open && s >= 1.5, sov: open && s >= 2.5, bvClosing: open && s < 1.5, ambOpen, bleed, amb, byp, total: bleed + amb };
+}
+
+function prStep(dtReal) {
+  const P = PR, dt = dtReal * P.speed; P.t += dt;
+  // script
+  if (P.script) {
+    while (P.script.length) { const st = P.script[0]; if (st.wait !== undefined && P.t - (P.scriptT0 || 0) < st.wait) break; if (st.until && !st.until(P)) break; P.script.shift(); st.do(P); if (st.msg) prLog("Scenario: " + st.msg); P.scriptT0 = P.t; }
+  }
+  // airplane
+  if (P.flight) {
+    const dh = P.tgt - P.alt, step = P.vs / 60 * dt;
+    P.alt += Math.sign(dh) * Math.min(Math.abs(dh), step);
+    if (P.alt <= P.field + 1 && P.tgt <= P.field) { P.flight = false; P.alt = P.field; prLog("Touchdown: the left squat switch goes to ground mode."); }
+  } else P.alt = P.field;
+  const d = { fcu: {} };
+  ["L", "R"].forEach(k => d.fcu[k] = prFcu(P, k, dt));
+  d.inflow = d.fcu.L.total + d.fcu.R.total;
+  d.vacuum = ["L", "R"].some(k => P.eng[k] && P.bleed[k] !== "PNEU");
+  // electrical: squat signal (or failed-on-ground switch), CABIN PRESS position, PRESS CONTROL breaker
+  const gnd = !P.flight || P.fault.squat;
+  const sw = P.test ? "TEST" : P.sw;
+  d.energized = P.cb && (sw === "DUMP" || (sw === "PRESS" && gnd));
+  d.presetClosed = d.energized || P.fault.preset;
+  d.dumpOpen = d.energized;
+  d.doorHeld = P.cb && sw !== "DUMP";
+  // valves
+  const Pa = prP(P.alt), Pc = prP(P.cab);
+  d.dp = Pc - Pa;
+  d.safety = (d.dumpOpen && d.vacuum) || P.fault.stuckOpen;
+  d.ctlActive = !d.presetClosed && d.vacuum;
+  // controller reference: vented to the cabin when vacuum is cut; otherwise moves toward CABIN ALT at RATE
+  if (!d.ctlActive) P.ref = P.cab;
+  else { const dr = P.set - P.ref, st = P.rate / 60 * dt; P.ref += Math.sign(dr) * Math.min(Math.abs(dr), st); }
+  // cabin altitude
+  const prev = P.cab;
+  const maxDiffAlt = prCabFor(P.alt);                    // cabin can't be lower than this (relief at max differential)
+  const capDp = Math.min(PR_MAXD, d.inflow >= 4 ? PR_MAXD : d.inflow / 4 * PR_MAXD);
+  const inflowFloor = d.inflow > 0 ? prH(Pa + capDp) : P.alt;
+  const leakRate = (500 + 230 * Math.max(0, d.dp)) / 60;  // ft/s climb when inflow can't hold
+  d.mode = "";
+  if (d.safety) {
+    const tgt = P.fault.stuckOpen ? P.alt : Math.min(P.alt, Math.max(PR_LIMIT, Math.min(P.cab, P.alt)));
+    const lim = P.alt > PR_LIMIT && !P.fault.stuckOpen ? Math.min(P.alt, PR_LIMIT) : P.alt;
+    P.cab += Math.sign(lim - P.cab) * Math.min(Math.abs(lim - P.cab), 4000 / 60 * dt);
+    d.mode = P.alt > PR_LIMIT && !P.fault.stuckOpen && P.cab >= PR_LIMIT - 10 ? "dump-limit" : "dump";
+    void tgt;
+  } else if (d.ctlActive) {
+    let want = Math.min(P.ref, PR_LIMIT);
+    if (want < maxDiffAlt) want = maxDiffAlt;
+    if (want < inflowFloor) want = inflowFloor;
+    const dc = want - P.cab, up = want > P.cab;
+    const r = (up && want === inflowFloor && inflowFloor > Math.max(maxDiffAlt, Math.min(P.ref, PR_LIMIT))) ? leakRate : 3000 / 60;
+    P.cab += Math.sign(dc) * Math.min(Math.abs(dc), r * dt);
+    d.mode = want === maxDiffAlt && P.ref < maxDiffAlt ? "maxdiff" : want === inflowFloor && inflowFloor > Math.min(P.ref, PR_LIMIT) + 1 ? "leak" : "ctl";
+  } else {
+    // outflow held closed, safety closed: cabin pressurizes toward max differential if there is inflow
+    if (d.inflow > 0) { const tgt = Math.max(maxDiffAlt, inflowFloor); P.cab += Math.sign(tgt - P.cab) * Math.min(Math.abs(tgt - P.cab), (150 * d.inflow) / 60 * dt); d.mode = P.cab <= maxDiffAlt + 5 ? "maxdiff" : "closed"; }
+    else { P.cab = Math.min(P.alt, P.cab + leakRate * dt); d.mode = "leak"; }
+  }
+  if (P.cab > P.alt) P.cab = P.alt;                      // negative relief: cabin never above the airplane
+  if (d.mode === "ctl" && P.flight && prP(P.cab) - prP(P.alt) >= 6.45) d.mode = "maxdiff";
+  if (!P.flight && !d.ctlActive && !d.safety && d.inflow === 0) P.cab = P.alt;
+  d.dp = prP(P.cab) - prP(P.alt);
+  P.cabRate += ((P.cab - prev) / Math.max(dt, 1e-6) * 60 - P.cabRate) * Math.min(1, dt / 4);
+  // outflow valve opening (illustrative) and safety
+  d.ofv = !d.ctlActive ? 0 : d.mode === "maxdiff" ? 0.75 : Math.max(0.05, Math.min(1, 0.35 + (P.cabRate / 2000) + (d.inflow / 30)));
+  if (d.mode === "leak") d.ofv = d.ctlActive ? 0.02 : 0;
+  d.relief = d.mode === "maxdiff";
+  d.ann = { calt: P.altTest || P.cab >= 10250, chi: P.altTest || P.cab >= 11750, dhi: P.diffTest || d.dp > 6.9, lbl: P.bleed.L !== "OPEN", rbl: P.bleed.R !== "OPEN" };
+  ["chi", "dhi"].forEach(k => { if (d.ann[k] && !P.prevAnn[k]) P.mw = true; P.prevAnn[k] = d.ann[k]; });
+  ["calt", "chi"].forEach(k => { if (d.ann[k] && !P.prevAnn[k + "T"]) P.toneOff = false; P.prevAnn[k + "T"] = d.ann[k]; });
+  d.tone = (d.ann.calt || d.ann.chi) && !P.toneOff;
+  PRD = d;
+  // history
+  if (!P.hist.length || P.t - P.hist[P.hist.length - 1][0] >= 10) { P.hist.push([P.t, P.alt, P.cab]); if (P.hist.length > 600) P.hist.shift(); }
+  // events
+  prOnce("ca", P.cab >= 10250 && !P.altTest, `CABIN ALTITUDE (white) plus tone: cabin at ${fmtFt(P.cab)} ft.`, "warn");
+  prOnce("chi", P.cab >= 11750 && !P.altTest, `CABIN ALT HI (red) plus tone: cabin ${fmtFt(P.cab)} ft. Oxygen required.`, "bad");
+  prOnce("mask", P.cab >= 12500, "Cabin passing 12,500 ft: passenger oxygen masks should deploy. If not, pull the manual dropout handle.", "bad");
+  prOnce("md", d.mode === "maxdiff" && P.flight, `On maximum differential (${d.dp.toFixed(2)} psid): the ${PR.fault.preset ? "safety valve relief" : "safety and outflow relief valves"} are limiting differential. Expect pressure bumps.`, "warn");
+  prOnce("dl", d.mode === "dump-limit", "Dumping above 13,500 ft: the 350 altitude limit controller holds the cabin near 13,500 ft.", "warn");
+  prOnce("dhi", d.dp > 6.9 && !P.diffTest, "CABIN DIFF HI: differential above 6.9 psid.", "bad");
+  prOnce("noin", P.flight && d.inflow === 0 && P.t > 2, "No inflow: both environmental shutoff valves closed. The cabin is leaking down toward airplane altitude.", "bad");
+  prOnce("nv", !d.vacuum && (P.eng.L || P.eng.R), "No vacuum (no pneumatic air): the outflow valve springs closed and the safety valve can't dump.", "warn");
+  prOnce("sq", P.flight && P.fault.squat && P.sw === "PRESS" && !P.test && P.cb, "After takeoff the cabin is climbing with the airplane: the left squat switch is still signaling ground, so the safety valve is open and the preset solenoid closed.", "bad");
+  prOnce("ps", P.flight && P.fault.preset, "Cabin descending fast after takeoff: the preset solenoid is stuck closed, so no controller pressure reaches the outflow valve and it's held shut.", "bad");
+  prRender();
+}
+
+function prSvgs() {
+  const T = (x, y, s, cls, anchor) => `<text x="${x}" y="${y}" class="${cls || "lbl"}" text-anchor="${anchor || "middle"}">${s}</text>`;
+  const comp = (id, inner, hit) => `<g class="comp" data-prcomp="${id}" tabindex="0" role="button" aria-label="${esc(PRC[id].name)}"><rect class="hit" x="${hit[0]}" y="${hit[1]}" width="${hit[2]}" height="${hit[3]}" rx="4"/>${inner}</g>`;
+  const ln = (key, pts, cls) => `<polyline class="pr-ln ${cls}" data-prl="${key}" points="${pts.map(p => p.join(",")).join(" ")}"/>`;
+  // ---------- system schematic (Figure 12-12) ----------
+  let s = `<rect class="pr-cabin" x="30" y="30" width="790" height="500" rx="10"/>${T(60, 58, "CABIN (PRESSURE VESSEL)", "pr-zone", "start")}`;
+  s += `<path class="pr-static" d="M840,30 L965,30 C985,120 950,180 975,260 C995,340 950,420 970,530 L840,530 Z"/>${T(905, 58, "STATIC", "pr-zone")}<line class="pr-bulk" x1="830" y1="30" x2="830" y2="530"/>${T(818, 548, "AFT PRESSURE BULKHEAD", "blk-s", "end")}`;
+  s += comp("inflow", `<path class="pr-inarrow" data-prin="1" d="M30,110 L70,110 L70,96 L96,122 L70,148 L70,134 L30,134 Z"/><text class="n1t" id="prInT" x="104" y="127"></text>`, [26, 92, 230, 60]);
+  // vacuum (orange)
+  s += ln("vacMain", [[700, 500], [380, 500], [380, 266]], "vac");
+  s += ln("vacCtl", [[380, 238], [380, 220], [300, 220], [300, 300]], "vac");
+  s += ln("vacDump", [[380, 430], [586, 430]], "vac");
+  s += ln("dumpSafe", [[614, 430], [800, 430], [800, 410]], "cab");
+  // controller pressure (blue)
+  s += ln("cp", [[210, 300], [210, 190], [800, 190], [800, 170]], "cp");
+  s += comp("vac", `${T(712, 504, "VACUUM SOURCE", "pr-lbl", "start")}${T(712, 518, "from pneumatic manifold", "blk-s", "start")}<path class="pr-restr" d="M450,490 L462,500 L450,510 Z M482,490 L470,500 L482,510 Z"/>${T(466, 526, "RESTRICTOR", "blk-s")}`, [440, 486, 360, 44]);
+  s += comp("ctl", `<rect class="pr-ctlbody" x="140" y="300" width="200" height="160" rx="10"/><rect class="pr-upper" id="prUpper" x="150" y="310" width="180" height="40" rx="4"/><rect class="pr-lower" x="150" y="354" width="180" height="96" rx="4"/>${Array.from({ length: 5 }, (_, i) => `<line class="pr-bellows" x1="${210}" y1="${368 + i * 10}" x2="${270}" y2="${368 + i * 10}"/>`).join("")}<circle class="sym" cx="175" cy="478" r="14"/><circle class="sym" cx="305" cy="478" r="14"/>${T(175, 506, "RATE", "pr-lbl")}${T(305, 506, "ALTITUDE", "pr-lbl")}${T(240, 336, "CONTROLLER", "blk-t")}<text class="blk-s" id="prCtlT" x="240" y="440" text-anchor="middle"></text>`, [136, 296, 208, 220]);
+  s += comp("filter", `<rect class="pr-filter" x="150" y="282" width="22" height="14" rx="2"/>${T(150, 274, "FILTER", "blk-s", "start")}`, [146, 266, 40, 32]);
+  s += comp("cpress", `${T(500, 182, "CONTROLLER (FLOW CONTROL) PRESSURE", "pr-lbl")}`, [330, 168, 340, 28]);
+  s += comp("drain", `<rect class="pr-drain" x="572" y="182" width="20" height="16" rx="3"/>${T(582, 214, "MOISTURE DRAIN", "blk-s")}`, [566, 178, 34, 42]);
+  s += comp("preset", `<circle class="pr-sol" id="prPreset" cx="380" cy="252" r="13"/>${T(398, 248, "PRESET SOLENOID (N.O.)", "pr-lbl", "start")}<text class="blk-s" id="prPresetT" x="398" y="262" text-anchor="start"></text>`, [364, 236, 200, 32]);
+  s += comp("dump", `<circle class="pr-sol" id="prDump" cx="600" cy="430" r="13"/>${T(600, 460, "DUMP SOLENOID (N.C.)", "pr-lbl")}<text class="blk-s" id="prDumpT" x="600" y="474" text-anchor="middle"></text>`, [584, 414, 120, 66]);
+  s += comp("alc", `<rect class="pr-alc" x="720" y="182" width="24" height="16" rx="3"/><rect class="pr-alc" x="720" y="422" width="24" height="16" rx="3"/>${T(732, 216, "ALT LIMIT (350)", "blk-s")}${T(732, 410, "ALT LIMIT (350)", "blk-s")}`, [714, 176, 36, 270]);
+  s += comp("sw", `<rect class="pr-swbox" x="450" y="320" width="34" height="46" rx="4"/><line id="prSwLever" class="pr-lever" x1="467" y1="343" x2="467" y2="326"/>${T(467, 382, "CABIN PRESS", "blk-s")}<circle class="sym" cx="560" cy="345" r="20"/><circle class="sym" cx="560" cy="345" r="7"/><line class="pr-lever" id="prSquat" x1="560" y1="325" x2="560" y2="305"/>${T(560, 382, "L GEAR SAFETY SW", "blk-s")}<path class="pr-elec" id="prElec1" d="M450,330 L420,300 L398,268"/><path class="pr-elec" id="prElec2" d="M560,366 L585,395 L598,416"/><text class="blk-s" id="prSwT" x="505" y="300" text-anchor="middle"></text>`, [440, 296, 160, 92]);
+  // outflow & safety valves
+  const valve = (id, y, label) => `<rect class="pr-vbody" x="770" y="${y - 50}" width="60" height="100" rx="8"/><rect class="pr-vchamber" id="pr${id}Ch" x="780" y="${y - 40}" width="30" height="80" rx="4"/><rect class="pr-poppet" id="pr${id}Pop" x="826" y="${y - 30}" width="10" height="60" rx="3"/>${T(826, y - 58, label, "pr-lbl", "end")}<path class="pr-out" id="pr${id}Out" d="M836,${y} L880,${y} M866,${y - 10} L880,${y} L866,${y + 10}"/>`;
+  s += comp("ofv", valve("O", 150, "OUTFLOW VALVE"), [764, 84, 124, 120]);
+  s += comp("sfv", valve("S", 380, "SAFETY VALVE"), [764, 314, 124, 120]);
+  s += `<text class="pr-state" id="prSysT" x="425" y="96" text-anchor="middle"></text><text class="blk-s" id="prSysT2" x="425" y="114" text-anchor="middle"></text>`;
+  $("#pr-sys").innerHTML = s;
+
+  // ---------- flow control unit (Figure 12-6) ----------
+  let f = "";
+  f += comp("ecu", `<rect class="pr-box" id="prEcu" x="680" y="50" width="160" height="70" rx="6"/>${T(760, 82, "ELECTRONIC", "blk-t")}${T(760, 98, "CONTROLLER", "blk-t")}${T(760, 26, "NORMAL / LOW", "blk-s")}<line class="pr-sig" x1="760" y1="30" x2="760" y2="50"/><text class="blk-s" id="prNL" x="760" y="40" text-anchor="start" dx="6"></text>${T(900, 70, "POWER", "blk-s", "start")}${T(900, 104, "SQUAT SWITCH", "blk-s", "start")}<line class="pr-sig" x1="895" y1="66" x2="840" y2="66"/><line class="pr-sig" x1="895" y1="100" x2="840" y2="100"/><text class="blk-s" id="prSq" x="900" y="118" text-anchor="start"></text>`, [676, 18, 300, 108]);
+  f += comp("ats", `<rect class="pr-box" x="120" y="70" width="40" height="22" rx="3"/>${T(140, 60, "AMBIENT TEMP SENSOR", "blk-s")}<line class="pr-sig" x1="160" y1="80" x2="680" y2="80"/><text class="blk-s" id="prOatT" x="140" y="108" text-anchor="middle"></text>`, [100, 50, 120, 64]);
+  [[300, "amt"], [380, "amt"], [500, "bleed"], [560, "bleed"]].forEach(([x]) => { f += `<line class="pr-sig" x1="${x}" y1="${x === 300 ? 270 : 290}" x2="${x}" y2="${[96, 104, 112, 112][[300, 380, 500, 560].indexOf(x)]}"/><line class="pr-sig" x1="${x}" y1="${[96, 104, 112, 112][[300, 380, 500, 560].indexOf(x)]}" x2="680" y2="${[96, 104, 112, 112][[300, 380, 500, 560].indexOf(x)]}"/>`; });
+  // ducts
+  f += `<path class="pr-duct amb" data-prf="amb" d="M120,180 L230,180 L230,300 L470,300"/><path class="pr-duct bl" data-prf="bleed" d="M480,470 L480,330 L590,330"/><path class="pr-duct bl" data-prf="byp" d="M480,400 L650,400 L650,340"/><path class="pr-duct mix" data-prf="mix" d="M600,330 L940,330"/><path class="pr-duct bl thin" data-prf="sol" d="M480,322 L480,240 L640,240 L640,262"/><path class="pr-duct bl thin" data-prf="sov" d="M640,262 L780,262 L780,296"/>`;
+  f += comp("amb", `<path class="pr-arrowin" d="M80,166 L104,180 L80,194 Z"/>${T(90, 156, "AMBIENT AIR INLET", "pr-lbl", "start")}<g id="prAmbV"><circle class="pr-valve" cx="390" cy="300" r="14"/><line class="pr-needle" id="prAmbN" x1="376" y1="300" x2="404" y2="300"/></g>${T(390, 334, "AMBIENT MODULATING VALVE", "blk-s")}`, [70, 150, 360, 196]);
+  f += comp("amt", `<rect class="pr-box" x="288" y="270" width="24" height="16" rx="2"/><rect class="pr-box" x="368" y="270" width="24" height="16" rx="2"/>${T(300, 262, "FLOW XDCR", "blk-s")}${T(380, 262, "MOTOR", "blk-s")}`, [284, 254, 112, 34]);
+  f += comp("chk", `<path class="pr-flap" id="prChk" d="M462,286 L462,314"/>${T(458, 352, "CHECK VALVE", "blk-s", "end")}`, [450, 282, 24, 36]);
+  f += comp("bleed", `<path class="pr-arrowin" d="M466,500 L480,476 L494,500 Z"/>${T(480, 516, "ENGINE BLEED AIR (P3)", "pr-lbl")}<g><circle class="pr-valve" cx="540" cy="330" r="14"/><line class="pr-needle" id="prBlN" x1="526" y1="330" x2="554" y2="330"/></g><rect class="pr-box" x="490" y="290" width="22" height="16" rx="2"/><rect class="pr-box" x="550" y="290" width="22" height="16" rx="2"/>${T(540, 370, "BLEED MODULATING VALVE", "blk-s")}`, [462, 284, 120, 236]);
+  f += comp("byp", `<circle class="pr-valve" cx="600" cy="400" r="10"/><line class="pr-needle" id="prBypN" x1="590" y1="400" x2="610" y2="400"/>${T(600, 430, "HIGH-FLOW BYPASS", "blk-s")}`, [586, 386, 70, 52]);
+  f += comp("ej", `<path class="pr-ej" d="M580,316 L620,322 L640,316 L640,344 L620,338 L580,344 Z"/>${T(612, 306, "AIR EJECTOR", "blk-s")}`, [574, 296, 72, 52]);
+  f += comp("sol", `<rect class="pr-sol2" id="prSol" x="468" y="232" width="24" height="18" rx="3"/>${T(480, 222, "SOLENOID", "blk-s")}`, [462, 210, 36, 42]);
+  f += comp("sov", `<rect class="pr-act" id="prSovAct" x="756" y="262" width="48" height="30" rx="4"/><g><circle class="pr-valve" cx="780" cy="330" r="16"/><line class="pr-needle" id="prSovN" x1="764" y1="330" x2="796" y2="330"/></g>${T(780, 372, "FIREWALL SHUTOFF VALVE", "blk-s")}`, [748, 256, 64, 124]);
+  f += `${T(944, 318, "TO DUCT", "pr-lbl", "end")}${T(944, 352, "distribution", "blk-s", "end")}<text class="pr-state" id="prFcuT" x="500" y="456" text-anchor="start" dx="200"></text><text class="blk-s" id="prFcuT2" x="700" y="476"></text><text class="blk-s" id="prFcuT3" x="700" y="494"></text>`;
+  $("#pr-fcu").innerHTML = f;
+}
+
+function prGauges() {
+  // cabin altimeter: outer 0-45k over 360, inner differential 0-7 psid
+  const ring = (cx, cy, r, a) => [cx + r * Math.sin(a * Math.PI / 180), cy - r * Math.cos(a * Math.PI / 180)];
+  let g = `<circle cx="100" cy="100" r="96" fill="#1a1d21" stroke="#596169" stroke-width="3"/>`;
+  for (let v = 0; v <= 44; v++) { const a = v * 8, p1 = ring(100, 100, 90, a), p2 = ring(100, 100, v % 5 ? 85 : 80, a); g += `<line x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="#d9dee3" stroke-width="${v % 5 ? 1 : 2}"/>`; if (v % 5 === 0) { const t = ring(100, 100, 70, a); g += `<text x="${t[0]}" y="${t[1] + 5}" font-size="13" font-weight="700" style="fill:#f1f3f4" text-anchor="middle">${v}</text>`; } }
+  const arc = (r, a1, a2, col, w) => { const p1 = ring(100, 100, r, a1), p2 = ring(100, 100, r, a2); return `<path d="M${p1[0]},${p1[1]} A${r},${r} 0 ${a2 - a1 > 180 ? 1 : 0} 1 ${p2[0]},${p2[1]}" fill="none" stroke="${col}" stroke-width="${w}"/>`; };
+  g += arc(46, 0, 6.6 * 38.6, "#2fb062", 5) + arc(46, 6.6 * 38.6, 7 * 38.6, "#e5483a", 5);
+  for (let v = 1; v <= 7; v++) { const t = ring(100, 100, 36, v * 38.6); g += `<text x="${t[0]}" y="${t[1] + 4}" font-size="9" style="fill:#d9dee3" text-anchor="middle">${v}</text>`; }
+  g += `<text x="100" y="140" font-size="8" style="fill:#9aa3ab" text-anchor="middle">CABIN ALT · PSI DIFF</text><path id="prDiffN" d="M96,100 L100,52 L104,100 Z" fill="#f1f3f4" style="transform-origin:100px 100px;transition:transform .3s"/><line id="prCabN" x1="100" y1="100" x2="100" y2="16" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" style="transform-origin:100px 100px;transition:transform .3s"/><circle cx="100" cy="100" r="9" fill="#5a6168"/>`;
+  $("#prAltG").innerHTML = g;
+  // cabin climb: 0 at 9 o'clock, climb up/clockwise to 6 at 3 o'clock, descent below
+  const vmap = [[0, 0], [500, 25], [1000, 45], [2000, 90], [4000, 135], [6000, 180]];
+  let v = `<circle cx="100" cy="100" r="96" fill="#1a1d21" stroke="#596169" stroke-width="3"/>`;
+  vmap.forEach(([val, a], i) => [1, -1].forEach(sg => { if (!val && sg < 0) return; const ang = -90 + sg * a, p1 = ring(100, 100, 90, ang), p2 = ring(100, 100, 78, ang), t = ring(100, 100, 64, ang); v += `<line x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="#d9dee3" stroke-width="2"/><text x="${t[0]}" y="${t[1] + 5}" font-size="${i ? 13 : 15}" font-weight="700" style="fill:#f1f3f4" text-anchor="middle">${val === 500 ? ".5" : val / 1000}</text>`; }));
+  v += `<text x="118" y="92" font-size="9" font-weight="700" style="fill:#d9dee3" text-anchor="middle">CABIN CLIMB</text><text x="118" y="104" font-size="7" style="fill:#9aa3ab" text-anchor="middle">THDS FT PER MIN</text><line id="prVsiN" x1="100" y1="100" x2="100" y2="22" stroke="#ffffff" stroke-width="3" stroke-linecap="round" style="transform-origin:100px 100px;transition:transform .3s"/><circle cx="100" cy="100" r="11" fill="#5a6168"/>`;
+  $("#prVsiG").innerHTML = v;
+}
+const prVsiAng = fpm => { const m = [[0, 0], [500, 25], [1000, 45], [2000, 90], [4000, 135], [6000, 180]], a = Math.min(6000, Math.abs(fpm)); let ang = 180; for (let i = 1; i < m.length; i++) if (a <= m[i][0]) { ang = m[i - 1][1] + (a - m[i - 1][0]) / (m[i][0] - m[i - 1][0]) * (m[i][1] - m[i - 1][1]); break; } return -90 + Math.sign(fpm) * ang; };
+
+function prDial() {
+  // controller face: outer CABIN ALT scale (-1..15k at 20°/kft) and inner ACFT ALT scale, rotating together so the setting sits at the index
+  const P = PR, rot = -(P.set / 1000) * 20, ring = (r, a) => [110 + r * Math.sin(a * Math.PI / 180), 112 - r * Math.cos(a * Math.PI / 180)];
+  let g = `<rect x="2" y="2" width="216" height="216" rx="14" fill="#2b3036"/><circle cx="110" cy="112" r="94" fill="#f3efe4" stroke="#1a1d21" stroke-width="3"/><path d="M104,10 L116,10 L110,22 Z" fill="#1a1d21"/><g style="transform:rotate(${rot}deg);transform-origin:110px 112px;transition:transform .3s">`;
+  for (let k = -1; k <= 15; k++) { const a = k * 20, p1 = ring(92, a), p2 = ring(82, a), t = ring(72, a); g += `<line x1="${p1[0]}" y1="${p1[1]}" x2="${p2[0]}" y2="${p2[1]}" stroke="#1a1d21" stroke-width="2"/><text x="${t[0]}" y="${t[1] + 5}" font-size="13" font-weight="700" style="fill:#1a1d21" text-anchor="middle" transform="rotate(${a} ${t[0]} ${t[1]})">${k}</text>`; for (let j = 1; j < 5 && k < 15; j++) { const q1 = ring(92, a + j * 4), q2 = ring(87, a + j * 4); g += `<line x1="${q1[0]}" y1="${q1[1]}" x2="${q2[0]}" y2="${q2[1]}" stroke="#1a1d21" stroke-width="1"/>`; } }
+  for (let ac = 0; ac <= 40; ac += 5) { const cab = prCabFor(ac * 1000); if (cab < -1000 || cab > 15000) continue; const a = cab / 1000 * 20, t = ring(52, a); g += `<text x="${t[0]}" y="${t[1] + 4}" font-size="9" font-weight="700" style="fill:#7a2e1a" text-anchor="middle" transform="rotate(${a} ${t[0]} ${t[1]})">${ac}</text>`; }
+  g += `</g><circle cx="110" cy="112" r="34" fill="#1a1d21"/><text x="110" y="108" font-size="9" font-weight="700" style="fill:#f1f3f4" text-anchor="middle">ACFT ALT</text><text x="110" y="120" font-size="8" style="fill:#c9ced3" text-anchor="middle">1000 FT</text><path d="M106,72 L114,72 L110,64 Z" fill="#7a2e1a"/>`;
+  $("#prDial").innerHTML = g;
+}
+
+function prRender() {
+  if (!$("#pr-sys") || !PRD) return;
+  const P = PR, d = PRD;
+  const tog = (sel, on, cls) => $$(sel).forEach(e => e.classList.toggle(cls || "on", !!on));
+  // system schematic
+  tog('[data-prl="vacMain"]', d.vacuum); tog('[data-prl="vacCtl"]', d.vacuum && !d.presetClosed); tog('[data-prl="vacDump"]', d.vacuum);
+  tog('[data-prl="dumpSafe"]', d.vacuum && d.dumpOpen); tog('[data-prl="cp"]', d.ctlActive);
+  tog('[data-prin]', d.inflow > 0);
+  $("#prInT").textContent = d.inflow > 0 ? `INFLOW ${d.inflow.toFixed(1)} lb/min` : "NO INFLOW";
+  $("#prPreset").setAttribute("class", "pr-sol " + (d.presetClosed ? "closed" : "open")); $("#prPresetT").textContent = d.presetClosed ? (P.fault.preset && !d.energized ? "STUCK CLOSED" : "energized: CLOSED, vacuum to controller cut") : "de-energized: OPEN";
+  $("#prDump").setAttribute("class", "pr-sol " + (d.dumpOpen ? "open" : "closed")); $("#prDumpT").textContent = d.dumpOpen ? "energized: OPEN" : "de-energized: CLOSED";
+  $("#prUpper").classList.toggle("on", d.ctlActive);
+  $("#prCtlT").textContent = d.ctlActive ? `ref ${fmtFt(P.ref)} ft → ${fmtFt(P.set)}` : "vented to cabin (no vacuum)";
+  $("#prSwLever").setAttribute("transform", `rotate(${P.test ? 30 : P.sw === "DUMP" ? -30 : 0} 467 343)`);
+  $("#prSquat").setAttribute("transform", `rotate(${(!P.flight || P.fault.squat) ? 0 : 35} 560 345)`);
+  tog("#prElec1, #prElec2", d.energized);
+  $("#prSwT").textContent = `${P.test ? "TEST" : P.sw}${P.cb ? "" : " · PRESS CONTROL CB OUT"} · squat: ${P.fault.squat ? "FAILED (ground)" : P.flight ? "flight" : "ground"}`;
+  const setV = (id, open, relief) => { $(`#pr${id}Pop`).setAttribute("x", (826 + open * 26).toFixed(1)); $(`#pr${id}Out`).classList.toggle("on", open > 0.03); $(`#pr${id}Out`).classList.toggle("relief", !!relief); };
+  setV("O", d.ofv, d.relief && !P.fault.preset); setV("S", d.safety ? 1 : d.relief ? 0.5 : 0, d.relief && !d.safety);
+  $("#prOCh").classList.toggle("on", d.ctlActive); $("#prSCh").classList.toggle("on", d.vacuum && d.dumpOpen);
+  const modeTxt = { dump: "SAFETY VALVE OPEN: cabin depressurizing / unpressurized", "dump-limit": "DUMPED: held near 13,500 ft by the altitude limit controller", maxdiff: "ON MAXIMUM DIFFERENTIAL: relief valves limiting", ctl: "Outflow valve metering: cabin following the controller", leak: "Cabin leaking down: not enough inflow", closed: "Outflow and safety closed: cabin pressurizing" }[d.mode] || "";
+  $("#prSysT").textContent = modeTxt;
+  $("#prSysT2").textContent = `Airplane ${fmtFt(P.alt)} ft · cabin ${fmtFt(P.cab)} ft · ${d.dp.toFixed(2)} psid · cabin ${P.cabRate >= 0 ? "+" : ""}${Math.round(P.cabRate)} ft/min`;
+  // flow control unit view
+  const u = d.fcu[prSide];
+  tog('[data-prf="amb"]', u.ambOpen && u.amb > 0); tog('[data-prf="bleed"]', u.bleed > 0); tog('[data-prf="byp"]', u.byp > 0.1 && u.bleed > 0); tog('[data-prf="mix"]', u.sov && u.total > 0); tog('[data-prf="sol"]', u.sol); tog('[data-prf="sov"]', u.sov);
+  $("#prAmbN").setAttribute("transform", `rotate(${u.ambOpen ? 70 * Math.min(1, u.amb / 3 + 0.3) : 0} 390 300)`);
+  $("#prBlN").setAttribute("transform", `rotate(${u.bvClosing ? 0 : u.bleed > 0 ? 25 + 50 * Math.min(1, u.bleed / 7) : 0} 540 330)`);
+  $("#prBypN").setAttribute("transform", `rotate(${u.bleed > 0 ? u.byp * 90 : 0} 600 400)`);
+  $("#prSovN").setAttribute("transform", `rotate(${u.sov ? 90 : 0} 780 330)`);
+  $("#prSol").classList.toggle("on", u.sol); $("#prSovAct").classList.toggle("on", u.sov); $("#prChk").classList.toggle("on", u.ambOpen);
+  $("#prNL").textContent = P.low ? "LOW" : "NORMAL"; $("#prSq").textContent = P.flight ? "flight" : "ground";
+  $("#prOatT").textContent = `${P.oat > 0 ? "+" : ""}${P.oat} °C (${Math.round(P.oat * 9 / 5 + 32)} °F)`;
+  $("#prFcuT").textContent = `${SIDE[prSide].toUpperCase()} UNIT: ${!u.run ? "engine off" : P.bleed[prSide] !== "OPEN" ? `switch ${P.bleed[prSide] === "ENVIR" ? "ENVIR OFF" : "PNEU & ENVIR OFF"}: shut off` : u.bvClosing ? "start-up: bleed valve closing" : !u.sov ? "shaft switch made: solenoid opening shutoff" : "flowing"}`;
+  $("#prFcuT2").textContent = `Bleed ${u.bleed.toFixed(1)} · ambient ${u.amb.toFixed(1)} · total ${u.total.toFixed(1)} lb/min${P.low ? " (LOW)" : ""}`;
+  $("#prFcuT3").textContent = !P.flight ? "Ground: ambient valve closed (squat switch)" : u.ambOpen ? "Flight, warm: ambient mixed in" : P.oat * 9 / 5 + 32 <= 50 ? "Below ~50 °F: ambient shut, bypass opened as needed" : prSide === "R" ? "Right ambient valve opens 4–6 s after the left" : "";
+  // indicators
+  $("#prCabN").style.transform = `rotate(${Math.max(-8, P.cab / 1000 * 8)}deg)`;
+  $("#prDiffN").style.transform = `rotate(${Math.max(0, Math.min(7.5, d.dp)) * 38.6}deg)`;
+  $("#prAltV").textContent = `${fmtFt(P.cab)} ft · ${d.dp.toFixed(2)} psid`;
+  $("#prVsiN").style.transform = `rotate(${prVsiAng(P.cabRate)}deg)`; $("#prVsiV").textContent = `${P.cabRate >= 0 ? "+" : ""}${Math.round(P.cabRate)} ft/min`;
+  // annunciators
+  const A = { CALT: ["white", d.ann.calt], CHI: ["red", d.ann.chi], DHI: ["red", d.ann.dhi], LBL: ["amber", d.ann.lbl], RBL: ["amber", d.ann.rbl] };
+  Object.keys(A).forEach(k => { const el = $("#pra-" + k); if (el) el.className = "ann" + (A[k][1] ? " " + A[k][0] : ""); });
+  $("#prMW").classList.toggle("on", P.mw); $("#prMW").classList.toggle("blink", P.mw);
+  $("#prToneOn").hidden = !d.tone; $("#prToneOff").hidden = !d.tone; $("#prToneNo").hidden = d.tone;
+  // controls
+  if (prDial.last !== P.set) { prDial.last = P.set; prDial(); }
+  if (document.activeElement !== $("#prSet")) $("#prSet").value = P.set; $("#prSetV").textContent = `CABIN ${fmtFt(P.set)} ft · ACFT ALT ${fmtFt(prAcftAlt(P.set))} ft`;
+  if (document.activeElement !== $("#prRate")) $("#prRate").value = P.rate; $("#prRateV").textContent = `${P.rate} ft/min${P.rate >= 400 && P.rate <= 650 ? " (12–1 o'clock)" : P.rate <= 200 ? " (MIN)" : P.rate >= 1900 ? " (MAX)" : ""}`;
+  $$("[data-prsw]").forEach(b => b.setAttribute("aria-pressed", String(!P.test && P.sw === b.dataset.prsw))); $("#prTest").setAttribute("aria-pressed", String(P.test));
+  $$("[data-prbsw]").forEach(b => { const [g, k] = b.dataset.prbsw.split(":"), cur = k ? P[g][k] : P[g]; b.setAttribute("aria-pressed", String(String(cur) === b.dataset.val)); });
+  $("#prAltTest").classList.toggle("on", P.altTest); $("#prDiffTest").classList.toggle("on", P.diffTest);
+  $("#prFl-g").setAttribute("aria-pressed", String(!P.flight)); $("#prFl-f").setAttribute("aria-pressed", String(P.flight));
+  if (document.activeElement !== $("#prTgt")) $("#prTgt").value = P.tgt; $("#prTgtV").textContent = `${fmtFt(P.tgt)} ft (now ${fmtFt(P.alt)})`;
+  if (document.activeElement !== $("#prField")) $("#prField").value = P.field; $("#prFieldV").textContent = `${fmtFt(P.field)} ft`;
+  if (document.activeElement !== $("#prOat")) $("#prOat").value = P.oat; $("#prOatV").textContent = `${P.oat > 0 ? "+" : ""}${P.oat} °C`;
+  $$("[data-prvs]").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.prvs === P.vs)));
+  $$("[data-prspd]").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.prspd === P.speed)));
+  ["L", "R"].forEach(k => { $("#prEng" + k).setAttribute("aria-pressed", String(P.eng[k])); $("#prEng" + k).textContent = `${k} engine ${P.eng[k] ? "running" : "off"}`; });
+  $("#prCb").setAttribute("aria-pressed", String(!P.cb)); $("#prCb").textContent = P.cb ? "PRESS CONTROL CB: in" : "PRESS CONTROL CB: PULLED";
+  [["squat", P.fault.squat], ["preset", P.fault.preset], ["stuck", P.fault.stuckOpen]].forEach(([k, v]) => $("#prf-" + k).setAttribute("aria-pressed", String(v)));
+  $$("[data-prside]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.prside === prSide)));
+  $("#prCap").innerHTML = PR.cap ? esc(PR.cap) : `${P.flight ? "In flight" : "On the ground"} at ${fmtFt(P.alt)} ft · field ${fmtFt(P.field)} ft · clock ${fmtIcT(P.t)} (×${P.speed})`;
+  // what's happening
+  const row = (name, st, txt) => `<div class="ic-row ${st}"><span class="dot"></span><span class="n">${name}</span><span class="d">${txt}</span></div>`;
+  let h = row("Inflow", d.inflow > 0 ? "on" : "bad", d.inflow > 0 ? `${d.inflow.toFixed(1)} lb/min (L ${d.fcu.L.total.toFixed(1)} · R ${d.fcu.R.total.toFixed(1)})` : "none");
+  h += row("Vacuum", d.vacuum ? "on" : "bad", d.vacuum ? "available" : "none (no pneumatic air)");
+  h += row("Preset solenoid", d.presetClosed ? "warn" : "on", d.presetClosed ? "closed: controller cut off" : "open: controller active");
+  h += row("Dump solenoid", d.dumpOpen ? "warn" : "on", d.dumpOpen ? "open: vacuum to safety valve" : "closed");
+  h += row("Outflow valve", d.ctlActive ? "on" : "", d.ctlActive ? `metering (${Math.round(d.ofv * 100)}% open)${d.relief ? ", relieving" : ""}` : "spring-closed");
+  h += row("Safety valve", d.safety ? "warn" : d.relief ? "warn" : "", d.safety ? (P.fault.stuckOpen ? "STUCK OPEN" : "open (dump)") : d.relief ? "relieving at max differential" : "closed");
+  h += row("Controller", d.ctlActive ? "on" : "", d.ctlActive ? `cabin ref ${fmtFt(P.ref)} → set ${fmtFt(P.set)} ft at ${P.rate} ft/min` : "vented to cabin");
+  h += row("Differential", d.dp > 6.9 ? "bad" : d.dp > 6.4 ? "warn" : "on", `${d.dp.toFixed(2)} psid`);
+  $("#prNow").innerHTML = h;
+  // chart
+  prChart();
+  const n = $("#prInfoNow"); if (n && prSel) n.textContent = "";
+}
+function prChart() {
+  const P = PR, H = P.hist; if (!H.length) { $("#prChart").innerHTML = ""; return; }
+  const t0 = H[0][0], t1 = Math.max(t0 + 600, H[H.length - 1][0]), maxA = Math.max(10000, ...H.map(h => h[1])) * 1.08;
+  const X = t => 40 + (t - t0) / (t1 - t0) * 470, Y = a => 200 - Math.max(0, a) / maxA * 185;
+  let s = "";
+  for (let a = 0; a <= maxA; a += maxA > 20000 ? 5000 : 2000) s += `<line x1="40" y1="${Y(a)}" x2="510" y2="${Y(a)}" stroke="var(--line)" stroke-width="1"/><text x="34" y="${Y(a) + 4}" font-size="10" fill="var(--muted)" text-anchor="end">${a / 1000}k</text>`;
+  const mins = (t1 - t0) / 60; const stepM = mins > 40 ? 10 : 5;
+  for (let m = 0; m <= mins; m += stepM) s += `<text x="${X(t0 + m * 60)}" y="216" font-size="10" fill="var(--muted)" text-anchor="middle">${m}m</text>`;
+  s += `<polyline fill="none" stroke="#e2342a" stroke-width="2.5" points="${H.map(h => `${X(h[0]).toFixed(1)},${Y(h[1]).toFixed(1)}`).join(" ")}"/><polyline fill="none" stroke="#2a8fe0" stroke-width="2.5" points="${H.map(h => `${X(h[0]).toFixed(1)},${Y(h[2]).toFixed(1)}`).join(" ")}"/>`;
+  $("#prChart").innerHTML = s;
+}
+function prSelect(id) {
+  prSel = id;
+  $$("#prSvgs .comp").forEach(g => g.classList.toggle("sel", g.dataset.prcomp === id));
+  const c = PRC[id];
+  $("#prInfo").innerHTML = `<div class="eyebrow">${esc(c.group)}</div><h4>${esc(c.name)}</h4><p>${esc(c.desc)}</p>`;
+}
+function prShowTab(t) {
+  prTab = t; ["sys", "fcu"].forEach(x => $("#pr-" + x).toggleAttribute("hidden", x !== t));
+  $$("#prTabs [data-tab]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === t)));
+  $("#prLegend").innerHTML = (t === "sys" ? [["#7cb342", "Cabin air"], ["#ee7d1f", "Vacuum source"], ["#2a8fe0", "Controller pressure"], ["#e8c61a", "Static air"], ["#e2342a", "Controller internal pressure"]] : [["#2aa8e0", "Ambient air"], ["#e2342a", "P3 bleed air"], ["#e8c61a", "Mixed air to the cabin"], ["var(--muted)", "Control signals"]]).map(([c, l]) => `<span><i style="background:${c}"></i>${l}</span>`).join("");
+}
+
+const prTakeoff = P => { if (!P.flight) { P.flight = true; P.alt = P.field; prLog("Liftoff: the left squat switch opens. Preset and dump solenoids de-energize, so the safety valve closes, the outflow valve modulates and the door seal inflates."); } };
+const PR_SETUPS = [
+  ["Situation 1: set correctly", "Climb to FL310 (2,000 then 1,000 ft/min), cruise, descend at 1,500 ft/min to a 1,500 ft field. ACFT ALT set to FL315, rate 500 ft/min. At the top of descent the controller is reset to 2,000 ft cabin.", P => { P.set = Math.round(prCabFor(31500) / 100) * 100; P.rate = 500; },
+    [{ wait: 3, do: P => { prTakeoff(P); P.tgt = 20000; P.vs = 2000; } , msg: "takeoff, climbing at 2,000 ft/min." }, { until: P => P.alt >= 20000, do: P => { P.tgt = 31000; P.vs = 1000; }, msg: "passing FL200, 1,000 ft/min to FL310." }, { until: P => P.alt >= 31000, do: () => {}, msg: "level at FL310." }, { wait: 300, do: P => { P.set = 2000; P.field = 1500; P.tgt = 1500; P.vs = 1500; }, msg: "top of descent: CABIN ALT reset to 2,000 ft (500 above the 1,500 ft field), descending at 1,500 ft/min." }]],
+  ["Situation 2: ACFT ALT = cruise", "Same flight, but ACFT ALT set to FL310, the cruise altitude itself. The cabin reaches maximum differential at the top and rides the relief valves (bumps).", P => { P.set = Math.round(prCabFor(31000) / 100) * 100; P.rate = 500; },
+    [{ wait: 3, do: P => { prTakeoff(P); P.tgt = 20000; P.vs = 2000; }, msg: "takeoff." }, { until: P => P.alt >= 20000, do: P => { P.tgt = 31000; P.vs = 1000; }, msg: "passing FL200." }, { until: P => P.alt >= 31000, do: () => {}, msg: "level at FL310." }, { wait: 300, do: P => { P.set = 2000; P.field = 1500; P.tgt = 1500; P.vs = 1500; }, msg: "descent: reset to 2,000 ft cabin." }]],
+  ["Situation 3: set for landing", "CABIN ALT set to the 1,500 ft landing field before takeoff and never reset. Maximum differential is reached around FL190, and the cabin is then pushed up with the airplane.", P => { P.set = 1500; P.rate = 500; },
+    [{ wait: 3, do: P => { prTakeoff(P); P.tgt = 20000; P.vs = 2000; }, msg: "takeoff." }, { until: P => P.alt >= 20000, do: P => { P.tgt = 31000; P.vs = 1000; }, msg: "passing FL200." }, { until: P => P.alt >= 31000, do: () => {}, msg: "level at FL310." }, { wait: 300, do: P => { P.field = 1500; P.tgt = 1500; P.vs = 1500; }, msg: "descent, no controller reset." }]],
+  ["Situation 5: 6,000 ft departure", "Depart a 6,000 ft field with CABIN ALT at 6,500 ft (500 above field), climb at 2,000 ft/min to 16,000 ft. Once the cabin is stable, reset for the sea-level destination (500 ft).", P => { P.field = 6000; P.alt = 6000; P.cab = 6000; P.set = 6500; P.rate = 500; },
+    [{ wait: 3, do: P => { prTakeoff(P); P.tgt = 16000; P.vs = 2000; }, msg: "takeoff from 6,000 ft." }, { until: P => P.cab >= 6480, do: P => { P.set = 500; }, msg: "cabin stable at 6,500 ft: CABIN ALT reset to 500 ft for the sea-level destination." }, { until: P => P.alt >= 16000, do: () => {}, msg: "level at 16,000 ft." }, { wait: 300, do: P => { P.field = 0; P.tgt = 0; P.vs = 1500; }, msg: "descending to the sea-level airport." }]],
+  ["Runup check (TEST)", "On the ground at a 1,000 ft field, bleed valves OPEN, NORMAL, CABIN ALT 1,000 ft below field. Hold CABIN PRESS to TEST and look for a cabin descent in 20–40 s.", P => { P.field = 1000; P.alt = 1000; P.cab = 1000; P.set = 0; P.rate = 500; P.speed = 1; }, null],
+  ["Dump at FL250", "Cruising at FL250, pressurized. After a few seconds CABIN PRESS is put to DUMP. Watch the safety valve open, the cabin pass the annunciator thresholds, and stop near 13,500 ft (350).", P => { P.flight = true; P.alt = P.tgt = 25000; P.set = 5000; P.cab = Math.max(prCabFor(25000), 5000); P.ref = P.cab; P.speed = 5; },
+    [{ wait: 15, do: P => { P.sw = "DUMP"; }, msg: "CABIN PRESS to DUMP." }]],
+  ["Squat switch fails (no pressurization)", "The left squat switch stays in ground mode. After takeoff the safety valve stays open and the cabin climbs with the airplane. Fix: hold TEST to override it, then pull PRESS CONTROL once above 0.5 psid.", P => { P.fault.squat = true; P.set = 6000; P.rate = 500; },
+    [{ wait: 3, do: P => { prTakeoff(P); P.tgt = 15000; P.vs = 1500; }, msg: "takeoff." }]],
+  ["Preset solenoid stuck (rapid pressurization)", "The preset solenoid sticks closed after takeoff. With no controller pressure the outflow valve stays shut and the cabin descends fast toward maximum differential. Fix: turn off both bleed air valves, then cycle TEST to free the solenoid.", P => { P.fault.preset = true; P.set = 8000; P.rate = 500; },
+    [{ wait: 3, do: P => { prTakeoff(P); P.tgt = 15000; P.vs = 1500; }, msg: "takeoff." }]],
+  ["Bleed valves left at ENVIR OFF (leakdown)", "Both BLEED AIR VALVE switches left at ENVIR OFF. No inflow, so the cabin can't pressurize and leaks up with the airplane. Fix: set them to OPEN.", P => { P.bleed.L = P.bleed.R = "ENVIR"; P.set = 6000; P.rate = 500; },
+    [{ wait: 3, do: P => { prTakeoff(P); P.tgt = 15000; P.vs = 1500; }, msg: "takeoff." }]]
+];
+function prLoadSetup(i) {
+  const s = PR_SETUPS[i]; PR = prFresh(); prLogArr = []; s[2](PR); PR.cap = s[1];
+  if (!PR.flight) PR.cab = PR.alt = PR.field; PR.ref = PR.cab; PR.script = s[3] ? s[3].map(x => Object.assign({}, x)) : null; PR.scriptT0 = 0;
+  ["L", "R"].forEach(k => PR.seq[k] = PR.bleed[k] === "OPEN" ? 9 : 0);
+  prLog(`Setup: ${s[0]}.`); prStep(0.001);
+}
+
+function initPressurization() {
+  PR = prFresh(); prLogArr = []; prSel = null; prSide = "L";
+  prSvgs(); prGauges(); prShowTab("sys");
+  $("#prSubnav").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  $("#prSetups").innerHTML = PR_SETUPS.map((s, i) => `<button type="button" class="pbtn" data-prset2="${i}">${esc(s[0])}</button>`).join("");
+  $("#main .view").addEventListener("click", e => { const b = e.target.closest("[data-prset2]"); if (b) { prLoadSetup(+b.dataset.prset2); if (!b.closest("#prSetups")) $("#pr-sim").scrollIntoView({ behavior: "smooth", block: "start" }); } });
+  $("#prTabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (b) prShowTab(b.dataset.tab); });
+  $$("[data-prside]").forEach(b => b.addEventListener("click", () => { prSide = b.dataset.prside; if (prTab !== "fcu") prShowTab("fcu"); prStep(0.001); }));
+  // controller
+  $("#prSet").addEventListener("input", e => { PR.set = +e.target.value; PR.cap = ""; prStep(0.001); });
+  $("#prRate").addEventListener("input", e => { PR.rate = +e.target.value; prStep(0.001); });
+  $$("[data-prset]").forEach(b => b.addEventListener("click", () => { PR.set = Math.max(-1000, Math.min(15000, PR.set + +b.dataset.prset)); prStep(0.001); }));
+  $$("[data-prsw]").forEach(b => b.addEventListener("click", () => { const v = b.dataset.prsw; if (PR.sw !== v) { PR.sw = v; prLog(`CABIN PRESS: ${v}${v === "DUMP" ? ". Safety valve opens and the cabin depressurizes (350: up to about 13,500 ft)." : "."}`, v === "DUMP" ? "warn" : ""); } prStep(0.001); }));
+  icHold($("#prTest"), () => { if (!PR.test) { PR.test = true; if (PR.fault.preset && PR.flight) { PR.fault.preset = false; prLog("Cycling CABIN PRESS to TEST freed the stuck preset solenoid.", "ok"); } prLog(PR.flight ? (PR.fault.squat ? "TEST held: overriding the failed squat switch. Safety valve closes, outflow valve modulates." : "TEST in flight: no effect.") : "CABIN PRESS held in TEST: squat switch overridden, in-flight configuration. Cabin should pressurize."); prStep(0.001); } },
+    () => { if (PR.test) { PR.test = false; prLog("TEST released: switch back to PRESS."); prStep(0.001); } });
+  // copilot subpanel
+  const tog = (title, items) => `<div class="sw-group"><div class="gname">${title}</div><div class="sws">${items.map(([name, key, opts]) => `<div class="tog"><div class="name">${name}</div><div class="pos" role="group" aria-label="${title} ${name}">${opts.map(o => `<button type="button" data-prbsw="${key}" data-val="${o[0]}" aria-pressed="false">${o[1]}</button>`).join("")}</div></div>`).join("")}</div></div>`;
+  $("#prSw").innerHTML = tog("Envir bleed air", [["", "low", [["false", "Normal"], ["true", "Low"]]]]) + tog("Bleed air valves", [["Left", "bleed:L", [["OPEN", "Open"], ["ENVIR", "Envir off"], ["PNEU", "Pneu &amp; envir off"]]], ["Right", "bleed:R", [["OPEN", "Open"], ["ENVIR", "Envir off"], ["PNEU", "Pneu &amp; envir off"]]]]);
+  $("#prSw").addEventListener("click", e => { const b = e.target.closest("[data-prbsw]"); if (!b) return; const [g, k] = b.dataset.prbsw.split(":"); let v = b.dataset.val; if (v === "true" || v === "false") v = v === "true"; if ((k ? PR[g][k] : PR[g]) === v) return; if (k) PR[g][k] = v; else PR[g] = v; prLog(g === "low" ? `ENVIR BLEED AIR ${v ? "LOW: inflow about halved" : "NORMAL"}.` : `${SIDE[k]} BLEED AIR VALVE: ${{ OPEN: "OPEN", ENVIR: "ENVIR OFF", PNEU: "PNEU & ENVIR OFF" }[v]}.`); prStep(0.001); });
+  $("#prTests").innerHTML = `<span class="gname">Warning test (hold)</span><button type="button" class="pbtn" id="prAltTest">CABIN ALT TEST</button><button type="button" class="pbtn" id="prDiffTest">CABIN DIFF WARN TEST</button>`;
+  icHold($("#prAltTest"), () => { if (!PR.altTest) { PR.altTest = true; prLog("CABIN ALT TEST: CABIN ALTITUDE and CABIN ALT HI light, tone sounds."); prStep(0.001); } }, () => { if (PR.altTest) { PR.altTest = false; prStep(0.001); } });
+  icHold($("#prDiffTest"), () => { if (!PR.diffTest) { PR.diffTest = true; prLog("CABIN DIFF WARN TEST: CABIN DIFF HI lights."); prStep(0.001); } }, () => { if (PR.diffTest) { PR.diffTest = false; prStep(0.001); } });
+  $("#prAnns").innerHTML = [["CALT", "CABIN ALTITUDE"], ["CHI", "CABIN ALT HI"], ["DHI", "CABIN DIFF HI"], ["LBL", "L BL AIR OFF"], ["RBL", "R BL AIR OFF"]].map(a => `<div class="ann" id="pra-${a[0]}">${a[1]}</div>`).join("");
+  $("#prMW").addEventListener("click", () => { PR.mw = false; prStep(0.001); });
+  $("#prTone").innerHTML = `<span class="pr-tonebadge" id="prToneOn" hidden>♪ WARNING TONE</span><button type="button" class="pbtn" id="prToneOff" hidden>Cancel tone</button><span class="ac-stat" id="prToneNo">Tone silent</span>`;
+  $("#prToneOff").addEventListener("click", () => { PR.toneOff = true; prLog("Tone canceled."); prStep(0.001); });
+  prDial.last = null;
+  // airplane
+  $("#prFlt").innerHTML = `<div class="seg" role="group" aria-label="Airplane"><button type="button" id="prFl-g">On ground</button><button type="button" id="prFl-f">Take off</button></div>${["L", "R"].map(k => `<button type="button" class="pbtn envb" id="prEng${k}" aria-pressed="true"></button>`).join("")}<button type="button" class="pbtn" id="prCb" aria-pressed="false"></button>`;
+  $("#prAlt").innerHTML = `<label for="prTgt">Target altitude</label><input type="range" id="prTgt" min="0" max="35000" step="500"><span class="flowread" id="prTgtV"></span><div class="seg" role="group" aria-label="Vertical speed">${[500, 1000, 1500, 2000].map(v => `<button type="button" data-prvs="${v}">${v}</button>`).join("")}</div>`;
+  $("#prEnv").innerHTML = `<label for="prField">Field elevation</label><input type="range" id="prField" min="0" max="8000" step="500"><span class="flowread" id="prFieldV"></span><label for="prOat">OAT</label><input type="range" id="prOat" min="-30" max="40" step="1"><span class="flowread" id="prOatV"></span>`;
+  $("#prClock").innerHTML = `<span class="gname">Clock</span><div class="seg" role="group" aria-label="Simulation speed">${[1, 5, 10, 30, 60].map(v => `<button type="button" data-prspd="${v}">×${v}</button>`).join("")}</div><button type="button" class="pbtn" id="prReset">Reset</button>`;
+  $("#prFaults").innerHTML = `<button type="button" class="pbtn" id="prf-squat" aria-pressed="false">L squat switch stuck in ground</button><button type="button" class="pbtn" id="prf-preset" aria-pressed="false">Preset solenoid stuck closed</button><button type="button" class="pbtn" id="prf-stuck" aria-pressed="false">Safety valve stuck open</button>`;
+  $("#prFl-g").addEventListener("click", () => { if (PR.flight) { PR.tgt = PR.field; prLog("Descending to land."); } prStep(0.001); });
+  $("#prFl-f").addEventListener("click", () => { prTakeoff(PR); if (PR.tgt <= PR.field) PR.tgt = PR.field + 10000; PR.cap = ""; prStep(0.001); });
+  ["L", "R"].forEach(k => $("#prEng" + k).addEventListener("click", () => { PR.eng[k] = !PR.eng[k]; prLog(`${SIDE[k]} engine ${PR.eng[k] ? "started" : "shut down"}.`); prStep(0.001); }));
+  $("#prCb").addEventListener("click", () => { PR.cb = !PR.cb; prLog(PR.cb ? "PRESS CONTROL circuit breaker reset." : "PRESS CONTROL circuit breaker pulled: electrical functions lost. Normal pressurization control, but no dump with the switch or at touchdown.", PR.cb ? "" : "warn"); prStep(0.001); });
+  $("#prTgt").addEventListener("input", e => { PR.tgt = +e.target.value; if (!PR.flight && PR.tgt > PR.field) prTakeoff(PR); PR.cap = ""; prStep(0.001); });
+  $$("[data-prvs]").forEach(b => b.addEventListener("click", () => { PR.vs = +b.dataset.prvs; prStep(0.001); }));
+  $("#prField").addEventListener("input", e => { PR.field = +e.target.value; if (!PR.flight) { PR.alt = PR.field; PR.cab = PR.field; PR.ref = PR.field; } prStep(0.001); });
+  $("#prOat").addEventListener("input", e => { PR.oat = +e.target.value; prStep(0.001); });
+  $$("[data-prspd]").forEach(b => b.addEventListener("click", () => { PR.speed = +b.dataset.prspd; prStep(0.001); }));
+  $("#prReset").addEventListener("click", () => { PR = prFresh(); prLogArr = []; prLog("Reset: on the ground at sea level, engines running, bleed air valves OPEN."); prStep(0.001); });
+  $("#prFaults").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; const k = { "prf-squat": "squat", "prf-preset": "preset", "prf-stuck": "stuckOpen" }[b.id]; PR.fault[k] = !PR.fault[k]; prLog(`${PR.fault[k] ? "Failure" : "Repaired"}: ${b.textContent.toLowerCase()}.`, PR.fault[k] ? "warn" : ""); prStep(0.001); });
+  const sv = $("#prSvgs");
+  sv.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) prSelect(g.dataset.prcomp); });
+  sv.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); prSelect(e.target.closest(".comp").dataset.prcomp); } });
+  $("#prInfo").innerHTML = `<h3>Component details</h3><p>Select any solenoid, valve, line or the controller.</p>`;
+  prLog("On the ground at sea level. Engines running, bleed air valves OPEN, CABIN PRESS in PRESS: the safety valve is open, so the cabin is unpressurized.");
+  prStep(0.001);
+  prTimer = setInterval(() => prStep(0.1), 100);
 }
 
 /* ================= boot ================= */
