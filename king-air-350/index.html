@@ -562,6 +562,58 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 .hrs { font-family: var(--f-mono); font-size: 13px; font-weight: 700; fill: #f1f3f4; letter-spacing: .12em; }
 .hrbox { font-family: var(--f-mono); font-size: 1.15rem; font-weight: 700; letter-spacing: .14em; background: #1a1d21; color: #f1f3f4; border: 1px solid var(--panel-line); border-radius: 4px; padding: 4px 10px; }
 
+/* ---------- fire protection ---------- */
+.fp-air { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.6; }
+.fp-wingside { fill: var(--surface-2); stroke: var(--line); stroke-width: 1.4; }
+.fp-spar { stroke: var(--muted); stroke-width: 1.4; stroke-dasharray: 6 5; }
+.fp-prop { stroke: var(--sym); stroke-width: 5; stroke-linecap: round; opacity: .55; }
+.fp-nac { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; transition: fill .4s; }
+.fp-nac.on { fill: #fbd5cf; }
+:root[data-theme="dark"] .fp-nac.on { fill: #4a1d18; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .fp-nac.on { fill: #4a1d18; } }
+.flame path { fill: #ee7d1f; stroke: #e2342a; stroke-width: 1.5; }
+.flame { opacity: 0; transition: opacity .3s; pointer-events: none; }
+.flame.on { opacity: .95; animation: blink .7s steps(2) infinite; }
+.fp-tube { fill: none; stroke: #e2342a; stroke-width: 3; stroke-dasharray: 7 4; }
+.fp-tube.solid { stroke-dasharray: none; stroke-width: 6; }
+.fp-resp { fill: #e2342a; stroke: var(--sym); stroke-width: 1.2; }
+.fp-respbody { fill: #e2342a; fill-opacity: .12; stroke: #e2342a; stroke-width: 1.6; }
+.fp-wire { fill: none; stroke: #e2342a; stroke-width: 1.6; opacity: .75; }
+.fp-pcb { fill: #2fb062; stroke: var(--sym); stroke-width: 1.2; }
+.fp-bottle { fill: #e2342a; fill-opacity: .25; stroke: #e2342a; stroke-width: 2; transition: fill-opacity .4s; }
+.fp-bottle.empty { fill-opacity: 0; stroke-dasharray: 4 3; }
+.fp-cart { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; }
+.fp-line { fill: none; stroke: #2a8fe0; stroke-width: 3; stroke-linejoin: round; }
+.fp-line.on { stroke-width: 4.5; stroke-dasharray: 9 6; animation: flow .5s linear infinite; }
+.fp-noz { fill: #2a8fe0; stroke: var(--canvas); stroke-width: 1; }
+.fp-spray { fill: none; stroke: #2a8fe0; stroke-width: 2; opacity: 0; }
+.fp-spray.on { opacity: .9; }
+.fp-ctl { fill: var(--accent); stroke: var(--sym); stroke-width: 1; }
+.fp-ctl.dim { opacity: .6; }
+.fp-lead { stroke: var(--muted); stroke-width: 1; }
+.fp-eng { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.4; }
+.fp-exh { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.4; }
+.fp-zone { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.2; }
+.fp-zone.hot { fill: #ee7d1f; fill-opacity: .14; }
+.fp-zone.acc { fill: #2a8fe0; fill-opacity: .1; }
+.fp-fw { stroke: var(--sym); stroke-width: 4; }
+.fp-well { fill: none; stroke: var(--muted); stroke-width: 1.4; stroke-dasharray: 5 4; }
+.fp-rw { fill: none; stroke: var(--wire-dead); stroke-width: 2.5; transition: stroke .2s; }
+.fp-rw.on { stroke: var(--pw-bat); stroke-width: 3.5; }
+.fp-lampbox { fill: #2b2f33; stroke: #0a0b0c; stroke-width: 2; }
+.fp-lamp { fill: #3a1311; transition: fill .2s; }
+.fp-lamp.on { fill: #e2342a; }
+#fp-resp .blk-t { fill: #f1f3f4; }
+.fp-glare { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; align-items: center; background: #141619; border-radius: 6px; padding: 14px 10px; }
+.fpbtn { width: 108px; border-radius: 4px; border: 2px solid #0a0b0c; background: #2b2f33; cursor: pointer; padding: 4px; display: grid; gap: 3px; font-family: var(--f-display); font-weight: 700; letter-spacing: .05em; line-height: 1.05; }
+.fpbtn .lens { padding: 6px 2px; border-radius: 2px; font-size: .72rem; min-height: 32px; display: grid; place-content: center; transition: background .15s; }
+.fpbtn .lens.red { background: #3a1311; color: #8a3a35; }
+.fpbtn .lens.amber { background: #2a2512; color: #6e6233; }
+.fpbtn .lens.red.on { background: #e2342a; color: #fff5f3; box-shadow: 0 0 12px rgba(226,52,42,.6); }
+.fpbtn .lens.amber.on { background: #f2b81c; color: #241a00; box-shadow: 0 0 12px rgba(242,184,28,.5); }
+.fpbtn .lens.on.blink { animation: blink .5s steps(1) infinite; }
+.fp-log { max-height: 260px; overflow: auto; }
+
 @media (max-width: 1120px) {
   .sim { grid-template-columns: minmax(0, 1fr); }
   .side { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -580,7 +632,7 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
   .eng-row { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .oilf.on, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
+  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .oilf.on, .flame.on, .fp-line.on, .fpbtn .lens.on.blink, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
   * { transition: none !important; }
 }
 </style>
@@ -1841,6 +1893,162 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 </div>
 </template>
 
+<template id="tpl-fire-protection">
+<div class="view">
+  <header class="chapter-head">
+    <div class="eyebrow">Chapter 8</div>
+    <h1>Fire Protection</h1>
+    <p class="lede">Each engine compartment has its own fire detection and fire-extinguishing system. Detection is automatic: a gas-filled sensor tube loops around the engine and lights a red ENG FIRE lens when it overheats. Extinguishing is manual: close that side's firewall fuel valve, then fire that side's one-shot bottle.</p>
+    <p class="disclaimer">Study aid built from the King Air 300/350 training manual fire protection section. It is not an approved document. The POH/AFM and its emergency procedures govern. Component positions on the drawings are approximate.</p>
+    <div class="subnav" id="fpSubnav">
+      <button data-go="fp-glance">At a glance</button>
+      <button data-go="fp-map">Where everything is</button>
+      <button data-go="fp-panel">Cockpit controls</button>
+      <button data-go="fp-det">Fire detection</button>
+      <button data-go="fp-dtest">Detection test</button>
+      <button data-go="fp-ext">Extinguishing</button>
+      <button data-go="fp-etest">Extinguisher test</button>
+    </div>
+  </header>
+
+  <section class="block" id="fp-glance">
+    <h2>At a glance <span class="ref">Figures 8-1 to 8-3</span></h2>
+    <div class="specs">
+      <div class="spec"><span class="v">2 systems</span><span class="k">One detection loop and one extinguisher per engine. Nothing is shared between sides.</span></div>
+      <div class="spec"><span class="v">800 °F · 360 °F</span><span class="k">Alarm: any 1-ft section of tube at 800 °F, or the whole tube averaging 360 °F</span></div>
+      <div class="spec"><span class="v">545 °F · 540 °F</span><span class="k">Alarm: accessory compartment 545 °F, hot section compartment 540 °F</span></div>
+      <div class="spec"><span class="v">2.50 lb</span><span class="k">Bromotrifluoromethane (CBrF3) per bottle, 450–475 psi at 72 °F</span></div>
+      <div class="spec"><span class="v">8 nozzles</span><span class="k">Per engine: 4 into the exhaust area, 4 into the accessory area. The whole bottle discharges at once.</span></div>
+      <div class="spec"><span class="v">5 A × 4</span><span class="k">LEFT/RIGHT FIRE DET (right CB panel) and LEFT/RIGHT ENGINE FIRE EXT (hot battery bus)</span></div>
+    </div>
+  </section>
+
+  <section class="block" id="fp-map">
+    <h2>Where everything is <span class="ref">Figures 8-1, 8-3</span></h2>
+    <p class="prose">Select any labeled part for what it does. The overview shows the whole airplane from above. The nacelle view is a side cutaway of the left engine, nose to the left. The responder view is the simplified circuit from Figure 8-2.</p>
+    <div class="sim near">
+      <div class="diagram-card">
+        <div class="dtabs">
+          <div class="seg" role="group" aria-label="View" id="fpTabs">
+            <button type="button" data-tab="top" aria-pressed="true">Airplane overview</button>
+            <button type="button" data-tab="nac" aria-pressed="false">Engine nacelle</button>
+            <button type="button" data-tab="resp" aria-pressed="false">Responder circuit</button>
+          </div>
+        </div>
+        <div class="svg-wrap" id="fpSvgs">
+          <svg id="fp-top" viewBox="0 0 1000 600" role="img" aria-label="King Air 350 fire protection components, top view"></svg>
+          <svg id="fp-nac" viewBox="0 0 1000 470" role="img" aria-label="Engine nacelle fire detection and extinguishing components, side view" hidden></svg>
+          <svg id="fp-resp" viewBox="0 0 1000 470" role="img" aria-label="Fire detector responder simplified schematic" hidden></svg>
+        </div>
+        <div class="legend">
+          <span><i style="background:#e2342a"></i>Fire sensor tube / detection wiring</span>
+          <span><i style="background:#2a8fe0"></i>Extinguisher line &amp; nozzles</span>
+          <span><i style="background:var(--accent)"></i>Cockpit controls</span>
+        </div>
+      </div>
+      <div class="side">
+        <div class="card info" id="fpInfo" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="fp-panel">
+    <h2>Cockpit controls <span class="ref">Figures 8-1, 8-3</span></h2>
+    <p class="prose">A working copy of the glareshield buttons and the ENG FIRE TEST switches. Run either test, or start a fire and work through it: <b>close the firewall valve</b> (which arms the extinguisher), then <b>push the extinguisher</b>. The test switches spring back to OFF after a few seconds. Select a failure to see a test fail.</p>
+    <div class="cockpit">
+      <div class="panel">
+        <h3>Glareshield</h3>
+        <div class="fp-glare" id="fpGlare"></div>
+        <h3>Copilot's left subpanel · ENG FIRE TEST</h3>
+        <div class="sw-row" id="fpTest"></div>
+        <h3>Battery</h3>
+        <div class="envrow" id="fpBat"></div>
+      </div>
+      <div class="panel">
+        <h3>Make something happen</h3>
+        <div class="faults" id="fpActs"></div>
+        <h3>Failures (found by the tests)</h3>
+        <div class="faults" id="fpFaults"></div>
+        <h3>Events</h3>
+        <ol class="log fp-log" id="fpLog"></ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="fp-det">
+    <h2>Engine fire detection <span class="ref">Figures 8-1, 8-2</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>The main element is a <b>temperature-sensing tube</b> looped continuously around the engine. It ends at a <b>responder unit</b> in the accessory area, at about the ten o'clock position. The tube is a hermetically sealed stainless-steel outer tube filled with an inert gas, around a hydride core filled with an active gas.</p>
+        <p>The responder has two sets of contacts:</p>
+        <ul class="tight">
+          <li><b>Integrity switch</b> (normally closed). Normal gas pressure in the tube holds it closed. It's used by the detection test, so a tube that has lost its gas fails the test.</li>
+          <li><b>Alarm switch</b> (normally open). As the tube heats, its gases expand. At a factory-preset pressure the alarm contacts close and send a signal to the <b>printed circuit board</b>, which is forward of the main spar under the center aisle floor.</li>
+        </ul>
+        <p>The board lights the red <b>L</b> or <b>R ENG FIRE</b> lens in that side's firewall fuel valve pushbutton. ENG FIRE also triggers the <b>MASTER WARNING</b> flasher.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="bus-table-wrap"><table><thead><tr><th>Alarm when…</th><th>Temperature</th></tr></thead><tbody>
+          <tr><td>Any one-foot section of tube</td><td>800 °F</td></tr>
+          <tr><td>Average of the entire tube</td><td>360 °F</td></tr>
+          <tr><td>Accessory compartment</td><td>545 °F</td></tr>
+          <tr><td>Hot section compartment</td><td>540 °F</td></tr>
+          <tr><td>Plenum chamber (2 ft of tube, not a fire or overheat zone)</td><td>≈ 900 °F</td></tr>
+        </tbody></table></div>
+        <div class="card"><h3>Firewall fuel valve pushbutton</h3><p>A split-lens pushbutton on the glareshield. The top lens is the red <b>ENG FIRE</b> warning. The bottom lens is <b>FW VALVE CLOSED</b>, which shows the firewall fuel valve's position when the battery switch is on:</p>
+          <ul class="tight"><li><b>Off:</b> valve open.</li><li><b>Steady:</b> valve closed.</li><li><b>Flashing:</b> valve position disagrees with the pushbutton (in transit or failed).</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="fp-dtest">
+    <h2>Fire detection test</h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Two three-position, center-off toggle switches on the copilot's left subpanel, placarded <b>ENG FIRE TEST · DET – OFF – EXT · LEFT – RIGHT</b>.</p>
+        <p>In <b>DET</b>, current flows from that side's 5-amp <b>FIRE DET</b> circuit breaker (right circuit-breaker panel) through the detector circuitry and lights the red ENG FIRE lens in that side's firewall fuel valve pushbutton.</p>
+        <p>If the lens doesn't light, something is wrong with the sensor tube, the responder, the annunciator or the wiring. <b>Fix it before flight.</b></p>
+      </div>
+      <div class="card"><h3>Try it</h3><p>In the cockpit controls above, hold LEFT to DET: the L ENG FIRE lens lights and MASTER WARNING flashes. Then select the "L sensor tube lost its gas" failure and test again. The light stays out.</p>
+        <button class="show" type="button" data-fpgo="fp-panel">Go to the cockpit controls →</button></div>
+    </div>
+  </section>
+
+  <section class="block" id="fp-ext">
+    <h2>Engine fire extinguishing <span class="ref">Figure 8-3</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>A <b>fire extinguisher supply container</b> is mounted on brackets aft of the main spar in each main landing gear wheel well. Each holds <b>2.50 lb of bromotrifluoromethane (CBrF3)</b>, pressurized to 450–475 psi at 72 °F. It has a <b>pressure gage</b> and a <b>pyrotechnic cartridge</b>, which fires to release the agent.</p>
+        <p>The line runs along the side of the nacelle and branches into <b>eight spray tubes</b>: four discharge into the engine exhaust area, four into the accessory area. Once fired, the whole bottle empties into that engine.</p>
+        <p>The <b>fire extinguisher pushbuttons</b> are on the glareshield at each end of the warning annunciator panel. Power comes from a 5-amp <b>LEFT</b> or <b>RIGHT ENGINE FIRE EXT</b> circuit breaker on the <b>hot battery bus</b>. The circuit goes to the <b>firewall fuel valve pushbutton first</b>. That valve must be <b>closed</b> to complete the circuit to the extinguisher pushbutton. Once the circuit is complete, the bottle can be fired <b>whatever the battery switch position</b>.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>Extinguisher pushbutton lights</h3>
+          <ul class="tight">
+            <li><b>EXTINGUISHER PUSH</b> (red, upper half): the firing circuit is complete. You see it once that side's firewall valve is closed.</li>
+            <li><b>DISCHARGED</b> (amber, lower half): a sensor watches the pyrotechnic cartridge. When the cartridge fires and breaks the sensor circuit, DISCHARGED lights and <b>stays on until the cartridge is replaced</b>, regardless of the battery switch or firewall valve.</li>
+          </ul></div>
+        <div class="card"><h3>Fire sequence</h3><ol class="tight"><li>ENG FIRE lens lights and MASTER WARNING flashes.</li><li>Shut down the engine and push that side's <b>firewall fuel valve</b> pushbutton (FW VALVE CLOSED lights).</li><li>EXTINGUISHER PUSH lights. Push it to fire the bottle, and DISCHARGED lights.</li></ol><p class="disclaimer">Follow the AFM emergency checklist for the actual procedure.</p>
+          <button class="show" type="button" data-fpfire="L">Practice a left engine fire →</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="fp-etest">
+    <h2>Fire extinguisher test</h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>The same ENG FIRE TEST switches, in the <b>EXT</b> position. Current flows from the 5-amp hot battery bus circuit breaker through the EXT test switch, the EXTINGUISHER PUSH annunciator and the cartridge on the container to ground. <b>EXTINGUISHER PUSH</b> lighting proves the cartridge circuit is good.</p>
+        <p>At the same time the EXT switch breaks the cartridge sensor circuit, so <b>DISCHARGED</b> should also light. That proves the cartridge sensor works.</p>
+        <p>If either light fails on a side, that side's extinguisher system has a fault. <b>Fix it before flight.</b></p>
+      </div>
+      <div class="card"><h3>Try it</h3><p>Hold RIGHT to EXT: both halves of the right extinguisher pushbutton light. It works with the battery switch off too, because the power comes from the hot battery bus. Then select "R cartridge sensor fault" and test again.</p>
+        <button class="show" type="button" data-fpgo="fp-panel">Go to the cockpit controls →</button></div>
+    </div>
+  </section>
+</div>
+</template>
+
 <script>
 (function () {
 "use strict";
@@ -1853,7 +2061,7 @@ const CHAPTERS = [
   { n: 5,  id: "fuel",              t: "Fuel System", ready: "Ready · interactive fuel-flow schematic" },
   { n: 6,  id: "propellers",        t: "Propellers", ready: "Ready · interactive propeller & governor" },
   { n: 7,  id: "powerplant",        t: "Powerplant", ready: "Ready · interactive pedestal & engine" },
-  { n: 8,  id: "fire-protection",   t: "Fire Protection" },
+  { n: 8,  id: "fire-protection",   t: "Fire Protection", ready: "Ready · labeled component views & fire test panel" },
   { n: 9,  id: "pneumatics",        t: "Pneumatics", ready: "Ready · interactive pneumatic & vacuum schematic" },
   { n: 10, id: "ice-rain",          t: "Ice and Rain Protection" },
   { n: 11, id: "air-conditioning",  t: "Air Conditioning" },
@@ -1915,7 +2123,7 @@ function renderPlaceholder(c) {
   </div>`;
 }
 
-const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics() };
+const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection() };
 function route() {
   const id = (location.hash || "").replace("#", "");
   const ch = CHAPTERS.find(c => c.id === id);
@@ -2711,7 +2919,7 @@ function applyScenario(i) {
   step(0.01);
 }
 
-function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; if (pnTimer) { clearInterval(pnTimer); pnTimer = null; } pnScript = null; MW = null; }
+function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; if (pnTimer) { clearInterval(pnTimer); pnTimer = null; } pnScript = null; if (fpTimer) { clearInterval(fpTimer); fpTimer = null; } MW = null; }
 
 function initElectrical() {
   buildSchematic();
@@ -4339,7 +4547,7 @@ function initPropellers() {
   const sv = $("#pvSvgs");
   sv.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) pvSelect(g.dataset.pvcomp); });
   sv.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); pvSelect(e.target.closest(".comp").dataset.pvcomp); } });
-  document.querySelector("main").addEventListener("click", e => { const b = e.target.closest("[data-pvsc]"); if (b) { pvApply(+b.dataset.pvsc); $("#pv-sim").scrollIntoView({ behavior: "smooth", block: "start" }); } });
+  $("#main .view").addEventListener("click", e => { const b = e.target.closest("[data-pvsc]"); if (b) { pvApply(+b.dataset.pvsc); $("#pv-sim").scrollIntoView({ behavior: "smooth", block: "start" }); } });
   pvShowTab("hyd");
   pvApply(0);
   $("#pvInfo").innerHTML = `<h3>Component details</h3><p>Select any part of a diagram (flyweights, pilot valve, beta valve, reverse lever, dome, feedback ring, governors, autofeather relays) for what it does and its live state.</p>`;
@@ -4682,10 +4890,268 @@ function initPneumatics() {
   const sv = $("#pnschem");
   sv.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) pnSelect(g.dataset.pncomp); });
   sv.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); pnSelect(e.target.closest(".comp").dataset.pncomp); } });
-  document.querySelector("main").addEventListener("click", e => { const b = e.target.closest("[data-pnsc]"); if (b) { pnApply(+b.dataset.pnsc); $("#pn-sim").scrollIntoView({ behavior: "smooth", block: "start" }); } });
+  $("#main .view").addEventListener("click", e => { const b = e.target.closest("[data-pnsc]"); if (b) { pnApply(+b.dataset.pnsc); $("#pn-sim").scrollIntoView({ behavior: "smooth", block: "start" }); } });
   $("#pnInfo").innerHTML = `<h3>Component details</h3><p>Select any valve, regulator, gage or user on the schematic for what it does and its live state.</p>`;
   pnApply(0);
   pnTimer = setInterval(() => pnStep(0.05), 50);
+}
+
+/* ================= Chapter 8: Fire Protection ================= */
+let FP = null, fpTimer = null, fpSel = null, fpTab = "top", fpLogArr = [];
+const FPC = {
+  tube: { group: "Detection", name: "Fire sensor tube", desc: "A continuous loop around the engine: hermetically sealed stainless-steel outer tube with inert gas, around a hydride core holding an active gas. Heat expands the gases. Alarm when any 1-ft section reaches 800 °F, the whole tube averages 360 °F, the accessory compartment reaches 545 °F or the hot section compartment 540 °F. Normal gas pressure also holds the responder's integrity switch closed for the test." },
+  plenum: { group: "Detection", name: "Plenum section of the tube", desc: "Two feet of sensor tube runs through the plenum chamber. That area is not a fire or overheat zone, and the tube there alarms at about 900 °F." },
+  resp: { group: "Detection", name: "Responder unit", desc: "Where the sensor tube ends, in the engine accessory area at about the ten o'clock position. It contains the integrity switch contacts (for the continuity test) and the alarm switch contacts (which close on overtemperature and start the fire warning)." },
+  pcb: { group: "Detection", name: "Printed circuit board", desc: "Forward of the main spar, under the center aisle floor. Receives the signal from each responder and lights that side's red ENG FIRE lens on the glareshield." },
+  hotz: { group: "Detection", name: "Hot section compartment", desc: "The area around the combustion section and turbines. The detector alarms when this compartment reaches 540 °F." },
+  accz: { group: "Detection", name: "Accessory compartment", desc: "The rear of the engine, around the accessory gearbox. The detector alarms when this compartment reaches 545 °F. The responder unit is mounted here." },
+  bottle: { group: "Extinguishing", name: "Fire extinguisher supply container", desc: "On brackets aft of the main spar in each main landing gear wheel well. 2.50 lb of bromotrifluoromethane (CBrF3), pressurized to 450–475 psi at 72 °F. One bottle per engine, and the whole charge goes at once." },
+  cart: { group: "Extinguishing", name: "Pyrotechnic cartridge", desc: "Fires electrically when the extinguisher pushbutton is pushed and releases the agent. A sensor watches its condition. Once it fires, the amber DISCHARGED light stays on until the cartridge is replaced." },
+  gage: { group: "Extinguishing", name: "Container pressure gage", desc: "Shows the bottle's charge pressure, nominally 450–475 psi at 72 °F." },
+  line: { group: "Extinguishing", name: "Extinguisher line", desc: "Runs from the container forward along the side of the nacelle, then branches into eight spray tubes around the engine." },
+  nozE: { group: "Extinguishing", name: "Spray nozzles: exhaust area (4)", desc: "Four of the eight nozzles discharge into the engine exhaust area." },
+  nozA: { group: "Extinguishing", name: "Spray nozzles: accessory area (4)", desc: "Four of the eight nozzles discharge into the accessory area." },
+  spar: { group: "Structure", name: "Main spar", desc: "The printed circuit board is just forward of it (under the center aisle floor), and the extinguisher containers are just aft of it in the wheel wells." },
+  glare: { group: "Cockpit", name: "Glareshield pushbuttons", desc: "At each end of the warning annunciator panel: the EXTINGUISHER PUSH / DISCHARGED pushbutton. Beside the panel: the ENG FIRE / FW VALVE CLOSED firewall fuel valve pushbutton for each side." },
+  test: { group: "Cockpit", name: "ENG FIRE TEST switches", desc: "Copilot's left subpanel. Two three-position, center-off toggles, LEFT and RIGHT: DET tests the detection system, EXT tests the extinguisher cartridge circuit and DISCHARGED sensor." },
+  cbs: { group: "Power", name: "Fire protection circuit breakers", desc: "LEFT and RIGHT FIRE DET (5 A each) on the right circuit-breaker panel power detection and its test. LEFT and RIGHT ENGINE FIRE EXT (5 A each) on the hot battery bus power the extinguishers and their test, so they work with the battery switch off." },
+  cb: { group: "Power", name: "FIRE DET circuit breaker (28 VDC)", desc: "5 A, right circuit-breaker panel. Powers the detector circuitry, the alarm path and the DET test." },
+  alarm: { group: "Responder", name: "Alarm switch (N.O.)", desc: "Normally open. When the expanding gases in the sensor tube reach a factory-preset pressure, it closes and completes the circuit that lights ENG FIRE." },
+  integ: { group: "Responder", name: "Integrity switch (N.C.)", desc: "Normally closed, held closed by normal sensor pressure. The DET test sends current through it. If the tube has lost its gas the switch opens and the test light stays out. That catches a tube that could no longer alarm." },
+  tsw: { group: "Responder", name: "Engine fire test switch (DET)", desc: "In DET, current goes through the integrity switch to the ENG FIRE lens. If the lens lights, the tube, responder, lamp and wiring are all good." },
+  lamp: { group: "Cockpit", name: "ENG FIRE / FW VALVE pushbutton", desc: "Upper red lens: L or R ENG FIRE, which also triggers MASTER WARNING. Lower lens: FW VALVE CLOSED. With the battery switch on it's off when the valve is open, steady when closed, and flashing when valve and pushbutton disagree." }
+};
+const FP_TABS = ["top", "nac", "resp"];
+
+function fpFresh() {
+  const lr = v => ({ L: v, R: v });
+  return { t: 0, bat: true, test: lr("OFF"), testT: lr(0), fw: lr("OPEN"), fwT: lr(0), fire: lr(false), heat: lr(0), outT: lr(0), dis: lr(false), spray: lr(0), mw: false, prevFire: lr(false),
+    fault: { tube: lr(false), cart: lr(false) } };
+}
+function fpLog(msg, cls) {
+  fpLogArr.unshift({ t: FP.t, msg, cls: cls || "" }); if (fpLogArr.length > 40) fpLogArr.pop();
+  const h = $("#fpLog"); if (h) h.innerHTML = fpLogArr.map(e => `<li class="${e.cls}"><span class="t">${e.t.toFixed(1)}s</span><span class="m">${esc(e.msg)}</span></li>`).join("");
+}
+function fpLights() {
+  const P = FP, L = {};
+  ["L", "R"].forEach(k => {
+    const alarm = P.heat[k] > 0.6 && !P.fault.tube[k];
+    L["fire" + k] = P.bat && (alarm || (P.test[k] === "DET" && !P.fault.tube[k]));
+    L["fw" + k] = P.bat && (P.fwT[k] > 0 ? "blink" : P.fw[k] === "CLOSED");
+    L["push" + k] = P.fw[k] === "CLOSED" || P.test[k] === "EXT";
+    L["dis" + k] = P.dis[k] || (P.test[k] === "EXT" && !P.fault.cart[k]);
+    L["alarm" + k] = alarm;
+  });
+  return L;
+}
+function fpStep(dt) {
+  const P = FP; P.t += dt;
+  ["L", "R"].forEach(k => {
+    if (P.testT[k] > 0) { P.testT[k] = Math.max(0, P.testT[k] - dt); if (P.testT[k] === 0) P.test[k] = "OFF"; }
+    if (P.fwT[k] > 0) { P.fwT[k] = Math.max(0, P.fwT[k] - dt); if (P.fwT[k] === 0) fpLog(`${SIDE[k]} firewall fuel valve ${P.fw[k] === "CLOSED" ? "closed" : "open"}.`); }
+    if (P.outT[k] > 0) { P.outT[k] = Math.max(0, P.outT[k] - dt); if (P.outT[k] === 0 && P.fire[k]) { P.fire[k] = false; fpLog(`${SIDE[k]} engine fire out. The tube cools and ENG FIRE goes out.`, "ok"); } }
+    if (P.spray[k] > 0) P.spray[k] = Math.max(0, P.spray[k] - dt);
+    P.heat[k] = Math.max(0, Math.min(1, P.heat[k] + (P.fire[k] ? dt / 2 : -dt / 3)));
+  });
+  const Lt = fpLights();
+  ["L", "R"].forEach(k => {
+    if (Lt["fire" + k] && !P.prevFire[k]) { P.mw = true; if (P.test[k] !== "DET") fpLog(`${k} ENG FIRE: the ${SIDE[k].toLowerCase()} sensor tube alarm switch closed. MASTER WARNING flashing.`, "bad"); }
+    if (P.fire[k] && P.heat[k] > 0.6 && P.fault.tube[k] && !P.warnedTube) { P.warnedTube = true; fpLog(`${SIDE[k]} engine is on fire but the sensor tube has lost its gas, so there's no warning. The DET test would have caught this before flight.`, "bad"); }
+    P.prevFire[k] = Lt["fire" + k];
+  });
+  fpRender(Lt);
+}
+function fpSetTest(k, v) {
+  const P = FP; P.test[k] = v; P.testT[k] = v === "OFF" ? 0 : 4;
+  if (v === "DET") {
+    if (!P.bat) fpLog(`${SIDE[k]} DET test: no light. The FIRE DET circuit breaker isn't powered with the battery switch off.`, "warn");
+    else if (P.fault.tube[k]) fpLog(`${SIDE[k]} DET test FAILED: ${k} ENG FIRE didn't light (integrity switch open, the sensor tube has lost its gas). Fix it before flight.`, "bad");
+    else fpLog(`${SIDE[k]} DET test: ${k} ENG FIRE lights through the integrity switch, and MASTER WARNING flashes. Detection is good.`, "ok");
+  } else if (v === "EXT") {
+    if (P.fault.cart[k]) fpLog(`${SIDE[k]} EXT test FAILED: EXTINGUISHER PUSH lit but DISCHARGED didn't, so the cartridge sensor is faulty. Fix it before flight.`, "bad");
+    else fpLog(`${SIDE[k]} EXT test: EXTINGUISHER PUSH (cartridge circuit good) and DISCHARGED (cartridge sensor good) both lit${P.bat ? "" : ", even with the battery switch off (hot battery bus)"}.`, "ok");
+  }
+  fpStep(0.001);
+}
+function fpRender(Lt) {
+  if (!$("#fpGlare")) return;
+  const P = FP;
+  const set = (id, on) => { const el = $(id); if (!el) return; el.classList.toggle("on", !!on); el.classList.toggle("blink", on === "blink"); };
+  ["L", "R"].forEach(k => {
+    set(`#fpb-fire${k}`, Lt["fire" + k]); set(`#fpb-fw${k}`, Lt["fw" + k]); set(`#fpb-push${k}`, Lt["push" + k]); set(`#fpb-dis${k}`, Lt["dis" + k]);
+    $$(`[data-fptest="${k}"]`).forEach(b => b.setAttribute("aria-pressed", String(P.test[k] === b.dataset.val)));
+    $(`#fpf-tube${k}`).setAttribute("aria-pressed", String(P.fault.tube[k])); $(`#fpf-cart${k}`).setAttribute("aria-pressed", String(P.fault.cart[k]));
+    $(`#fpa-fire${k}`).setAttribute("aria-pressed", String(P.fire[k]));
+    // diagrams
+    $$(`[data-fpfire="${k}"].flame`).forEach(f => f.classList.toggle("on", P.fire[k]));
+    $$(`[data-fpheat="${k}"]`).forEach(f => f.classList.toggle("on", P.heat[k] > 0.6));
+    $$(`[data-fpspray="${k}"]`).forEach(f => f.classList.toggle("on", P.spray[k] > 0));
+    $$(`[data-fpbottle="${k}"]`).forEach(f => f.classList.toggle("empty", P.dis[k]));
+  });
+  $("#fpMW").classList.toggle("on", P.mw); $("#fpMW").classList.toggle("blink", P.mw);
+  $("#fpBat-on").setAttribute("aria-pressed", String(P.bat)); $("#fpBat-off").setAttribute("aria-pressed", String(!P.bat));
+  // responder circuit (left side shown)
+  const det = P.bat && P.test.L === "DET" && !P.fault.tube.L, alm = P.bat && Lt.alarmL;
+  $$("#fp-resp [data-rw]").forEach(w => { const r = w.dataset.rw; w.classList.toggle("on", (r === "pwr" && P.bat) || (r === "test" && det) || (r === "alarm" && alm) || (r === "lamp" && (det || alm))); });
+  $("#fpIntegSw").setAttribute("transform", P.fault.tube.L ? "rotate(-25 470 300)" : "");
+  $("#fpAlarmSw").setAttribute("transform", alm ? "" : "rotate(-25 520 196)");
+  $("#fpRespLamp").classList.toggle("on", !!Lt.fireL);
+  $("#fpRespState").textContent = `Left side now: tube ${P.fault.tube.L ? "LOST ITS GAS (integrity switch open)" : P.heat.L > 0.6 ? "OVERHEATED (alarm switch closed)" : "normal (integrity closed, alarm open)"}`;
+}
+
+function fpSvgs() {
+  const T = (x, y, s, cls, anchor) => `<text x="${x}" y="${y}" class="${cls || "lbl"}" text-anchor="${anchor || "middle"}">${s}</text>`;
+  const comp = (id, inner, hit) => `<g class="comp" data-fpcomp="${id}" tabindex="0" role="button" aria-label="${esc(FPC[id].name)}"><rect class="hit" x="${hit[0]}" y="${hit[1]}" width="${hit[2]}" height="${hit[3]}" rx="4"/>${inner}</g>`;
+  const lead = (x1, y1, x2, y2) => `<line class="fp-lead" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"/>`;
+  const flame = (k, x, y, s) => `<g class="flame" data-fpfire="${k}" transform="translate(${x},${y}) scale(${s || 1})"><path d="M0,-22 C10,-10 14,-2 10,8 C7,15 -7,15 -10,8 C-14,-2 -6,-8 -4,-16 C-2,-8 2,-6 0,-22 Z"/></g>`;
+
+  // ---------- top view ----------
+  let t = `<path class="fp-air" d="M500,20 C522,22 534,60 536,110 L540,250 L960,300 L960,334 L540,330 L534,500 L600,530 L600,552 L500,546 L400,552 L400,530 L466,500 L460,330 L40,334 L40,300 L460,250 L464,110 C466,60 478,22 500,20 Z"/>`;
+  t += comp("spar", `<line class="fp-spar" x1="60" y1="318" x2="940" y2="318"/>${T(940, 352, "MAIN SPAR", "blk-s", "end")}`, [600, 306, 340, 54]);
+  ["L", "R"].forEach(k => {
+    const X = x => k === "L" ? x : 1000 - x;
+    t += `<line class="fp-prop" x1="${X(170)}" y1="150" x2="${X(390)}" y2="150"/><circle class="sym" cx="${X(280)}" cy="152" r="9"/>`;
+    t += `<rect class="fp-nac" data-fpheat="${k}" x="${X(280) - 30}" y="156" width="60" height="230" rx="24"/>`;
+    t += flame(k, X(280), 230, 1.2);
+    t += comp("tube", `<rect class="fp-tube" x="${X(280) - 20}" y="176" width="40" height="122" rx="12"/>`, [X(280) - 26, 170, 52, 134]);
+    t += comp("resp", `<rect class="fp-resp" x="${X(280) - 14}" y="282" width="28" height="14" rx="3"/>`, [X(280) - 18, 278, 36, 22]);
+    t += comp("bottle", `<circle class="fp-bottle" data-fpbottle="${k}" cx="${X(280)}" cy="352" r="16"/>${T(X(280), 357, "EXT", "blk-s")}`, [X(280) - 20, 332, 40, 40]);
+    t += comp("line", `<polyline class="fp-line" data-fpspray="${k}" points="${X(280) + (k === "L" ? 22 : -22)},350 ${X(280) + (k === "L" ? 34 : -34)},350 ${X(280) + (k === "L" ? 34 : -34)},186"/>${[192, 204, 216, 228].map(y => `<circle class="fp-noz" cx="${X(280) + (k === "L" ? 34 : -34)}" cy="${y}" r="3.5"/>`).join("")}${[254, 266, 278, 290].map(y => `<circle class="fp-noz" cx="${X(280) + (k === "L" ? 34 : -34)}" cy="${y}" r="3.5"/>`).join("")}`, [X(280) + (k === "L" ? 26 : -42), 182, 16, 172]);
+    t += `<polyline class="fp-wire" points="${X(280)},289 ${X(330)},289 ${X(330)},240 ${X(470)},240"/>`;
+  });
+  t += comp("pcb", `<rect class="fp-pcb" x="478" y="230" width="44" height="22" rx="3"/>${T(500, 245, "PCB", "blk-s")}`, [474, 226, 52, 30]);
+  t += `<polyline class="fp-wire" points="500,230 500,108"/>`;
+  t += comp("glare", `<rect class="fp-ctl" x="472" y="92" width="56" height="12" rx="3"/>`, [468, 86, 64, 22]);
+  t += comp("test", `<rect class="fp-ctl" x="508" y="116" width="16" height="12" rx="2"/>`, [504, 112, 24, 20]);
+  t += comp("cbs", `<rect class="fp-ctl dim" x="520" y="136" width="10" height="22" rx="2"/>`, [516, 132, 18, 30]);
+  // left-side labels (left engine) + cockpit labels on the right
+  t += lead(250, 200, 150, 120) + T(146, 116, "FIRE SENSOR TUBE (loop)", "lbl-b", "end");
+  t += lead(266, 289, 150, 250) + T(146, 246, "RESPONDER UNIT", "lbl-b", "end") + T(146, 260, "accessory area, ~10 o'clock", "blk-s", "end");
+  t += lead(264, 356, 150, 410) + T(146, 406, "EXTINGUISHER CONTAINER", "lbl-b", "end") + T(146, 420, "wheel well, aft of main spar", "blk-s", "end");
+  t += lead(314, 210, 380, 70) + T(380, 62, "LINE + 8 SPRAY NOZZLES", "lbl-b") + T(380, 76, "4 exhaust · 4 accessory", "blk-s");
+  t += lead(478, 248, 400, 450) + T(396, 470, "PRINTED CIRCUIT BOARD", "lbl-b", "end") + T(396, 484, "fwd of main spar, under aisle floor", "blk-s", "end");
+  t += lead(528, 98, 640, 34) + T(644, 30, "GLARESHIELD: ENG FIRE / FW VALVE", "lbl-b", "start") + T(644, 44, "& EXTINGUISHER pushbuttons", "blk-s", "start");
+  t += lead(524, 122, 640, 76) + T(644, 72, "ENG FIRE TEST SWITCHES", "lbl-b", "start") + T(644, 86, "copilot's left subpanel", "blk-s", "start");
+  t += lead(530, 148, 640, 118) + T(644, 114, "CIRCUIT BREAKERS", "lbl-b", "start") + T(644, 128, "FIRE DET · ENGINE FIRE EXT", "blk-s", "start");
+  t += T(500, 590, "TOP VIEW · NOSE UP · BOTH ENGINES IDENTICAL", "blk-s");
+  $("#fp-top").innerHTML = t;
+
+  // ---------- nacelle side view (left engine, nose left) ----------
+  let n = `<path class="fp-wingside" d="M380,128 L960,128 L960,152 L380,152 Z"/>${T(940, 120, "WING", "blk-s", "end")}`;
+  n += `<path class="fp-nac" data-fpheat="L" d="M110,170 C140,140 200,136 260,136 L640,140 L640,320 L260,322 C200,322 150,312 120,290 Z"/>`;
+  n += `<line class="fp-prop" x1="70" y1="90" x2="70" y2="370"/><path class="sym" d="M70,200 C88,200 112,214 112,230 C112,246 88,260 70,260 Z"/>`;
+  n += flame("L", 330, 236, 1.8);
+  n += `<rect class="fp-eng" x="140" y="190" width="70" height="80" rx="6"/>${T(175, 290, "REDUCTION GEARBOX", "blk-s")}`;
+  n += `<path class="fp-exh" d="M220,180 L260,180 L270,140 L230,140 Z"/>${T(244, 132, "EXHAUST", "blk-s")}`;
+  n += comp("hotz", `<rect class="fp-zone hot" x="250" y="176" width="190" height="108" rx="6"/>${T(345, 262, "HOT SECTION · 540 °F", "lbl")}`, [246, 172, 198, 140]);
+  n += comp("plenum", `<rect class="fp-zone" x="440" y="176" width="60" height="108" rx="4"/>${T(470, 232, "PLENUM", "blk-s")}${lead(470, 176, 470, 112)}${T(470, 92, "PLENUM: 2 ft of tube, alarms ≈ 900 °F", "blk-s")}${T(470, 106, "not a fire or overheat zone", "blk-s")}`, [436, 80, 68, 206]);
+  n += comp("accz", `<rect class="fp-zone acc" x="500" y="176" width="110" height="108" rx="6"/>${T(555, 256, "ACCESSORY", "lbl")}${T(555, 270, "545 °F", "lbl")}`, [496, 172, 118, 140]);
+  n += `<line class="fp-fw" x1="622" y1="140" x2="622" y2="322"/>${T(622, 134, "FIREWALL", "blk-s")}`;
+  n += comp("tube", `<path class="fp-tube" d="M160,186 L600,186 L600,274 L160,274 Z"/>`, [154, 180, 452, 12]);
+  n += comp("resp", `<rect class="fp-resp" x="566" y="190" width="38" height="18" rx="3"/>${T(585, 226, "RESPONDER", "blk-s")}`, [560, 184, 50, 50]);
+  n += `<polyline class="fp-wire" points="604,199 660,199 660,96 760,96"/>${T(764, 100, "→ printed circuit board → ENG FIRE lens", "blk-s", "start")}`;
+  n += comp("spar", `<line class="fp-spar" x1="670" y1="128" x2="670" y2="420"/>${T(674, 430, "MAIN SPAR", "blk-s", "start")}`, [662, 128, 16, 300]);
+  n += `<rect class="fp-well" x="690" y="160" width="250" height="230" rx="10"/>${T(815, 408, "MAIN GEAR WHEEL WELL", "blk-s")}<circle class="sym" cx="880" cy="340" r="34"/><circle class="sym" cx="880" cy="340" r="12"/>`;
+  n += comp("bottle", `<circle class="fp-bottle" data-fpbottle="L" cx="770" cy="236" r="44"/>${T(770, 232, "EXTINGUISHER", "blk-t")}${T(770, 246, "CONTAINER", "blk-t")}`, [722, 188, 96, 96]);
+  n += comp("cart", `<rect class="fp-cart" x="756" y="282" width="28" height="26" rx="3"/>${T(770, 326, "PYRO CARTRIDGE", "blk-s")}`, [740, 278, 60, 54]);
+  n += comp("gage", `<circle class="sym" cx="828" cy="208" r="11"/><line x1="828" y1="208" x2="834" y2="201" stroke="var(--sym)" stroke-width="2"/>${T(846, 196, "GAGE", "blk-s", "start")}`, [812, 186, 70, 36]);
+  n += comp("line", `<polyline class="fp-line" data-fpspray="L" points="770,308 770,344 140,344"/>`, [140, 336, 640, 16]);
+  const noz = (x, k) => `<g class="fp-nozg"><line class="fp-line" data-fpspray="L" x1="${x}" y1="344" x2="${x}" y2="300"/><path class="fp-noz" d="M${x - 6},300 L${x + 6},300 L${x},290 Z"/><path class="fp-spray" data-fpspray="L" d="M${x},288 L${x - 12},262 M${x},288 L${x + 12},262 M${x},288 L${x},258"/></g>`;
+  n += comp("nozE", [196, 226, 256, 286].map(x => noz(x)).join("") + T(240, 380, "4 NOZZLES · EXHAUST AREA", "lbl"), [180, 282, 122, 106]);
+  n += comp("nozA", [520, 550, 580, 610].map(x => noz(x)).join("") + T(565, 380, "4 NOZZLES · ACCESSORY AREA", "lbl"), [504, 282, 122, 106]);
+  n += T(500, 460, "LEFT ENGINE · SIDE VIEW · NOSE LEFT", "blk-s");
+  $("#fp-nac").innerHTML = n;
+
+  // ---------- responder circuit (Figure 8-2, left side) ----------
+  let r = `<rect class="fp-respbody" x="440" y="140" width="150" height="240" rx="6"/>${T(515, 132, "RESPONDER UNIT", "lbl-b")}`;
+  r += `<polyline class="fp-rw" data-rw="pwr" points="70,180 120,180"/><polyline class="fp-rw" data-rw="pwr" points="180,180 520,180 520,190"/>`;
+  r += `<polyline class="fp-rw" data-rw="test" points="340,180 340,300 360,300"/><polyline class="fp-rw" data-rw="test" points="410,300 470,300"/>`;
+  r += `<polyline class="fp-rw" data-rw="test" points="470,340 470,410 520,410"/>`;
+  r += `<polyline class="fp-rw" data-rw="alarm" points="520,230 520,410"/>`;
+  r += `<polyline class="fp-rw" data-rw="lamp" points="520,410 520,430 330,430"/><polyline class="fp-rw" points="230,430 190,430 190,446"/><path d="M176,446 h28 M181,452 h18 M186,458 h8" stroke="var(--sym)" stroke-width="2"/>`;
+  r += comp("cb", `<path d="M120,180 C120,158 180,158 180,180" fill="none" stroke="var(--sym)" stroke-width="2.4"/><circle class="sym" cx="120" cy="180" r="4"/><circle class="sym" cx="180" cy="180" r="4"/>${T(150, 148, "FIRE DET CB · 5 A", "lbl-b")}${T(150, 206, "28 VDC (right CB panel)", "blk-s")}`, [96, 132, 110, 84]);
+  r += comp("tsw", `<circle class="sym" cx="360" cy="300" r="4"/><circle class="sym" cx="410" cy="300" r="4"/><line x1="360" y1="300" x2="404" y2="284" stroke="var(--sym)" stroke-width="2.4"/>${T(385, 270, "ENG FIRE TEST (DET)", "lbl-b")}`, [340, 254, 96, 58]);
+  r += comp("alarm", `<circle class="sym" cx="520" cy="196" r="4"/><circle class="sym" cx="520" cy="230" r="4"/><line id="fpAlarmSw" x1="520" y1="196" x2="520" y2="226" stroke="var(--sym)" stroke-width="2.6"/>${T(546, 216, "ALARM SW (N.O.)", "lbl-b", "start")}`, [500, 186, 110, 52]);
+  r += comp("integ", `<circle class="sym" cx="470" cy="300" r="4"/><circle class="sym" cx="470" cy="340" r="4"/><line id="fpIntegSw" x1="470" y1="300" x2="470" y2="336" stroke="var(--sym)" stroke-width="2.6"/>${T(482, 298, "INTEGRITY SW (N.C.)", "lbl-b", "start")}${T(482, 312, "held closed by tube pressure", "blk-s", "start")}`, [452, 290, 140, 60]);
+  r += comp("tube", `<line class="fp-tube solid" x1="590" y1="330" x2="940" y2="330"/>${T(765, 320, "TEMPERATURE SENSING TUBE", "lbl-b")}${T(765, 350, "loops around the engine", "blk-s")}`, [590, 302, 360, 56]);
+  r += comp("lamp", `<rect class="fp-lampbox" x="230" y="408" width="100" height="46" rx="4"/><rect id="fpRespLamp" class="fp-lamp" x="236" y="412" width="88" height="18" rx="2"/>${T(280, 425, "L ENG FIRE", "blk-t")}${T(280, 446, "FW VALVE", "blk-s")}`, [226, 404, 108, 54]);
+  r += comp("resp", `${T(515, 370, "", "lbl")}`, [440, 352, 150, 26]);
+  r += `<text class="n1t" id="fpRespState" x="500" y="40" text-anchor="middle"></text>${T(500, 62, "Lit wires carry current. Run the LEFT DET test, start a left fire, or fail the left tube in the cockpit controls below.", "blk-s")}`;
+  $("#fp-resp").innerHTML = r;
+}
+
+function fpSelect(id) {
+  fpSel = id;
+  $$("#fpSvgs .comp").forEach(g => g.classList.toggle("sel", g.dataset.fpcomp === id));
+  const c = FPC[id];
+  $("#fpInfo").innerHTML = `<div class="eyebrow">${esc(c.group)}</div><h4>${esc(c.name)}</h4><p>${esc(c.desc)}</p>`;
+}
+function fpShowTab(t) {
+  fpTab = t;
+  FP_TABS.forEach(x => $("#fp-" + x).toggleAttribute("hidden", x !== t));
+  $$("#fpTabs [data-tab]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === t)));
+}
+function fpFireDrill(k) {
+  FP = fpFresh(); fpLogArr = []; FP.fire[k] = true;
+  fpLog(`${SIDE[k]} engine fire started. Watch for ${k} ENG FIRE, then close the ${SIDE[k].toLowerCase()} firewall valve and push the ${SIDE[k].toLowerCase()} extinguisher.`);
+  fpStep(0.001);
+}
+
+function initFireProtection() {
+  FP = fpFresh(); fpLogArr = []; fpSel = null;
+  fpSvgs(); fpShowTab("top");
+  $("#fpSubnav").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  $("#fpTabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (b) fpShowTab(b.dataset.tab); });
+  const sv = $("#fpSvgs");
+  sv.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) fpSelect(g.dataset.fpcomp); });
+  sv.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); fpSelect(e.target.closest(".comp").dataset.fpcomp); } });
+  $("#fpInfo").innerHTML = `<h3>Component details</h3><p>Select any labeled part of the drawing for what it does and where it is.</p>`;
+  const ext = k => `<button type="button" class="fpbtn" id="fpExt${k}" aria-label="${SIDE[k]} fire extinguisher pushbutton"><span class="lens red" id="fpb-push${k}">EXTINGUISHER<br>PUSH</span><span class="lens amber" id="fpb-dis${k}">DISCHARGED</span></button>`;
+  const fw = k => `<button type="button" class="fpbtn" id="fpFw${k}" aria-label="${SIDE[k]} firewall fuel valve pushbutton"><span class="lens red" id="fpb-fire${k}">${k} ENG FIRE</span><span class="lens red" id="fpb-fw${k}">FW VALVE<br>PUSH · CLOSED</span></button>`;
+  $("#fpGlare").innerHTML = `${ext("L")}${fw("L")}<button type="button" class="flasher mw" id="fpMW" aria-label="Master warning flasher, press to reset">MASTER<br>WARNING<small>PRESS TO RESET</small></button>${fw("R")}${ext("R")}`;
+  ["L", "R"].forEach(k => {
+    $("#fpFw" + k).addEventListener("click", () => {
+      FP.fw[k] = FP.fw[k] === "OPEN" ? "CLOSED" : "OPEN"; FP.fwT[k] = 1.5;
+      fpLog(`${SIDE[k]} firewall fuel valve pushbutton ${FP.fw[k] === "CLOSED" ? "pushed: valve closing. The circuit to the extinguisher pushbutton is complete, so EXTINGUISHER PUSH lights." : "pushed again: valve opening, extinguisher disarmed."}`);
+      fpStep(0.001);
+    });
+    $("#fpExt" + k).addEventListener("click", () => {
+      if (FP.fw[k] !== "CLOSED") { fpLog(`${SIDE[k]} extinguisher: no circuit. The ${SIDE[k].toLowerCase()} firewall fuel valve pushbutton must be closed first.`, "warn"); return; }
+      if (FP.dis[k]) { fpLog(`${SIDE[k]} bottle already discharged. Each bottle fires once.`, "warn"); return; }
+      FP.dis[k] = true; FP.spray[k] = 2.5;
+      fpLog(`${SIDE[k]} extinguisher fired: cartridge fires, 2.5 lb of CBrF3 through 8 nozzles. DISCHARGED stays on until the cartridge is replaced.`, "ok");
+      if (FP.fire[k]) FP.outT[k] = 2.5;
+      fpStep(0.001);
+    });
+  });
+  $("#fpMW").addEventListener("click", () => { FP.mw = false; fpStep(0.001); });
+  $("#fpTest").innerHTML = `<div class="sw-group"><div class="gname">ENG FIRE TEST</div><div class="sws">${["L", "R"].map(k => `<div class="tog"><div class="name">${k === "L" ? "Left" : "Right"}</div><div class="pos" role="group" aria-label="${SIDE[k]} engine fire test">${[["DET", "DET"], ["OFF", "OFF"], ["EXT", "EXT"]].map(o => `<button type="button" data-fptest="${k}" data-val="${o[0]}" class="${o[0] === "OFF" ? "" : "mom"}" aria-pressed="false">${o[1]}</button>`).join("")}</div></div>`).join("")}</div></div>`;
+  $("#fpTest").addEventListener("click", e => { const b = e.target.closest("[data-fptest]"); if (b) fpSetTest(b.dataset.fptest, b.dataset.val); });
+  $("#fpBat").innerHTML = `<div class="seg" role="group" aria-label="Battery switch"><button type="button" id="fpBat-on">Battery ON</button><button type="button" id="fpBat-off">Battery OFF</button></div>`;
+  $("#fpBat-on").addEventListener("click", () => { FP.bat = true; fpStep(0.001); });
+  $("#fpBat-off").addEventListener("click", () => { FP.bat = false; fpLog("Battery switch OFF. Detection and FW VALVE CLOSED lights are unpowered. The extinguishers stay on the hot battery bus."); fpStep(0.001); });
+  $("#fpActs").innerHTML = `<button type="button" class="pbtn" id="fpa-fireL" aria-pressed="false">Left engine fire</button><button type="button" class="pbtn" id="fpa-fireR" aria-pressed="false">Right engine fire</button><button type="button" class="pbtn" id="fpReset">Reset: valves open, new cartridges</button>`;
+  $("#fpActs").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.id === "fpReset") { const f = FP.fault; FP = fpFresh(); FP.fault = f; fpLogArr = []; fpLog("Reset: fires out, firewall valves open, bottles recharged and cartridges replaced."); }
+    else { const k = b.id.slice(-1); FP.fire[k] = !FP.fire[k]; fpLog(FP.fire[k] ? `${SIDE[k]} engine fire started.` : `${SIDE[k]} engine fire out.`, FP.fire[k] ? "bad" : ""); }
+    fpStep(0.001);
+  });
+  $("#fpFaults").innerHTML = ["L", "R"].map(k => `<button type="button" class="pbtn" id="fpf-tube${k}" aria-pressed="false">${k} sensor tube lost its gas</button><button type="button" class="pbtn" id="fpf-cart${k}" aria-pressed="false">${k} cartridge sensor fault</button>`).join("");
+  $("#fpFaults").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    const k = b.id.slice(-1), f = b.id.includes("tube") ? "tube" : "cart";
+    FP.fault[f][k] = !FP.fault[f][k]; FP.warnedTube = false;
+    fpLog(`${FP.fault[f][k] ? "Failure set" : "Repaired"}: ${SIDE[k].toLowerCase()} ${f === "tube" ? "sensor tube gas loss" : "cartridge sensor"}.`);
+    fpStep(0.001);
+  });
+  $("#main .view").addEventListener("click", e => {
+    const g = e.target.closest("[data-fpgo]"); if (g) { $("#" + g.dataset.fpgo).scrollIntoView({ behavior: "smooth", block: "start" }); return; }
+    const f = e.target.closest("button[data-fpfire]"); if (f) { fpFireDrill(f.dataset.fpfire); $("#fp-panel").scrollIntoView({ behavior: "smooth", block: "start" }); }
+  });
+  fpLog("Ready. Battery on, both firewall valves open, both bottles charged.");
+  fpStep(0.001);
+  fpTimer = setInterval(() => fpStep(0.1), 100);
 }
 
 /* ================= boot ================= */
