@@ -694,6 +694,58 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 .ofh-lbl-b { font-size: 16px; font-weight: 700; fill: var(--fg); letter-spacing: .05em; }
 .ofh-state { font-family: var(--f-mono); font-size: 15px; font-weight: 700; fill: var(--fg); }
 
+/* ---------- air conditioning ---------- */
+.ac-air { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.4; }
+.ac-vessel { fill: var(--canvas); stroke: #d23b2e; stroke-width: 3; }
+.ac-nac { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.4; }
+.ac-prop { stroke: var(--sym); stroke-width: 4; stroke-linecap: round; opacity: .45; }
+.ac-eng { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.2; }
+.ac-fw { stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 5 4; }
+.ac-big { font-size: 12px; font-weight: 700; letter-spacing: .12em; fill: var(--muted); pointer-events: none; }
+.ac-dim { font-size: 9.5px; letter-spacing: .08em; fill: var(--muted); pointer-events: none; }
+.ac-dim2 { font-size: 11px; letter-spacing: .06em; fill: var(--muted); font-weight: 600; pointer-events: none; }
+.ac-cabin { font-family: var(--f-mono); font-size: 17px; font-weight: 700; fill: var(--fg); pointer-events: none; }
+.ac-lab { font-size: 11px; font-weight: 700; letter-spacing: .04em; fill: var(--fg); paint-order: stroke; stroke: var(--canvas); stroke-width: 4px; stroke-linejoin: round; opacity: 0; transition: opacity .15s; pointer-events: none; }
+.comp:hover .ac-lab, .comp:focus-visible .ac-lab, .comp.sel .ac-lab, #acschem.labels .ac-lab { opacity: 1; }
+.acl { fill: none; stroke: var(--wire-dead); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; opacity: .45; transition: stroke .25s, opacity .25s; }
+.acl.on { opacity: 1; stroke-width: 6; stroke-dasharray: 9 7; animation: flow .7s linear infinite; }
+.acl.on.half { stroke-width: 3.5; }
+.acl.on.k-p3 { stroke: #9c1d16; } .acl.on.k-env { stroke: #ec5a4c; } .acl.on.k-amb { stroke: #2fb062; } .acl.on.k-recirc { stroke: #d9a400; } .acl.on.k-cool { stroke: #2a8fe0; }
+.acl.k-ref { stroke-width: 2.5; stroke-dasharray: 4 4; } .acl.on.k-ref { stroke: #8e5bd6; stroke-width: 3; stroke-dasharray: 5 6; }
+.aca { opacity: 0; transition: opacity .2s; pointer-events: none; }
+.aca.on { opacity: 1; }
+.aca path { stroke: var(--canvas); stroke-width: 1.2; }
+.aca.k-p3 path { fill: #9c1d16; } .aca.k-env path { fill: #ec5a4c; } .aca.k-amb path { fill: #2fb062; } .aca.k-recirc path { fill: #d9a400; } .aca.k-cool path { fill: #2a8fe0; } .aca.k-ref path { fill: #8e5bd6; }
+.ac-box { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.4; transition: fill .25s; }
+.ac-box.on { fill: var(--accent); fill-opacity: .25; stroke: var(--accent); stroke-width: 2; }
+.ac-valve { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.4; }
+.ac-valve.on { fill: #ec5a4c; fill-opacity: .4; }
+.ac-needle { stroke: var(--sym); stroke-width: 2.4; stroke-linecap: round; }
+.ac-hx { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.4; }
+.ac-fin { stroke: var(--muted); stroke-width: 1; }
+.ac-scoop { fill: #2fb062; fill-opacity: .35; stroke: var(--sym); stroke-width: 1.2; }
+.ac-stub { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.2; }
+.ac-fan { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; stroke-dasharray: 3 3; }
+.ac-fan.on { fill: #d9a400; fill-opacity: .3; stroke-dasharray: 5 3; animation: flow .5s linear infinite; }
+.ac-door { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.4; transform-box: fill-box; transform-origin: left center; transition: transform .3s; }
+.ac-door.on { fill: #2fb062; transform: rotate(-35deg); }
+.ac-plenum { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.6; }
+.ac-part { stroke: var(--sym); stroke-width: 1.4; stroke-dasharray: 3 2; }
+.ac-sensor { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.2; }
+.ac-sensor.on { fill: #f2b81c; animation: blink .5s steps(1) infinite; }
+.ac-out, .ac-eye { fill: var(--wire-dead); stroke: var(--sym); stroke-width: .8; }
+.ac-out.k-env, .ac-eye.k-env { fill: #ec5a4c; } .ac-out.k-cool, .ac-eye.k-cool { fill: #2a8fe0; } .ac-out.k-recirc, .ac-eye.k-recirc { fill: #d9a400; }
+.ac-coil { fill: none; stroke: var(--muted); stroke-width: 2; stroke-linejoin: round; }
+.ac-coil.on { stroke: #ee7d1f; stroke-width: 2.6; }
+.ac-readouts { display: grid; gap: 6px; }
+.ac-bar { display: grid; grid-template-columns: 6.5em minmax(60px, 1fr) minmax(0, 1.4fr); gap: 8px; align-items: center; font-size: .82rem; }
+.ac-bar .n { color: var(--placard-dim); font-family: var(--f-display); letter-spacing: .08em; text-transform: uppercase; font-size: .74rem; }
+.ac-bar .b { height: 8px; background: #1a1d21; border-radius: 4px; overflow: hidden; }
+.ac-bar .b i { display: block; height: 100%; background: linear-gradient(90deg, #2a8fe0, #ec5a4c); }
+.ac-bar .v { font-family: var(--f-mono); font-size: .76rem; color: var(--placard); }
+.ac-stat { font-size: .8rem; color: var(--placard-dim); }
+.ac-stat b { color: var(--placard); }
+
 @media (max-width: 1120px) {
   .sim { grid-template-columns: minmax(0, 1fr); }
   .side { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -712,7 +764,7 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
   .eng-row { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .oilf.on, .flame.on, .fp-line.on, .ic-spark.on, .ic-flow.on, .ofh-flow.on, .fpbtn .lens.on.blink, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
+  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .oilf.on, .flame.on, .fp-line.on, .ic-spark.on, .ic-flow.on, .acl.on, .ac-fan.on, .ac-sensor.on, .ofh-flow.on, .fpbtn .lens.on.blink, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
   * { transition: none !important; }
 }
 </style>
@@ -2347,6 +2399,192 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 </div>
 </template>
 
+<template id="tpl-air-conditioning">
+<div class="view">
+  <header class="chapter-head">
+    <div class="eyebrow">Chapter 11</div>
+    <h1>Air Conditioning</h1>
+    <p class="lede">Engine P3 bleed air, mixed with ambient air in each firewall flow control unit, pressurizes and heats the cabin. On its way in it passes an air-to-air heat exchanger in each center wing, and bypass valves decide how much of its heat is kept. A freon air conditioner driven by the right engine adds cooling. Electric heat helps on the ground. Blowers recirculate cabin air through the evaporators to the outlets. Nearly every control is in the ENVIRONMENTAL group on the copilot's left subpanel.</p>
+    <p class="disclaimer">Study aid built from the King Air 300/350 training manual air conditioning section, King Air 350 only. It is not an approved document. The POH/AFM governs. The diagram is simplified. Temperatures and timing in the simulator are illustrative, except the manual's own values (62% N1, about 50 °F, 30 s per bypass valve, about 300 °F duct overtemp).</p>
+    <div class="subnav" id="acSubnav">
+      <button data-go="ac-sim">Interactive diagram</button>
+      <button data-go="ac-bleed">Bleed air &amp; flow control</button>
+      <button data-go="ac-temp">Temperature control</button>
+      <button data-go="ac-dist">Distribution</button>
+      <button data-go="ac-vent">Blowers &amp; ventilation</button>
+      <button data-go="ac-elec">Electric heat</button>
+      <button data-go="ac-cool">Air conditioner</button>
+      <button data-go="ac-abn">Abnormal indications</button>
+    </div>
+  </header>
+
+  <section class="block" id="ac-sim">
+    <h2>Interactive environmental diagram <span class="ref">Figures 11-2, 11-16 to 11-18</span></h2>
+    <p class="prose">A simplified top view, nose up. Moving lines show where each kind of air is going as you work the ENVIRONMENTAL switches below. Labels stay hidden to keep it readable. Hover over or select a component to see its name and what it does, or turn on all labels.</p>
+    <div class="diagram-card">
+      <div class="scen">
+        <div class="scen-row"><label>Setup</label><div class="faults" id="acSetups"></div></div>
+        <p class="scen-cap" id="acCond"></p>
+      </div>
+    </div>
+    <div class="sim near">
+      <div class="diagram-card">
+        <div class="dtabs">
+          <div class="seg" role="group" aria-label="Labels"><button type="button" id="acLabels" aria-pressed="false">Show all labels</button></div>
+        </div>
+        <div class="svg-wrap"><svg id="acschem" viewBox="0 0 1000 700" role="img" aria-label="King Air 350 environmental system, simplified top view"></svg></div>
+        <div class="legend">
+          <span><i style="background:#9c1d16"></i>P3 bleed air (hot)</span>
+          <span><i style="background:#ec5a4c"></i>Environmental bleed air</span>
+          <span><i style="background:#2fb062"></i>Ambient air</span>
+          <span><i style="background:#d9a400"></i>Recirculated cabin air</span>
+          <span><i style="background:#2a8fe0"></i>Cooled air</span>
+          <span><i style="background:#8e5bd6"></i>Refrigerant</span>
+        </div>
+      </div>
+      <div class="side">
+        <div class="card info" id="acInfo" aria-live="polite"></div>
+        <div class="card"><h3>Air going into the cabin now</h3><div class="ic-act" id="acNow"></div></div>
+      </div>
+    </div>
+    <div class="cockpit">
+      <div class="panel">
+        <h3>Copilot's left subpanel · ENVIRONMENTAL</h3>
+        <div class="sw-row" id="acSw"></div>
+        <div class="envrow" id="acTemp"></div>
+        <div class="faults ic-holds" id="acManual"></div>
+      </div>
+      <div class="panel">
+        <h3>Subpanel air knobs</h3>
+        <div class="faults" id="acKnobs"></div>
+        <h3>Annunciators</h3>
+        <div class="ann-grid" id="acAnns"></div>
+        <h3>Indications</h3>
+        <div class="ac-readouts" id="acRead"></div>
+      </div>
+    </div>
+    <div class="pp-top lower">
+      <div class="panel">
+        <h3>Conditions · engines · power</h3>
+        <div class="envrow" id="acEnv"></div>
+        <div class="envrow" id="acEnv2"></div>
+        <div class="envrow" id="acEng"></div>
+        <div class="envrow" id="acClock"></div>
+      </div>
+      <div class="card"><h3>Events</h3><ol class="log" id="acLog"></ol></div>
+    </div>
+  </section>
+
+  <section class="block" id="ac-bleed">
+    <h2>Bleed air &amp; flow control <span class="ref">Figures 11-5, 11-6, 11-18</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>P3 bleed air from each engine goes to a <b>flow control unit</b> on the firewall. There it mixes with <b>ambient air</b> from the cowling intake. The mixture runs aft through the firewall along the inboard nacelle, then inboard along the center wing ahead of the main spar. One engine's bleed air is enough for pressurization, heat, pneumatics and vacuum.</p>
+        <p>The <b>ambient air valve</b> in each flow control unit is <b>closed on the ground</b> (left squat switch), so undiluted P3 air warms a cold cabin faster. In flight above about <b>50 °F</b> ambient, it opens and adds ambient air, increasing flow.</p>
+        <p><b>ENVIR BLEED AIR — NORMAL / LOW.</b> LOW cuts environmental bleed flow by about <b>50%</b>. Use LOW for takeoff above <b>+10 °C</b>, and for maximum cooling in pressurized flight. NORMAL gives more heat or more pressurization flow.</p>
+      </div>
+      <div class="bus-table-wrap"><table><thead><tr><th>BLEED AIR VALVES</th><th>Environmental flow control unit</th><th>Pneumatic air valve</th></tr></thead><tbody>
+        <tr><td><b>OPEN</b></td><td>Open</td><td>Open</td></tr>
+        <tr><td><b>ENVIR OFF</b></td><td>Closed</td><td>Open</td></tr>
+        <tr><td><b>PNEU &amp; ENVIR OFF</b></td><td>Closed</td><td>Closed</td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <section class="block" id="ac-temp">
+    <h2>Temperature control <span class="ref">Figures 11-7 to 11-10</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Environmental air passes an <b>air-to-air heat exchanger</b> in each center wing. Ram air from a leading-edge scoop cools its fins and goes overboard through louvers under the wing. A motor-driven <b>bypass valve</b> on each side sends the air <i>through</i> the exchanger (cooler) or <i>around</i> it (keeps its heat).</p>
+        <ul class="tight">
+          <li><b>AUTO:</b> the CABIN TEMP knob, a duct sensor and a cabin sensor (headliner, second window) feed a controller that drives the bypass valves <b>one at a time</b>. When the <b>left</b> valve reaches full cold, the air conditioner comes on (right engine above 62% N1). It goes off when that valve opens more than <b>30°</b> toward heat.</li>
+          <li><b>MAN HEAT / MAN COOL:</b> hold MANUAL TEMP INCR or DECR. It springs back to center. Allow about <b>30 s per valve</b>, one minute in all, full travel. In MAN COOL the air conditioner runs if the left valve is within 30° of full cold.</li>
+          <li><b>OFF:</b> no automatic control and no air conditioning. With VENT BLOWER at AUTO, the forward blower stops.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Maximum cooling</h3><ol class="tight"><li>CABIN TEMP MODE to AUTO, CABIN TEMP fully counterclockwise.</li><li>VENT BLOWER HIGH, AFT BLOWER on.</li><li>On the ground or unpressurized: BLEED AIR VALVES to ENVIR OFF.</li><li>Pressurized: bleed valves OPEN, ENVIR BLEED AIR to LOW.</li></ol>
+        <button class="show" type="button" data-acset="0">Hot day on the ground →</button></div>
+    </div>
+  </section>
+
+  <section class="block" id="ac-dist">
+    <h2>Distribution <span class="ref">Figures 11-13 to 11-17, 11-20 to 11-23</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Air from both wings meets at a <b>cross junction</b> in the center fuselage. It runs forward through a <b>muffler</b> (right side, under the floor, forward of the spar) into the <b>mixing plenum</b> under the copilot's floor. A partition splits the plenum:</p>
+        <ul class="tight">
+          <li><b>Floor and defrost section:</b> warm environmental air plus recirculated air goes to the floor outlets, which are always the warmest.</li>
+          <li><b>Headliner section:</b> recirculated air from the vent blower and forward evaporator (cooled when the air conditioner runs) goes to the overhead eyeball outlets, which are always cooler.</li>
+        </ul>
+        <p>Some warm air is tapped up to the <b>defrost/pilot/copilot heat duct</b> under the panel. <b>AFT HEAT</b> opens a valve that sends environmental air from the cross junction straight to the aft floor outlets.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>Subpanel air knobs</h3><ul class="tight"><li><b>DEFROST AIR:</b> butterfly valve feeding the windshields and glareshield eyeballs.</li><li><b>PILOT AIR / COPILOT AIR:</b> dampers for air to the crew's feet.</li><li><b>CABIN AIR:</b> pulled to the stop passes only about 50% to the cabin floor outlets, sending more to the cockpit. Pushed in sends most to the cabin.</li></ul><p>Full out gives the cockpit the most air. Full in gives the cabin the most.</p></div>
+        <div class="card"><h3>Eyeball outlets</h3><p>Adjust them in preflight. Fully open for short, low, summer flights. Closed for high-altitude, night or cold-weather flights, for the most cabin heat.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="ac-vent">
+    <h2>Blowers &amp; unpressurized ventilation <span class="ref">Figures 11-11, 11-12, 11-16</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p><b>VENT BLOWER — HI / LO / AUTO</b> (forward blower).</p>
+        <ul class="tight">
+          <li><b>HI:</b> always high speed.</li>
+          <li><b>LO:</b> always low speed, even with CABIN TEMP MODE OFF.</li>
+          <li><b>AUTO:</b> low speed in any mode except OFF. Off when the mode is OFF.</li>
+        </ul>
+        <p>If it fails, the duct design still circulates some air.</p>
+        <p><b>AFT BLOWER</b>, under the aisle just ahead of the airstair door, is one speed and independent of everything else. It recirculates cabin air, through the aft evaporator, to the aft floor and overhead outlets and the baggage area. It spreads aft electric heat or aft evaporator cooling.</p>
+      </div>
+      <div class="card"><h3>Fresh air when unpressurized</h3><p>Bleed air is the fresh-air source in both modes. Unpressurized, a second source opens: the <b>ram air (evaporator) door</b> in the nose. Pressurized, spring tension, a solenoid magnet and cabin pressure hold it shut. Unpressurized in flight, ram air pushes it open, and it may stay open until landing unless you repressurize. The ambient air mixes with recirculated air, goes through the vent blower and forward evaporator, and into the plenum.</p>
+        <button class="show" type="button" data-acset="4">Unpressurized ventilation →</button></div>
+    </div>
+  </section>
+
+  <section class="block" id="ac-elec">
+    <h2>Electric heat <span class="ref">Figures 11-25, 11-26</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Forward and aft electric heat elements add to bleed air heat <b>on the ground only</b>. Taking weight off the right main squat switch removes control power. ELEC HEAT works only with CABIN TEMP MODE in <b>AUTO or MAN HEAT</b>, separate from the bypass valves.</p>
+        <p>The aft element only comes on with the <b>AFT BLOWER</b> on, which doubles the output. Both together draw about <b>200 A</b>, so use a ground power unit to preheat before engine start. It's available with external power or at least one generator on.</p>
+        <p>Overtemperature thermistors just upstream of the elements cut power if a duct overheats, for example after a blower failure. The solenoid-held switch then springs OFF. Run the blowers for 15 s after turning ELEC HEAT off.</p>
+      </div>
+      <div class="card"><h3>Try it</h3><p>Preheat a cold cabin from a ground power unit, then turn the aft blower off and watch the aft element drop out.</p><button class="show" type="button" data-acset="1">Cold-morning preheat →</button></div>
+    </div>
+  </section>
+
+  <section class="block" id="ac-cool">
+    <h2>Air conditioner (cooling system) <span class="ref">Figures 11-27 to 11-30</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Below about 50 °F outside, bleed air alone normally keeps the cabin comfortable. Above that, the freon system adds cooling. It has:</p>
+        <ul class="tight">
+          <li>a belt-driven <b>compressor on the right engine</b> accessory pad</li>
+          <li>refrigerant lines through the right wing leading edge and forward to the nose</li>
+          <li>the <b>condenser</b> and <b>condenser blower</b>, receiver/dryer and expansion valve in the nose</li>
+          <li>the <b>forward evaporator</b>, and an optional aft one</li>
+        </ul>
+        <p>The condenser blower runs only on the ground and stops when the nose gear is up, when ram air through the nose inlet takes over. Refrigerant flows through the aft evaporator whenever it flows through the forward one, but the aft evaporator only cools when the aft blower runs. A 33 °F switch on the forward evaporator controls a hot-gas valve that prevents icing.</p>
+        <p>The compressor is <b>locked out</b> if refrigerant pressure is too high or too low, ambient is below about 50 °F, or the right engine is below about <b>62% N1</b>. Pressurized air from the floor registers is always warmer than the overhead outlets.</p>
+      </div>
+      <div class="card"><h3>AIR COND N1 LOW</h3><p>White advisory on the 350. Air conditioning is requested but the right engine is too slow, so the compressor clutch is disconnected. Set the right condition lever to hold <b>62–64% N1</b>.</p><button class="show" type="button" data-acset="5">See it at low idle →</button></div>
+    </div>
+  </section>
+
+  <section class="block" id="ac-abn">
+    <h2>Abnormal indications <span class="ref">Figures 11-24, 11-31</span></h2>
+    <div class="comp-grid">
+      <div class="comp-card"><h4>DUCT OVERTEMP (yellow)</h4><p>Environmental air above about <b>300 °F</b> at a sensor about a foot downstream of the mixing plenum in the floor duct. The usual cause has been a restricted duct, such as CABIN AIR pulled most of the way out, combined with a sudden power increase like takeoff. See the POH.</p><button class="show" type="button" data-acset="3">Reproduce it →</button></div>
+      <div class="comp-card"><h4>BLEED AIR FAIL</h4><p>A leak in environmental or pneumatic bleed air. Set that BLEED AIR VALVE switch to PNEU &amp; ENVIR OFF. See Pneumatics.</p></div>
+      <div class="comp-card"><h4>Electric heat overheat</h4><p>The thermistors should shut it off. If they fail, you may smell or see it, or get DUCT OVERTEMP. Turn ELEC HEAT off. If the switch won't stay up, check the CABIN TEMP breaker.</p></div>
+      <div class="comp-card"><h4>A/C pressure trip</h4><p>An over- or underpressure fault trips an amber resettable switch in the nose wheel well. Try one reset only, with the engines shut down and air conditioning requested. If it trips again, have it investigated. Constant AIR COND N1 LOW cycling can cause these trips.</p></div>
+    </div>
+  </section>
+</div>
+</template>
+
 <script>
 (function () {
 "use strict";
@@ -2362,7 +2600,7 @@ const CHAPTERS = [
   { n: 8,  id: "fire-protection",   t: "Fire Protection", ready: "Ready · labeled component views & fire test panel" },
   { n: 9,  id: "pneumatics",        t: "Pneumatics", ready: "Ready · interactive pneumatic & vacuum schematic" },
   { n: 10, id: "ice-rain",          t: "Ice and Rain Protection", ready: "Ready · interactive ice protection controls & airplane" },
-  { n: 11, id: "air-conditioning",  t: "Air Conditioning" },
+  { n: 11, id: "air-conditioning",  t: "Air Conditioning", ready: "Ready · interactive environmental air flow" },
   { n: 12, id: "pressurization",    t: "Pressurization" },
   { n: 13, id: "hydraulics",        t: "Hydraulic Power Systems" },
   { n: 14, id: "landing-gear",      t: "Landing Gear and Brakes" },
@@ -2421,7 +2659,7 @@ function renderPlaceholder(c) {
   </div>`;
 }
 
-const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection(), "ice-rain": () => initIceRain() };
+const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection(), "ice-rain": () => initIceRain(), "air-conditioning": () => initAirConditioning() };
 function route() {
   const id = (location.hash || "").replace("#", "");
   const ch = CHAPTERS.find(c => c.id === id);
@@ -3217,7 +3455,7 @@ function applyScenario(i) {
   step(0.01);
 }
 
-function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; if (pnTimer) { clearInterval(pnTimer); pnTimer = null; } pnScript = null; if (fpTimer) { clearInterval(fpTimer); fpTimer = null; } if (icTimer) { clearInterval(icTimer); icTimer = null; } MW = null; }
+function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; if (pnTimer) { clearInterval(pnTimer); pnTimer = null; } pnScript = null; if (fpTimer) { clearInterval(fpTimer); fpTimer = null; } if (icTimer) { clearInterval(icTimer); icTimer = null; } if (acTimer) { clearInterval(acTimer); acTimer = null; } MW = null; }
 
 function initElectrical() {
   buildSchematic();
@@ -5905,6 +6143,339 @@ function ofhRender() {
   $$("#ofhschem .ofh-heat").forEach(e => e.classList.toggle("on", run && cold));
   $("#ofhSpool").setAttribute("x", cold ? 604 : 650);
   $("#ofhState").textContent = !run ? "Engine stopped: no oil or fuel flow, no heating." : cold ? "Cold fuel: slide valve sends hot oil through the core, heating the fuel." : "Warm fuel: thermal element moves the slide valve, so oil bypasses the core to OIL OUT.";
+}
+
+/* ================= Chapter 11: Air Conditioning ================= */
+let AC = null, ACD = null, acTimer = null, acSel = null, acLogArr = [];
+const AC_N1 = [[0, "Off"], [58, "58% (below cutout)"], [62, "62%"], [75, "75%"], [95, "95%"]];
+const ACC = {
+  p3: { group: "Bleed air", name: "Engine P3 bleed air", desc: "Hot compressor discharge air from each engine. It's the source of cabin pressurization and heat, and of the pneumatic system." },
+  pneu: { group: "Bleed air", name: "To the pneumatic system", desc: "The same bleed air feeds the pneumatic system (Chapter 9). BLEED AIR VALVES at ENVIR OFF still allow it. PNEU & ENVIR OFF closes it too." },
+  amb: { group: "Bleed air", name: "Cowling ambient air intake", desc: "Ambient air for the flow control unit. Its ambient air valve is closed on the ground (left squat switch) for faster cabin warm-up. In flight above about 50 °F it opens and adds ambient air, increasing flow." },
+  fcu: { group: "Bleed air", name: "Flow control unit", desc: "On the firewall. Mixes P3 and ambient air and contains the environmental flow control (modulating and shutoff) valve. Open only with that side's BLEED AIR VALVE switch at OPEN. ENVIR BLEED AIR LOW cuts flow about 50%." },
+  byp: { group: "Temperature", name: "Bleed air bypass valve", desc: "Motor-driven. Sends environmental air through the air-to-air heat exchanger (colder) or around it (hotter). AUTO or MANUAL TEMP drive the two valves one at a time, about 30 s each for full travel. The needle shows the position: down is full cold, sideways is full hot." },
+  hx: { group: "Temperature", name: "Air-to-air heat exchanger", desc: "In each center wing section. Environmental air routed through it gives up heat to fins cooled by ram air." },
+  ram: { group: "Temperature", name: "Ram air scoop & overboard louvers", desc: "A leading-edge intake brings ram air through the heat exchanger fins. It leaves through louvers under the wing." },
+  cross: { group: "Distribution", name: "Cross junction", desc: "Left and right environmental air meet here in the center fuselage, then go forward to the muffler. The AFT HEAT branch leaves from its aft side." },
+  muffler: { group: "Distribution", name: "Muffler", desc: "Right side of the cabin under the floor, forward of the main spar. Keeps the environmental air quiet on its way to the mixing plenum." },
+  plenum: { group: "Distribution", name: "Mixing plenum", desc: "Under the copilot's floor. A partition divides it. The floor/defrost section gets warm environmental air plus recirculated air. The headliner section gets recirculated air from the vent blower through the forward evaporator." },
+  floor: { group: "Distribution", name: "Floor outlet ducts", desc: "Along both sidewalls of the cockpit and cabin. They get the warmest air and are always warmer than the overhead outlets when bleed air is flowing." },
+  cabinair: { group: "Distribution", name: "CABIN AIR butterfly valve", desc: "CABIN AIR knob, copilot's subpanel. Pulled to the stop it passes only about 50% to the cabin floor outlets, sending more to the cockpit. Pulled with a sudden power increase, it's the classic DUCT OVERTEMP cause." },
+  dot: { group: "Distribution", name: "Duct overtemp sensor", desc: "About a foot downstream of the mixing plenum in the floor duct. Lights DUCT OVERTEMP above about 300 °F." },
+  head: { group: "Distribution", name: "Headliner duct & eyeball outlets", desc: "Recirculated air, cooled when the air conditioner runs, to the overhead eyeballs in the cockpit and cabin. Each eyeball can be aimed and twisted to open or close it." },
+  heat: { group: "Cockpit", name: "Defrost / pilot / copilot heat duct", desc: "Warm air tapped from the plenum to a duct under the instrument panel. DEFROST AIR feeds the windshields and glareshield eyeballs. PILOT AIR and COPILOT AIR dampers feed the crew's feet." },
+  defrost: { group: "Cockpit", name: "DEFROST AIR knob", desc: "Pilot's subpanel, below and inboard of the control column. Butterfly valve for the windshield defrosters and glareshield eyeballs." },
+  pilot: { group: "Cockpit", name: "PILOT AIR / COPILOT AIR knobs", desc: "Dampers controlling warm air to each crew member's feet. Full out gives the cockpit the most air, full in gives the cabin the most." },
+  vent: { group: "Recirculation", name: "Forward vent blower", desc: "VENT BLOWER HI: always high. LO: always low. AUTO: low in any CABIN TEMP MODE except OFF. Recirculates cabin air, plus ram air when the evaporator door is open, through the forward evaporator into the plenum." },
+  fevap: { group: "Cooling", name: "Forward evaporator", desc: "Cools the recirculated air when refrigerant is flowing. A 33 °F switch and a hot-gas valve prevent icing." },
+  door: { group: "Ventilation", name: "Ram air (evaporator) door", desc: "Nose. Held shut when pressurized by springs, a solenoid magnet and cabin pressure. Unpressurized in flight, ram air opens it and lets ambient air into the forward evaporator compartment. It may stay open until landing unless you repressurize." },
+  cond: { group: "Cooling", name: "Condenser & condenser blower", desc: "In the nose. The blower pulls ambient air through the condenser on the ground and shuts off when the nose gear is up. In flight, ram air through the nose inlet does the job." },
+  comp: { group: "Cooling", name: "Refrigerant compressor", desc: "Belt-driven on the right engine accessory pad. Locked out below about 62% right N1 (AIR COND N1 LOW), below about 50 °F ambient, or on a refrigerant over- or underpressure." },
+  ref: { group: "Cooling", name: "Refrigerant lines", desc: "From the compressor through the right wing inboard leading edge into the fuselage and forward to the condenser, receiver/dryer, expansion valve and evaporators." },
+  aftheat: { group: "Distribution", name: "Aft bleed air heat valve", desc: "Motor-driven, left side under the floor. Opens with AFT HEAT on and sends environmental air from the cross junction straight to the aft floor outlets." },
+  ablow: { group: "Recirculation", name: "Aft blower & aft evaporator", desc: "Under the aisle just ahead of the airstair door. One-speed AFT BLOWER switch, independent of everything else. Recirculates cabin air through the aft evaporator (cooled when the A/C runs) to the aft floor and overhead outlets and the baggage area." },
+  elec: { group: "Electric heat", name: "Electric heat elements", desc: "Forward (plenum) and aft. Ground only, with AUTO or MAN HEAT. The aft element needs the aft blower on. Together about 200 A, so use a ground power unit before engine start. Thermistors cut power on overheat." },
+  outflow: { group: "Pressurization", name: "Outflow & safety valves", desc: "Aft pressure bulkhead. Cabin air leaves through the outflow valve, which the pressurization controller uses to set cabin altitude (Pressurization chapter)." }
+};
+
+function acFresh() {
+  return { t: 0, speed: 5, flight: false, oat: 20, gpu: false, n1: { L: 62, R: 62 }, bleed: { L: "OPEN", R: "OPEN" }, envLow: false, mode: "AUTO", knob: 0.5,
+    vent: "AUTO", aftBlower: false, elec: false, aftHeat: false, knobs: { pilot: false, defrost: false, cabin: false, copilot: false },
+    byp: { L: 0.5, R: 0.5 }, man: 0, acReq: false, doorOpen: false, cabinF: 72, script: null, warned: {} };
+}
+function acLog(msg, cls) {
+  acLogArr.unshift({ t: AC.t, msg, cls: cls || "" }); if (acLogArr.length > 50) acLogArr.pop();
+  const h = $("#acLog"); if (h) h.innerHTML = acLogArr.map(e => `<li class="${e.cls}"><span class="t">${fmtIcT(e.t)}</span><span class="m">${esc(e.msg)}</span></li>`).join("");
+}
+function acOnce(key, cond, msg, cls) { if (cond && !AC.warned[key]) { AC.warned[key] = true; acLog(msg, cls); } if (!cond) AC.warned[key] = false; }
+const acF = c => c * 9 / 5 + 32;
+
+function acMoveValves(dir, dt) {
+  // one valve at a time: toward cold the right valve goes first, toward heat the left valve goes first
+  const P = AC, step = dt / 30;
+  if (dir < 0) { if (P.byp.R > 0) P.byp.R = Math.max(0, P.byp.R - step); else P.byp.L = Math.max(0, P.byp.L - step); }
+  else if (dir > 0) { if (P.byp.L < 1) P.byp.L = Math.min(1, P.byp.L + step); else P.byp.R = Math.min(1, P.byp.R + step); }
+}
+function acStep(dtReal) {
+  const P = AC, dt = dtReal * P.speed; P.t += dt;
+  if (P.script && P.script.length && P.t >= P.script[0].t) { const s = P.script.shift(); s.do(P); acLog("Setup: " + s.msg); }
+  const d = { run: {}, envOpen: {}, pneuOpen: {}, flow: {}, sideF: {} }, oatF = acF(P.oat);
+  ["L", "R"].forEach(k => { d.run[k] = P.n1[k] > 0; d.envOpen[k] = P.bleed[k] === "OPEN" && d.run[k]; d.pneuOpen[k] = P.bleed[k] !== "PNEU" && d.run[k]; });
+  d.ambOpen = P.flight && oatF > 50;
+  d.power = P.gpu || d.run.L || d.run.R;
+  ["L", "R"].forEach(k => {
+    d.flow[k] = d.envOpen[k] ? (P.envLow ? 0.5 : 1) * (d.ambOpen ? 1.3 : 1) : 0;
+    const p3F = oatF + 100 + Math.max(0, P.n1[k] - 60) * 4, mixF = d.ambOpen ? 0.75 * p3F + 0.25 * oatF : p3F;
+    const hxF = oatF + (mixF - oatF) * (P.flight ? 0.25 : 0.55);
+    d.sideF[k] = hxF + (mixF - hxF) * P.byp[k];
+  });
+  d.envFlow = d.flow.L + d.flow.R;
+  d.envAirF = d.envFlow ? (d.flow.L * d.sideF.L + d.flow.R * d.sideF.R) / d.envFlow : null;
+  d.press = P.flight && d.envFlow > 0;
+  if (!P.flight || d.press) { if (P.doorOpen) acLog(P.flight ? "Repressurized: the ram air door closes." : "On the ground: ram air door closed."); P.doorOpen = false; }
+  else if (!P.doorOpen) { P.doorOpen = true; acLog("Unpressurized in flight: ram air pushes the evaporator door open. Ambient air enters the forward evaporator compartment.", "warn"); }
+  d.ventSpd = !d.power ? 0 : P.vent === "HIGH" ? 2 : P.vent === "LO" ? 1 : P.mode !== "OFF" ? 1 : 0;
+  if (P.elec && P.flight) { P.elec = false; acLog("In flight: control power is removed, so electric heat is unavailable. The ELEC HEAT switch springs OFF.", "warn"); }
+  d.elecOk = P.elec && !P.flight && d.power && (P.mode === "AUTO" || P.mode === "MAN HEAT");
+  d.eFwd = d.elecOk; d.eAft = d.elecOk && P.aftBlower;
+  // temperature control
+  const target = 60 + 25 * P.knob;
+  if (P.mode === "AUTO") { const err = P.cabinF - target; if (err > 1.5) acMoveValves(-1, dt); else if (err < -1.5) acMoveValves(1, dt); }
+  else if ((P.mode === "MAN HEAT" || P.mode === "MAN COOL") && P.man) acMoveValves(P.man, dt);
+  if (P.mode === "AUTO") { if (P.byp.L <= 0.001) P.acReq = true; else if (P.byp.L > 1 / 3) P.acReq = false; }
+  else P.acReq = P.mode === "MAN COOL" && P.byp.L <= 1 / 3;
+  d.comp = P.acReq && oatF >= 50 && d.run.R && P.n1.R >= 62;
+  d.n1Low = P.acReq && d.run.R && P.n1.R < 62;
+  d.cold = P.acReq && oatF < 50;
+  d.condBlower = d.comp && !P.flight;
+  d.aftCool = d.comp && P.aftBlower && d.power;
+  // duct temperature (floor duct) and cabin temperature (illustrative)
+  const recircF = d.comp && d.ventSpd ? P.cabinF - 35 : P.cabinF;
+  d.ductF = d.envFlow ? (d.envFlow * d.envAirF + 0.4 * (d.ventSpd * 0.5) * recircF) / (d.envFlow + 0.4 * d.ventSpd * 0.5) + (P.knobs.cabin ? 45 : 0) + (d.eFwd ? 30 : 0) : recircF + (d.eFwd ? 60 : 0);
+  d.overtemp = d.ductF > 300;
+  let w = 0, s = 0; const add = (wt, f) => { w += wt; s += wt * f; };
+  if (d.envFlow) add(d.envFlow * 0.5, oatF + (d.envAirF - oatF) * 0.6);
+  if (d.comp) add(0.25 + 0.45 * d.ventSpd, 45);
+  if (d.aftCool) add(0.6, 45);
+  if (d.eFwd) add(0.55, 110); if (d.eAft) add(0.55, 110);
+  add(0.3, oatF + (!P.flight && P.oat > 25 ? 25 : 0));
+  if (P.doorOpen) add(0.5, oatF);
+  d.teq = s / w; if (d.teq > 95) d.teq = 95 + (d.teq - 95) * 0.3;
+  P.cabinF += (d.teq - P.cabinF) * Math.min(1, dt / 120);
+  d.target = target;
+  ACD = d;
+  // events
+  acOnce("ot", d.overtemp, `DUCT OVERTEMP: floor duct about ${Math.round(d.ductF)} °F (above ~300 °F).${P.knobs.cabin ? " CABIN AIR is pulled out, restricting the duct." : ""}`, "bad");
+  acOnce("n1", d.n1Low, "AIR COND N1 LOW: air conditioning requested but the right engine is below 62% N1. Compressor clutch disconnected. Set the right condition lever to hold 62–64% N1.", "warn");
+  acOnce("cold", d.cold, "Air conditioning requested but ambient is below about 50 °F, so the compressor is locked out.", "warn");
+  acOnce("comp", d.comp, `Air conditioner on: compressor running on the right engine${d.condBlower ? ", condenser blower running (on the ground)" : ", condenser cooled by ram air (in flight)"}.`, "ok");
+  acOnce("to", !P.flight && P.oat > 10 && !P.envLow && (P.n1.L >= 95 || P.n1.R >= 95) && d.envFlow > 0, "Takeoff power above +10 °C: ENVIR BLEED AIR should be LOW for takeoff.", "warn");
+  acOnce("eaft", d.eFwd && !P.aftBlower, "Electric heat with the aft blower off: only the forward element is energized. Turn the aft blower on for full heat.", "warn");
+  acOnce("egpu", P.elec && !P.flight && !d.power, "Electric heat needs external power or a generator.", "warn");
+  acRender();
+}
+
+function acSvg() {
+  const base = [], lines = [], arrows = [], syms = [], top = [];
+  const pts = a => a.map(p => p.join(",")).join(" ");
+  const path = (key, a, kind, bridge) => {
+    if (bridge) base.push(`<polyline class="bridge" points="${pts(a)}"/>`);
+    base.push(`<polyline class="fl-base" points="${pts(a)}"/>`);
+    lines.push(`<polyline class="acl k-${kind}" data-acl="${key}" points="${pts(a)}"/>`);
+    for (let i = 0; i < a.length - 1; i++) {
+      const [x1, y1] = a[i], [x2, y2] = a[i + 1], len = Math.hypot(x2 - x1, y2 - y1);
+      if (len < 38) continue;
+      const ang = Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI, n = len > 170 ? 2 : 1;
+      for (let j = 1; j <= n; j++) { const t = j / (n + 1); arrows.push(`<g class="aca k-${kind}" data-aca="${key}" transform="translate(${x1 + (x2 - x1) * t},${y1 + (y2 - y1) * t}) rotate(${ang})"><path d="M-6,-5.5 L6,0 L-6,5.5 Z"/></g>`); }
+    }
+  };
+  const T = (x, y, s, cls, anchor) => `<text x="${x}" y="${y}" class="${cls || "lbl"}" text-anchor="${anchor || "middle"}">${s}</text>`;
+  const L = (x, y, s, anchor) => `<text x="${x}" y="${y}" class="ac-lab" text-anchor="${anchor || "middle"}">${s}</text>`;
+  const comp = (id, inner, hit, lab) => top.push(`<g class="comp" data-accomp="${id}" tabindex="0" role="button" aria-label="${esc(ACC[id].name)}"><rect class="hit" x="${hit[0]}" y="${hit[1]}" width="${hit[2]}" height="${hit[3]}" rx="4"/>${inner}${lab || ""}</g>`);
+  // airframe
+  syms.push(`<path class="ac-air" d="M20,300 L980,300 L980,370 L20,370 Z"/>`);
+  syms.push(`<path class="ac-air" d="M380,150 C380,72 448,22 500,20 C552,22 620,72 620,150 Z"/><path class="ac-air" d="M380,630 L620,630 L560,690 L440,690 Z"/>`);
+  syms.push(`<rect class="ac-vessel" x="380" y="150" width="240" height="480" rx="14"/>`);
+  ["L", "R"].forEach(k => {
+    const X = x => k === "L" ? x : 1000 - x, cx = X(165);
+    syms.push(`<rect class="ac-nac" x="${cx - 32}" y="70" width="64" height="350" rx="26"/><line class="ac-prop" x1="${cx - 88}" y1="66" x2="${cx + 88}" y2="66"/><rect class="ac-eng" x="${cx - 22}" y="92" width="44" height="118" rx="8"/><line class="ac-fw" x1="${cx - 32}" y1="226" x2="${cx + 32}" y2="226"/>`);
+    syms.push(T(cx, 86, k === "L" ? "L ENGINE" : "R ENGINE", "ac-big"));
+    path("p3" + k, [[cx, 150], [cx, 232]], "p3");
+    path("pneu" + k, [[cx, 196], [X(131), 196], [X(131), 214]], "p3");
+    path("amb" + k, [[X(110), 150], [X(110), 246], [X(150), 246]], "amb");
+    path("env" + k, [[X(180), 246], [X(212), 246], [X(212), 330], [X(241), 330]], "env");
+    path("hx" + k, [[X(259), 330], [X(344), 330]], "env");
+    path("bp" + k, [[X(250), 321], [X(250), 306], [X(344), 306], [X(344), 330]], "env");
+    path("ram" + k, [[X(302), 280], [X(302), 382]], "amb");
+    path("wing" + k, [[X(344), 330], [X(492), 330]], "env");
+    comp("p3", "", [cx - 8, 150, 16, 44], L(cx + (k === "L" ? 12 : -12), 170, "P3 BLEED", k === "L" ? "start" : "end"));
+    comp("pneu", `<rect class="ac-stub" x="${X(131) - 9}" y="214" width="18" height="10" rx="2"/>`, [X(131) - 12, 190, 24, 36], L(X(131), 186, "TO PNEUMATICS"));
+    comp("amb", `<path class="ac-scoop" d="M${X(110) - 9},150 L${X(110) + 9},150 L${X(110) + 5},140 L${X(110) - 5},140 Z"/>`, [X(110) - 12, 136, 24, 112], L(X(110), 132, "AMBIENT INTAKE"));
+    comp("fcu", `<rect class="ac-box" data-acbox="fcu${k}" x="${X(k === "L" ? 150 : 180)}" y="234" width="30" height="24" rx="4"/>`, [X(k === "L" ? 146 : 184), 230, 38, 32], L(cx, 274, "FLOW CONTROL UNIT"));
+    comp("byp", `<circle class="ac-valve" cx="${X(250)}" cy="330" r="9"/><line class="ac-needle" id="acByp${k}" x1="${X(250)}" y1="330" x2="${X(250)}" y2="339"/>`, [X(250) - 12, 318, 24, 24], L(X(250), 356, `${k} BYPASS VALVE`));
+    comp("hx", `<rect class="ac-hx" x="${X(k === "L" ? 282 : 322)}" y="318" width="40" height="24" rx="3"/>${Array.from({ length: 6 }, (_, i) => `<line class="ac-fin" x1="${X(k === "L" ? 288 : 316) + i * 6 * (k === "L" ? 1 : -1)}" y1="320" x2="${X(k === "L" ? 288 : 316) + i * 6 * (k === "L" ? 1 : -1)}" y2="340"/>`).join("")}`, [X(k === "L" ? 278 : 326), 314, 48, 32], L(X(302), 400, "AIR-TO-AIR HEAT EXCHANGER"));
+    comp("ram", `<path class="ac-scoop" d="M${X(302) - 9},280 L${X(302) + 9},280 L${X(302) + 5},270 L${X(302) - 5},270 Z"/>`, [X(302) - 12, 266, 24, 18], L(X(302), 296, "RAM AIR SCOOP"));
+  });
+  // compressor + refrigerant
+  path("ref", [[818, 197], [790, 197], [790, 292], [630, 292], [630, 150], [540, 112], [514, 92]], "ref");
+  path("ref2", [[472, 92], [472, 128], [575, 196], [575, 234]], "ref");
+  path("ref3", [[575, 260], [575, 268], [614, 290], [614, 566], [574, 566]], "ref");
+  comp("comp", `<rect class="ac-box" data-acbox="comp" x="818" y="186" width="34" height="22" rx="4"/>`, [814, 182, 42, 30], L(898, 204, "A/C COMPRESSOR", "start"));
+  comp("ref", "", [626, 150, 12, 140], L(642, 220, "REFRIGERANT LINES", "start"));
+  // nose: condenser, ram door, vent blower, evaporator
+  path("cond", [[492, 32], [492, 70]], "amb");
+  path("condOut", [[492, 94], [492, 110], [446, 110], [404, 126]], "amb");
+  comp("cond", `<rect class="ac-box" data-acbox="cond" x="462" y="70" width="60" height="24" rx="3"/><circle class="ac-fan" data-acfan="cblow" cx="446" cy="110" r="9"/>`, [436, 66, 90, 54], L(492, 60, "CONDENSER & BLOWER"));
+  path("door", [[612, 96], [596, 116], [596, 234]], "amb");
+  comp("door", `<rect class="ac-door" data-acdoor="1" x="586" y="146" width="20" height="8" rx="2"/>`, [582, 92, 34, 66], L(628, 132, "RAM AIR DOOR", "start"));
+  path("ret", [[608, 300], [602, 262]], "recirc");
+  path("blow", [[583, 247], [560, 247]], "recirc");
+  comp("vent", `<circle class="ac-fan" data-acfan="vent" cx="596" cy="247" r="13"/>`, [581, 232, 30, 30], L(598, 226, "VENT BLOWER"));
+  comp("fevap", `<rect class="ac-box" data-acbox="fevap" x="565" y="234" width="12" height="26" rx="2"/>`, [562, 232, 18, 30], L(571, 278, "FWD EVAP"));
+  // plenum + fwd path + floor ducts
+  path("fwd", [[500, 322], [500, 316], [548, 316], [548, 300], [478, 300], [478, 262]], "env");
+  comp("cross", `<path class="ac-box" d="M500,322 l9,8 -9,8 -9,-8 Z"/>`, [488, 318, 24, 24], L(500, 356, "CROSS JUNCTION"));
+  comp("muffler", `<rect class="ac-box" x="512" y="292" width="30" height="16" rx="6"/>`, [508, 288, 38, 24], L(527, 288, "MUFFLER"));
+  path("floorL", [[440, 247], [398, 247], [398, 600]], "env");
+  path("floorR", [[398, 280], [602, 280], [602, 600]], "env");
+  path("head", [[520, 262], [520, 612]], "recirc", true);
+  comp("plenum", `<rect class="ac-plenum" x="440" y="232" width="120" height="30" rx="5"/><line class="ac-part" x1="505" y1="234" x2="505" y2="260"/>`, [436, 228, 128, 38], L(472, 251, "MIXING PLENUM"));
+  comp("dot", `<circle class="ac-sensor" data-acsens="1" cx="420" cy="247" r="5"/>`, [412, 239, 16, 16], L(372, 252, "DUCT OVERTEMP SENSOR", "end"));
+  comp("cabinair", `<g class="ac-bfly" id="acBflyL"><circle class="ac-valve" cx="398" cy="320" r="7"/><line class="ac-needle" x1="391" y1="320" x2="405" y2="320"/></g><g class="ac-bfly" id="acBflyR"><circle class="ac-valve" cx="602" cy="320" r="7"/><line class="ac-needle" x1="595" y1="320" x2="609" y2="320"/></g>`, [388, 310, 224, 20], L(500, 316, "CABIN AIR VALVES"));
+  comp("floor", [360, 440, 520, 590].map(y => `<rect class="ac-out" data-acout="floor" x="386" y="${y - 4}" width="12" height="8"/><rect class="ac-out" data-acout="floor" x="602" y="${y - 4}" width="12" height="8"/>`).join(""), [384, 352, 20, 246], L(410, 600, "FLOOR OUTLETS", "start"));
+  comp("head", [370, 450, 530, 600].map(y => `<circle class="ac-eye" data-acout="head" cx="507" cy="${y}" r="4.5"/><circle class="ac-eye" data-acout="head" cx="533" cy="${y}" r="4.5"/>`).join(""), [500, 360, 40, 248], L(540, 410, "OVERHEAD EYEBALLS", "start"));
+  // cockpit heat duct
+  path("tap", [[460, 232], [460, 196]], "env");
+  path("pilot", [[460, 196], [420, 196], [420, 214]], "env");
+  path("copilot", [[460, 196], [580, 196], [580, 214]], "env");
+  path("defr", [[460, 196], [460, 164], [424, 164]], "env");
+  path("defr2", [[460, 164], [576, 164]], "env");
+  comp("heat", "", [455, 198, 12, 32], L(470, 214, "HEAT DUCT", "start"));
+  comp("defrost", `<circle class="ac-valve" cx="460" cy="180" r="6"/>`, [452, 172, 16, 16], L(470, 160, "WINDSHIELD DEFROST", "start"));
+  comp("pilot", `<circle class="ac-valve" cx="420" cy="206" r="5"/><circle class="ac-valve" cx="580" cy="206" r="5"/>`, [412, 198, 176, 18], L(372, 210, "CREW FOOT AIR", "end"));
+  // aft heat + aft blower
+  path("aft", [[492, 336], [455, 336], [455, 540]], "env");
+  path("aftL", [[455, 540], [400, 540]], "env"); path("aftR", [[455, 540], [600, 540]], "env");
+  comp("aftheat", `<circle class="ac-valve" data-acvalve="aft" cx="455" cy="440" r="7"/>`, [446, 430, 18, 20], L(447, 462, "AFT HEAT VALVE", "end"));
+  path("aOut", [[578, 578], [522, 578]], "recirc"); path("aOut2", [[590, 590], [590, 606], [600, 606]], "recirc");
+  comp("ablow", `<rect class="ac-box" data-acbox="aevap" x="566" y="566" width="12" height="24" rx="2"/><circle class="ac-fan" data-acfan="aft" cx="592" cy="578" r="11"/>`, [562, 562, 44, 32], L(586, 556, "AFT EVAP & BLOWER"));
+  comp("elec", `<path class="ac-coil" data-accoil="f" d="M444,254 l4,-6 4,6 4,-6 4,6 4,-6 4,6"/><path class="ac-coil" data-accoil="a" d="M540,608 l4,-6 4,6 4,-6 4,6 4,-6 4,6"/>`, [440, 244, 32, 14], L(372, 274, "ELECTRIC HEAT", "end"));
+  path("out", [[500, 630], [500, 676]], "recirc");
+  comp("outflow", `<circle class="ac-valve" cx="484" cy="636" r="6"/><circle class="ac-valve" cx="516" cy="636" r="6"/>`, [474, 626, 52, 20], L(530, 660, "OUTFLOW / SAFETY VALVES", "start"));
+  // always-on labels
+  syms.push(T(500, 58, "NOSE", "ac-big") + T(500, 140, "FWD PRESSURE BULKHEAD", "ac-dim") + T(250, 480, "CABIN", "ac-big") + `<text class="ac-cabin" id="acCabinT" x="250" y="506" text-anchor="middle"></text><text class="ac-dim2" id="acPress" x="250" y="526" text-anchor="middle"></text>`);
+  $("#acschem").innerHTML = syms.join("") + base.join("") + lines.join("") + top.join("") + arrows.join("");
+}
+
+function acRender() {
+  if (!$("#acschem") || !ACD) return;
+  const P = AC, d = ACD, on = {}, kind = {};
+  ["L", "R"].forEach(k => {
+    on["p3" + k] = d.run[k] && (d.envOpen[k] || d.pneuOpen[k]); on["pneu" + k] = d.pneuOpen[k];
+    on["amb" + k] = d.envOpen[k] && d.ambOpen; on["env" + k] = d.envOpen[k];
+    on["hx" + k] = d.envOpen[k] && P.byp[k] < 0.98; on["bp" + k] = d.envOpen[k] && P.byp[k] > 0.02;
+    on["ram" + k] = P.flight; on["wing" + k] = d.envOpen[k];
+    $("#acByp" + k).setAttribute("transform", `rotate(${(k === "L" ? -1 : 1) * P.byp[k] * 90} ${k === "L" ? 250 : 750} 330)`);
+  });
+  const env = d.envFlow > 0, blow = d.ventSpd > 0;
+  on.fwd = env; on.tap = env; on.pilot = env && P.knobs.pilot; on.copilot = env && P.knobs.copilot; on.defr = on.defr2 = env && P.knobs.defrost;
+  on.floorL = on.floorR = env || blow; kind.floorL = kind.floorR = env ? "env" : d.comp && blow ? "cool" : "recirc";
+  on.head = blow; kind.head = kind.blow = d.comp ? "cool" : "recirc"; on.blow = blow; on.ret = blow;
+  on.door = P.doorOpen; on.cond = on.condOut = d.comp; on.ref = on.ref2 = on.ref3 = d.comp;
+  on.aft = on.aftL = on.aftR = env && P.aftHeat;
+  const aftOn = P.aftBlower && d.power; on.aOut = on.aOut2 = aftOn; kind.aOut = kind.aOut2 = d.aftCool ? "cool" : d.eAft ? "env" : "recirc";
+  on.out = env || P.doorOpen;
+  $$("#acschem [data-acl]").forEach(el => { const k = el.dataset.acl; el.classList.toggle("on", !!on[k]); if (kind[k]) el.setAttribute("class", `acl k-${kind[k]}${on[k] ? " on" : ""}`); el.classList.toggle("half", (k === "floorL" || k === "floorR") && P.knobs.cabin); });
+  $$("#acschem [data-aca]").forEach(el => { const k = el.dataset.aca; if (kind[k]) el.setAttribute("class", `aca k-${kind[k]}`); el.classList.toggle("on", !!on[k]); });
+  const tog = (sel, v) => $$(sel).forEach(e => e.classList.toggle("on", !!v));
+  tog('[data-acbox="fcuL"]', d.envOpen.L); tog('[data-acbox="fcuR"]', d.envOpen.R); tog('[data-acbox="comp"]', d.comp); tog('[data-acbox="cond"]', d.comp);
+  tog('[data-acbox="fevap"]', d.comp); tog('[data-acbox="aevap"]', d.aftCool);
+  tog('[data-acfan="vent"]', blow); tog('[data-acfan="cblow"]', d.condBlower); tog('[data-acfan="aft"]', aftOn);
+  tog('[data-acdoor]', P.doorOpen); tog('[data-acvalve="aft"]', P.aftHeat); tog('[data-acsens]', d.overtemp);
+  tog('[data-accoil="f"]', d.eFwd); tog('[data-accoil="a"]', d.eAft);
+  $$('[data-acout="floor"]').forEach(e => e.setAttribute("class", "ac-out" + (on.floorL ? " k-" + kind.floorL : "")));
+  $$('[data-acout="head"]').forEach(e => e.setAttribute("class", "ac-eye" + (blow ? " k-" + kind.head : "")));
+  ["L", "R"].forEach(k => $("#acBfly" + k).setAttribute("transform", P.knobs.cabin ? `rotate(55 ${k === "L" ? 398 : 602} 320)` : ""));
+  $("#acCabinT").textContent = `${Math.round(P.cabinF)} °F`;
+  $("#acPress").textContent = P.flight ? (d.press ? "pressurized" : "UNPRESSURIZED") : "on the ground";
+  // annunciators + readouts
+  const A = { LBLO: ["amber", P.bleed.L !== "OPEN"], RBLO: ["amber", P.bleed.R !== "OPEN"], DUCT: ["amber", d.overtemp], ACN1: ["white", d.n1Low], ELEC: ["white", d.eFwd] };
+  Object.keys(A).forEach(k => { const el = $("#aca-" + k); if (el) el.className = "ann" + (A[k][1] ? " " + A[k][0] : ""); });
+  const bar = (lbl, v, txt) => `<div class="ac-bar"><span class="n">${lbl}</span><span class="b"><i style="width:${Math.round(v * 100)}%"></i></span><span class="v">${txt}</span></div>`;
+  $("#acRead").innerHTML = bar("Cabin", Math.max(0, Math.min(1, (P.cabinF - 30) / 90)), `${Math.round(P.cabinF)} °F${P.mode === "AUTO" ? ` · target ${Math.round(d.target)} °F` : ""}`) +
+    bar("Floor duct", Math.max(0, Math.min(1, d.ductF / 360)), `${Math.round(d.ductF)} °F${d.overtemp ? " · OVERTEMP" : ""}`) +
+    bar("L bypass", P.byp.L, `${Math.round(P.byp.L * 100)}% to heat${P.byp.L <= 1 / 3 ? " (within 30° of cold)" : ""}`) + bar("R bypass", P.byp.R, `${Math.round(P.byp.R * 100)}% to heat`) +
+    `<div class="ac-stat">Compressor <b>${d.comp ? "ON" : "off"}</b> · A/C requested <b>${P.acReq ? "yes" : "no"}</b> · ram air door <b>${P.doorOpen ? "OPEN" : "closed"}</b></div>`;
+  // where the air comes from
+  const row = (name, st, txt) => `<div class="ic-row ${st}"><span class="dot"></span><span class="n">${name}</span><span class="d">${txt}</span></div>`;
+  let h = "";
+  h += row("P3 bleed air", env ? "on" : "", ["L", "R"].map(k => `${k} ${d.envOpen[k] ? "to cabin" : !d.run[k] ? "engine off" : P.bleed[k] === "ENVIR" ? "pneumatics only" : "shut off"}`).join(" · ") + (env && P.envLow ? " · LOW (~50%)" : ""));
+  h += row("Ambient (in FCU)", env && d.ambOpen ? "on" : "", env ? (d.ambOpen ? "ambient valve open (flight, >50 °F)" : P.flight ? "valve closed (below ~50 °F)" : "valve closed on the ground") : "no environmental flow");
+  h += row("Heat exchangers", env ? "on" : "", env ? `L ${Math.round((1 - P.byp.L) * 100)}% / R ${Math.round((1 - P.byp.R) * 100)}% through the exchangers · ~${Math.round(d.envAirF)} °F` : "no flow");
+  h += row("Ram air door", P.doorOpen ? "warn" : "", P.doorOpen ? "OPEN: ambient into the forward evaporator" : "closed");
+  h += row("Recirculation", blow || aftOn ? "on" : "", `vent blower ${["off", "LOW", "HIGH"][d.ventSpd]} · aft blower ${aftOn ? "on" : "off"}`);
+  h += row("Cooling", d.comp ? "arm" : d.n1Low || d.cold ? "warn" : "", d.comp ? `fwd evaporator${d.aftCool ? " + aft evaporator" : ""}` : d.n1Low ? "locked out: right N1 < 62%" : d.cold ? "locked out: ambient < ~50 °F" : "off");
+  h += row("Electric heat", d.eFwd ? "on" : "", d.eFwd ? `forward${d.eAft ? " + aft" : " only (aft blower off)"}` : P.flight ? "unavailable in flight" : "off");
+  h += row("Aft heat", env && P.aftHeat ? "on" : "", P.aftHeat ? (env ? "environmental air to aft floor outlets" : "valve open, no bleed air") : "off");
+  $("#acNow").innerHTML = h;
+  // controls
+  $$("[data-acsw]").forEach(b => { const [g, k] = b.dataset.acsw.split(":"), cur = k ? P[g][k] : P[g]; b.setAttribute("aria-pressed", String(String(cur) === b.dataset.val)); });
+  ["pilot", "defrost", "cabin", "copilot"].forEach(k => { const b = $("#ack-" + k); b.setAttribute("aria-pressed", String(P.knobs[k])); b.textContent = `${{ pilot: "PILOT AIR", defrost: "DEFROST AIR", cabin: "CABIN AIR", copilot: "COPILOT AIR" }[k]}: ${P.knobs[k] ? "pulled out" : "pushed in"}`; });
+  if (document.activeElement !== $("#acKnob")) $("#acKnob").value = Math.round(P.knob * 100); $("#acKnobV").textContent = `${Math.round(60 + 25 * P.knob)} °F (AUTO)`;
+  $("#acInc").classList.toggle("on", P.man > 0); $("#acDec").classList.toggle("on", P.man < 0);
+  $("#acFl-g").setAttribute("aria-pressed", String(!P.flight)); $("#acFl-f").setAttribute("aria-pressed", String(P.flight));
+  if (document.activeElement !== $("#acOat")) $("#acOat").value = P.oat; $("#acOatV").textContent = `${P.oat > 0 ? "+" : ""}${P.oat} °C (${Math.round(acF(P.oat))} °F)`;
+  $("#acGpu").setAttribute("aria-pressed", String(P.gpu)); $("#acGpu").textContent = `Ground power ${P.gpu ? "ON" : "off"}`;
+  $$("[data-acn1]").forEach(b => { const [k, v] = b.dataset.acn1.split(":"); b.setAttribute("aria-pressed", String(P.n1[k] === +v)); });
+  $$("[data-acspd]").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.acspd === P.speed)));
+  $("#acCond").innerHTML = `${P.flight ? "In flight" : "On the ground"} · OAT ${P.oat > 0 ? "+" : ""}${P.oat} °C · L N1 ${P.n1.L || "off"}${P.n1.L ? "%" : ""} · R N1 ${P.n1.R || "off"}${P.n1.R ? "%" : ""}${P.gpu ? " · ground power" : ""} · clock ${fmtIcT(P.t)} (×${P.speed})`;
+  const n = $("#acInfoNow"); if (n && acSel) n.textContent = "";
+}
+function acSelect(id) {
+  acSel = id;
+  $$("#acschem .comp").forEach(g => g.classList.toggle("sel", g.dataset.accomp === id));
+  const c = ACC[id];
+  $("#acInfo").innerHTML = `<div class="eyebrow">${esc(c.group)}</div><h4>${esc(c.name)}</h4><p>${esc(c.desc)}</p>`;
+}
+
+const AC_SETUPS = [
+  ["Hot day on the ground, max cooling", P => { P.oat = 35; P.cabinF = 100; P.bleed.L = P.bleed.R = "ENVIR"; P.mode = "AUTO"; P.knob = 0; P.vent = "HIGH"; P.aftBlower = true; }],
+  ["Cold-morning preheat (GPU)", P => { P.oat = -10; P.cabinF = 20; P.n1.L = P.n1.R = 0; P.gpu = true; P.mode = "MAN HEAT"; P.elec = true; P.aftBlower = true; P.vent = "LO"; }],
+  ["Cruise, AUTO 72 °F", P => { P.flight = true; P.oat = -25; P.n1.L = P.n1.R = 95; P.mode = "AUTO"; P.knob = 0.48; P.cabinF = 64; P.byp.L = P.byp.R = 0.7; }],
+  ["DUCT OVERTEMP on takeoff", P => { P.oat = 15; P.mode = "MAN HEAT"; P.byp.L = P.byp.R = 1; P.knobs.cabin = true; P.cabinF = 70; P.script = [{ t: 4, do: Q => { Q.n1.L = Q.n1.R = 95; }, msg: "power up for takeoff, CABIN AIR pulled out, valves full hot." }]; }],
+  ["Unpressurized ventilation", P => { P.flight = true; P.oat = 20; P.n1.L = P.n1.R = 75; P.bleed.L = P.bleed.R = "ENVIR"; P.mode = "OFF"; P.vent = "LO"; }],
+  ["A/C at low idle (N1 LOW)", P => { P.oat = 30; P.cabinF = 90; P.n1.L = P.n1.R = 58; P.mode = "MAN COOL"; P.byp.L = P.byp.R = 0; P.vent = "HIGH"; P.bleed.L = P.bleed.R = "ENVIR"; }]
+];
+function acLoadSetup(i) { AC = acFresh(); acLogArr = []; AC_SETUPS[i][1](AC); acLog(`Setup: ${AC_SETUPS[i][0]}.`); acStep(0.001); }
+
+function initAirConditioning() {
+  AC = acFresh(); acLogArr = []; acSel = null;
+  acSvg();
+  $("#acSubnav").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  $("#acSetups").innerHTML = AC_SETUPS.map((s, i) => `<button type="button" class="pbtn" data-acset="${i}">${esc(s[0])}</button>`).join("");
+  $("#main .view").addEventListener("click", e => { const b = e.target.closest("[data-acset]"); if (b) { acLoadSetup(+b.dataset.acset); if (!b.closest("#acSetups")) $("#ac-sim").scrollIntoView({ behavior: "smooth", block: "start" }); } });
+  $("#acLabels").addEventListener("click", () => { const on = !$("#acschem").classList.contains("labels"); $("#acschem").classList.toggle("labels", on); $("#acLabels").setAttribute("aria-pressed", String(on)); });
+  const tog = (title, items) => `<div class="sw-group"><div class="gname">${title}</div><div class="sws">${items.map(([name, key, opts]) => `<div class="tog"><div class="name">${name}</div><div class="pos" role="group" aria-label="${title} ${name}">${opts.map(o => `<button type="button" data-acsw="${key}" data-val="${o[0]}" aria-pressed="false">${o[1]}</button>`).join("")}</div></div>`).join("")}</div></div>`;
+  $("#acSw").innerHTML = tog("Bleed air valves", [["Left", "bleed:L", [["OPEN", "Open"], ["ENVIR", "Envir off"], ["PNEU", "Pneu &amp; envir off"]]], ["Right", "bleed:R", [["OPEN", "Open"], ["ENVIR", "Envir off"], ["PNEU", "Pneu &amp; envir off"]]]]) +
+    tog("Envir bleed air", [["", "envLow", [["false", "Normal"], ["true", "Low"]]]]) +
+    tog("Cabin temp mode", [["", "mode", [["OFF", "Off"], ["AUTO", "Auto"], ["MAN HEAT", "Man heat"], ["MAN COOL", "Man cool"]]]]) +
+    tog("Vent blower", [["", "vent", [["HIGH", "High"], ["LO", "Lo"], ["AUTO", "Auto"]]]]) +
+    tog("Aft blower", [["", "aftBlower", [["true", "On"], ["false", "Off"]]]]) + tog("Elec heat", [["", "elec", [["true", "On"], ["false", "Off"]]]]) + tog("Aft heat", [["", "aftHeat", [["true", "On"], ["false", "Off"]]]]);
+  $("#acSw").addEventListener("click", e => {
+    const b = e.target.closest("[data-acsw]"); if (!b) return;
+    const [g, k] = b.dataset.acsw.split(":"); let v = b.dataset.val; if (v === "true" || v === "false") v = v === "true";
+    if ((k ? AC[g][k] : AC[g]) === v) return;
+    if (g === "elec" && v && AC.flight) { acLog("Electric heat is unavailable in flight.", "warn"); return; }
+    if (k) AC[g][k] = v; else AC[g] = v;
+    const nm = { bleed: `${SIDE[k]} BLEED AIR VALVE`, envLow: "ENVIR BLEED AIR", mode: "CABIN TEMP MODE", vent: "VENT BLOWER", aftBlower: "AFT BLOWER", elec: "ELEC HEAT", aftHeat: "AFT HEAT" }[g];
+    const val = g === "envLow" ? (v ? "LOW (about 50% less flow)" : "NORMAL") : g === "bleed" ? { OPEN: "OPEN", ENVIR: "ENVIR OFF", PNEU: "PNEU & ENVIR OFF" }[v] : v === true ? "ON" : v === false ? "OFF" : v;
+    acLog(`${nm}: ${val}.`); acStep(0.001);
+  });
+  $("#acTemp").innerHTML = `<label for="acKnob">CABIN TEMP</label><input type="range" id="acKnob" min="0" max="100" step="1"><span class="flowread" id="acKnobV"></span>`;
+  $("#acKnob").addEventListener("input", e => { AC.knob = +e.target.value / 100; acStep(0.001); });
+  $("#acManual").innerHTML = `<span class="gname">Manual temp (hold)</span><button type="button" class="pbtn" id="acInc">INCR</button><button type="button" class="pbtn" id="acDec">DECR</button>`;
+  const man = v => () => { if (v && !(AC.mode === "MAN HEAT" || AC.mode === "MAN COOL")) { acLog("MANUAL TEMP only works with CABIN TEMP MODE in MAN HEAT or MAN COOL.", "warn"); return; } if (AC.man !== v) { AC.man = v; if (v) acLog(`MANUAL TEMP ${v > 0 ? "INCR" : "DECR"} held: bypass valves move one at a time, about 30 s each.`); acStep(0.001); } };
+  icHold($("#acInc"), man(1), man(0)); icHold($("#acDec"), man(-1), man(0));
+  $("#acKnobs").innerHTML = ["pilot", "defrost", "cabin", "copilot"].map(k => `<button type="button" class="pbtn envb" id="ack-${k}" aria-pressed="false"></button>`).join("");
+  $("#acKnobs").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; const k = b.id.slice(4); AC.knobs[k] = !AC.knobs[k]; acLog(`${{ pilot: "PILOT AIR", defrost: "DEFROST AIR", cabin: "CABIN AIR", copilot: "COPILOT AIR" }[k]} ${AC.knobs[k] ? "pulled out" : "pushed in"}.${k === "cabin" && AC.knobs[k] ? " Only about 50% passes to the cabin floor outlets." : ""}`); acStep(0.001); });
+  $("#acAnns").innerHTML = [["LBLO", "L BL AIR OFF"], ["RBLO", "R BL AIR OFF"], ["DUCT", "DUCT OVERTEMP"], ["ACN1", "AIR COND N1 LO"], ["ELEC", "ELEC HEAT ON"]].map(a => `<div class="ann" id="aca-${a[0]}">${a[1]}</div>`).join("");
+  $("#acEnv").innerHTML = `<div class="seg" role="group" aria-label="Flight condition"><button type="button" id="acFl-g">On ground</button><button type="button" id="acFl-f">In flight</button></div><button type="button" class="pbtn envb" id="acGpu" aria-pressed="false"></button>`;
+  $("#acEnv2").innerHTML = `<label for="acOat">OAT</label><input type="range" id="acOat" min="-30" max="45" step="1"><span class="flowread" id="acOatV"></span>`;
+  $("#acEng").innerHTML = ["L", "R"].map(k => `<span class="gname">${k} N1</span><div class="seg" role="group" aria-label="${SIDE[k]} engine N1">${AC_N1.map(([v, t]) => `<button type="button" data-acn1="${k}:${v}">${t}</button>`).join("")}</div>`).join("");
+  $("#acClock").innerHTML = `<span class="gname">Clock</span><div class="seg" role="group" aria-label="Simulation speed">${[1, 5, 20].map(v => `<button type="button" data-acspd="${v}">×${v}</button>`).join("")}</div>`;
+  $("#acFl-g").addEventListener("click", () => { if (AC.flight) acLog("Landed."); AC.flight = false; acStep(0.001); });
+  $("#acFl-f").addEventListener("click", () => { if (!AC.flight) acLog("Airborne: squat switches change. The ambient air valves can open above ~50 °F, and the condenser blower stops."); AC.flight = true; acStep(0.001); });
+  $("#acGpu").addEventListener("click", () => { AC.gpu = !AC.gpu; acStep(0.001); });
+  $("#acOat").addEventListener("input", e => { AC.oat = +e.target.value; acStep(0.001); });
+  $("#acEng").addEventListener("click", e => { const b = e.target.closest("[data-acn1]"); if (!b) return; const [k, v] = b.dataset.acn1.split(":"); AC.n1[k] = +v; acLog(`${SIDE[k]} engine ${+v ? v + "% N1" : "shut down"}.`); acStep(0.001); });
+  $("#acClock").addEventListener("click", e => { const b = e.target.closest("[data-acspd]"); if (b) { AC.speed = +b.dataset.acspd; acStep(0.001); } });
+  const sv = $("#acschem");
+  sv.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) acSelect(g.dataset.accomp); });
+  sv.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); acSelect(e.target.closest(".comp").dataset.accomp); } });
+  $("#acInfo").innerHTML = `<h3>Component details</h3><p>Hover over the diagram to see names. Select a component for what it does.</p>`;
+  acLog("Both engines at 62% N1 on the ground, bleed air valves OPEN, CABIN TEMP MODE AUTO, +20 °C.");
+  acStep(0.001);
+  acTimer = setInterval(() => acStep(0.1), 100);
 }
 
 /* ================= boot ================= */
