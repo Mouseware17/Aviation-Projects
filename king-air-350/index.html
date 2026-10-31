@@ -805,6 +805,57 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 .pr-tonebadge { font-family: var(--f-mono); font-weight: 700; color: #ffcf4a; animation: blink .6s steps(1) infinite; }
 #prChart { width: 100%; height: auto; }
 
+/* ---------- landing gear ---------- */
+.lg-pp { fill: none; stroke: var(--muted); stroke-width: 2; stroke-dasharray: 8 6; }
+.lg-lbl { font-size: 12px; font-weight: 700; letter-spacing: .05em; fill: var(--fg); pointer-events: none; }
+.lg-sm { font-size: 10.5px; letter-spacing: .03em; fill: var(--muted); pointer-events: none; }
+.lg-state { font-family: var(--f-mono); font-size: 12.5px; font-weight: 700; fill: var(--fg); }
+.lg-ln { fill: none; stroke: var(--wire-dead); stroke-width: 7; stroke-linejoin: round; stroke-linecap: round; opacity: .55; }
+.lg-ln[data-lgx] { stroke-width: 3.5; }
+.lg-ln.press, .lg-ln.ret, .lg-ln.suc { opacity: 1; stroke-dasharray: 10 6; animation: flow .6s linear infinite; }
+.lg-ln.press { stroke: #e2342a; } .lg-ln.ret { stroke: #2a8fe0; } .lg-ln.suc { stroke: #e8c61a; }
+.lg-ln.hold { opacity: 1; stroke: #e2342a; }
+.lg-box { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.5; transition: fill .2s; }
+.lg-box.on { fill: #e2342a; fill-opacity: .3; stroke: #e2342a; }
+.lg-box.up { fill: #e2342a; fill-opacity: .2; }
+.lg-sel { fill: var(--surface-2); stroke: var(--sym); stroke-width: 2; }
+.lg-selt { font-family: var(--f-mono); font-size: 13px; font-weight: 700; fill: var(--fg); }
+.lg-sol { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.4; }
+.lg-sol.on { fill: #2fb062; fill-opacity: .55; stroke: #2fb062; }
+.lg-thin { stroke: var(--muted); stroke-width: 1.4; fill: none; }
+.lg-acc { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.6; }
+.lg-hpl { stroke: var(--sym); stroke-width: 5; stroke-linecap: round; transition: transform .15s; }
+.lg-knob2 { fill: #e2342a; stroke: var(--sym); stroke-width: 1.2; }
+.lg-act { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 2; }
+.lg-piston { fill: #6b747d; stroke: var(--sym); stroke-width: 1; transition: y .2s; }
+.lg-air { fill: var(--surface-2); stroke: var(--sym); stroke-width: 1.4; }
+.lg-nac { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.4; }
+.lg-prop { stroke: var(--sym); stroke-width: 4; stroke-linecap: round; opacity: .4; }
+.lg-spar { stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 6 5; }
+.lg-well { fill: var(--canvas); stroke: var(--muted); stroke-width: 1.2; stroke-dasharray: 3 2; }
+.lg-wheel { fill: #2b2f33; stroke: var(--sym); stroke-width: 1.2; transition: opacity .2s; }
+.lg-door { fill: var(--sym-fill); stroke: var(--sym); stroke-width: 1.2; opacity: 0; transition: opacity .2s; }
+.lg-inset { fill: var(--canvas); stroke: var(--line); stroke-width: 1.4; }
+.lg-leg { stroke: var(--sym); stroke-width: 5; stroke-linecap: round; }
+.lg-tire { fill: #2b2f33; stroke: var(--sym); stroke-width: 1.5; }
+.lg-sub { display: flex; gap: 18px; flex-wrap: wrap; align-items: flex-start; }
+.lg-handle-wrap { display: grid; gap: 6px; justify-items: center; }
+.lg-handle-wrap .gname, .lg-ind .gname { font-family: var(--f-display); font-size: .78rem; letter-spacing: .14em; text-transform: uppercase; color: var(--placard-dim); }
+.lg-handle { position: relative; width: 54px; height: 150px; border-radius: 8px; background: #1a1d21; border: 2px solid #0a0b0c; cursor: pointer; padding: 0; }
+.lg-knob { position: absolute; left: 7px; width: 36px; height: 56px; bottom: 8px; border-radius: 8px; background: linear-gradient(90deg, #e8a58c, #f4c0a6, #e8a58c); display: grid; grid-template-columns: 1fr 1fr; gap: 3px; padding: 4px 4px 0; align-content: start; transition: bottom .25s; }
+.lg-handle.up .lg-knob { bottom: 82px; }
+.lg-red { display: block; height: 12px; border-radius: 3px; background: #5a1e1a; }
+.lg-red.on { background: #ff3b2e; box-shadow: 0 0 10px rgba(255,59,46,.8); }
+.lg-hpos { font-family: var(--f-display); font-weight: 700; letter-spacing: .12em; color: var(--placard); }
+.lg-btns { display: grid; gap: 6px; }
+.lg-ind { display: grid; gap: 8px; }
+.lg-greens { display: flex; gap: 4px; }
+.lg-greens span { font-family: var(--f-display); font-weight: 700; letter-spacing: .06em; padding: 8px 10px; border-radius: 4px; background: #0f2a18; color: #2f5a3c; border: 1px solid #0a0b0c; }
+.lg-greens span.on { background: #2fb062; color: #04220f; box-shadow: 0 0 10px rgba(47,176,98,.6); }
+.lg-horn { font-family: var(--f-mono); font-size: .8rem; color: var(--placard-dim); }
+.lg-horn.on { color: #ffcf4a; font-weight: 700; animation: blink .5s steps(1) infinite; }
+.lg-anns { grid-template-columns: minmax(0, 1fr); max-width: 200px; }
+
 @media (max-width: 1120px) {
   .sim { grid-template-columns: minmax(0, 1fr); }
   .side { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -823,7 +874,7 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
   .eng-row { grid-template-columns: minmax(0, 1fr); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .oilf.on, .flame.on, .fp-line.on, .ic-spark.on, .ic-flow.on, .acl.on, .ac-fan.on, .ac-sensor.on, .pr-ln.on, .pr-out.on, .pr-tonebadge, .ofh-flow.on, .fpbtn .lens.on.blink, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
+  .rotor.spin, .ann.flash, .fl.on, .ln.on, .gas.on, .spark.on, .oilf.on, .flame.on, .fp-line.on, .ic-spark.on, .ic-flow.on, .acl.on, .ac-fan.on, .ac-sensor.on, .pr-ln.on, .pr-out.on, .pr-tonebadge, .lg-ln.press, .lg-ln.ret, .lg-ln.suc, .lg-horn.on, .ofh-flow.on, .fpbtn .lens.on.blink, .flasher.on.blink, .fwbtn.transit .bot { animation: none; }
   * { transition: none !important; }
 }
 </style>
@@ -2856,6 +2907,224 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 </div>
 </template>
 
+<template id="tpl-landing-gear">
+<div class="view">
+  <header class="chapter-head">
+    <div class="eyebrow">Chapter 14</div>
+    <h1>Landing Gear and Brakes</h1>
+    <p class="lede">Retractable tricycle gear, electrically controlled and hydraulically actuated. An electric power pack in the left wing center section pumps fluid through a solenoid selector valve to an actuator at each gear. Hydraulic pressure holds the gear up. Mechanical locks hold it down: J-hooks on the main gear drag braces, and an internal lock in the nose actuator plus its drag brace. A hand pump between the pilot's seat and the pedestal extends the gear if the normal system fails.</p>
+    <p class="disclaimer">Study aid built from the King Air 300/350 training manual landing gear and brakes section, King Air 350 values. It is not an approved document. The POH/AFM governs. Pressures, times and limits come from the manual. The hand-pump stroke count and leak-down rate are illustrative.</p>
+    <div class="subnav" id="lgSubnav">
+      <button data-go="lg-glance">At a glance</button>
+      <button data-go="lg-sim">Interactive gear</button>
+      <button data-go="lg-comp">Gear components</button>
+      <button data-go="lg-hyd">Power pack &amp; hydraulics</button>
+      <button data-go="lg-ctl">Control &amp; safety switches</button>
+      <button data-go="lg-ind">Indications &amp; warning horn</button>
+      <button data-go="lg-man">Manual extension</button>
+      <button data-go="lg-brk">Brakes</button>
+    </div>
+  </header>
+
+  <section class="block" id="lg-glance">
+    <h2>At a glance <span class="ref">Tables 14-2, 14-3</span></h2>
+    <div class="specs">
+      <div class="spec"><span class="v">184 / 166 KIAS</span><span class="k">VLO: extension / retraction (350). VLE 184 KIAS.</span></div>
+      <div class="spec"><span class="v">≈ 6 s</span><span class="k">Normal retraction or extension cycle</span></div>
+      <div class="spec"><span class="v">2,775 / 2,375 psi</span><span class="k">Uplock pressure switch: pump stops at 2,775 and restarts at 2,375 to hold the gear up</span></div>
+      <div class="spec"><span class="v">800 psi</span><span class="k">Accumulator precharge (LH wing, inboard of the nacelle)</span></div>
+      <div class="spec"><span class="v">200–400 psi</span><span class="k">Retract pressure that unlocks the nose actuator. The mains follow once their J-hooks unlock.</span></div>
+      <div class="spec"><span class="v">13–15 s</span><span class="k">Pump-motor timer. A motor that hasn't shut off trips the LANDING GEAR RELAY breaker.</span></div>
+      <div class="spec"><span class="v">86% N1</span><span class="k">Power lever position below which the gear warning horn can sound</span></div>
+      <div class="spec"><span class="v">1 per 5 min</span><span class="k">Gear cycles (one up, one down): 6 cycles, then a 15-minute cool-down</span></div>
+      <div class="spec"><span class="v">12° + 36°</span><span class="k">Nosewheel steering, plus castering: 48° each side</span></div>
+    </div>
+  </section>
+
+  <section class="block" id="lg-sim">
+    <h2>Interactive landing gear <span class="ref">Figures 14-5 to 14-24</span></h2>
+    <p class="prose">Move the gear handle, pull the LANDING GEAR RELAY breaker and work the hand pump, or set up a failure. The <b>hydraulic schematic</b> follows the manual's power-pack figures, colored the same way: red for pressure, blue for return, yellow for suction. The <b>airplane view</b> shows where the lines run to the three actuators and the gear moving. Select any component for its description.</p>
+    <div class="diagram-card">
+      <div class="scen">
+        <div class="scen-row"><label>Setup</label><div class="faults" id="lgSetups"></div></div>
+        <p class="scen-cap" id="lgCap"></p>
+      </div>
+    </div>
+    <div class="sim near">
+      <div class="diagram-card">
+        <div class="dtabs">
+          <div class="seg" role="group" aria-label="Diagram" id="lgTabs">
+            <button type="button" data-tab="hyd" aria-pressed="true">Hydraulic schematic</button>
+            <button type="button" data-tab="ext" aria-pressed="false">Airplane view</button>
+          </div>
+        </div>
+        <div class="svg-wrap" id="lgSvgs">
+          <svg id="lg-hyd" viewBox="0 0 1000 700" role="img" aria-label="Landing gear hydraulic schematic"></svg>
+          <svg id="lg-ext" viewBox="0 0 1000 640" role="img" aria-label="Landing gear hydraulic lines and gear position, airplane view" hidden></svg>
+        </div>
+        <div class="legend">
+          <span><i style="background:#e2342a"></i>Pressure</span>
+          <span><i style="background:#2a8fe0"></i>Return fluid</span>
+          <span><i style="background:#e8c61a"></i>Suction (hand pump)</span>
+          <span><i style="background:var(--wire-dead)"></i>Static / no flow</span>
+        </div>
+      </div>
+      <div class="side">
+        <div class="card info" id="lgInfo" aria-live="polite"></div>
+        <div class="card"><h3>What the system is doing</h3><div class="ic-act" id="lgNow"></div></div>
+      </div>
+    </div>
+    <div class="cockpit">
+      <div class="panel">
+        <h3>Pilot's right subpanel · landing gear</h3>
+        <div class="lg-sub">
+          <div class="lg-handle-wrap">
+            <div class="gname">LDG GEAR CONTROL</div>
+            <button type="button" class="lg-handle" id="lgHandle" aria-label="Landing gear control handle"><span class="lg-knob"><i class="lg-red" id="lgRed1"></i><i class="lg-red" id="lgRed2"></i></span></button>
+            <div class="lg-hpos" id="lgHpos"></div>
+          </div>
+          <div class="lg-btns">
+            <button type="button" class="pbtn" id="lgDlr">DOWN LOCK REL (hold)</button>
+            <button type="button" class="pbtn" id="lgHlt">HDL LT TEST (hold)</button>
+            <button type="button" class="pbtn" id="lgSil">GEAR WARN SILENCE</button>
+            <button type="button" class="pbtn envb" id="lgCb" aria-pressed="false"></button>
+            <button type="button" class="pbtn" id="lgFst">HYD FLUID SENSOR TEST (hold)</button>
+          </div>
+          <div class="lg-ind">
+            <div class="gname">Gear down</div>
+            <div class="lg-greens"><span id="lgG-N">NOSE</span><span id="lgG-L">L</span><span id="lgG-R">R</span></div>
+            <div class="lg-horn" id="lgHorn">horn silent</div>
+            <div class="ann-grid lg-anns" id="lgAnns"></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Cockpit floor · alternate extension</h3>
+        <div class="faults ic-holds"><button type="button" class="pbtn envb" id="lgStow" aria-pressed="false"></button><button type="button" class="pbtn" id="lgPump">Pump handle (hold)</button><span class="flowread" id="lgStroke"></span></div>
+        <h3>Flight condition</h3>
+        <div class="envrow" id="lgFlt"></div>
+        <div class="envrow" id="lgPwr"></div>
+        <h3>Failures · maintenance</h3>
+        <div class="faults" id="lgFaults"></div>
+      </div>
+    </div>
+    <div class="pp-top lower">
+      <div class="panel"><h3>Clock</h3><div class="envrow" id="lgClock"></div></div>
+      <div class="card"><h3>Events</h3><ol class="log" id="lgLog"></ol></div>
+    </div>
+  </section>
+
+  <section class="block" id="lg-comp">
+    <h2>Gear components <span class="ref">Figures 14-1 to 14-4</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Each gear has a shock strut, torque knee (scissors), drag leg (brace), actuator, wheel and tire. The mains carry the brakes, and the nose carries a shimmy damper.</p>
+        <ul class="tight">
+          <li><b>Air/oil struts:</b> the air charge carries the weight. On touchdown, fluid forced through an orifice absorbs the shock and limits bounce. Never taxi or tow on a flat strut.</li>
+          <li><b>Torque knees:</b> keep the wheels aligned. On the nose they also pass steering to the wheel and shimmy to the damper.</li>
+          <li><b>Shimmy damper:</b> a balanced hydraulic cylinder bleeding through an orifice, on the right side of the nose strut.</li>
+          <li><b>Doors:</b> spring-loaded open and closed mechanically by rollers and cams as the gear moves. Springs pull the linkage over center to hold them open.</li>
+          <li><b>Steering:</b> linked directly to the rudder pedals, 12° each side, plus 36° of castering. A spring link absorbs pedal force until the wheel rolls. The wheel self-centers on retraction, but the rudder still moves.</li>
+          <li><b>Tires:</b> nose 22 × 6.75 × 10, 8-ply. Mains 19.5 × 6.75 × 8, 10-ply, tubeless.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Downlocks</h3><p><b>Main gear:</b> a notched J-hook, lock link and guide on each drag brace, with a downlock switch on each J-hook. <b>Nose gear:</b> an internal mechanical lock in the actuator plus the drag brace. Both the actuator's internal switch and the drag brace switch must be locked for the nose green light.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="lg-hyd">
+    <h2>Power pack &amp; hydraulics <span class="ref">Figures 14-5, 14-17 to 14-20</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>The <b>power pack</b> is in the middle of the left wing center section, just forward of the main spar. It contains a 28 VDC motor and pump, a two-section reservoir (primary, and secondary for the hand pump), filter screens, the gear selector valve with <b>up and down solenoids</b>, a fluid level sensor and the <b>uplock pressure switch</b>. A fill reservoir with dipstick sits inboard of the left nacelle, vented overboard. It is pressurized with 18–20 psi regulated bleed air (see Pneumatics).</p>
+        <p>Three lines run to each actuator. Normal extension and manual extension go to the upper end, retraction to the lower end.</p>
+        <ul class="tight">
+          <li><b>Retraction (UP, in flight):</b> the up solenoid shifts the selector and the motor runs. The nose unlocks at 200–400 psi, and the mains once their J-hooks release. About 6 s later the actuators bottom out, pressure builds to <b>2,775 psi</b> and the switch stops the pump. It restarts at <b>2,375 psi</b> to make up leak-down. The 800 psi accumulator helps hold pressure.</li>
+          <li><b>Extension (DN):</b> the down solenoid shifts the selector and the motor runs until all three gear are down and locked, each downlock switch dropping out its part of the motor circuit. About 6 s. The down solenoid stays powered.</li>
+          <li><b>Timer:</b> if the motor runs 13–15 s, a logic relay stops it and trips the LANDING GEAR RELAY breaker.</li>
+        </ul>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>HYD FLUID LOW</h3><p>Yellow caution from a fiber-optic sensor on the power pack reservoir. HYD FLUID SENSOR TEST makes the sensor see low fluid, with about 5 s delay on and off. If it lights in flight, try a normal extension at destination. If the gear doesn't fully extend, use the manual extension procedure.</p><button class="show" type="button" data-lgset="4">Try it →</button></div>
+        <div class="card"><h3>Service valve (maintenance)</h3><p>Forward of the power pack. Its red knob, pulled up with the airplane on jacks, lets the hand pump <i>raise</i> the gear. It must be down for normal operation and manual extension.</p><p class="disclaimer">Pushing it down with the gear up, power on and the handle DN extends the gear immediately.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="lg-ctl">
+    <h2>Control &amp; safety switches <span class="ref">Figures 14-8, 14-9</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p><b>LDG GEAR CONTROL</b> (pilot's right subpanel) must be pulled out of a detent to move. Control power comes through the 2 A LANDING GEAR RELAY breaker. Motor power goes through the motor relay and a 60 A breaker next to the pump.</p>
+        <p><b>Safety (squat) switches</b> on the main gear torque knees open when the struts are compressed.</p>
+        <ul class="tight">
+          <li>The <b>left</b> one opens the up-solenoid circuit.</li>
+          <li>The <b>right</b> one opens the up-solenoid circuit, the motor control relay and the <b>handle lock solenoid</b>.</li>
+        </ul>
+        <p>So the gear can't retract on the ground, and the handle is locked in DN until liftoff. If the lock or squat switch fails in flight, override it with the red <b>DOWN LOCK REL</b> button. Never move the handle out of DN on the ground.</p>
+      </div>
+      <div class="bus-table-wrap"><table><thead><tr><th>Squat switch</th><th>Also controls</th></tr></thead><tbody>
+        <tr><td><b>Left main</b></td><td>Gear up solenoid; ambient air modulating valves; pressurization preset and dump solenoids; door seal; stall warning heat</td></tr>
+        <tr><td><b>Right main</b></td><td>Gear up solenoid; gear motor control relay; handle lock; ground low pitch stop; electric heat; flight hour meter</td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <section class="block" id="lg-ind">
+    <h2>Indications &amp; warning horn <span class="ref">Figures 14-10 to 14-16, Table 14-1</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p><b>NOSE / L / R</b> green lights mean down and locked. Press the housing to test the bulbs. Two <b>red lights in the handle</b> mean in transit, unsafe or unlocked. They also light when:</p>
+        <ul class="tight">
+          <li>the handle is UP with weight on wheels</li>
+          <li>the horn condition is met</li>
+          <li>the horn has been silenced and not rearmed</li>
+        </ul>
+        <p>Gear up is indicated by the red lights out with the gear obviously retracted. Up switches on each strut open the in-transit circuit. Test the red lights with HDL LT TEST.</p>
+      </div>
+      <div class="bus-table-wrap"><table><thead><tr><th>Gear</th><th>Flaps</th><th>Power</th><th>Horn</th><th>Silence</th></tr></thead><tbody>
+        <tr><td>Not down</td><td>Up</td><td>Above 86% N1</td><td>No</td><td>—</td></tr>
+        <tr><td>Not down</td><td>Up</td><td>Below 86% N1</td><td>Yes</td><td>Silence button</td></tr>
+        <tr><td>Not down</td><td>Approach</td><td>Below 86% N1</td><td>Yes</td><td>Silence button</td></tr>
+        <tr><td>Not down</td><td>Beyond approach</td><td>Any</td><td>Yes</td><td>Lower the gear</td></tr>
+        <tr><td colspan="5">On the ground with the handle not DN: horn plus red lights until the handle is DN. A silenced horn rearms when the power levers are advanced. The handle lights can't be canceled.</td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <section class="block" id="lg-man">
+    <h2>Manual (hand pump) extension <span class="ref">Figures 14-21 to 14-23</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <ol class="tight">
+          <li>Pull the <b>LANDING GEAR RELAY</b> circuit breaker.</li>
+          <li>Make sure LDG GEAR CONTROL is <b>DN</b>.</li>
+          <li>Remove the pump handle from its clip and pump until all three greens show and you feel more resistance.</li>
+          <li>Stow the handle once down and locked.</li>
+        </ol>
+        <p>The hand pump draws from the reservoir's secondary section and pushes fluid down the manual extension line to the upper end of each actuator. Its pressure opens the <b>hand pump dump valve</b>, which lets fluid from the retract side return to the reservoir.</p>
+        <p><b>Warnings:</b> if the greens don't light (electrical failure, or an actuator not locked), keep pumping until there's solid resistance and don't stow the handle. The gear can't be retracted manually in flight. After an emergency extension, don't touch any gear controls or reset any breakers until the airplane is on jacks. After a <i>practice</i> extension, with the handle stowed, reset the breaker and select UP.</p>
+      </div>
+      <div class="card"><h3>Try it</h3><p>Load the electrical failure setup. Normal extension does nothing and the lights are dark, so pull the breaker, unstow the handle and pump.</p><button class="show" type="button" data-lgset="3">Manual extension →</button></div>
+    </div>
+  </section>
+
+  <section class="block" id="lg-brk">
+    <h2>Brakes <span class="ref">Figures 14-25 to 14-27</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Non-assisted hydraulic brakes. Each main wheel has multi-disc dual brakes, worked by toe pressure on either crew member's pedals. Each pedal has its own master cylinder. The pilot's cylinders are plumbed in series through the copilot's, so either set works the brakes without shuttle valves, and neither overrides the other. Right pedals brake the right wheel and left pedals the left, which gives differential braking. Three automatic adjusters per brake keep clearance as the linings wear, which gives a softer, slightly longer pedal.</p>
+        <p><b>Parking brake:</b> dual valves between the copilot's master cylinders and the brakes. Hold the pedals, press the button in the control (lower left of the pilot's subpanel) and pull the handle out. To release: press the pedals and push the handle in. Don't leave it set unattended. Temperature changes can over-pressure or release it, so chock the wheels.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>Using the brakes</h3><ul class="tight"><li>Props are more effective than brakes right after touchdown. Use mostly the props down to about 40 kt, then light braking.</li><li>Taxi speed with GROUND FINE. Brakes only as needed.</li><li>For tight turns, use intermittent heavy pressure on the inside brake. Never hold it steady, which twists the strut.</li><li>When runway length is critical, use maximum braking per the POH Performance section.</li></ul></div>
+        <div class="card"><h3>Servicing &amp; wear</h3><p>The brake reservoir is in the upper left of the nose avionics compartment, with a dipstick and MIL-H-5606 fluid. With the parking brake set, a gap of <b>0.200 in or more</b> between the segmented carrier/lining and the piston housing means the brake needs a lining inspection.</p></div>
+      </div>
+    </div>
+  </section>
+</div>
+</template>
+
 <script>
 (function () {
 "use strict";
@@ -2874,7 +3143,7 @@ const CHAPTERS = [
   { n: 11, id: "air-conditioning",  t: "Air Conditioning", ready: "Ready · interactive environmental air flow" },
   { n: 12, id: "pressurization",    t: "Pressurization", ready: "Ready · interactive controller, valves & flow control unit" },
   { n: 13, id: "hydraulics",        t: "Hydraulic Power Systems" },
-  { n: 14, id: "landing-gear",      t: "Landing Gear and Brakes" },
+  { n: 14, id: "landing-gear",      t: "Landing Gear and Brakes", ready: "Ready · interactive gear hydraulics" },
   { n: 15, id: "flight-controls",   t: "Flight Controls" },
   { n: 16, id: "avionics",          t: "Avionics" },
   { n: 17, id: "miscellaneous",     t: "Miscellaneous Systems" },
@@ -2930,7 +3199,7 @@ function renderPlaceholder(c) {
   </div>`;
 }
 
-const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection(), "ice-rain": () => initIceRain(), "air-conditioning": () => initAirConditioning(), "pressurization": () => initPressurization() };
+const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection(), "ice-rain": () => initIceRain(), "air-conditioning": () => initAirConditioning(), "pressurization": () => initPressurization(), "landing-gear": () => initLandingGear() };
 function route() {
   const id = (location.hash || "").replace("#", "");
   const ch = CHAPTERS.find(c => c.id === id);
@@ -3726,7 +3995,7 @@ function applyScenario(i) {
   step(0.01);
 }
 
-function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; if (pnTimer) { clearInterval(pnTimer); pnTimer = null; } pnScript = null; if (fpTimer) { clearInterval(fpTimer); fpTimer = null; } if (icTimer) { clearInterval(icTimer); icTimer = null; } if (acTimer) { clearInterval(acTimer); acTimer = null; } if (prTimer) { clearInterval(prTimer); prTimer = null; } MW = null; }
+function stopSim() { if (timer) { clearInterval(timer); timer = null; } if (fTimer) { clearInterval(fTimer); fTimer = null; } if (ppTimer) { clearInterval(ppTimer); ppTimer = null; } ppScript = null; if (pvTimer) { clearInterval(pvTimer); pvTimer = null; } pvScript = null; if (pnTimer) { clearInterval(pnTimer); pnTimer = null; } pnScript = null; if (fpTimer) { clearInterval(fpTimer); fpTimer = null; } if (icTimer) { clearInterval(icTimer); icTimer = null; } if (acTimer) { clearInterval(acTimer); acTimer = null; } if (prTimer) { clearInterval(prTimer); prTimer = null; } if (lgTimer) { clearInterval(lgTimer); lgTimer = null; } MW = null; }
 
 function initElectrical() {
   buildSchematic();
@@ -7161,6 +7430,321 @@ function initPressurization() {
   prLog("On the ground at sea level. Engines running, bleed air valves OPEN, CABIN PRESS in PRESS: the safety valve is open, so the cabin is unpressurized.");
   prStep(0.001);
   prTimer = setInterval(() => prStep(0.1), 100);
+}
+
+/* ================= Chapter 14: Landing Gear ================= */
+let LG = null, LGD = null, lgTimer = null, lgSel = null, lgTab = "hyd", lgLogArr = [];
+const LG_TRAVEL = 6, LG_STROKES = 40;
+const LGG = ["N", "L", "R"], LGNAME = { N: "Nose", L: "Left main", R: "Right main" };
+const LGC = {
+  res: { group: "Power pack", name: "Primary reservoir", desc: "The upper section of the power pack's two-section reservoir, feeding the electric pump. A fiber-optic sensor at the motor end lights HYD FLUID LOW." },
+  res2: { group: "Power pack", name: "Secondary reservoir", desc: "Reserve fluid kept for the hand pump, so manual extension still works after the primary fluid is lost." },
+  fill: { group: "Power pack", name: "Fill reservoir & vent", desc: "Inboard of the left nacelle, forward of the front spar. Cap and dipstick for servicing, vented overboard through an orifice. Pressurized with regulated bleed air (18–20 psi) through a check valve." },
+  pump: { group: "Power pack", name: "Pump & 28 VDC motor", desc: "Runs when the motor relay is energized: UP until the uplock pressure switch reaches 2,775 psi, DN until all three gear are down and locked. A 13–15 s timer stops a motor that won't shut off and trips the LANDING GEAR RELAY breaker. Motor power comes through a 60 A breaker next to the pump." },
+  pchk: { group: "Power pack", name: "Pump check valve & system relief valve", desc: "The check valve keeps pressure from backing into the pump when it stops. The relief valve protects the system from over-pressure." },
+  sel: { group: "Power pack", name: "Selector valve & up/down solenoids", desc: "The up solenoid ports pump pressure to the gear-up (retract) port. It's powered only with the handle UP and both squat switches in flight mode. The down solenoid ports pressure to the gear-down port and stays powered with the handle DN." },
+  psw: { group: "Power pack", name: "Uplock pressure switch", desc: "Opens at about 2,775 psi to stop the pump once the gear is up. Closes at about 2,375 psi to restart it and make up leak-down. Hydraulic pressure is the gear uplock." },
+  pcv: { group: "Power pack", name: "Pressure check valve", desc: "Traps gear-up pressure in the retract side after the pump stops." },
+  acc: { group: "Hydraulics", name: "Accumulator", desc: "Precharged to 800 psi, in the LH wing inboard of the nacelle. Helps hold up-line pressure with the gear retracted." },
+  dump: { group: "Hand pump", name: "Hand pump dump valve", desc: "Hand pump pressure opens it, letting fluid from the retract side return to the reservoir so the gear can extend." },
+  hp: { group: "Hand pump", name: "Hand pump (LANDING GEAR ALTERNATE EXTENSION)", desc: "Handle on the floor between the pilot's seat and the pedestal, pump below the floor. Draws from the secondary reservoir and pushes fluid down the manual extension line to the upper end of each actuator. It can't retract the gear in flight." },
+  svc: { group: "Hand pump", name: "Service valve", desc: "Forward of the power pack. Down (normal): required for electro-hydraulic operation and manual extension. Red knob pulled up with the airplane on jacks: the hand pump raises the gear for maintenance." },
+  act: { group: "Actuators", name: "Gear actuators", desc: "One per gear. Normal and manual extension lines connect to the upper end, the retract line to the lower end. Pressure on the piston moves the folding drag brace. The nose actuator has an internal downlock. The mains lock with J-hooks on their drag braces." },
+  lines: { group: "Hydraulics", name: "Gear hydraulic lines", desc: "Three lines run to each actuator: power pack extension, power pack retraction and manual extension (from the hand pump)." },
+  gear: { group: "Gear", name: "Landing gear legs", desc: "The mains retract forward into the nacelles and the nose retracts aft. The doors are closed mechanically by gear movement and spring-loaded open. About 6 s each way." },
+  pp: { group: "Location", name: "Hydraulic power pack", desc: "Middle of the left wing center section, just forward of the main spar. Motor relay and 60 A breaker are alongside." }
+};
+
+function lgFresh() {
+  return { t: 0, speed: 1, flight: false, ias: 0, pwrLo: true, flaps: "UP", master: true, handle: "DN", cb: true, dlr: false, hlt: false, fst: false, fstOn: 0, fstOff: 0, lowLit: false,
+    silenced: false, pos: { N: 0, L: 0, R: 0 }, lock: { N: true, L: true, R: true }, press: 0, pswOpen: false, motorT: 0, runT: 0, retT: 0, dryT: 0,
+    stowed: true, pumping: false, strokes: 0, strokeT: 0, jacks: false, svcUp: false, fault: { fluid: false, motor: false, elec: false, psw: false }, moves: [], warned: {} };
+}
+function lgLog(msg, cls) {
+  lgLogArr.unshift({ t: LG.t, msg, cls: cls || "" }); if (lgLogArr.length > 60) lgLogArr.pop();
+  const h = $("#lgLog"); if (h) h.innerHTML = lgLogArr.map(e => `<li class="${e.cls}"><span class="t">${fmtIcT(e.t)}</span><span class="m">${esc(e.msg)}</span></li>`).join("");
+}
+function lgOnce(key, cond, msg, cls) { if (cond && !LG.warned[key]) { LG.warned[key] = true; lgLog(msg, cls); } if (!cond) LG.warned[key] = false; }
+
+function lgStep(dtReal) {
+  const P = LG, dt = dtReal * P.speed; P.t += dt;
+  const d = {};
+  d.power = P.master && !P.fault.elec;
+  d.ctl = d.power && P.cb;
+  d.gnd = !P.flight && !P.jacks;                         // squat switches compressed
+  d.upSol = d.ctl && P.handle === "UP" && !d.gnd;
+  d.dnSol = d.ctl && P.handle === "DN";
+  d.allDown = LGG.every(k => P.lock[k]);
+  d.allUp = LGG.every(k => P.pos[k] >= 1);
+  // uplock pressure switch latch
+  if (P.press >= 2775 && !P.fault.psw) { if (!P.pswOpen) lgLog("Uplock pressure switch opens at 2,775 psi: pump stops. The gear is held up by hydraulic pressure."); P.pswOpen = true; }
+  if (P.press <= 2375 && P.pswOpen) { P.pswOpen = false; if (P.handle === "UP" && P.flight) lgLog("Pressure leaked down to 2,375 psi: pressure switch closes and the pump runs to recharge."); }
+  const svcNormal = !P.svcUp;
+  d.demand = svcNormal && ((d.upSol && !P.pswOpen) || (d.dnSol && !d.allDown));
+  d.motor = d.demand && !P.fault.motor;
+  // 13-15 s timer
+  if (d.demand) { P.motorT += dt; if (P.motorT > 14) { P.cb = false; P.motorT = 0; lgLog("Pump motor ran 13–15 s without shutting off: timer opened the motor relay and tripped the LANDING GEAR RELAY breaker.", "bad"); d.ctl = false; d.upSol = d.dnSol = d.demand = d.motor = false; } }
+  else P.motorT = 0;
+  // fluid: with a low-fluid fault the pump moves the gear only briefly before pumping air
+  if (d.motor) P.runT += dt; else P.runT = 0;
+  d.dry = P.fault.fluid && d.motor && (P.dryT += dt) > 2.5;
+  d.flow = d.motor && !d.dry;
+  d.mode = "idle";
+  if (d.flow && d.upSol) {
+    d.mode = "retract";
+    LGG.forEach(k => { if (P.lock[k]) { P.lock[k] = false; } });
+    P.retT += dt;
+    LGG.forEach(k => { const start = k === "N" ? 0.1 : 0.6; if (P.retT > start) P.pos[k] = Math.min(1, P.pos[k] + dt / LG_TRAVEL); });
+    if (LGG.every(k => P.pos[k] >= 1)) P.press = Math.min(2800, Math.max(P.press, 1200) + 2500 * dt);
+    else P.press = Math.min(1100, P.press + 1500 * dt);
+  } else if (d.flow && d.dnSol) {
+    d.mode = "extend"; P.press = 0; P.retT = 0;
+    LGG.forEach(k => { if (!P.lock[k]) { P.pos[k] = Math.max(0, P.pos[k] - dt / LG_TRAVEL); if (P.pos[k] <= 0) { P.lock[k] = true; lgLog(`${LGNAME[k]} gear down and locked${k === "N" ? " (actuator internal lock + drag brace)" : " (J-hook)"}: its downlock switch drops out of the pump circuit.`); } } });
+  } else {
+    P.retT = 0;
+    if (P.handle === "DN" && d.dnSol) P.press = Math.max(0, P.press - 3000 * dt);       // selector to DN vents the up line
+    else if (P.press > 0) P.press = Math.max(0, P.press - 4 * dt);                       // normal leak-down, helped by the accumulator
+  }
+  if (d.dry) lgOnce("dry", true, "Power pack has run out of fluid: the pump is moving air and the gear stopped short. Expect the timer to trip the breaker. Use manual extension.", "bad");
+  if (!d.motor) P.dryT = d.dry ? P.dryT : P.dryT;
+  // hand pump
+  d.hand = false; d.maint = false;
+  if (P.pumping && !P.stowed) {
+    P.strokeT += dt;
+    if (P.strokeT >= 0.6) {
+      P.strokeT = 0; P.strokes++;
+      if (P.svcUp) { LGG.forEach(k => { P.lock[k] = false; P.pos[k] = Math.min(1, P.pos[k] + 1 / LG_STROKES); }); }
+      else if (!d.allDown) { LGG.forEach(k => { if (!P.lock[k]) { P.pos[k] = Math.max(0, P.pos[k] - 1 / LG_STROKES); if (P.pos[k] <= 0) { P.lock[k] = true; lgLog(`${LGNAME[k]} gear down and locked (hand pump).`); } } }); P.press = Math.max(0, P.press - 400); }
+      else lgOnce("resist", true, "All three gear down and locked: strong resistance felt at the pump handle. Stow the handle.", "ok");
+    }
+    d.hand = !P.svcUp; d.maint = P.svcUp;
+    if (d.hand) d.mode = d.allDown ? "handdone" : "hand"; else d.mode = "maint";
+  } else P.strokeT = 0;
+  if (P.svcUp && d.mode === "maint") {}
+  d.allDown = LGG.every(k => P.lock[k]);
+  d.allUp = LGG.every(k => P.pos[k] >= 1);
+  if (d.mode === "idle" && P.press > 0 && d.allUp) d.mode = "uphold";
+  // indications
+  d.green = k => d.power && P.lock[k];
+  d.mismatch = (P.handle === "UP" && !d.allUp) || (P.handle === "DN" && !d.allDown) || LGG.some(k => !P.lock[k] && P.pos[k] < 1);
+  d.groundUp = d.gnd && P.handle !== "DN";
+  if (!P.pwrLo) P.silenced = false;
+  d.hornCond = d.power && (d.groundUp || (P.flight && !d.allDown && (P.flaps === "DOWN" || P.pwrLo)));
+  d.horn = d.hornCond && !(P.silenced && P.flight && P.flaps !== "DOWN");
+  d.red = d.power && (d.mismatch || d.groundUp || d.hornCond || P.hlt);
+  // HYD FLUID LOW with ~5 s delays
+  const lowWant = P.fault.fluid || P.fst;
+  if (lowWant) { P.fstOn += dt; P.fstOff = 0; if (P.fstOn >= 5) P.lowLit = true; } else { P.fstOff += dt; P.fstOn = 0; if (P.fstOff >= 5) P.lowLit = false; }
+  d.low = d.power && P.lowLit;
+  d.handleLocked = !(d.power && !d.gnd);
+  LGD = d;
+  // events
+  lgOnce("vle", P.flight && !d.allUp && P.ias > 184, `${P.ias} KIAS with the gear not up: above VLE 184 KIAS.`, "bad");
+  lgOnce("horn", d.horn, d.groundUp ? "Gear warning horn and red handle lights: handle out of DN on the ground. Put it back DN." : P.flaps === "DOWN" ? "Gear warning horn: flaps beyond APPROACH with gear not down. Can't be silenced: lower the gear." : "Gear warning horn: power below 86% N1 with the gear not down and locked.", "bad");
+  lgOnce("nopow", !d.power && P.t > 0.5, "No electrical power to the gear system: no solenoids, no pump, no position lights. Manual extension only.", "warn");
+  lgRender();
+}
+
+function lgSvgs() {
+  const T = (x, y, s, cls, anchor) => `<text x="${x}" y="${y}" class="${cls || "lbl"}" text-anchor="${anchor || "middle"}">${s}</text>`;
+  const comp = (id, inner, hit) => `<g class="comp" data-lgcomp="${id}" tabindex="0" role="button" aria-label="${esc(LGC[id].name)}"><rect class="hit" x="${hit[0]}" y="${hit[1]}" width="${hit[2]}" height="${hit[3]}" rx="4"/>${inner}</g>`;
+  const L = (key, pts, extra) => `<polyline class="lg-ln" data-lgl="${key}" points="${pts.map(p => p.join(",")).join(" ")}"${extra || ""}/>`;
+  const AX = { L: 230, N: 520, R: 810 };
+  // ---------- hydraulic schematic ----------
+  let s = `<rect class="lg-pp" x="300" y="70" width="600" height="345" rx="6"/>${T(890, 62, "POWER PACK ASSEMBLY", "lg-lbl", "end")}`;
+  s += L("rtn", [[575, 300], [555, 300], [555, 112], [648, 112]]);
+  s += L("dump", [[600, 385], [500, 385], [500, 300], [555, 300]]);
+  s += L("pout", [[640, 205], [640, 262], [606, 284]]);
+  s += L("upint", [[600, 316], [600, 410]]);
+  s += L("dnport", [[625, 300], [940, 300], [940, 500]]);
+  s += L("ext", [[940, 500], [AX.L - 8, 500]]) + LGG.map(k => L("ext", [[AX[k] - 8, 500], [AX[k] - 8, 520]])).join("");
+  s += L("ret", [[600, 410], [600, 632], [AX.L, 632]]) + L("ret", [[600, 632], [AX.R, 632]]) + LGG.map(k => L("ret", [[AX[k], 632], [AX[k], 602]])).join("");
+  s += L("accl", [[600, 445], [700, 445]]);
+  s += L("psw", [[600, 370], [700, 370]]);
+  s += L("suc", [[400, 200], [262, 200], [262, 330], [146, 330]]);
+  s += L("hp", [[110, 352], [110, 440], [158, 440]]);
+  s += L("man", [[182, 440], [182, 480], [AX.R + 8, 480]]) + LGG.map(k => L("man", [[AX[k] + 8, 480], [AX[k] + 8, 520]])).join("");
+  s += L("mnt", [[170, 452], [170, 560], [300, 560], [300, 632]]);
+  s += comp("res", `<rect class="lg-box" data-lgbox="res" x="648" y="92" width="90" height="44" rx="4"/>${T(693, 118, "PRIMARY RESERVOIR", "lg-sm")}`, [644, 88, 98, 52]);
+  s += comp("res2", `<rect class="lg-box" x="400" y="180" width="80" height="40" rx="4"/>${T(440, 204, "SECONDARY RES.", "lg-sm")}`, [396, 176, 88, 48]);
+  s += comp("fill", `<rect class="lg-box" x="320" y="18" width="110" height="34" rx="4"/>${T(375, 39, "FILL RESERVOIR", "lg-sm")}<path class="lg-thin" d="M430,35 L470,35"/>${T(474, 39, "bleed air 18–20 psi · overboard vent", "lg-sm", "start")}`, [316, 14, 330, 42]);
+  s += comp("pump", `<circle class="lg-box" data-lgbox="motor" cx="612" cy="190" r="14"/><circle class="lg-box" data-lgbox="pump" cx="642" cy="190" r="14"/>${T(612, 194, "M", "lg-sm")}${T(642, 194, "P", "lg-sm")}${T(627, 156, "PUMP MOTOR · PUMP", "lg-sm")}<text class="lg-sm" id="lgMotT" x="627" y="169" text-anchor="middle"></text>`, [590, 146, 76, 60]);
+  s += comp("pchk", `<rect class="lg-box" x="632" y="226" width="16" height="22" rx="2"/>${T(656, 240, "PUMP CHECK", "lg-sm", "start")}<rect class="lg-box" x="760" y="200" width="18" height="36" rx="2"/>${T(784, 222, "SYSTEM RELIEF", "lg-sm", "start")}`, [628, 196, 240, 56]);
+  s += comp("sel", `<rect class="lg-sel" id="lgSelBox" x="575" y="284" width="50" height="32" rx="4"/><text class="lg-selt" id="lgSelT" x="600" y="305" text-anchor="middle"></text><rect class="lg-sol" id="lgSolDn" x="490" y="248" width="70" height="22" rx="3"/>${T(525, 263, "DOWN SOL", "lg-sm")}<rect class="lg-sol" id="lgSolUp" x="660" y="248" width="70" height="22" rx="3"/>${T(695, 263, "UP SOL", "lg-sm")}${T(600, 332, "SELECTOR VALVE", "lg-sm")}`, [486, 244, 248, 94]);
+  s += comp("pcv", `<rect class="lg-box" x="592" y="345" width="16" height="20" rx="2"/>${T(586, 358, "PRESS CHECK", "lg-sm", "end")}`, [520, 340, 92, 30]);
+  s += comp("psw", `<rect class="lg-box" data-lgbox="psw" x="700" y="356" width="96" height="30" rx="4"/>${T(748, 368, "PRESS SWITCH", "lg-sm")}<text class="lg-sm" id="lgPswT" x="748" y="381" text-anchor="middle"></text>`, [696, 352, 104, 38]);
+  s += comp("acc", `<rect class="lg-acc" x="700" y="432" width="90" height="26" rx="12"/>${Array.from({ length: 6 }, (_, i) => `<line class="lg-thin" x1="${742 + i * 6}" y1="436" x2="${742 + i * 6}" y2="454"/>`).join("")}${T(745, 474, "ACCUMULATOR (800 psi)", "lg-sm")}`, [696, 428, 100, 52]);
+  s += comp("dump", `<rect class="lg-box" data-lgbox="dump" x="490" y="330" width="20" height="26" rx="2"/>${T(486, 346, "DUMP VALVE", "lg-sm", "end")}`, [410, 326, 104, 34]);
+  s += comp("hp", `<rect class="lg-box" data-lgbox="hp" x="70" y="318" width="80" height="34" rx="5"/><line class="lg-hpl" id="lgHpl" x1="80" y1="318" x2="40" y2="290"/>${T(110, 340, "HAND PUMP", "lg-sm")}`, [36, 284, 118, 72]);
+  s += comp("svc", `<rect class="lg-box" data-lgbox="svc" x="158" y="428" width="24" height="24" rx="3"/><circle class="lg-knob2" id="lgSvcK" cx="170" cy="422" r="6"/>${T(150, 418, "SERVICE VALVE", "lg-sm", "end")}`, [70, 410, 118, 46]);
+  LGG.forEach(k => { const ax = AX[k]; s += comp("act", `<rect class="lg-act" x="${ax - 18}" y="520" width="36" height="82" rx="4"/><rect class="lg-piston" id="lgPis${k}" x="${ax - 15}" y="588" width="30" height="8" rx="2"/>${T(ax + (k === "R" ? -26 : 26), 566, { L: "LH MAIN", N: "NOSE", R: "RH MAIN" }[k], "lg-lbl", k === "R" ? "end" : "start")}${T(ax + (k === "R" ? -26 : 26), 582, "ACTUATOR", "lg-sm", k === "R" ? "end" : "start")}`, [ax - 22, 516, 44, 90]); });
+  s += T(300, 474, "MANUAL EXTENSION", "lg-sm", "start") + T(300, 495, "NORMAL EXTENSION", "lg-sm", "start") + T(300, 648, "RETRACTION", "lg-sm", "start");
+  s += `<text class="lg-state" id="lgHydT" x="20" y="672" text-anchor="start"></text><text class="lg-sm" id="lgHydT2" x="20" y="690" text-anchor="start"></text>`;
+  $("#lg-hyd").innerHTML = s;
+
+  // ---------- airplane view ----------
+  let e = `<path class="lg-air" d="M500,28 C522,30 536,70 538,120 L540,250 L940,285 L940,322 L540,330 L534,490 L612,520 L612,546 L500,540 L388,546 L388,520 L466,490 L460,330 L60,322 L60,285 L460,250 L462,120 C464,70 478,30 500,28 Z"/>`;
+  [280, 720].forEach(cx => { e += `<rect class="lg-nac" x="${cx - 26}" y="170" width="52" height="240" rx="22"/><line class="lg-prop" x1="${cx - 80}" y1="166" x2="${cx + 80}" y2="166"/>`; });
+  e += `<line class="lg-spar" x1="70" y1="306" x2="930" y2="306"/>${T(925, 300, "MAIN SPAR", "lg-sm", "end")}`;
+  // line bundles: extension, retraction, manual (offset)
+  const bundle = (pts, k, off) => L(k, pts.map(([x, y], i) => [x + off[0], y + off[1]]), ` data-lgx="1"`);
+  const routes = { N: [[400, 286], [474, 286], [474, 150], [492, 150]], L: [[400, 290], [292, 290], [292, 352]], R: [[400, 296], [708, 296], [708, 352]] };
+  const offs = { ext: [0, 0], ret: [6, 6], man: [12, 12] };
+  ["ext", "ret", "man"].forEach(key => Object.values(routes).forEach(r => { e += bundle(r, key, offs[key]); }));
+  e += L("man", [[488, 118], [488, 200], [412, 200], [412, 298]], ` data-lgx="1"`);
+  e += comp("lines", "", [290, 280, 430, 30]);
+  e += comp("pp", `<rect class="lg-box" data-lgbox="pp" x="370" y="270" width="34" height="22" rx="3"/>${T(386, 262, "POWER PACK", "lg-sm")}`, [366, 252, 44, 44]);
+  e += comp("acc", `<rect class="lg-acc" x="320" y="314" width="30" height="12" rx="6"/>${T(335, 340, "ACCUMULATOR", "lg-sm")}`, [316, 310, 40, 36]);
+  e += comp("fill", `<rect class="lg-box" x="312" y="262" width="22" height="14" rx="2"/>`, [308, 258, 30, 22]);
+  e += comp("hp", `<rect class="lg-box" data-lgbox="hp" x="478" y="108" width="20" height="14" rx="3"/>${T(470, 104, "HAND PUMP", "lg-sm", "end")}`, [420, 94, 82, 32]);
+  // gear (top view)
+  const gearTop = (k, x, y, w, h) => `<g data-lggear="${k}"><rect class="lg-well" x="${x - w / 2 - 3}" y="${y - h / 2 - 3}" width="${w + 6}" height="${h + 6}" rx="4"/><rect class="lg-wheel" id="lgW${k}" x="${x - w / 2}" y="${y - h / 2}" width="${w}" height="${h}" rx="3"/><rect class="lg-door" id="lgD${k}" x="${x - w / 2 - 3}" y="${y - h / 2 - 3}" width="${w + 6}" height="${h + 6}" rx="4"/></g>`;
+  e += comp("gear", gearTop("N", 500, 150, 14, 26) + gearTop("L", 280, 372, 26, 30) + gearTop("R", 720, 372, 26, 30), [270, 130, 470, 262]);
+  LGG.forEach(k => { const [x, y] = { N: [520, 156], L: [246, 400], R: [754, 400] }[k]; e += `<text class="lg-sm" id="lgXT${k}" x="${x}" y="${y}" text-anchor="${k === "L" ? "end" : "start"}"></text>`; });
+  // side profile inset
+  e += `<rect class="lg-inset" x="620" y="440" width="370" height="190" rx="8"/>${T(805, 462, "SIDE VIEW · nose left", "lg-lbl")}<path class="lg-air" d="M640,540 C640,515 680,505 720,505 L960,505 L975,520 L960,538 L720,545 C690,546 650,550 640,540 Z"/><rect class="lg-nac" x="790" y="525" width="90" height="22" rx="10"/>`;
+  e += `<g id="lgSideN"><line class="lg-leg" x1="690" y1="545" x2="690" y2="590"/><circle class="lg-tire" cx="690" cy="598" r="11"/></g><g id="lgSideM"><line class="lg-leg" x1="840" y1="546" x2="840" y2="596"/><circle class="lg-tire" cx="840" cy="604" r="14"/></g>${T(690, 624, "NOSE (aft)", "lg-sm")}${T(860, 624, "MAINS (forward)", "lg-sm")}`;
+  e += `<text class="lg-state" id="lgExtT" x="40" y="590" text-anchor="start"></text><text class="lg-sm" id="lgExtT2" x="40" y="608" text-anchor="start"></text>`;
+  $("#lg-ext").innerHTML = e;
+}
+
+function lgRender() {
+  if (!$("#lg-hyd") || !LGD) return;
+  const P = LG, d = LGD, m = d.mode;
+  const st = {};
+  const pr = "press", rt = "ret", su = "suc", hold = "hold";
+  if (m === "retract") Object.assign(st, { pout: pr, upint: pr, ret: pr, accl: pr, psw: pr, dnport: rt, ext: rt, rtn: rt });
+  if (m === "uphold") Object.assign(st, { upint: hold, ret: hold, accl: hold, psw: hold });
+  if (m === "extend") Object.assign(st, { pout: pr, dnport: pr, ext: pr, upint: rt, ret: rt, rtn: rt });
+  if (m === "hand") Object.assign(st, { suc: su, hp: pr, man: pr, ret: rt, upint: rt, dump: rt, rtn: rt });
+  if (m === "maint") Object.assign(st, { suc: su, hp: pr, mnt: pr, ret: pr, ext: rt, dnport: rt, rtn: rt });
+  $$("[data-lgl]").forEach(el => { const s = st[el.dataset.lgl] || ""; el.setAttribute("class", "lg-ln" + (s ? " " + s : "")); });
+  // power pack parts
+  const tog = (sel, on, cls) => $$(sel).forEach(x => x.classList.toggle(cls || "on", !!on));
+  tog('[data-lgbox="motor"], [data-lgbox="pump"]', d.motor);
+  tog('[data-lgbox="hp"]', P.pumping && !P.stowed);
+  tog('[data-lgbox="dump"]', m === "hand");
+  tog('[data-lgbox="svc"]', P.svcUp, "up");
+  $("#lgSvcK").setAttribute("cy", P.svcUp ? 414 : 422);
+  $("#lgSolUp").classList.toggle("on", d.upSol); $("#lgSolDn").classList.toggle("on", d.dnSol);
+  $("#lgSelT").textContent = d.upSol ? "UP" : d.dnSol ? "DN" : "—";
+  $("#lgMotT").textContent = d.motor ? (d.dry ? "running · NO FLUID" : `running · ${P.motorT.toFixed(1)} s`) : d.demand ? "commanded · MOTOR FAILED" : "off";
+  $("#lgPswT").textContent = `${Math.round(P.press)} psi · ${P.pswOpen ? "open" : "closed"}`;
+  $("#lgHpl").setAttribute("transform", P.stowed ? "" : `rotate(${P.pumping ? (Math.floor(P.t / 0.3) % 2 ? -25 : 10) : -10} 80 318)`);
+  LGG.forEach(k => $("#lgPis" + k).setAttribute("y", (588 - P.pos[k] * 62).toFixed(1)));
+  const modeTxt = { retract: "RETRACTING: up solenoid, pump pressure to the actuator lower ends", uphold: "GEAR UP: pressure trapped in the retract side holds the gear", extend: "EXTENDING: down solenoid, pump pressure to the actuator upper ends", hand: "HAND PUMP EXTENSION: manual line to the upper ends, dump valve open", handdone: "Hand pump: gear locked, resistance felt", maint: "MAINTENANCE RETRACTION: service valve up, hand pump to the retract side", idle: d.allDown ? "Gear down and locked: no flow" : "No flow" }[m];
+  $("#lgHydT").textContent = modeTxt; $("#lgExtT").textContent = modeTxt;
+  const posTxt = LGG.map(k => `${k} ${P.lock[k] ? "down & locked" : P.pos[k] >= 1 ? "up" : `${Math.round((1 - P.pos[k]) * 100)}% down`}`).join(" · ");
+  $("#lgHydT2").textContent = posTxt + ` · up-line ${Math.round(P.press)} psi`; $("#lgExtT2").textContent = posTxt;
+  // airplane view
+  LGG.forEach(k => { const p = P.pos[k]; $("#lgW" + k).style.opacity = (1 - p * 0.85).toFixed(2); $("#lgD" + k).style.opacity = (p * 0.9).toFixed(2); $("#lgXT" + k).textContent = P.lock[k] ? "DOWN" : p >= 1 ? "UP" : "IN TRANSIT"; });
+  $("#lgSideN").setAttribute("transform", `rotate(${-P.pos.N * 95} 690 545)`);
+  $("#lgSideM").setAttribute("transform", `rotate(${P.pos.L * 95} 840 546)`);
+  // cockpit
+  $("#lgHandle").classList.toggle("up", P.handle === "UP"); $("#lgHpos").textContent = P.handle === "UP" ? "UP" : "DN";
+  $("#lgRed1").classList.toggle("on", d.red); $("#lgRed2").classList.toggle("on", d.red);
+  LGG.forEach(k => $("#lgG-" + k).classList.toggle("on", d.green(k)));
+  $("#lgHorn").textContent = d.horn ? "♪ GEAR WARNING HORN" : P.silenced && d.hornCond ? "horn silenced (rearms with power)" : "horn silent"; $("#lgHorn").classList.toggle("on", d.horn);
+  $("#lga-LOW").className = "ann" + (d.low ? " amber" : "");
+  $("#lgCb").setAttribute("aria-pressed", String(!P.cb)); $("#lgCb").textContent = P.cb ? "LANDING GEAR RELAY CB: in" : "LANDING GEAR RELAY CB: OUT";
+  $("#lgDlr").classList.toggle("on", P.dlr); $("#lgHlt").classList.toggle("on", P.hlt); $("#lgFst").classList.toggle("on", P.fst);
+  $("#lgStow").setAttribute("aria-pressed", String(!P.stowed)); $("#lgStow").textContent = P.stowed ? "Pump handle: stowed in clip" : "Pump handle: UNSTOWED";
+  $("#lgPump").classList.toggle("on", P.pumping && !P.stowed); $("#lgStroke").textContent = `${P.strokes} strokes`;
+  $("#lgFl-g").setAttribute("aria-pressed", String(!P.flight)); $("#lgFl-f").setAttribute("aria-pressed", String(P.flight));
+  const ias = $("#lgIas"); ias.disabled = !P.flight; if (document.activeElement !== ias) ias.value = P.ias; $("#lgIasV").textContent = P.flight ? `${P.ias} KIAS` : P.jacks ? "on jacks" : "on ground";
+  $$("[data-lgflap]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lgflap === P.flaps)));
+  $("#lgPwrB").setAttribute("aria-pressed", String(P.pwrLo)); $("#lgPwrB").textContent = P.pwrLo ? "Power levers: below 86% N1" : "Power levers: above 86% N1";
+  $("#lgMaster").setAttribute("aria-pressed", String(P.master)); $("#lgMaster").textContent = `Master switch ${P.master ? "ON" : "OFF"}`;
+  [["fluid", P.fault.fluid], ["motor", P.fault.motor], ["elec", P.fault.elec], ["psw", P.fault.psw], ["jacks", P.jacks], ["svc", P.svcUp]].forEach(([k, v]) => $("#lgf-" + k).setAttribute("aria-pressed", String(v)));
+  $$("[data-lgspd]").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.lgspd === P.speed)));
+  $("#lgCap").innerHTML = LG.cap ? esc(LG.cap) : `${P.jacks ? "On jacks" : P.flight ? `In flight at ${P.ias} KIAS` : "On the ground"} · flaps ${P.flaps} · handle ${P.handle} · clock ${fmtIcT(P.t)}`;
+  // what's happening
+  const row = (name, s2, txt) => `<div class="ic-row ${s2}"><span class="dot"></span><span class="n">${name}</span><span class="d">${txt}</span></div>`;
+  let h = row("Control power", d.ctl ? "on" : "bad", !d.power ? "no electrical power" : P.cb ? "LANDING GEAR RELAY CB in" : "CB OUT: electric gear disabled");
+  h += row("Squat switches", d.gnd ? "warn" : "on", P.jacks ? "struts extended (on jacks)" : d.gnd ? "ground: up solenoid, motor relay and handle locked out" : "flight");
+  h += row("Selector", d.upSol || d.dnSol ? "on" : "", d.upSol ? "UP solenoid" : d.dnSol ? "DOWN solenoid (held)" : "no solenoid powered");
+  h += row("Pump motor", d.motor ? "arm" : d.demand ? "bad" : "", d.motor ? `running (${P.motorT.toFixed(1)} s of the 13–15 s limit)` : d.demand ? "commanded but not running" : "off");
+  h += row("Up-line pressure", P.press > 2300 ? "on" : "", `${Math.round(P.press)} psi · switch ${P.pswOpen ? "open (pump off)" : "closed"}`);
+  h += row("Gear", d.allDown ? "on" : d.allUp ? "on" : "warn", posTxt);
+  h += row("Handle lock", d.handleLocked ? "warn" : "on", d.handleLocked ? "locked in DN (DOWN LOCK REL overrides)" : "free");
+  $("#lgNow").innerHTML = h;
+}
+function lgSelect(id) {
+  lgSel = id;
+  $$("#lgSvgs .comp").forEach(g => g.classList.toggle("sel", g.dataset.lgcomp === id));
+  const c = LGC[id];
+  $("#lgInfo").innerHTML = `<div class="eyebrow">${esc(c.group)}</div><h4>${esc(c.name)}</h4><p>${esc(c.desc)}</p>`;
+}
+function lgShowTab(t) { lgTab = t; ["hyd", "ext"].forEach(x => $("#lg-" + x).toggleAttribute("hidden", x !== t)); $$("#lgTabs [data-tab]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === t))); }
+function lgSetGearUp(P) { LGG.forEach(k => { P.pos[k] = 1; P.lock[k] = false; }); P.handle = "UP"; P.press = 2700; P.pswOpen = true; }
+function lgMoveHandle(v) {
+  const P = LG, d = LGD;
+  if (P.handle === v) return;
+  if (v === "UP" && d.handleLocked && !P.dlr) { lgLog(d.power ? "Handle locked in DN: the right squat switch says on the ground. (DOWN LOCK REL overrides. Never do this on the ground.)" : "Handle lock solenoid unpowered: hold DOWN LOCK REL to move the handle.", "warn"); return; }
+  P.handle = v; P.cap = "";
+  if (P.flight && v === "UP" && P.ias > 166) lgLog(`Gear UP at ${P.ias} KIAS: above VLO for retraction (166 KIAS).`, "bad");
+  if (P.flight && v === "DN" && P.ias > 184) lgLog(`Gear DN at ${P.ias} KIAS: above VLO for extension (184 KIAS).`, "bad");
+  P.moves = P.moves.filter(t => P.t - t < 300); P.moves.push(P.t);
+  if (P.moves.length > 2) lgLog("Gear cycle limit: one cycle (up and down) every 5 minutes, 6 cycles, then 15 minutes to cool down.", "warn");
+  lgLog(`LDG GEAR CONTROL ${v}${!P.flight && !P.jacks && v === "UP" ? " on the ground: squat switches block the up solenoid and pump, horn sounds." : "."}`);
+  lgStep(0.001);
+}
+
+const LG_SETUPS = [
+  ["Normal retraction after takeoff", "Just airborne at 130 KIAS, flaps APPROACH, gear down. Select UP and watch the nose unlock first, then the mains, then the pressure build to 2,775 psi.", P => { P.flight = true; P.ias = 130; P.pwrLo = false; P.flaps = "APPROACH"; }],
+  ["Gear up in cruise (pressure cycling)", "Gear up, pressure trapped in the retract side. Leak-down brings it to 2,375 psi, then the pump recharges to 2,775. Run the clock fast to see it.", P => { P.flight = true; P.ias = 240; P.pwrLo = false; lgSetGearUp(P); P.press = 2420; P.speed = 20; }],
+  ["Normal extension on approach", "Gear up at 160 KIAS, power back, so the horn may sound. Select DN: down solenoid, pump to the upper ends, and each gear locks in turn until all three greens show and the pump stops.", P => { P.flight = true; P.ias = 160; P.pwrLo = true; P.flaps = "APPROACH"; lgSetGearUp(P); }],
+  ["Electrical failure: manual extension", "No electrical power. Selecting DN does nothing and the gear lights are dark. Pull the LANDING GEAR RELAY breaker, check handle DN, unstow the pump handle and pump until resistance (about 40 strokes here).", P => { P.flight = true; P.ias = 150; lgSetGearUp(P); P.fault.elec = true; }],
+  ["HYD FLUID LOW: partial extension", "Fluid lost from the power pack (HYD FLUID LOW on). A normal extension stalls part way and the 13–15 s timer trips the breaker. Then extend with the hand pump, which uses the secondary reservoir.", P => { P.flight = true; P.ias = 150; lgSetGearUp(P); P.fault.fluid = true; P.fstOn = 5; P.lowLit = true; }],
+  ["Handle UP on the ground", "On the ramp. Try to move the handle UP: it's locked by the right squat switch. Hold DOWN LOCK REL and it moves, but the gear stays down (squat switches) while the horn and red lights call for DN.", P => { }],
+  ["Landing with the gear up", "On approach with the gear up and power reduced: horn (silenceable). Select flaps DOWN and it can't be silenced any more.", P => { P.flight = true; P.ias = 130; P.pwrLo = true; P.flaps = "APPROACH"; lgSetGearUp(P); }],
+  ["Pressure switch fails on retraction", "The uplock pressure switch never opens, so the pump keeps running after the gear is up until the 13–15 s timer trips the LANDING GEAR RELAY breaker.", P => { P.flight = true; P.ias = 140; P.pwrLo = false; P.fault.psw = true; }],
+  ["Maintenance retraction on jacks", "On jacks with external power, struts extended. Pull the service valve knob UP and use the hand pump to raise the gear. Push the knob down with the handle DN and power on, and the gear extends immediately.", P => { P.jacks = true; P.svcUp = true; P.stowed = false; }]
+];
+function lgLoadSetup(i) { LG = lgFresh(); lgLogArr = []; LG_SETUPS[i][2](LG); LG.cap = LG_SETUPS[i][1]; lgLog(`Setup: ${LG_SETUPS[i][0]}.`); lgStep(0.001); }
+
+function initLandingGear() {
+  LG = lgFresh(); lgLogArr = []; lgSel = null;
+  lgSvgs(); lgShowTab("hyd");
+  $("#lgSubnav").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  $("#lgSetups").innerHTML = LG_SETUPS.map((s, i) => `<button type="button" class="pbtn" data-lgset="${i}">${esc(s[0])}</button>`).join("");
+  $("#main .view").addEventListener("click", e => { const b = e.target.closest("[data-lgset]"); if (b) { lgLoadSetup(+b.dataset.lgset); if (!b.closest("#lgSetups")) $("#lg-sim").scrollIntoView({ behavior: "smooth", block: "start" }); } });
+  $("#lgTabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if (b) lgShowTab(b.dataset.tab); });
+  $("#lgHandle").addEventListener("click", () => lgMoveHandle(LG.handle === "UP" ? "DN" : "UP"));
+  icHold($("#lgDlr"), () => { if (!LG.dlr) { LG.dlr = true; lgStep(0.001); } }, () => { if (LG.dlr) { LG.dlr = false; lgStep(0.001); } });
+  icHold($("#lgHlt"), () => { if (!LG.hlt) { LG.hlt = true; lgStep(0.001); } }, () => { if (LG.hlt) { LG.hlt = false; lgStep(0.001); } });
+  icHold($("#lgFst"), () => { if (!LG.fst) { LG.fst = true; lgLog("HYD FLUID SENSOR TEST held: expect HYD FLUID LOW after about 5 s."); lgStep(0.001); } }, () => { if (LG.fst) { LG.fst = false; lgStep(0.001); } });
+  $("#lgSil").addEventListener("click", () => { if (!LGD.hornCond) return; if (!LG.flight) { lgLog("On the ground the horn stops only with the handle DN.", "warn"); return; } if (LG.flaps === "DOWN") { lgLog("Flaps beyond APPROACH: the horn can't be silenced. Lower the gear.", "warn"); return; } LG.silenced = true; lgLog("Horn silenced. The red handle lights stay on, and the horn rearms when the power levers are advanced."); lgStep(0.001); });
+  $("#lgCb").addEventListener("click", () => { LG.cb = !LG.cb; lgLog(LG.cb ? "LANDING GEAR RELAY circuit breaker pushed in." : "LANDING GEAR RELAY circuit breaker pulled: no electro-hydraulic gear operation (manual extension procedure)."); lgStep(0.001); });
+  $("#lgAnns").innerHTML = `<div class="ann" id="lga-LOW">HYD FLUID LOW</div>`;
+  $("#lgStow").addEventListener("click", () => { LG.stowed = !LG.stowed; lgLog(LG.stowed ? "Pump handle stowed in its clip." : "Pump handle removed from its clip."); lgStep(0.001); });
+  icHold($("#lgPump"), () => { if (LG.stowed) { lgLog("Remove the pump handle from its clip first.", "warn"); return; } if (!LG.pumping) { LG.pumping = true; if (LG.handle !== "DN" && !LG.svcUp) lgLog("Procedure: the LDG GEAR CONTROL handle should be DN for manual extension.", "warn"); if (LG.cb && !LG.svcUp) lgLog("Procedure: pull the LANDING GEAR RELAY circuit breaker first.", "warn"); lgStep(0.001); } }, () => { if (LG.pumping) { LG.pumping = false; lgStep(0.001); } });
+  $("#lgFlt").innerHTML = `<div class="seg" role="group" aria-label="Airplane"><button type="button" id="lgFl-g">On ground</button><button type="button" id="lgFl-f">In flight</button></div><label for="lgIas">IAS</label><input type="range" id="lgIas" min="80" max="260" step="2"><span class="flowread" id="lgIasV"></span>`;
+  $("#lgPwr").innerHTML = `<button type="button" class="pbtn envb" id="lgPwrB" aria-pressed="true"></button><span class="gname">Flaps</span><div class="seg" role="group" aria-label="Flaps">${[["UP", "Up"], ["APPROACH", "Approach"], ["DOWN", "Down"]].map(f => `<button type="button" data-lgflap="${f[0]}">${f[1]}</button>`).join("")}</div><button type="button" class="pbtn envb" id="lgMaster" aria-pressed="true"></button>`;
+  $("#lgFaults").innerHTML = `<button type="button" class="pbtn" id="lgf-fluid" aria-pressed="false">Power pack fluid lost</button><button type="button" class="pbtn" id="lgf-motor" aria-pressed="false">Pump motor fails</button><button type="button" class="pbtn" id="lgf-elec" aria-pressed="false">Electrical failure</button><button type="button" class="pbtn" id="lgf-psw" aria-pressed="false">Pressure switch stuck closed</button><button type="button" class="pbtn envb" id="lgf-jacks" aria-pressed="false">Airplane on jacks</button><button type="button" class="pbtn envb" id="lgf-svc" aria-pressed="false">Service valve knob UP</button><button type="button" class="pbtn" id="lgReset">Reset</button>`;
+  $("#lgClock").innerHTML = `<div class="seg" role="group" aria-label="Simulation speed">${[1, 3, 20].map(v => `<button type="button" data-lgspd="${v}">×${v}</button>`).join("")}</div>`;
+  $("#lgFl-g").addEventListener("click", () => { if (LG.flight) { if (!LGD.allDown) lgLog("Touchdown with the gear not down and locked!", "bad"); else lgLog("Touchdown: squat switches compress, handle locked in DN."); } LG.flight = false; LG.ias = 0; lgStep(0.001); });
+  $("#lgFl-f").addEventListener("click", () => { if (!LG.flight) { LG.jacks = false; LG.flight = true; LG.ias = Math.max(LG.ias, 120); lgLog("Liftoff: right squat switch unlocks the handle and arms the up solenoid circuit."); } lgStep(0.001); });
+  $("#lgIas").addEventListener("input", e => { LG.ias = +e.target.value; lgStep(0.001); });
+  $("#lgPwrB").addEventListener("click", () => { LG.pwrLo = !LG.pwrLo; lgStep(0.001); });
+  $$("[data-lgflap]").forEach(b => b.addEventListener("click", () => { LG.flaps = b.dataset.lgflap; lgStep(0.001); }));
+  $("#lgMaster").addEventListener("click", () => { LG.master = !LG.master; lgStep(0.001); });
+  $("#lgFaults").addEventListener("click", e => {
+    const b = e.target.closest("button"); if (!b) return;
+    if (b.id === "lgReset") { LG = lgFresh(); lgLogArr = []; lgLog("Reset: on the ground, gear down and locked."); }
+    else if (b.id === "lgf-jacks") { LG.jacks = !LG.jacks; if (LG.jacks) LG.flight = false; else LG.svcUp = false; lgLog(LG.jacks ? "Airplane on jacks: struts extended, so the squat switches read flight." : "Off jacks."); }
+    else if (b.id === "lgf-svc") { if (!LG.jacks && !LG.svcUp) { lgLog("The service valve is only for maintenance with the airplane on jacks.", "warn"); return; } LG.svcUp = !LG.svcUp; lgLog(LG.svcUp ? "Service valve knob pulled UP: hand pump now drives the retract side." : `Service valve knob pushed down${LGD && !LGD.allDown && LG.handle === "DN" && LGD.ctl ? ": with power on and the handle DN, the gear extends immediately!" : "."}`, LG.svcUp ? "" : "warn"); }
+    else { const k = b.id.slice(4); LG.fault[k] = !LG.fault[k]; LG.dryT = 0; lgLog(`${LG.fault[k] ? "Failure" : "Repaired"}: ${b.textContent.toLowerCase()}.`, LG.fault[k] ? "warn" : ""); }
+    lgStep(0.001);
+  });
+  $$("[data-lgspd]").forEach(b => b.addEventListener("click", () => { LG.speed = +b.dataset.lgspd; lgStep(0.001); }));
+  const sv = $("#lgSvgs");
+  sv.addEventListener("click", e => { const g = e.target.closest(".comp"); if (g) lgSelect(g.dataset.lgcomp); });
+  sv.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.closest(".comp")) { e.preventDefault(); lgSelect(e.target.closest(".comp").dataset.lgcomp); } });
+  $("#lgInfo").innerHTML = `<h3>Component details</h3><p>Select any part of the power pack, a line, an actuator or the gear.</p>`;
+  lgLog("On the ground, gear down and locked, handle DN, power on.");
+  lgStep(0.001);
+  lgTimer = setInterval(() => lgStep(0.1), 100);
 }
 
 /* ================= boot ================= */
