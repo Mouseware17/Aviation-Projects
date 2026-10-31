@@ -856,6 +856,22 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 .lg-horn.on { color: #ffcf4a; font-weight: 700; animation: blink .5s steps(1) infinite; }
 .lg-anns { grid-template-columns: minmax(0, 1fr); max-width: 200px; }
 
+/* ---------- aircraft general ---------- */
+.gn-viewer { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 16px; align-items: start; }
+.gn-list { display: grid; gap: 6px; max-height: 760px; overflow: auto; padding-right: 4px; }
+.gn-item { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 10px; align-items: center; text-align: left; padding: 6px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); cursor: pointer; font-size: .86rem; }
+.gn-item img { width: 64px; height: 64px; object-fit: cover; border-radius: 4px; background: #fff; }
+.gn-item[aria-selected="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+.gn-stage { display: grid; gap: 10px; min-width: 0; }
+.gn-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.gn-title { flex: 1; min-width: 180px; font-family: var(--f-display); font-size: 1.15rem; letter-spacing: .04em; text-transform: uppercase; }
+.gn-desc { font-size: .93rem; color: var(--muted); }
+.gn-img { background: #fff; border-radius: 6px; border: 1px solid var(--line); overflow: auto; max-height: 820px; }
+.gn-img img { display: block; width: 100%; height: auto; }
+.gn-img.zoom img { width: auto; max-width: none; }
+.gn-far td, .gn-far th { font-size: .82rem; vertical-align: top; }
+@media (max-width: 860px) { .gn-viewer { grid-template-columns: minmax(0, 1fr); } .gn-list { grid-auto-flow: column; grid-auto-columns: 220px; max-height: none; overflow-x: auto; } }
+
 @media (max-width: 1120px) {
   .sim { grid-template-columns: minmax(0, 1fr); }
   .side { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -894,7 +910,7 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
     <a class="home-link" href="#" id="homeLink">Contents</a>
     <h2>Chapters</h2>
     <ol class="toc" id="toc"></ol>
-    <p class="note">Green dot = chapter has content. Other chapters are set up and waiting for material.</p>
+    <p class="note">Every chapter has a write-up. Most include an interactive schematic.</p>
   </nav>
 
   <main id="main"></main>
@@ -2065,7 +2081,7 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
         <p>Downstream of the tee, the air passes through the <b>18 psi pressure regulator</b> under the right seat deck, just forward of the main spar. It has a built-in <b>relief valve</b> set at <b>21 psi</b> in case the regulator fails. With an engine at 70–80% N1 it gives 18 ± 1 psi.</p>
       </div>
       <div class="mw-stack">
-        <div class="card"><h3>Pneumatic pressure gage</h3><p>On the copilot's right subpanel. It reads the pressure available to the pneumatic manifold, in psi. The green arc runs from 10 to just below 20 psi, with a red line at 20.</p></div>
+        <div class="card"><h3>Pneumatic pressure gage</h3><p>On the copilot's right subpanel. It reads the pressure available to the pneumatic manifold, in psi. Normal range 12–20 psi (green arc), maximum 20 psi (red line).</p></div>
         <div class="card"><h3>Also tapped off the high-pressure line</h3><p>The <b>window defogging regulator</b>, upstream of the 18 psi regulator, and each side's <b>brake deice valve</b>, between that engine's pneumatic air valve and its check valve. Rudder boost pressure transducers are on the King Air 300 only.</p></div>
       </div>
     </div>
@@ -3125,13 +3141,236 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 </div>
 </template>
 
+<template id="tpl-aircraft-general">
+<div class="view">
+  <header class="chapter-head">
+    <div class="eyebrow">Chapter 1</div>
+    <h1>Aircraft General</h1>
+    <p class="lede">The Super King Air 350 (B300) is a high-performance, pressurized, T-tail twin turboprop certificated for IFR, day or night, and known icing. It's an all-metal, low-wing monoplane: cantilever high-aspect-ratio wings with NASA winglets, a monocoque fuselage with a squared-oval cabin and flat floor, and faired oval nacelles that hold both the PT6A-60A engines and the main gear.</p>
+    <p class="disclaimer">Study aid built from the King Air 300/350 training manual general section. It is not an approved document. The POH/AFM governs all limits and procedures. The 350 values are shown first, with the 300 for comparison.</p>
+    <div class="subnav" id="gnSubnav">
+      <button data-go="gn-desc">Description</button>
+      <button data-go="gn-spec">Specifications</button>
+      <button data-go="gn-spd">Airspeeds &amp; limits</button>
+      <button data-go="gn-mark">Instrument markings</button>
+      <button data-go="gn-door">Doors &amp; exits</button>
+      <button data-go="gn-deck">Flight deck</button>
+      <button data-go="gn-ground">Ground handling</button>
+      <button data-go="gn-diff">300 → 350 differences</button>
+      <button data-go="gn-far">Certification table</button>
+      <button data-go="gn-figs">Cockpit &amp; cabin figures</button>
+    </div>
+  </header>
+
+  <section class="block" id="gn-desc">
+    <h2>Description <span class="ref">Figures 1-1 to 1-5</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p><b>Wing:</b> fully cantilevered and high aspect ratio. The airfoil gives low cruise drag with easy low-speed handling for terminal and small-airport work. The 350 adds NASA-designed winglets.</p>
+        <p><b>Nacelles:</b> faired oval, minimum frontal area, one each side of the wing center section, housing engine and landing gear. Placed to maximize propeller-to-ground clearance, reduce cabin noise and keep drag low. Pitot-type intakes and small exhaust stacks also cut drag.</p>
+        <p><b>T-tail:</b> better aerodynamics, lighter control forces and a wider CG range. Combined with the straight wing, it gives excellent control in all regimes.</p>
+        <p><b>Fuselage:</b> conventional monocoque in high-strength aluminum. The cabin profile is squared-oval rather than round, so passengers sit upright without sloping walls, and the floor is flat side to side.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>Configuration (350)</h3><p>Certificated for up to <b>17 people</b> (15 passengers plus 2 crew). The usual corporate layout is 9 to 11. Almost any arrangement is possible, and options add cost and weight. See the cabin seating figure below.</p></div>
+        <div class="card"><h3>Crew (350)</h3><p>One pilot, except where operating rules say otherwise, with FAA-approved seating of nine passengers or fewer. Otherwise a pilot and copilot.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="gn-spec">
+    <h2>Specifications <span class="ref">pages 1-8, 1-12</span></h2>
+    <div class="bus-table-wrap"><table><thead><tr><th>Item</th><th>King Air 350 (B300)</th><th>King Air 300</th></tr></thead><tbody>
+      <tr><td>Occupancy, max FAA certificated (incl. crew)</td><td>17</td><td>15</td></tr>
+      <tr><td>Passengers, normal configuration</td><td>9 to 11</td><td>6 to 10</td></tr>
+      <tr><td>Engines</td><td colspan="2">2 × P&amp;W PT6A-60A, 1,050 SHP</td></tr>
+      <tr><td>Propellers</td><td colspan="2">2 × Hartzell, 4-blade, reversible</td></tr>
+      <tr><td>Landing gear</td><td colspan="2">Retractable tricycle, dual main wheels, hydraulic</td></tr>
+      <tr><td>Wing area</td><td>310 sq ft</td><td>303 sq ft</td></tr>
+      <tr><td>Maximum ramp weight</td><td>15,100 lb</td><td>14,100 lb</td></tr>
+      <tr><td>Maximum takeoff weight</td><td>15,000 lb</td><td>14,000 lb</td></tr>
+      <tr><td>Maximum landing weight</td><td>15,000 lb</td><td>14,000 lb</td></tr>
+      <tr><td>Maximum zero fuel weight</td><td>12,500 lb</td><td>11,500 lb</td></tr>
+      <tr><td>Baggage compartment, max</td><td colspan="2">510 lb with fold-up seats · 550 lb without</td></tr>
+      <tr><td>Cabin width / height (max)</td><td colspan="2">54 in / 57 in</td></tr>
+      <tr><td>Cabin length (between pressure bulkheads)</td><td>24 ft 10 in</td><td>22 ft</td></tr>
+      <tr><td>Airstair door (min width × height)</td><td colspan="2">26.75 in × 51.5 in</td></tr>
+      <tr><td>Cargo door (350C)</td><td>49 in wide × 52 in high</td><td>—</td></tr>
+      <tr><td>Pressure vessel volume</td><td>443 cu ft</td><td>393 cu ft</td></tr>
+      <tr><td>Potential cargo-area volume</td><td>303 cu ft</td><td>253 cu ft</td></tr>
+      <tr><td>Wing loading</td><td>48.4 lb/sq ft</td><td>46.2 lb/sq ft</td></tr>
+      <tr><td>Power loading</td><td>7.14 lb/SHP</td><td>6.7 lb/SHP</td></tr>
+    </tbody></table></div>
+  </section>
+
+  <section class="block" id="gn-spd">
+    <h2>Airspeeds &amp; limits <span class="ref">pages 1-9, 1-13</span></h2>
+    <div class="two-col">
+      <div class="bus-table-wrap"><table><thead><tr><th>Limit (KIAS unless noted)</th><th>350</th><th>300</th></tr></thead><tbody>
+        <tr><td>V<sub>MO</sub> / M<sub>MO</sub></td><td>263 / .58 M</td><td>259 / .58 M</td></tr>
+        <tr><td>Maneuvering, V<sub>A</sub></td><td>184</td><td>181</td></tr>
+        <tr><td>V<sub>FE</sub> approach / full down</td><td>202 / 158</td><td>200 / 157</td></tr>
+        <tr><td>V<sub>LE</sub></td><td>184</td><td>181</td></tr>
+        <tr><td>V<sub>LO</sub> extension / retraction</td><td>184 / 166</td><td>181 / 163</td></tr>
+        <tr><td>Turbulent air penetration</td><td>170</td><td>170</td></tr>
+        <tr><td>Max demonstrated crosswind</td><td>20 kt</td><td>25 kt</td></tr>
+        <tr><td>Two-engine best angle, V<sub>X</sub></td><td>125</td><td>122</td></tr>
+        <tr><td>Two-engine best rate, V<sub>Y</sub></td><td>140</td><td>137</td></tr>
+        <tr><td>Intentional one-engine-inop, V<sub>SSE</sub></td><td>110</td><td>110</td></tr>
+      </tbody></table></div>
+      <div class="bus-table-wrap"><table><thead><tr><th>Emergency speeds (KIAS)</th><th>350 (15,000 lb)</th><th>300 (14,000 lb)</th></tr></thead><tbody>
+        <tr><td>One-engine-inop best angle, V<sub>XSE</sub></td><td>125</td><td>120</td></tr>
+        <tr><td>One-engine-inop best rate, V<sub>YSE</sub></td><td>125</td><td>122</td></tr>
+        <tr><td>One-engine-inop enroute climb</td><td>125</td><td>—</td></tr>
+        <tr><td>V<sub>MCA</sub> flaps up / approach</td><td>94 / 93</td><td>92 / 86</td></tr>
+        <tr><td>Emergency descent</td><td>184</td><td>181</td></tr>
+        <tr><td>Maximum range glide</td><td>135</td><td>134</td></tr>
+        <tr><td>One-engine-inop landing, flaps up / down</td><td>—</td><td>131 / 105</td></tr>
+        <tr><td>Takeoff, flaps up: V<sub>1</sub> rotation / V<sub>2</sub> 50 ft</td><td>—</td><td>112 / 120</td></tr>
+        <tr><td>Takeoff, flaps approach: V<sub>1</sub> / V<sub>2</sub></td><td>—</td><td>101 / 107</td></tr>
+      </tbody></table></div>
+    </div>
+    <div class="two-col">
+      <div class="bus-table-wrap"><table><thead><tr><th>Cruise climb</th><th>350</th><th>300</th></tr></thead><tbody>
+        <tr><td>Sea level to 10,000 ft</td><td>170</td><td>160</td></tr>
+        <tr><td>10,000 to 15,000 ft</td><td>160</td><td rowspan="2">140 (10,000–20,000)</td></tr>
+        <tr><td>15,000 to 20,000 ft</td><td>150</td></tr>
+        <tr><td>20,000 to 25,000 ft</td><td>140</td><td>130</td></tr>
+        <tr><td>25,000 to 30,000 ft</td><td>130</td><td rowspan="2">120 (25,000–35,000)</td></tr>
+        <tr><td>30,000 to 35,000 ft</td><td>120</td></tr>
+      </tbody></table></div>
+      <div class="card"><h3>Overspeed warning (350)</h3><p>An overspeed warning horn sounds when airspeed passes the barber pole by no more than 6 kt or .01 Mach, whichever is less. A test switch on the copilot's left subpanel checks it before flight. The red-striped maximum allowable airspeed pointer adjusts itself with altitude.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="gn-mark">
+    <h2>Instrument markings <span class="ref">Figures 1-16, 1-17</span></h2>
+    <div class="two-col">
+      <div class="bus-table-wrap"><table><thead><tr><th>Instrument</th><th>Marking</th><th>Meaning</th></tr></thead><tbody>
+        <tr><td rowspan="6">Airspeed (350)</td><td>263 KIAS / .58 M</td><td>V<sub>MO</sub> / M<sub>MO</sub> (red striped, self-adjusting)</td></tr>
+        <tr><td>94 KIAS (red line)</td><td>V<sub>MCA</sub></td></tr>
+        <tr><td>125 KIAS (blue line)</td><td>V<sub>YSE</sub></td></tr>
+        <tr><td>81–96 KIAS</td><td>Full flap operating range</td></tr>
+        <tr><td>96–158 KIAS (narrow)</td><td>Flaps-up stall to max for flaps beyond 40%</td></tr>
+        <tr><td>202 KIAS</td><td>Max flaps to/at approach</td></tr>
+        <tr><td>Pneumatic pressure</td><td>12–20 psi · 20 psi</td><td>Normal · maximum</td></tr>
+        <tr><td>Gyro suction</td><td>4.3–5.9 in Hg · 2.8–4.3 in Hg</td><td>Normal, sea level–15,000 ft · normal, 15,000–35,000 ft</td></tr>
+        <tr><td>Fuel quantity</td><td>0–265 lb</td><td>No takeoff range</td></tr>
+        <tr><td>Cabin altimeter / differential</td><td>0–6.6 psi · above 6.6</td><td>Approved · unapproved</td></tr>
+        <tr><td>Prop deice ammeter</td><td>26–32 A</td><td>Normal</td></tr>
+        <tr><td>Flap position</td><td>40%</td><td>Approach</td></tr>
+      </tbody></table></div>
+      <div class="bus-table-wrap"><table><thead><tr><th>Engine instrument</th><th>Normal</th><th>Limits</th></tr></thead><tbody>
+        <tr><td>ITT</td><td>400–820 °C</td><td>820 °C max continuous · 1,000 °C max, starting only</td></tr>
+        <tr><td>Torque</td><td>0–100%</td><td>100% max</td></tr>
+        <tr><td>Prop tach (Np)</td><td>1,450–1,700 rpm</td><td>1,700 rpm max</td></tr>
+        <tr><td>Gas generator (N1)</td><td>62–104%</td><td>104% max</td></tr>
+        <tr><td>Oil temperature</td><td>0–99 °C</td><td>99–110 °C caution · 110 °C max</td></tr>
+        <tr><td>Oil pressure</td><td>90–135 psi</td><td>60 psi min · 60–90 caution · 200 psi max</td></tr>
+        <tr><td colspan="3">King Air 350 FL-120 and after: digital torque and N1 gauges. The fuel flow gauge has no limit markings.</td></tr>
+      </tbody></table></div>
+    </div>
+  </section>
+
+  <section class="block" id="gn-door">
+    <h2>Doors &amp; exits <span class="ref">Figures 1-10, 1-11</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p><b>Airstair door:</b> left side, just aft of the wing. It swings down on its bottom hinge to form a four-step stair; two steps fold flat when it closes. A self-storing platform covers the sill to protect the seal. A plastic-encased cable supports the door and serves as a handhold, and a hydraulic damper lowers it gently. Only one person on the stair at a time.</p>
+        <p><b>Locking:</b> interconnected inside and outside handles drive two bayonet pins on each side and two hooks at the top. A release button must be held to turn the handle to unlock, which is a deliberate two-hand action. A differential-pressure diaphragm in the button makes it harder to press as cabin differential rises. The door can be key-locked on the ground.</p>
+        <p><b>Checking it's locked:</b></p>
+        <ul class="tight">
+          <li>Handle fully clockwise, pointing down, and the button popped out.</li>
+          <li>The handle won't turn without the button.</li>
+          <li>The safety lock is around the diaphragm shaft (lift the step below the handle and press the red light switch).</li>
+          <li>The green stripe on each latch bolt is aligned in the inspection ports.</li>
+          <li>The upper hooks are engaged, seen through the headliner openings with the CABIN DOOR HOOK OBSV LT SW.</li>
+        </ul>
+        <p>Do the Cabin Door Annunciator Circuitry Check before the first flight of the day. If anything isn't met, <b>do not take off</b>.</p>
+      </div>
+      <div class="mw-stack">
+        <div class="card"><h3>Warning</h3><p>Never try to unlock or check the door in flight. If the cabin door annunciator lights or you suspect the door: everyone seated and belted, and reduce cabin pressure to the lowest practical value, altitude permitting. After a full-stop landing, only a crew member checks the door.</p></div>
+        <div class="card"><h3>Emergency exits</h3><p>Left and right at the forward end of the passenger cabin. Non-hinged plug hatches: inside, the EXIT-PULL handle, which always works; outside, a flush pull-out handle. They lift into the cabin. The lock-lever (down = locked) is for security when parked only. Put it <b>up</b> before flight so the hatch can be removed from outside.</p></div>
+        <div class="card"><h3>350C cargo door</h3><p>A large, top-hinged swing-up door with the airstair door built into it. Two inside handles, behind access covers (upper aft and lower forward), drive crescent latches and pins. Close the lower access cover before opening or it breaks. Gas springs raise and hold the door. Passive inflatable seals inflate with cabin pressure. It opens from inside only.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="gn-deck">
+    <h2>Flight deck <span class="ref">Figures 1-12 to 1-21</span></h2>
+    <div class="two-col">
+      <div class="prose">
+        <p>Side-by-side seats either side of the pedestal, adjustable fore and aft, up and down, and tilting, with air-bag lumbar support, seat belts and inertia-reel shoulder harnesses. Dual controls let either pilot fly, and the layout suits single-pilot or two-crew operation.</p>
+        <ul class="tight">
+          <li><b>Fuel control panel:</b> left sidewall, with quantity gauges, switches and circuit breakers.</li>
+          <li><b>Instrument panel:</b> flight instruments, engine instruments in a double vertical row beside the avionics, and the center avionics panel (nav/comm, weather radar).</li>
+          <li><b>Pedestal:</b> engine controls, flap handle, rudder and aileron trim, pressurization controls, and usually the flight director and autopilot.</li>
+          <li><b>Right side panel:</b> the main circuit breaker panel, with the static air selector just below.</li>
+          <li><b>Subpanels:</b> pilot's on the left, copilot's on the right. Systems controls, engine switches, master switch and landing gear.</li>
+          <li><b>Overhead panel:</b> lighting rheostats, windshield wiper, generator load and voltage gauges, battery and prop deice ammeters, emergency light switch, oxygen mask mic switches, NO SMOKING and FASTEN BELT signs, cabin lights, and the operating and airspeed limitation placards.</li>
+        </ul>
+      </div>
+      <div class="card"><h3>Control surfaces</h3><p>Conventional ailerons and rudder, and a T-tail horizontal stabilizer and elevator on top of the fin. All are cable-operated from dual controls. The 350 has dual push-rod actuators on all pilot-controlled trim tabs (the 300 has single), and parallel hinge lines on surfaces and tabs.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="gn-ground">
+    <h2>Ground handling <span class="ref">Figures 1-23 to 1-27</span></h2>
+    <div class="comp-grid">
+      <div class="comp-card"><h4>Tiedown &amp; securing</h4><p>Overnight or in high wind: chocks fore and aft of all wheels, tie down at the mooring points, control lock and rudder gust pin installed, flaps up, and covers on. Tie the props: they're free-spinning, and windmilling turns engine gears and bearings without lubrication. Inlet covers on in blowing dust or rain.</p></div>
+      <div class="comp-card"><h4>Before towing</h4><p>Release the parking brake (handle pushed in, under the left corner of the subpanel) and remove the rudder gust lock pin from the pilot's floor. Leaving either in can seriously damage tires, brakes and steering linkage.</p></div>
+      <div class="comp-card"><h4>Taxiing</h4><p>Turn radii assume partial braking and differential power. Locking the inside brake can damage the tire or strut. If the wingtip clears, the tail will. Keep clear of the prop-wash danger area behind the engines when taxiing, turning and starting.</p></div>
+      <div class="comp-card"><h4>Servicing &amp; preflight</h4><p>The POH Handling, Servicing and Maintenance section is mandatory and supersedes the training manual's servicing chart. The preflight is divided into five areas: start in the flight compartment, then go aft and clockwise around the airplane.</p></div>
+    </div>
+  </section>
+
+  <section class="block" id="gn-diff">
+    <h2>King Air 300 → 350 (B300) differences</h2>
+    <p class="prose">Far more is the same than different. The BE-300/BE-1900 type rating covers the 300, the 350 and the 1900 Airliner.</p>
+    <div class="comp-grid">
+      <div class="comp-card"><h4>Airframe</h4><ul class="tight"><li>Cabin 34 in longer (14.4 in ahead of the wing, 19.6 in aft): fuselage 43 ft 10 in → 46 ft 8 in.</li><li>Dual navigation lights on the wingtips. NASA winglets.</li><li>Span 54 ft 6 in → 57 ft 11 in. Wing area 303 → 310 sq ft.</li><li>Dual push rods on all trim tabs, and parallel hinge lines.</li><li>Overspeed warning horn. Improved, lower-distortion windshield.</li><li>Flaps always go to the position selected. Nothing can be selected between approach and down.</li><li>Maximum takeoff temperature with ice vanes extended: +10 °C.</li></ul></div>
+      <div class="comp-card"><h4>Annunciators</h4><ul class="tight"><li>White <b>status</b> annunciators added, with no master flasher. The panel is ordered amber, green, white from top to bottom, angled about 30° and moved beside the flap and cabin gauges. Autofeather lights moved to the glareshield.</li><li><b>Red:</b> CABIN DIFF HI (above 6.9 psid). CABIN ALT HI now at 12,000 ft, with a cancelable tone. #1 and #2 AC BUS replace INVERTER (±10% voltage or ±5% frequency).</li><li><b>Amber:</b> OXY NOT ARMED, AUTOFTHER OFF (switch not ARM, gear down and locked), RUD BOOST OFF. BL AIR OFF changed from green to amber.</li><li><b>Green:</b> WING DEICE and TAIL DEICE.</li><li><b>White:</b> CABIN ALTITUDE (10,000 ft plus tone). PROP PITCH, LDG/TAXI LIGHT, PASS OXYGEN and N1 LOW changed to white.</li></ul></div>
+      <div class="comp-card"><h4>Propeller</h4><ul class="tight"><li>A power lever microswitch removes ground low pitch stop power at about 68–70% N1, preventing surging.</li><li>The ground low pitch stop test switch energizes the solenoids instead of de-energizing them.</li><li>Blade angles: feather +79.3°, flight low pitch stop +12°, ground low pitch stop +2°.</li></ul></div>
+      <div class="comp-card"><h4>Electrical &amp; rudder boost</h4><ul class="tight"><li>BATTERY BUS switch (normal or emergency off) on the pilot's left subpanel, for turning off the hot battery bus.</li><li>All fuel indications on the triple-fed bus, so generator ties aren't closed manually before a battery start.</li><li>Beacons moved to the triple-fed bus, nav lights to the left generator bus.</li><li>Separate ON / OFF / BUS TRANSFER switch per inverter. No. 1 inverter is fed from the center bus, No. 2 from the right generator bus. They're phase-locked, and with no inverter relays, BUS TRANSFER ties like AC buses together.</li><li>Rudder boost senses torque (about 30% to 80% differential) instead of P3, so brake deice doesn't need to be off for takeoff.</li></ul></div>
+    </div>
+  </section>
+
+  <section class="block" id="gn-far">
+    <h2>FAR performance certification comparisons <span class="ref">Table 1-1</span></h2>
+    <div class="bus-table-wrap"><table class="gn-far"><thead><tr><th></th><th>FAR 23 / CAR 3 normal category</th><th>SFAR 41C domestic</th><th>Climb segments</th><th>SFAR 41C ICAO (Annex 8)</th><th>FAR 25 &amp; FAR 23 commuter</th></tr></thead><tbody>
+      <tr><td rowspan="3"><b>One engine inop takeoff climb</b></td><td rowspan="3">At 5,000 ft PA, +5 °C: rate of climb ≥ .027 × V<sub>SO</sub>² (kt), at least 1.2% gradient. Turbine: at 5,000 ft PA, +27 °C, rate ≥ .014 × V<sub>SO</sub>², at least .06% gradient at V<sub>YSE</sub>.</td><td rowspan="3">Positive climb at V<sub>1</sub> out of ground effect, gear down, flaps takeoff. ≥ 2% at V<sub>2</sub> up to 400 ft, gear up, flaps takeoff. ≥ 1.2% at 1,000 ft at V<sub>YSE</sub>.</td><td>1st: gear down, flaps T.O., 35 ft to gear up</td><td>Positive climb at V<sub>1</sub> out of ground effect</td><td>Positive climb at V<sub>LOF</sub> out of ground effect</td></tr>
+      <tr><td>2nd: gear up, flaps T.O., gear up to 400 ft</td><td>≥ 2% at V<sub>2</sub></td><td>≥ 2.4% FAR 25 or 2.0% FAR 23 C.C. at V<sub>2</sub></td></tr>
+      <tr><td>3rd: enroute, 400–1,500 ft</td><td>≥ 1.2% at 1,500 ft, V<sub>YSE</sub></td><td>≥ 1.2% at 1,500 ft, V<sub>YSE</sub></td></tr>
+      <tr><td><b>Runway required</b></td><td>All-engine T.O. over 50 ft</td><td>Accelerate-stop above 12,500 lb, or all-engine T.O. over 50 ft at or below 12,500 lb (note 1)</td><td></td><td>Longest of: all-engine T.O. over 50 ft × 1.15, accelerate-go, accelerate-stop</td><td>Longest of: all-engine T.O. over 35 ft × 1.15, accelerate-go, accelerate-stop</td></tr>
+      <tr><td><b>Approach climb, one engine inop</b></td><td>N.A.</td><td>N.A.</td><td></td><td>≥ 2.1% at V<sub>REF</sub></td><td>≥ 2.1% at V<sub>REF</sub></td></tr>
+      <tr><td><b>Landing climb, all engines</b></td><td>N.A.</td><td>≥ 3.3% at V<sub>REF</sub></td><td></td><td>≥ 3.3% at V<sub>REF</sub></td><td>≥ 3.2% FAR 25 or ≥ 3.3% FAR 23 C.C. at V<sub>REF</sub></td></tr>
+      <tr><td><b>Landing distance</b></td><td>Actual over 50 ft (note 2)</td><td>Actual over 50 ft (note 2)</td><td></td><td>Actual over 50 ft × 1.67 = field length (note 2)</td><td>Actual over 50 ft (note 2)</td></tr>
+    </tbody></table></div>
+    <p class="disclaimer">Note 1: commercial operators must comply at all weights. Note 2: multiplied by 1.67 for FAR 121 and 135 operations.</p>
+  </section>
+
+  <section class="block" id="gn-figs">
+    <h2>Cockpit &amp; cabin figures <span class="ref">Figures 1-6, 1-8, 1-12 to 1-21</span></h2>
+    <p class="prose">Select a figure to view it. Use the arrows (or your keyboard's arrow keys) to step through, and "Full size" to zoom in. External and airframe drawings are left out.</p>
+    <div class="gn-viewer">
+      <div class="gn-list" id="gnList" role="listbox" aria-label="Figures"></div>
+      <div class="gn-stage card">
+        <div class="gn-bar"><button type="button" class="pbtn" id="gnPrev" aria-label="Previous figure">◀</button><div class="gn-title" id="gnTitle"></div><button type="button" class="pbtn" id="gnNext" aria-label="Next figure">▶</button><button type="button" class="pbtn envb" id="gnZoom" aria-pressed="false">Full size</button></div>
+        <p class="gn-desc" id="gnDesc"></p>
+        <div class="gn-img" id="gnImgWrap"><img id="gnImg" alt=""></div>
+      </div>
+    </div>
+  </section>
+</div>
+</template>
+
 <script>
 (function () {
 "use strict";
 
 /* ================= Chapters (order follows the training manual contents) ================= */
 const CHAPTERS = [
-  { n: 1,  id: "aircraft-general",  t: "Aircraft General" },
+  { n: 1,  id: "aircraft-general",  t: "Aircraft General", ready: "Ready · limits, specs & cockpit figures" },
   { n: 2,  id: "electrical",        t: "Electrical Power Systems", ready: "Ready · interactive schematic" },
   { n: 4,  id: "master-warning",    t: "Master Warning System", ready: "Ready · interactive annunciator panels" },
   { n: 5,  id: "fuel",              t: "Fuel System", ready: "Ready · interactive fuel-flow schematic" },
@@ -3142,13 +3381,7 @@ const CHAPTERS = [
   { n: 10, id: "ice-rain",          t: "Ice and Rain Protection", ready: "Ready · interactive ice protection controls & airplane" },
   { n: 11, id: "air-conditioning",  t: "Air Conditioning", ready: "Ready · interactive environmental air flow" },
   { n: 12, id: "pressurization",    t: "Pressurization", ready: "Ready · interactive controller, valves & flow control unit" },
-  { n: 13, id: "hydraulics",        t: "Hydraulic Power Systems" },
   { n: 14, id: "landing-gear",      t: "Landing Gear and Brakes", ready: "Ready · interactive gear hydraulics" },
-  { n: 15, id: "flight-controls",   t: "Flight Controls" },
-  { n: 16, id: "avionics",          t: "Avionics" },
-  { n: 17, id: "miscellaneous",     t: "Miscellaneous Systems" },
-  { tag: "APP", id: "appendix",      t: "Appendix", kind: "Appendix" },
-  { tag: "IPP", id: "panel-poster",  t: "Instrument Panel Poster", kind: "Reference" }
 ];
 
 const num = c => c.n ? String(c.n).padStart(2, "0") : c.tag;
@@ -3168,7 +3401,7 @@ function renderHome() {
     <header class="chapter-head">
       <div class="eyebrow">Beechcraft King Air 350 (B300)</div>
       <h1>Aircraft Systems</h1>
-      <p class="lede">Chapter-by-chapter systems study for the King Air 350, in the same order as the pilot training manual. Start with Electrical Power Systems. It has a full write-up and a live power distribution schematic you can operate.</p>
+      <p class="lede">Chapter-by-chapter systems study for the King Air 350, in the same order as the pilot training manual. Start with Aircraft General for limits and cockpit layout, then work through the systems. Most chapters have a live schematic you can operate.</p>
       <p class="disclaimer">For familiarization and training only. The POH/AFM governs all procedures and limitations.</p>
     </header>
     <section class="block">
@@ -3199,7 +3432,7 @@ function renderPlaceholder(c) {
   </div>`;
 }
 
-const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection(), "ice-rain": () => initIceRain(), "air-conditioning": () => initAirConditioning(), "pressurization": () => initPressurization(), "landing-gear": () => initLandingGear() };
+const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection(), "ice-rain": () => initIceRain(), "air-conditioning": () => initAirConditioning(), "pressurization": () => initPressurization(), "landing-gear": () => initLandingGear(), "aircraft-general": () => initAircraftGeneral() };
 function route() {
   const id = (location.hash || "").replace("#", "");
   const ch = CHAPTERS.find(c => c.id === id);
@@ -5910,7 +6143,7 @@ function pnRender() {
   [["rupL", P.fault.rup.L], ["rupR", P.fault.rup.R], ["reg", P.fault.reg]].forEach(([k, v]) => $("#pnf-" + k).setAttribute("aria-pressed", String(v)));
   const n = $("#pnInfoNow"); if (n && pnSel) n.textContent = "Now: " + PNC[pnSel].state();
 }
-const PN_G = { p: { min: 0, max: 24, ticks: [0, 5, 10, 15, 20], green: [10, 19.5], red: 20 }, s: { min: 2, max: 7, ticks: [3, 4, 5, 6], green: [3, 6] } };
+const PN_G = { p: { min: 0, max: 24, ticks: [0, 5, 10, 15, 20], green: [12, 20], red: 20 }, s: { min: 2, max: 7, ticks: [3, 4, 5, 6], green: [2.8, 5.9] } };
 function pnGaugeSVG(id, g) {
   let s = gaugeSVG(Object.assign({ id }, g));
   const ang = v => -120 + 240 * (v - g.min) / (g.max - g.min), pt = (a, r) => [60 + r * Math.sin(a * Math.PI / 180), 60 - r * Math.cos(a * Math.PI / 180)];
@@ -7745,6 +7978,40 @@ function initLandingGear() {
   lgLog("On the ground, gear down and locked, handle DN, power on.");
   lgStep(0.001);
   lgTimer = setInterval(() => lgStep(0.1), 100);
+}
+
+/* ================= Chapter 1: Aircraft General ================= */
+const GN_FIGS = [
+  ["fig1-12-flight-deck", "Figure 1-12 · Flight deck layout", "Where everything is: overhead light control panel, instrument panel, pilot and copilot subpanels, pedestal, fuel control panel (left sidewall) and right circuit breaker panel."],
+  ["fig1-13-control-wheels", "Figure 1-13 · Control wheels", "Pilot and copilot wheels: electric trim rocker switches, autopilot/yaw damp (1st level) and electric trim disconnect (2nd level), touch control steering (300) / microphone (350), microphone (300) / line advance (350), pitch sync (350), map light switch, and the copilot's 8-day clock."],
+  ["fig1-14-fuel-panels", "Figure 1-14 · Fuel control panels", "King Air 300, and King Air 350 prior to FL-120 and FL-120 and after. Fuel quantity gauges, switches and circuit breakers on the pilot's left sidewall."],
+  ["fig1-15-instrument-panels", "Figure 1-15 · Instrument panels", "King Air 300 and 350 instrument panels: flight instruments, engine instruments in a double vertical row, and the center avionics panel."],
+  ["fig1-16-instrument-markings", "Figure 1-16 · Instrument markings", "Airspeed indicators (300 and 350), pneumatic pressure, gyro suction, fuel quantity, cabin altimeter and differential, prop deice ammeter and flap position markings. Summarized in the Instrument markings table above."],
+  ["fig1-17-engine-instruments", "Figure 1-17 · Engine instruments", "ITT, torque, prop tach, N1, fuel flow, and oil temperature and pressure markings, including the digital gauges on 350 FL-120 and after."],
+  ["fig1-18-center-pedestal", "Figure 1-18 · Center pedestal", "Engine control quadrant (power, prop and condition levers), flap handle, rudder and aileron trim, and the pressurization controls. Usually the flight director and autopilot too."],
+  ["fig1-19-right-side-panel", "Figure 1-19 · Right side panel", "The main (right) circuit breaker panel in three versions: King Air 350 prior to FL-120, FL-121 thru FL-288, and FL-289 and after. The static air selector is just below."],
+  ["fig1-20-subpanels", "Figure 1-20 · Subpanels", "Pilot's and copilot's subpanels for the 300 and 350: systems controls, engine switches, master switch and landing gear controls."],
+  ["fig1-21-overhead-panel", "Figure 1-21 · Overhead light control panel", "King Air 350: lighting rheostats, windshield wiper, generator load and voltage gauges, battery and prop deice ammeters, emergency light, oxygen mask mic switches, sign switches, cabin lights and limitation placards."],
+  ["fig1-8-350-seating", "Figure 1-8 · King Air 350 cabin seating", "Nine- and eleven-passenger seating configurations."],
+  ["fig1-6-300-seating", "Figure 1-6 · King Air 300 cabin seating", "Forward club, aft club with two aft-facing chairs, and aft club with forward couch configurations."]
+];
+let gnIdx = 0;
+function gnShow(i) {
+  gnIdx = (i + GN_FIGS.length) % GN_FIGS.length;
+  const [f, t, d] = GN_FIGS[gnIdx];
+  $("#gnImg").src = `img/general/${f}.jpg`; $("#gnImg").alt = t;
+  $("#gnTitle").textContent = t; $("#gnDesc").textContent = d;
+  $$("#gnList [data-gn]").forEach(b => b.setAttribute("aria-selected", String(+b.dataset.gn === gnIdx)));
+}
+function initAircraftGeneral() {
+  $("#gnSubnav").addEventListener("click", e => { const b = e.target.closest("[data-go]"); if (b) document.getElementById(b.dataset.go).scrollIntoView({ behavior: "smooth", block: "start" }); });
+  $("#gnList").innerHTML = GN_FIGS.map(([f, t], i) => `<button type="button" role="option" class="gn-item" data-gn="${i}" aria-selected="false"><img src="img/general/${f}.jpg" alt="" loading="lazy"><span>${esc(t)}</span></button>`).join("");
+  $("#gnList").addEventListener("click", e => { const b = e.target.closest("[data-gn]"); if (b) gnShow(+b.dataset.gn); });
+  $("#gnPrev").addEventListener("click", () => gnShow(gnIdx - 1));
+  $("#gnNext").addEventListener("click", () => gnShow(gnIdx + 1));
+  $("#gnZoom").addEventListener("click", () => { const on = !$("#gnImgWrap").classList.contains("zoom"); $("#gnImgWrap").classList.toggle("zoom", on); $("#gnZoom").setAttribute("aria-pressed", String(on)); });
+  $("#gn-figs").addEventListener("keydown", e => { if (e.key === "ArrowRight") { gnShow(gnIdx + 1); e.preventDefault(); } if (e.key === "ArrowLeft") { gnShow(gnIdx - 1); e.preventDefault(); } });
+  gnShow(0);
 }
 
 /* ================= boot ================= */
