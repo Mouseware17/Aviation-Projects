@@ -872,6 +872,101 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 .gn-far td, .gn-far th { font-size: .82rem; vertical-align: top; }
 @media (max-width: 860px) { .gn-viewer { grid-template-columns: minmax(0, 1fr); } .gn-list { grid-auto-flow: column; grid-auto-columns: 220px; max-height: none; overflow-x: auto; } }
 
+/* ---------- Normal checklist ---------- */
+.ck-view { gap: 24px; }
+.ck-wrap { display: grid; gap: 14px; max-width: 860px; width: 100%; }
+.ck-wrap > * { min-width: 0; }
+.ck-tabs {
+  position: sticky; top: calc(env(safe-area-inset-top, 0px) + 56px); z-index: 6;
+  display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin;
+  padding: 8px 0; background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.ck-tab {
+  flex: 0 0 auto; display: grid; gap: 1px; justify-items: start; text-align: left;
+  border: 1px solid var(--line); background: var(--surface); border-radius: var(--r); padding: 6px 10px; cursor: pointer;
+}
+.ck-tab .t { font-family: var(--f-display); text-transform: uppercase; letter-spacing: .05em; font-size: .95rem; white-space: nowrap; }
+.ck-tab .c { font-family: var(--f-mono); font-size: .68rem; color: var(--muted); }
+.ck-tab:hover { border-color: var(--accent); }
+.ck-tab[aria-current="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.ck-tab[aria-current="true"] .c { color: var(--accent-ink); opacity: .85; }
+.ck-tab.done:not([aria-current="true"]) { border-color: var(--ok); }
+.ck-tab.done .c::before { content: "✓ "; color: var(--ok); }
+.ck-tab.done[aria-current="true"] .c::before { color: inherit; }
+.ck-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; font-size: .9rem; }
+.ck-quick { display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+.ck-quick input { width: 18px; height: 18px; accent-color: var(--accent); }
+.ck-legend { color: var(--muted); font-size: .82rem; }
+.ck-sp { flex: 1 1 auto; }
+.ck-mk { display: inline-block; min-width: 1.1em; text-align: center; font-family: var(--f-mono); font-weight: 700; border-radius: 3px; font-size: .8rem; }
+.ck-mk.plus { color: var(--ok); }
+.ck-mk.star { color: var(--warn); }
+.ck-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.ck-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 14px 16px 8px; }
+.ck-card-head h2 { font-size: 1.5rem; text-transform: uppercase; letter-spacing: .02em; }
+.ck-count { font-size: .85rem; color: var(--muted); white-space: nowrap; }
+.ck-bar { height: 4px; background: var(--surface-2); }
+.ck-bar span { display: block; height: 100%; width: 0; background: var(--ok); transition: width .25s; }
+.ck-list { display: grid; padding-bottom: 6px; }
+.ck-gh { font-family: var(--f-display); text-transform: uppercase; letter-spacing: .1em; font-size: .85rem; color: var(--muted); padding: 14px 16px 6px; border-top: 1px solid var(--line); background: var(--surface-2); }
+.ck-gh:first-child { border-top: 0; }
+.ck-row {
+  display: grid; grid-template-columns: 26px 2.6em minmax(0, 1fr); align-items: start; gap: 0 8px;
+  width: 100%; text-align: left; background: none; border: 0; border-left: 4px solid transparent;
+  padding: 9px 14px 9px 12px; cursor: pointer; scroll-margin: 140px 0 110px;
+}
+.ck-row + .ck-row, .ck-row + .ck-head, .ck-head + .ck-row { border-top: 1px solid var(--surface-2); }
+.ck-row:hover { background: var(--surface-2); }
+.ck-box { width: 22px; height: 22px; border: 2px solid var(--line); border-radius: 5px; display: grid; place-items: center; margin-top: 1px; font-size: .9rem; line-height: 1; color: transparent; }
+.ck-num { font-family: var(--f-mono); font-size: .82rem; color: var(--muted); padding-top: 3px; white-space: nowrap; }
+.ck-body { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; min-width: 0; }
+.ck-item { font-size: 1.02rem; min-width: 0; overflow-wrap: anywhere; }
+.ck-dots { flex: 1 1 24px; min-width: 12px; border-bottom: 2px dotted var(--line); transform: translateY(-4px); }
+.ck-cmd { font-family: var(--f-mono); font-weight: 700; font-size: .88rem; letter-spacing: .02em; text-align: right; margin-left: auto; max-width: 100%; overflow-wrap: anywhere; }
+.ck-row.l1 .ck-num, .ck-head.l1 .ck-num { padding-left: 1.1em; }
+.ck-row.l2 .ck-num, .ck-head.l2 .ck-num { padding-left: 2.1em; }
+.ck-row.l3 .ck-num, .ck-head.l3 .ck-num { padding-left: 3.4em; }
+.ck-row.l1, .ck-head.l1 { grid-template-columns: 26px 3.7em minmax(0, 1fr); }
+.ck-row.l2, .ck-head.l2 { grid-template-columns: 26px 4.7em minmax(0, 1fr); }
+.ck-row.l3, .ck-head.l3 { grid-template-columns: 26px 6.2em minmax(0, 1fr); }
+.ck-head { display: grid; grid-template-columns: 26px 2.6em minmax(0, 1fr); gap: 0 8px; padding: 9px 14px 4px 16px; }
+.ck-head .ck-item { font-weight: 600; color: var(--muted); }
+.ck-row.done .ck-box { background: var(--ok); border-color: var(--ok); color: #fff; }
+.ck-row.done .ck-item, .ck-row.done .ck-cmd, .ck-row.done .ck-num { color: var(--muted); }
+.ck-row.done .ck-cmd { font-weight: 500; }
+.ck-row.cur { background: var(--accent-soft); border-left-color: var(--accent); }
+.ck-row.cur .ck-box { border-color: var(--accent); }
+.ck-row.cur .ck-item { font-weight: 600; }
+.ck-row.cur .ck-cmd { color: var(--accent); }
+.ck-done-msg { display: none; padding: 16px; font-family: var(--f-display); text-transform: uppercase; letter-spacing: .06em; color: var(--ok); font-size: 1.1rem; border-top: 1px solid var(--line); }
+.ck-card.complete .ck-done-msg { display: block; }
+.ck-dock {
+  position: sticky; bottom: max(10px, env(safe-area-inset-bottom, 0px)); z-index: 6;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--r) + 2px); padding: 8px; box-shadow: 0 6px 20px rgba(0,0,0,.14);
+}
+.ck-dock .btn { padding: 12px 14px; font-size: 1.05rem; }
+.ck-go { font-size: 1.25rem !important; letter-spacing: .08em; }
+.ck-go.next { background: var(--ok); border-color: var(--ok); }
+.ck-keys { font-size: .8rem; color: var(--muted); }
+.ck-wrap .btn:disabled { opacity: .45; cursor: default; pointer-events: none; }
+@media (max-width: 860px) {
+  .ck-tabs { top: calc(env(safe-area-inset-top, 0px) + 52px); }
+}
+@media (max-width: 560px) {
+  .ck-row, .ck-head { padding-right: 10px; padding-left: 8px; }
+  .ck-row { grid-template-columns: 24px 2.2em minmax(0, 1fr); gap: 0 6px; }
+  .ck-row.l1, .ck-head.l1 { grid-template-columns: 24px 3.1em minmax(0, 1fr); }
+  .ck-row.l2, .ck-head.l2 { grid-template-columns: 24px 3.9em minmax(0, 1fr); }
+  .ck-row.l3, .ck-head.l3 { grid-template-columns: 24px 4.6em minmax(0, 1fr); }
+  .ck-row.l1 .ck-num, .ck-head.l1 .ck-num { padding-left: .8em; }
+  .ck-row.l2 .ck-num, .ck-head.l2 .ck-num { padding-left: 1.5em; }
+  .ck-row.l3 .ck-num, .ck-head.l3 .ck-num { padding-left: 2.2em; }
+  .ck-item { font-size: .98rem; }
+  .ck-keys { display: none; }
+  .ck-dock .btn { padding: 12px 10px; }
+}
+
 @media (max-width: 1120px) {
   .sim { grid-template-columns: minmax(0, 1fr); }
   .side { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -3364,6 +3459,45 @@ g[data-melt].hot .melt { opacity: .7; animation: blink .5s steps(1) infinite; }
 </div>
 </template>
 
+<template id="tpl-checklist">
+  <div class="view ck-view">
+    <header class="chapter-head">
+      <div class="eyebrow">Normal Procedures · B300</div>
+      <h1>Normal Checklist</h1>
+      <p class="lede">Tap <b>Check</b> (or the item itself) to check off the current item. The list then moves to the next one. Use the tabs to switch phases. Progress is saved on this device.</p>
+      <p class="disclaimer">Built from Section 4, Normal Procedures. Highlighted items are omitted or moved to Miscellaneous. Numbers match the manual, so gaps mark omitted items. Notes, cautions and CAS pictures are left out. For training only; the approved AFM checklist governs.</p>
+    </header>
+
+    <div class="ck-wrap">
+      <nav class="ck-tabs" id="ckTabs" aria-label="Checklist sections"></nav>
+
+      <div class="ck-tools">
+        <label class="ck-quick"><input type="checkbox" id="ckQuick"> <span>Subsequent flight of the day</span></label>
+        <span class="ck-legend"><span class="ck-mk plus">+</span> required every flight <span class="ck-mk star">*</span> may omit after first flight</span>
+        <span class="ck-sp"></span>
+        <button class="btn" id="ckResetSec" type="button">Reset section</button>
+        <button class="btn" id="ckResetAll" type="button">Reset all</button>
+      </div>
+
+      <section class="ck-card" id="ckCard" aria-live="polite">
+        <div class="ck-card-head">
+          <h2 id="ckTitle"></h2>
+          <span class="ck-count mono" id="ckCount"></span>
+        </div>
+        <div class="ck-bar"><span id="ckBar"></span></div>
+        <div class="ck-list" id="ckList"></div>
+      </section>
+
+      <div class="ck-dock" id="ckDock">
+        <button class="btn ck-back" id="ckBack" type="button" title="Uncheck the previous item (Backspace)">◀ Back</button>
+        <button class="btn primary ck-go" id="ckGo" type="button" title="Check the current item (Space)">Check ✓</button>
+        <button class="btn ck-skip" id="ckSkip" type="button" title="Skip to the next item (↓)">Skip ▶</button>
+      </div>
+      <p class="ck-keys">Keyboard: <b>Space</b> check · <b>Backspace</b> back · <b>↓</b> skip · <b>← →</b> change section</p>
+    </div>
+  </div>
+</template>
+
 <script>
 (function () {
 "use strict";
@@ -3382,6 +3516,7 @@ const CHAPTERS = [
   { n: 11, id: "air-conditioning",  t: "Air Conditioning", ready: "Ready · interactive environmental air flow" },
   { n: 12, id: "pressurization",    t: "Pressurization", ready: "Ready · interactive controller, valves & flow control unit" },
   { n: 14, id: "landing-gear",      t: "Landing Gear and Brakes", ready: "Ready · interactive gear hydraulics" },
+  { tag: "CK", id: "checklist",      t: "Normal Checklist", kind: "Checklist", ready: "Ready · tap-through checklist by flight phase" },
 ];
 
 const num = c => c.n ? String(c.n).padStart(2, "0") : c.tag;
@@ -3432,7 +3567,7 @@ function renderPlaceholder(c) {
   </div>`;
 }
 
-const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection(), "ice-rain": () => initIceRain(), "air-conditioning": () => initAirConditioning(), "pressurization": () => initPressurization(), "landing-gear": () => initLandingGear(), "aircraft-general": () => initAircraftGeneral() };
+const TPL = { "electrical": () => initElectrical(), "master-warning": () => initMasterWarning(), "fuel": () => initFuel(), "powerplant": () => initPowerplant(), "propellers": () => initPropellers(), "pneumatics": () => initPneumatics(), "fire-protection": () => initFireProtection(), "ice-rain": () => initIceRain(), "air-conditioning": () => initAirConditioning(), "pressurization": () => initPressurization(), "landing-gear": () => initLandingGear(), "aircraft-general": () => initAircraftGeneral(), "checklist": () => initChecklist() };
 function route() {
   const id = (location.hash || "").replace("#", "");
   const ch = CHAPTERS.find(c => c.id === id);
@@ -8012,6 +8147,779 @@ function initAircraftGeneral() {
   $("#gnZoom").addEventListener("click", () => { const on = !$("#gnImgWrap").classList.contains("zoom"); $("#gnImgWrap").classList.toggle("zoom", on); $("#gnZoom").setAttribute("aria-pressed", String(on)); });
   $("#gn-figs").addEventListener("keydown", e => { if (e.key === "ArrowRight") { gnShow(gnIdx + 1); e.preventDefault(); } if (e.key === "ArrowLeft") { gnShow(gnIdx - 1); e.preventDefault(); } });
   gnShow(0);
+}
+
+/* ================= Normal checklist (B300 Normal Procedures, Section 4) =================
+   Line format:  [indent][+|*] num  Item | COMMAND
+   indent 2 spaces per level; a line ending in ":" with no command is a heading, not a step.
+   Red-highlighted items, their subparts and red sections are left out.
+   Green-highlighted items (with subparts) are moved to Miscellaneous. */
+const CK_SRC = [
+{ id: "preflight", t: "Preflight Inspection", short: "Preflight", groups: [
+["Cabin / Cockpit", `
+1. Monogram Electric Toilet Knife Valve (if installed) | OPEN
++2. Baggage | SECURE
+5. Emergency Exits | SECURE AND UNLOCKED
++6. Control Locks | REMOVE
++7. Parking Brake | SET
+8. Landing Gear Control | DOWN
+9. Condition Levers | FUEL CUTOFF
+10. Trim Controls:
+  a. Elevator | SET TO 2 UNITS NOSE UP
+  b. Rudder and Aileron | SET TO "0" UNITS
+11. Battery Bus | NORM
+12. Voltmeter:
+  a. BAT Position | 23 VOLTS MINIMUM
+  b. All Other Positions | 0 VOLTS
+13. Left PFD, MFD, Right PFD | CLEAN
++14. Battery | ON
+15. Landing Gear | [L], [R], & [NOSE] ILLUMINATED
++16. Fuel Quantity | CHECK MAIN & AUXILIARY
+17. Voltmeter:
+  a. TPL FED | 22 VOLTS MINIMUM
+  b. R GEN and L GEN | 0 VOLTS
+  c. CTR | 23 VOLTS MINIMUM
+  d. EXT PWR | 0 VOLTS
+18. GEN TIES | MAN CLOSE
+19. Voltmeter | R GEN AND L GEN – 23 VOLTS MINIMUM
++23. Battery | OFF
+24. Oxygen System Preflight Inspection | COMPLETE
+  a. Passenger Manual Drop Out | PUSH OFF
+  b. System Ready | PULL ON
+  c. Oxygen Masks (Pilot & Copilot) | CHECK
+    1) EMER Position | SELECT – CHECK CONTINUOUS FLOW
+    2) Mask | SET 100%
+  d. Oxygen Duration | DETERMINE`],
+["Left Wing and Nacelle", `
+1. Cabin Door Seal, Step Extension Cable, Light Wire, Damper, and Handrails | CHECK
+2. Left Side Windows | CHECK
+3. Flaps (condition, asymmetry protection, and flap tracks) | CHECK
+4. Aileron and Tab | CHECK
+5. Static Wicks (aileron and winglet) | CHECK
+6. Siphon Break Vent | CLEAR
+7. Lights | CHECK
++8. Main Fuel Tank Cap | SECURE
+9. Stall Warning Vane | CHECK
++10. Tie-down | REMOVE
+11. Flush Outboard Fuel Drain | DRAIN
+12. Outboard Deice Boot and Stall Strip | CHECK
+13. Wing Panels | SECURE
+14. Leading-Edge Fuel Tank and Gravity-Line Drains | DRAIN
+15. Inverter Cooling Louvers | CLEAR
+16. Flush Fuel Vent and Heated Fuel Vent | CLEAR
++17. Landing Gear (doors, tires, strut, wheel well) | CHECK
+18. Engine Oil Vent | CLEAR
+19. Brake Line and Brake Deice Plumbing (if installed) | CHECK
+20. Torque Knee Assembly and Safety Switch | CHECK
+21. Brakes | CHECK
+22. Fire Extinguisher Pressure | CHECK
++23. Chocks | REMOVE
+24. Fuel Strainer and Fuel Filter Drains | DRAIN
+25. Collector Drain | CLEAR
+26. Ice Vane and Oil Radiator Exhaust | CLEAR
+27. Ice Light | CHECK
++28. Engine Oil | CHECK QUANTITY, CAP SECURE
+29. Cowling Air Exhaust | CLEAR
+30. Engine Cowling, Doors, and Panels (left side) | SECURE
+31. Exhaust Stack and Fairing (if installed) (left side) | CHECK FOR CRACKS
+32. Top Cowling Camlocks (left side) | SECURE
++33. Propeller | CHECK & ROTATE
+34. Forward Air Intakes on Top Cowling | CLEAR
+35. Engine and Oil Radiator Air Intakes | CHECK
+36. Top Cowling Camlocks (right side) | SECURE
+37. Exhaust Stack and Fairing (if installed) (right side) | CHECK FOR CRACKS
+38. Swing Check Valve Exhaust | CLEAR
+39. Generator Air Intake | CLEAR
+40. Engine Cowling, Doors, Panels, and VGs (right side) | SECURE
++41. Auxiliary Fuel Tank Cap | SECURE
+42. Hydraulic Gear Service Door | SECURE
+43. Inboard Deice Boot | CHECK
+44. Heat Exchanger Air Intake and Exhaust | CLEAR
+45. Hydraulic Gear Overfill and Vent Lines | CLEAR
+46. Auxiliary Fuel Tank Drain | DRAIN
+47. Lower Antennas and Panels | SECURE`],
+["Nose", `
+1. OAT Probe / Relief Tube Vent | CHECK
+2. Brake Reservoir Vent | CLEAR
+3. Left Avionics Access Panel | SECURE
+4. Air Conditioner Condenser Exhaust Duct | CLEAR
+5. Windshield and Wipers | CHECK
+6. Radome Condition | CHECK
+7. Pitot Masts | CLEAR
+8. Landing and Taxi Lights | CHECK
++9. Nose Gear (shimmy damper, stop block, torque knee, strut, tire) | CHECK
++10. Chocks | REMOVE
+11. Nose Gear Doors and Wheel Well | CHECK
+12. Air Conditioner Condenser Intake Duct | CLEAR
+13. Right Avionics Access Panel | SECURE`],
+["Right Wing and Nacelle", `
+1. Ejector Exhaust | CLEAR
+2. Auxiliary Fuel Tank Drain | DRAIN
+3. Battery Box Drain | CLEAR
+4. Lower Panels | SECURE
+5. Heat Exchanger Air Intake and Exhaust | CLEAR
+6. Inboard Deice Boot | CHECK
+7. Battery Access Panel | SECURE
++8. Auxiliary Fuel Tank Cap | SECURE
++9. Engine Oil | CHECK QUANTITY, CAP SECURE
+10. Cowling Air Exhaust | CLEAR
+11. Engine Cowling, Doors, and Panels (left side) | SECURE
+12. Collector Drain | CLEAR
+13. Exhaust Stack and Fairing (if installed) (left side) | CHECK FOR CRACKS
+14. Top Cowling Camlocks (left side) | SECURE
++15. Propeller | CHECK & ROTATE
+16. Forward Air Intakes on Top Cowling | CLEAR
+17. Engine and Oil Radiator Air Intakes | CHECK
+18. Top Cowling Camlocks (right side) | SECURE
+19. Exhaust Stack and Fairing (if installed) (right side) | CHECK FOR CRACKS
+20. Swing Check Valve Exhaust | CLEAR
+21. Generator Air Intake | CLEAR
+22. Engine Cowling, Doors, and Panels (right side) | SECURE
+23. Ice Light | CHECK
+24. Oil Radiator and Ice Vane Exhaust | CLEAR
+25. Fuel Filter and Fuel Strainer Drains | DRAIN
++26. Landing Gear (doors, tires, strut, wheel well) | CHECK
+27. Fire Extinguisher Pressure | CHECK
+28. Engine Oil Vent | CLEAR
+29. Brake Line and Brake Deice Plumbing (if installed) | CHECK
+30. Torque Knee Assembly and Safety Switch | CHECK
+31. Brakes | CHECK
++32. Chocks | REMOVE
+33. Heated Fuel Vent and Flush Fuel Vent | CLEAR
+34. Inverter Cooling Louvers | CLEAR
+35. Gravity-Line and Leading-Edge Fuel Tank Drains | DRAIN
+36. External Power Door | SECURE
+37. Outboard Deice Boot and Stall Strip | CHECK
++38. Tie-down | REMOVE
+39. Flush Outboard Fuel Drain | DRAIN
+40. Wing Panels | SECURE
++41. Main Fuel Tank Cap | SECURE
+42. Lights | CHECK
+43. Static Wicks (winglet and aileron) | CHECK
+44. Siphon Break Vent | CHECK
+45. Aileron | CHECK
+46. Flaps (condition, asymmetry protection, flap tracks, limit switches, position transmitter) | CHECK
+47. Right Side Windows | CHECK`],
+["Right Aft Fuselage", `
+1. Lower Antennas and Beacon | CHECK
+2. Oxygen Service Access Door | SECURE
+3. Static Ports | CLEAR
+4. ELT Antenna | CHECK
+5. Aft Compartment Bottom Access Door | SECURE
++6. Tie-down | REMOVE
+7. Ventral Fin Drain Holes | CLEAR
+8. Cabin Air Exhaust | CLEAR
+9. Access Panel | SECURE`],
+["Tail", `
+1. Ventral Fin and Static Wick | CHECK
+2. VOR Antennas (right and left) | CHECK
+3. Rudder, Rudder Tab, Stinger, and Static Wicks | CHECK
+4. Horizontal Stabilizer, Boots, and Static Wicks (right and left) | CHECK
+5. Elevator, Tab, and Static Wicks | CHECK
+6. Tabs in Neutral Position | VERIFY
+7. Position Light, Tail Floodlights (left and right) | CHECK`],
+["Left Aft Fuselage", `
+1. Access Panels | SECURE
+2. Static Ports | CLEAR
+3. Oxygen Overpressure Discharge and Aft Compartment Drain Tubes | CLEAR
+4. Relief Tube | CLEAR`]
+]},
+{ id: "before-start", t: "Before Engine Start", short: "Before Start", groups: [
+["", `
+1. Weight, CG, Performance, and V-Speeds | CHECKED
+2. Airstair Door (B300) | LOCKED
+5. Load and Baggage | CONFIRM SECURED
+6. Passenger Briefing | COMPLETE
+10. Parking Brake | CONFIRM SET
+*12. Oxygen System Preflight Inspection | CONFIRM COMPLETE
+13. ELT Switch | ARM
+14. Fuel Panel | CHECK
+  a. Standby Pumps | OFF
+  b. Crossfeed | OFF
+  c. Aux Transfer Switches | AUTO
+  d. Circuit Breakers | IN
+15. Pilot's Instrument Panel and Subpanel | CHECK
+  a. Standby Flight Display System Power | TEST
+  b. Standby Flight Display System Power | ON
+  c. Battery Bus | CONFIRM NORM
+  d. Engine Anti-ice | ON & MAIN
+  e. Landing Gear Relay Circuit Breaker | IN
+  f. Landing Gear Control | DOWN
+18. Copilot's Subpanel and Instrument Panel | SET
+  a. Window Defog | OFF
+  b. ECS Mode | OFF
+    1) Cockpit/Cabin Blower | AUTO
+    2) Envir Bleed Air | AS REQUIRED
+20. Right Panel Circuit Breakers | IN
+21. Overhead Switch Panel:
+  a. Data Load | OFF
+  b. Master Panel Lights | AS REQUIRED
+  c. Display Brightness | AS REQUIRED
+  d. Interior Master Switch (B300) | OFF
+22. Battery | ON
+*23. Annunciators | TEST
+26. Pilot's Subpanel | CHECK
+  *a. Landing Gear Control Lights | TEST
+  *b. Hydraulic Fluid Sensor | TEST
+  *c. Beacon | ON`]
+]},
+{ id: "engine-start", t: "Engine Start", short: "Start", groups: [
+["Engine Starting (Battery)", `
+1. GEN TIES (for night operation) | MAN CLOSE
+2. Propeller Area | CLEAR
+3. Right Ignition and Engine Start | ON
+4. Right Condition Lever (after 12% N1, minimum) | LOW IDLE
+5. Right ITT and N1 | MONITOR
+6. Right Oil Pressure | CHECK
+7. Right Ignition and Engine Start (at 50% N1 or above) | OFF
+8. Right Condition Lever | HIGH IDLE
+9. Right Generator | RESET, THEN ON
+10. Battery | CHARGE
+11. Left Ignition and Engine Start | ON
+12. Left Condition Lever (after 12% N1, minimum) | LOW IDLE
+13. Left ITT and N1 | MONITOR
+14. Left Oil Pressure | CHECK
+15. Left Ignition and Engine Start (at 50% N1 or above) | OFF
+16. Right Condition Lever | REDUCE TO LOW IDLE
+17. Left and Right Prop RPM | 1050 MINIMUM
+18. L-R Prop Pitch CAS Message | DISPLAYED
+19. Voltmeter | L GEN
+20. Left Generator | RESET, THEN ON
+21. Right Generator | RESET, THEN ON`]
+]},
+{ id: "before-taxi", t: "Before Taxi", short: "Before Taxi", groups: [
+["", `
+2. Avionics Master | ON
+3. Transponder | AS REQUIRED
+4. Interior Master Switch (B300) | AS REQUIRED
+5. Master Panel and Cockpit Lights | AS REQUIRED
+7. Cabin Lights | AS REQUIRED
+8. Furnishings (B300C) | AS REQUIRED
+9. Cabin Sign | FSB
+10. Standby Flight Display | INITIALIZATION COMPLETE
+11. Exterior Lights | AS REQUIRED
+12. Environmental System Controls | SET
+  a. Automatic Climate Control | AS REQUIRED
+    1) ECS Mode | AUTO
+    2) Cockpit/Cabin Temp | AS REQUIRED
+    3) Cockpit/Cabin Blower | AUTO
+    4) Envir Bleed Air | AUTO
+    5) Bleed Air Valves | OPEN OR ENVIR OFF
+14. Prop Sync | ON
+18. Flight and Engine Instruments | CHECK
+  a. Altimeters | SET
+  b. Standby Flight Display Altimeter | SET
+19. Flaps | UP
+20. Flight Controls | CHECK FOR FULL FREEDOM OF MOVEMENT AND PROPER DIRECTION OF TRAVEL
+21. Brakes | RELEASE & CHECK`]
+]},
+{ id: "before-takeoff", t: "Before Takeoff", short: "Before T/O", groups: [
+["Runup", `
+1. Avionics and Radar | CHECK
+2. Pressurization | CHECK AS REQUIRED AND SET
+  a. Environmental Bleed Air | NORMAL
+  b. Bleed Air Valves | OPEN
+  g. Pressurization Controller | SET
+6. Trim Tabs | SET
+7. Engine Controls Friction Locks | SET
+8. Flaps | CHECK AND SET
+12. Autofeather | ARM
+13. Manual Propeller Feathering | CHECK
+17. Fuel Quantity, Flight, and Engine Instruments | CHECK
+18. Static Take-Off Power | CONFIRM
+19. V1, VR, V2 | SET`],
+["Final Items", `
+1. Engine Auto-Ignition | ARM (IF REQUIRED)
+2. Engine Anti-ice | AS REQUIRED
+3. Exterior Lights | AS REQUIRED
+4. Ice Protection | AS REQUIRED
+  a. Windshield Anti-ice | NORMAL/HI (IF REQUIRED)
+  b. Prop Deice | AUTO (IF REQUIRED)
+  c. Left and Right Fuel Vent Heat | ON
+  d. Stall Warning Heat | ON
+  e. Left and Right Pitot Heat | ON
+5. Transponder | XPDR1 OR XPDR2
+6. Prop Levers | CONFIRM FULL FORWARD
+7. Trim | CONFIRM SET
+8. Flaps | CONFIRM SET
+10. Bleed Air Valves | AS REQUIRED
+15. Generator Load | CHECK
+  a. When OAT is greater than 10 °C:
+    1) A/C ON – Loadmeters | 30% OR LESS
+    2) A/C OFF – Loadmeters | 50% OR LESS
+16. Battery Ammeter | CHECK
+17. CAS Messages | REMOVED OR CONSIDERED`]
+]},
+{ id: "climb", t: "Climb", short: "Climb", groups: [
+["", `
+1. Bleed Air Valves | OPEN
+2. Envir Bleed Air | AS REQUIRED
+3. Yaw Damp | ON
+4. Climb Power | SET
+5. Props | 1600 RPM, OR AS DESIRED
+6. Windshield Anti-ice | NORMAL
+7. Engine Instruments | MONITOR
+9. Pressurization | CHECK
+10. Lights | AS REQUIRED`]
+]},
+{ id: "cruise", t: "Cruise", short: "Cruise", groups: [
+["", `
+1. Cruise Power | SET PER CRUISE POWER TABLES OR GRAPHS
+2. Autofeather | OFF
+4. Engine Instruments | MONITOR
+5. Fuel Gages | MONITOR`]
+]},
+{ id: "descent", t: "Descent", short: "Descent", groups: [
+["", `
+1. Pressurization | SET
+  a. Cabin Altitude | SET
+  b. Rate Control | AS DESIRED
+2. Altimeter | SET
+3. Cabin Sign | AS REQUIRED
+4. Windshield Anti-ice | AS REQUIRED
+7. Fuel Balance | CHECK`]
+]},
+{ id: "before-landing", t: "Before Landing", short: "Before Ldg", groups: [
+["", `
+1. Approach Speeds | CONFIRM
+2. Autofeather | ARM
+3. Environmental Bleed Air | LOW
+5. Cabin Sign | FSB
+6. Flaps | APPROACH
+7. Landing Gear | DOWN
+8. Exterior and Interior Lights | AS REQUIRED
+9. Radar | AS REQUIRED`]
+]},
+{ id: "after-landing", t: "After Landing", short: "After Ldg", groups: [
+["", `
+1. Engine Auto-Ignition | OFF
+2. Engine Anti-ice | ON
+3. Exterior and Interior Lights | AS REQUIRED
+4. Ice Protection | OFF
+5. Transponder | AS REQUIRED
+6. Radar | CONFIRM STBY
+7. Trim | SET
+8. Flaps | UP
+9. Pressurization Differential | VERIFY 0
+10. Bleed Air Valves | OPEN OR ENVIR OFF`]
+]},
+{ id: "shutdown", t: "Shutdown", short: "Shutdown", groups: [
+["Shutdown and Securing", `
+1. Parking Brake | SET
+2. Avionics Master | OFF
+3. Standby Flight Display Power | OFF
+4. Autofeather | OFF
+5. Exterior Lights | OFF
+6. ECS Mode | OFF
+7. Cockpit/Cabin Blower | AUTO
+8. Oxygen Controls | PUSH OFF
+10. Interior Master Switch (B300) | OFF
+12. ITT | STABILIZED AT MINIMUM OBTAINABLE TEMPERATURE FOR ONE MINUTE
+14. Condition Levers | FUEL CUTOFF
+15. Prop Levers | FEATHER
+16. Overhead Panel Switches | OFF
+17. Cabin Entry Lights | AS REQUIRED
+18. Battery and Generator Switches (below 15% N1) | OFF
+19. Control Locks | INSTALL
+20. Instrument Emergency Lights | OFF
+21. Tie-downs and Chocks | INSTALL
+22. External Covers | INSTALL
+23. Parking Brake | OFF
+24. Baggage Compartment Lights | OFF
+25. Cabin Entry Lights | OFF`]
+]},
+{ id: "misc", t: "Miscellaneous", short: "Misc", groups: [
+["From Preflight · Cabin / Cockpit", `
+3. Aft Exit Sign | ON-TEST
+  Sign Illumination | CHECK, THEN OFF-RESET
+4. Forward Exit Sign | ON-TEST
+  Sign Illumination | CHECK, THEN OFF-RESET
+20. Flaps (if desired) | CHECK
+  a. Move to TAKEOFF AND APPROACH | VERIFY THEY STOP
+  b. Move to DOWN | VERIFY THEY STOP
+21. Airstair Door (B300) Circuitry | CHECK
+  a. Door closed and locked – Door Unlocked CAS | REMOVED
+  b. Door closed and latched, not locked – Door Unlocked CAS | DISPLAYED
+  c. Door open, mechanism in locked position – Door Unlocked CAS | DISPLAYED
+22. Airstair and Cargo Door (B300C) Circuitry | CHECK
+  a. Airstair and cargo door closed and locked – Door Unlocked CAS | REMOVED
+  b. Cargo door closed but not latched – Door Unlocked CAS | DISPLAYED
+  c. Cargo door open, handles in locked position – Door Unlocked CAS | DISPLAYED
+  d. Cargo door closed and locked, airstair door closed but not latched – Door Unlocked CAS | DISPLAYED
+  e. Airstair door open, handle in locked position – Door Unlocked CAS | DISPLAYED`],
+["From Before Engine Start", `
+17. Reversionary Switch Panel | CHECK
+  a. Prop Sync | ON
+  b. DG FREE/NORM | NORM
+  c. Slew +/- | CENTER
+  d. PFD1 | NORM
+  e. MFD | NORM
+  f. PFD2 | NORM
+  g. AHS | NORM
+  h. ADS | NORM
+  i. PFD1 Inhibit | NORM
+  j. MFD Inhibit | NORM
+  k. PFD2 Inhibit | NORM
+  l. Pilot's Static Air Source | NORM
+  m. EMER FREQ | EXTINGUISHED
+  n. Slew +/- | CENTER
+  o. DG FREE/NORM | NORM
+*24. Fuel System | CHECK
+  a. Firewall Fuel Valves | CLOSE
+  b. Standby Pumps | ON
+  c. Firewall Fuel Valves | OPEN
+  d. Standby Pumps | OFF
+  e. Crossfeed | ALTERNATELY LEFT AND RIGHT
+  f. Crossfeed | OFF
+  g. Fuel Quantity | TEST
+*27. Copilot's Subpanel | CHECK
+  *a. Cabin Altitude Warning | TEST
+  *b. Cabin Differential Warning | TEST
+  *c. Stall and Landing Gear Warning | TEST
+  *d. Fire Detector and Extinguisher | TEST
+28. Cockpit Voice Recorder Panel | TEST`],
+["From Before Taxi", `
+*1. Electrical System | CHECK
+  a. GEN TIES | OPEN
+  b. Voltmeter:
+    1) TPL FED | 26.5 TO 28.0 VOLTS
+    2) R GEN and L GEN | 27.5 TO 29.0 VOLTS
+    3) CTR | 23 VOLTS MINIMUM
+  c. GEN TIES | NORM
+  d. Bus Sense | MOMENTARILY TO TEST
+  e. Voltmeter | CTR – 0 VOLTS
+  f. Bus Sense | MOMENTARILY TO RESET
+  g. Voltmeter | CTR – 27.5 TO 29.0 VOLTS
+  h. Generator Load | OBSERVE PARALLELED WITHIN 10%
+12. Environmental System Controls (alternate modes):
+  b. Manual Control Cooling | AS REQUIRED
+    1) ECS Mode | MAN COOL
+    2) Cockpit/Cabin Temp | AS REQUIRED
+    3) Cockpit/Cabin Blower | AS REQUIRED
+    4) Envir Bleed Air | AS REQUIRED
+    5) Bleed Air Valves | OPEN OR ENVIR OFF
+  c. Manual Control Heating | AS REQUIRED
+    1) ECS Mode | MAN HEAT
+    2) Cockpit/Cabin Blower | AS REQUIRED
+    3) Cockpit/Cabin Temp | AS REQUIRED
+    4) Envir Bleed Air | AS REQUIRED
+    5) Bleed Air Valves | OPEN
+    6) MAN TEMP INCR/DECR | AS REQUIRED
+  d. Recirculation Blowers | AS REQUIRED
+    1) ECS Mode | OFF
+    2) Cockpit/Cabin Blower | AS REQUIRED
+  e. Electric Heat Control | AS REQUIRED
+    • ECS Mode | ELEC HEAT
+15. TCAS II | TEST
+  a. Tuning Page – XPR/TFC | TEST
+16. EMER FREQ | EXTINGUISHED
+17. TAWS+ | PREFLIGHT
+  a. Avionics and TAWS+ input equipment | VERIFY ON AND FUNCTIONING
+  b. TAWS+ inhibit switch/annunciators (G/S INHIB, TERR INHIB, FLAP OVRD) | DESELECTED
+  c. TAWS+ inoperative mode messages (GPWS, TERR) | VERIFY NONE
+  d. G/S INHIB switch/annunciator (self test) | DEPRESS AND RELEASE`],
+["From Before Takeoff · Runup", `
+2. Pressurization (test):
+  *c. Pressurization Controller | SET
+    1) Cabin Altitude Knob | 1,000 FT BELOW FIELD PRESSURE ALTITUDE
+    2) Rate Knob | 12 O'CLOCK
+  *d. Cabin Pressure Switch | HOLD AT THE TEST POSITION
+  *e. Cabin Altimeter and VSI | CHECK FOR DESCENT INDICATION
+  *f. Cabin Pressure Switch | RELEASE TO PRESS POSITION
+3. Autopilot | CHECK
+  a. Pitch Trim | TAKEOFF POSITION
+  b. Elevator | FORWARD POSITION
+  c. Autopilot | ENGAGE
+  d. Electric Pitch Trim | OPERATE IN BOTH DIRECTIONS
+  e. Elevator | CENTERED
+  f. Autopilot | ENGAGE
+    1) Elevator – apply rearward pressure | PITCH TRIM TRAVELS NOSE DOWN
+    2) Elevator – apply forward pressure | PITCH TRIM TRAVELS NOSE UP
+  g. AP/Trim Disconnect | DEPRESS TO FIRST LEVEL
+  h. Items a through g | REPEAT FOR COPILOT'S SIDE
+4. Yaw Damp | CHECK
+  a. Yaw Damp | ON
+  b. Rudder Pedals | CHECK FOR ADDED RESISTANCE
+  c. AP/Trim Disconnect | PRESS TO 1ST LEVEL
+*5. Electric Pitch Trim | CHECK
+  a. Pilot's and Copilot's Trim Switches | CHECK OPERATION
+    1) Each dual-element switch alone, fore and aft | VERIFY TRIM INOPERATIVE
+    2) Both dual-element switches, fore and aft | VERIFY TRIM OPERATES NOSE DOWN AND NOSE UP
+    3) Pilot's trim switch | ENSURE OVERRIDES COPILOT'S
+  b. AP/Trim Disconnect | PRESS TO 2ND LEVEL
+  c. Release Disconnect Switch | RED [TRIM] REMOVED
+*9. Overspeed Governors and Rudder Boost | CHECK
+  a. Rudder Boost Switch | OFF
+  b. Rudder Boost Switch | RUDDER BOOST
+  c. Prop Levers | FULL FORWARD
+  d. Prop Governor Test Switch | HOLD TO GOV
+  e. Power Levers (individually) | INCREASE UNTIL PROP IS STABILIZED AT 1500 TO 1610 RPM, CONTINUE UNTIL RUDDER MOVEMENT IS NOTED
+  f. AP/Trim Disconnect | DEPRESS TO 1ST LEVEL
+  g. AP/Trim Disconnect Switch | RELEASE
+  h. Power Lever | IDLE
+  i. Steps e through h | REPEAT ON OPPOSITE ENGINE
+  j. Prop Governor Test Switch | RELEASE
+*10. Low Pitch Stops and Primary Governors | CHECK
+  a. Prop Levers | FULL FORWARD
+  b. Low Pitch Stop Switch | HOLD TO GND IDLE STOP
+  c. Power Levers | SET 1500 RPM
+  d. Prop Levers | CYCLE TO LOW AND HIGH RPM
+  e. Low Pitch Stop Switch | RELEASE
+  f. Prop RPM | STABILIZED AT 1150 TO 1250
+*11. Autofeather | CHECK
+  a. Autofeather Switch | HOLD TO TEST
+  b. Power Levers | APPROXIMATELY 22% TORQUE
+  c. Power Levers | RETARD INDIVIDUALLY
+    1) At approximately 17% torque | OPPOSITE ANNUNCIATOR EXTINGUISHED
+    2) At approximately 10% torque | BOTH ANNUNCIATORS EXTINGUISHED
+  d. Power Levers | IDLE
+  e. Autofeather Switch | RELEASE
+*14. Vacuum and Pneumatic Pressure | CHECK
+  a. Left Bleed Air Switch | PNEU & ENVIR OFF
+    1) Pneumatic Pressure and Vacuum Gages | NORMAL PRESSURE
+    2) L-R Bl Air Fail CAS Message | NOT DISPLAYED
+  b. Right Bleed Air Switch | PNEU & ENVIR OFF
+    1) Pneumatic Pressure and Vacuum Gages | ZERO PRESSURE
+    2) L-R Bl Air Fail CAS Message | DISPLAYED
+  c. Left Bleed Air Switch | OPEN OR ENVIR OFF
+    1) Pneumatic Pressure and Vacuum Gages | NORMAL PRESSURE
+    2) L-R Bl Air Fail CAS Message | REMOVED
+  d. Right Bleed Air Switch | OPEN OR ENVIR OFF
+*15. Engine Anti-ice | CHECK
+  a. Engine Anti-ice Actuators | STANDBY
+  b. Engine Anti-ice | OFF
+  c. Engine Anti-ice Actuators | MAIN
+  d. Engine Anti-ice | ON
+16. Ice Protection Equipment (if required) | CHECK
+  a. Engine Auto-Ignition | CHECK
+    1) Power Levers | IDLE
+    2) Engine Auto-Ignition Switches | ARM
+    3) Power Levers | ADVANCE TO ABOVE 17% TORQUE
+    4) Power Levers | IDLE
+    5) Engine Auto-Ignition Switches | OFF
+  b. Windshield Anti-ice (pilot's & copilot's, one at a time):
+    1) Windshield Anti-ice | HI
+    2) Windshield Anti-ice | OFF, THEN NORMAL
+    3) Windshield Anti-ice | OFF
+  c. Electrothermal Propeller Deice | CHECK
+    1) Automatic Prop Deice | ON
+    2) Deice Ammeter | 26 TO 32 AMPS
+    3) Manual Prop Deice | HOLD IN MANUAL POSITION
+      b) Deice Ammeter | 0 AMPS
+    4) Manual Prop Deice | RELEASE
+    5) Deice Ammeter | 26 TO 32 AMPS
+    6) Automatic Prop Deice | OFF
+  d. Surface Deice | CHECK
+    1) Condition Levers | HIGH IDLE, IF REQUIRED
+    2) Pneumatic Pressure | CHECK
+    3) Surface Deice Switch | SINGLE AND RELEASE
+      a) Pneumatic Pressure | MOMENTARY DECREASE
+      b) Wing Deice & Tail Deice CAS Messages | DISPLAYED, THEN REMOVED
+      c) Boots | CHECK VISUALLY FOR INFLATION AND HOLD DOWN
+      d) Inflation Time | 6 SEC WINGS, THEN 4 SEC HORIZONTAL STABILIZER
+    4) Surface Deice Switch | MANUAL AND HOLD
+      a) Pneumatic Pressure | MOMENTARY DECREASE
+      b) Wing Deice & Tail Deice CAS Messages | DISPLAYED
+      c) Boots | CHECK VISUALLY FOR INFLATION
+    5) Surface Deice Switch | RELEASE
+      a) Wing Deice & Tail Deice CAS Messages | REMOVED
+      b) Boots | CHECK VISUALLY FOR HOLD DOWN
+    6) Condition Levers | LOW IDLE`]
+]}
+];
+
+/* parse the compact source into rows */
+const CK_RE = /^( *)([+*])?\s*(\d+\.|[a-z]\.|\d+\)|[a-z]\)|•)?\s*([^|]*?)\s*(?:\|\s*(.*))?$/;
+const CK = CK_SRC.map(sec => {
+  const rows = [];
+  sec.groups.forEach(([gt, src], gi) => {
+    rows.push({ kind: "group", t: gt, gi });
+    const stack = [];
+    src.split("\n").filter(l => l.trim()).forEach((line, li) => {
+      const m = line.match(CK_RE);
+      const lvl = Math.floor(m[1].length / 2), cmd = (m[5] || "").trim(), txt = m[4].trim();
+      const head = !cmd && /:$/.test(txt);
+      const r = { kind: head ? "head" : "step", id: gi + "-" + li, lvl, mark: m[2] || "", num: m[3] || "", t: head ? txt.replace(/:$/, "") : txt, c: cmd };
+      stack.length = lvl; stack[lvl] = r; r.anc = stack.slice(0, lvl).filter(Boolean);
+      rows.push(r);
+    });
+  });
+  return { id: sec.id, t: sec.t, short: sec.short, rows };
+});
+const CK_KEY = "ka350-checklist-v1";
+let CKS = null, ckKeysBound = false, ckResetTimer = null;
+
+function ckLoad() {
+  let s = null;
+  try { s = JSON.parse(localStorage.getItem(CK_KEY) || "null"); } catch (e) { s = null; }
+  const st = { sec: 0, quick: false, done: {}, cur: {} };
+  if (s && typeof s === "object") {
+    if (Number.isInteger(s.sec) && s.sec >= 0 && s.sec < CK.length) st.sec = s.sec;
+    st.quick = !!s.quick;
+    CK.forEach(c => {
+      if (s.done && Array.isArray(s.done[c.id])) st.done[c.id] = s.done[c.id].filter(x => typeof x === "string");
+      if (s.cur && typeof s.cur[c.id] === "string") st.cur[c.id] = s.cur[c.id];
+    });
+  }
+  CK.forEach(c => { st.done[c.id] = new Set(st.done[c.id] || []); });
+  return st;
+}
+function ckSave() {
+  try {
+    const o = { sec: CKS.sec, quick: CKS.quick, done: {}, cur: CKS.cur };
+    CK.forEach(c => { o.done[c.id] = [...CKS.done[c.id]]; });
+    localStorage.setItem(CK_KEY, JSON.stringify(o));
+  } catch (e) { /* storage unavailable: state lasts for this visit only */ }
+}
+/* visibility under "subsequent flight" mode */
+function ckHidden(sec, r) {
+  if (!CKS.quick || r.kind === "group") return false;
+  if (sec.id === "preflight") return !(r.mark === "+" || r.anc.some(a => a.mark === "+"));
+  return r.mark === "*" || r.anc.some(a => a.mark === "*");
+}
+function ckVisRows(sec) {
+  const rows = sec.rows.filter(r => !ckHidden(sec, r));
+  /* drop headings with no visible children, and groups left empty */
+  const out = rows.filter((r, i) => r.kind !== "head" || rows.slice(i + 1).some(x => x.kind !== "group" && x.anc.includes(r)));
+  return out.filter((r, i) => r.kind !== "group" || (out[i + 1] && out[i + 1].kind !== "group"));
+}
+const ckSteps = sec => ckVisRows(sec).filter(r => r.kind === "step");
+function ckCurIdx(sec) {
+  const steps = ckSteps(sec), done = CKS.done[sec.id];
+  let i = steps.findIndex(r => r.id === CKS.cur[sec.id]);
+  if (i >= 0 && !done.has(steps[i].id)) return i;
+  i = steps.findIndex(r => !done.has(r.id));
+  return i;
+}
+function ckNextUnchecked(sec, from) {
+  const steps = ckSteps(sec), done = CKS.done[sec.id];
+  for (let k = 1; k <= steps.length; k++) { const j = (from + k) % steps.length; if (!done.has(steps[j].id)) return j; }
+  return -1;
+}
+function ckSetCur(sec, i) { const steps = ckSteps(sec); CKS.cur[sec.id] = i >= 0 && steps[i] ? steps[i].id : null; }
+
+function ckRenderTabs() {
+  $("#ckTabs").innerHTML = CK.map((sec, i) => {
+    const steps = ckSteps(sec), n = steps.filter(r => CKS.done[sec.id].has(r.id)).length;
+    const full = steps.length > 0 && n === steps.length;
+    return `<button type="button" class="ck-tab${full ? " done" : ""}" data-sec="${i}" aria-current="${i === CKS.sec}"><span class="t">${esc(sec.short)}</span><span class="c">${n}/${steps.length}</span></button>`;
+  }).join("");
+  const tabs = $("#ckTabs"), a = tabs.querySelector('[aria-current="true"]');
+  if (a) {
+    const l = a.offsetLeft - tabs.offsetLeft, r = l + a.offsetWidth;
+    if (l < tabs.scrollLeft + 8) tabs.scrollLeft = Math.max(0, l - 24);
+    else if (r > tabs.scrollLeft + tabs.clientWidth - 8) tabs.scrollLeft = r - tabs.clientWidth + 24;
+  }
+}
+function ckRenderList(scroll) {
+  const sec = CK[CKS.sec], done = CKS.done[sec.id], vis = ckVisRows(sec), steps = vis.filter(r => r.kind === "step");
+  const ci = ckCurIdx(sec), curId = ci >= 0 ? steps[ci].id : null;
+  const n = steps.filter(r => done.has(r.id)).length, complete = steps.length > 0 && n === steps.length;
+  $("#ckTitle").textContent = sec.t;
+  $("#ckCount").textContent = `${n} / ${steps.length}`;
+  $("#ckBar").style.width = steps.length ? (100 * n / steps.length) + "%" : "0";
+  $("#ckCard").classList.toggle("complete", complete);
+  const mk = r => r.mark ? `<span class="ck-mk ${r.mark === "+" ? "plus" : "star"}" aria-label="${r.mark === "+" ? "required every flight" : "may omit after first flight"}">${r.mark}</span>` : "";
+  $("#ckList").innerHTML = vis.map(r => {
+    if (r.kind === "group") return r.t ? `<div class="ck-gh">${esc(r.t)}</div>` : "";
+    const num = `<span class="ck-num">${mk(r)}${esc(r.num)}</span>`;
+    if (r.kind === "head") return `<div class="ck-head l${r.lvl}"><span></span>${num}<span class="ck-body"><span class="ck-item">${esc(r.t)}</span></span></div>`;
+    const d = done.has(r.id);
+    return `<button type="button" class="ck-row l${r.lvl}${d ? " done" : ""}${r.id === curId ? " cur" : ""}" data-id="${r.id}" aria-pressed="${d}"><span class="ck-box" aria-hidden="true">✓</span>${num}<span class="ck-body"><span class="ck-item">${esc(r.t)}</span><span class="ck-dots" aria-hidden="true"></span><span class="ck-cmd">${esc(r.c)}</span></span></button>`;
+  }).join("") + `<div class="ck-done-msg">✓ ${esc(sec.t)} complete</div>`;
+  const nextSec = CK[CKS.sec + 1];
+  const go = $("#ckGo");
+  go.classList.toggle("next", complete);
+  go.textContent = complete ? (nextSec ? `${nextSec.short} ▶` : "All done ✓") : "Check ✓";
+  go.disabled = complete && !nextSec;
+  $("#ckSkip").disabled = complete || steps.length - n < 2;
+  $("#ckBack").disabled = n === 0;
+  $("#ckResetSec").disabled = n === 0;
+  if (scroll) {
+    const el = $("#ckList .ck-row.cur");
+    if (el) {
+      const rc = el.getBoundingClientRect(), top = 150, bot = window.innerHeight - 120;
+      if (rc.top < top || rc.bottom > bot) el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+    }
+  }
+}
+function ckRender(scroll) { ckRenderTabs(); ckRenderList(scroll); ckSave(); }
+
+function ckCheck() {
+  const sec = CK[CKS.sec], steps = ckSteps(sec), i = ckCurIdx(sec);
+  if (i < 0) { if (CKS.sec < CK.length - 1) ckGoSec(CKS.sec + 1); return; }
+  CKS.done[sec.id].add(steps[i].id);
+  ckSetCur(sec, ckNextUnchecked(sec, i));
+  ckRender(true);
+}
+function ckSkip() {
+  const sec = CK[CKS.sec], i = ckCurIdx(sec);
+  if (i < 0) return;
+  ckSetCur(sec, ckNextUnchecked(sec, i));
+  ckRender(true);
+}
+function ckBack() {
+  const sec = CK[CKS.sec], steps = ckSteps(sec), done = CKS.done[sec.id];
+  let i = ckCurIdx(sec); if (i < 0) i = steps.length;
+  for (let k = 1; k <= steps.length; k++) {
+    const j = (i - k + steps.length) % steps.length;
+    if (done.has(steps[j].id)) { done.delete(steps[j].id); ckSetCur(sec, j); break; }
+  }
+  ckRender(true);
+}
+function ckToggle(id) {
+  const sec = CK[CKS.sec], steps = ckSteps(sec), done = CKS.done[sec.id], i = steps.findIndex(r => r.id === id);
+  if (i < 0) return;
+  if (done.has(id)) { done.delete(id); ckSetCur(sec, i); }
+  else { done.add(id); ckSetCur(sec, ckNextUnchecked(sec, i)); }
+  ckRender(true);
+}
+function ckGoSec(i) {
+  if (i < 0 || i >= CK.length) return;
+  CKS.sec = i; ckRender(false);
+  const card = $("#ckCard"), tabs = $("#ckTabs");
+  const y = card.getBoundingClientRect().top + window.scrollY - tabs.getBoundingClientRect().bottom - 8;
+  if (window.scrollY > y) window.scrollTo(0, y);
+  const el = $("#ckList .ck-row.cur");
+  if (el) { const rc = el.getBoundingClientRect(); if (rc.top < 150 || rc.bottom > window.innerHeight - 120) el.scrollIntoView({ block: "center" }); }
+}
+function ckArmReset(btn, label, fn) {
+  if (btn.dataset.armed) { clearTimeout(ckResetTimer); btn.dataset.armed = ""; btn.textContent = label; fn(); return; }
+  $$(".ck-tools .btn").forEach(b => { if (b.dataset.armed) { b.dataset.armed = ""; b.textContent = b.dataset.label; } });
+  btn.dataset.armed = "1"; btn.dataset.label = label; btn.textContent = "Tap again to reset";
+  clearTimeout(ckResetTimer);
+  ckResetTimer = setTimeout(() => { btn.dataset.armed = ""; btn.textContent = label; }, 3000);
+}
+
+function initChecklist() {
+  CKS = ckLoad();
+  $("#ckQuick").checked = CKS.quick;
+  const v = $("#main .view");
+  v.addEventListener("click", e => {
+    const tab = e.target.closest(".ck-tab"); if (tab) { ckGoSec(+tab.dataset.sec); return; }
+    const row = e.target.closest(".ck-row"); if (row) { ckToggle(row.dataset.id); return; }
+  });
+  $("#ckGo").addEventListener("click", ckCheck);
+  $("#ckSkip").addEventListener("click", ckSkip);
+  $("#ckBack").addEventListener("click", ckBack);
+  $("#ckQuick").addEventListener("change", e => { CKS.quick = e.target.checked; ckRender(false); });
+  $("#ckResetSec").addEventListener("click", e => ckArmReset(e.currentTarget, "Reset section", () => { const s = CK[CKS.sec]; CKS.done[s.id].clear(); CKS.cur[s.id] = null; ckRender(false); }));
+  $("#ckResetAll").addEventListener("click", e => ckArmReset(e.currentTarget, "Reset all", () => { CK.forEach(s => { CKS.done[s.id].clear(); CKS.cur[s.id] = null; }); CKS.sec = 0; ckRender(false); }));
+  if (!ckKeysBound) {
+    ckKeysBound = true;
+    document.addEventListener("keydown", e => {
+      if (!$("#ckList") || e.altKey || e.ctrlKey || e.metaKey) return;
+      const tg = e.target, tag = tg && tg.tagName;
+      if (tag === "INPUT" || tag === "SELECT" || tag === "TEXTAREA") return;
+      const onBtn = tag === "BUTTON" || tag === "A";
+      if (e.key === " " || e.key === "Enter") { if (onBtn) return; e.preventDefault(); ckCheck(); }
+      else if (e.key === "Backspace") { e.preventDefault(); ckBack(); }
+      else if (e.key === "ArrowDown" && !onBtn) { e.preventDefault(); ckSkip(); }
+      else if (e.key === "ArrowRight") { e.preventDefault(); ckGoSec(CKS.sec + 1); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); ckGoSec(CKS.sec - 1); }
+    });
+  }
+  ckRender(false);
 }
 
 /* ================= boot ================= */
