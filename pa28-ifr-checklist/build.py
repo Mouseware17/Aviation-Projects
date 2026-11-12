@@ -125,7 +125,7 @@ _xs = [6.6 + 14.4*k for k in range(28)]
 _ys = [4.2 + 14.4*k for k in range(43)]
 _d = "".join(f"M{x:.1f} 0V612" for x in _xs) + "".join(f"M0 {y:.1f}H396" for y in _ys)
 grid = (f'<svg class="grid" viewBox="0 0 396 612" aria-hidden="true">'
-        f'<path d="{_d}" fill="none" stroke="#4d5fd0" stroke-width=".45" stroke-opacity=".42"/></svg>')
+        f'<path d="{_d}" fill="none" stroke="#138fae" stroke-width=".45" stroke-opacity=".33"/></svg>')
 
 cols = "".join(f'<div class="col">{"".join(section(*s) for s in c)}</div>' for c in COLUMNS)
 
@@ -137,12 +137,14 @@ HTML = f"""<!doctype html>
 <style>
 @page {{ size: 5.5in 8.5in; margin: 0; }}
 :root {{
-  --paper: #f5f2e7;
-  --ink: #1b2585;          /* blue printing ink */
-  --blue: #2338a8;         /* royal blue label */
-  --red: #d42f3c;          /* label red */
-  --grid: rgba(64, 78, 196, .26);
-  --stripe: rgba(60, 90, 220, .13);
+  /* Retro Art Deco palette: B73824 E9E2E2 D3C073 138FAE 344989 */
+  --paper: #e9e2e2;
+  --navy: #344989;
+  --teal: #138fae;
+  --rust: #b73824;
+  --gold: #d3c073;
+  --ink: #26355f;          /* navy darkened for small text */
+  --stripe: rgba(211, 192, 115, .34);
   --row: 8.26pt;
 }}
 * {{ box-sizing: border-box; margin: 0; padding: 0; }}
@@ -160,23 +162,29 @@ body {{
 /* ---------- header label ---------- */
 .label {{
   position: absolute; left: 13.4pt; right: 14.4pt; top: 11pt; height: 52pt;
-  display: flex; color: #fff;
+  display: flex; color: var(--paper);
   box-shadow: 0 0 0 1.2pt var(--paper);
 }}
 .label .tab {{
-  width: 72pt; background: var(--red);
+  width: 72pt; background: var(--rust);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5pt;
 }}
-.label .tab svg {{ width: 34pt; height: 22pt; display: block; }}
-.label .tab b {{ font: 600 5.4pt/1 "Work Sans", sans-serif; letter-spacing: .9pt; }}
+.label .tab svg {{ width: 46pt; height: 30pt; display: block; }}
+.label .tab b {{ font: 600 5.4pt/1 "Work Sans", sans-serif; letter-spacing: 1.2pt; color: var(--gold); }}
 .label .band {{
-  flex: 1; background: var(--blue); padding: 6.5pt 10pt 0 11pt; position: relative;
+  flex: 1; padding: 6pt 10pt 0 11pt; position: relative;
+  /* deco speed stripes along the bottom of the band */
+  background:
+    linear-gradient(to bottom, transparent 44.6pt, var(--gold) 44.6pt, var(--gold) 46pt,
+      var(--navy) 46pt, var(--navy) 47pt, var(--teal) 47pt, var(--teal) 48.6pt,
+      var(--navy) 48.6pt, var(--navy) 49.6pt, var(--rust) 49.6pt, var(--rust) 51pt, var(--navy) 51pt),
+    var(--navy);
 }}
 .label .brand {{ font: 300 12.5pt/1 "Work Sans", sans-serif; letter-spacing: -.1pt; }}
 .label .brand sup {{ font-size: 4.5pt; vertical-align: 6pt; margin-left: .5pt; }}
-.label .title {{ font: 900 20.5pt/1 "Nunito", sans-serif; letter-spacing: -.3pt; margin-top: 2.5pt; }}
+.label .title {{ font: 900 20.5pt/1 "Nunito", sans-serif; letter-spacing: -.3pt; margin-top: 2.5pt; color: var(--gold); }}
 .label .spec {{
-  position: absolute; right: 9pt; bottom: 6pt; text-align: right;
+  position: absolute; right: 9pt; bottom: 11pt; text-align: right;
   font: 600 4.9pt/1.35 "Work Sans", sans-serif; letter-spacing: .1pt;
 }}
 
@@ -186,15 +194,15 @@ body {{
   display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 4.6pt;
 }}
 .col {{ display: flex; flex-direction: column; gap: 4.1pt; }}
-.box {{ border: 1pt solid var(--blue); background: rgba(245,242,231,.72); position: relative; }}
-.box.red {{ border-color: var(--red); }}
+.box {{ border: 1pt solid var(--navy); background: rgba(233,226,226,.74); position: relative; }}
+.box.red {{ border-color: var(--teal); }}
 .box h2 {{
   height: 13.4pt; display: flex; align-items: center; justify-content: center;
-  background: var(--blue); color: #fff;
+  background: var(--navy); color: var(--paper);
   font: 900 7.6pt/1 "Nunito", sans-serif; letter-spacing: .25pt;
-  border-bottom: 1.4pt solid var(--red);
+  border-bottom: 1.4pt solid var(--gold);
 }}
-.box.red h2 {{ background: var(--red); border-bottom-color: var(--blue); }}
+.box.red h2 {{ background: var(--teal); color: #fff; }}
 .row {{
   height: var(--row); padding: 0 2.6pt; display: flex; align-items: center; justify-content: space-between;
   white-space: nowrap;
@@ -205,30 +213,34 @@ body {{
 .row.n {{ padding-left: 14pt; }}
 .row.si {{ font-style: italic; }}
 .row.b {{ font-weight: 700; }}
-.row.h {{ justify-content: center; font-weight: 700; color: var(--red); letter-spacing: .15pt; }}
-.box.red .row.h {{ color: var(--blue); }}
+.row.h {{ justify-content: center; font-weight: 700; color: var(--rust); letter-spacing: .15pt; }}
+
 .row.c {{ justify-content: center; font-style: italic; }}
-.row.cb {{ justify-content: center; font-style: italic; font-weight: 700; color: var(--red); }}
+.row.cb {{ justify-content: center; font-style: italic; font-weight: 700; color: var(--rust); }}
 .row.r, .row.rb, .row.rp {{ justify-content: flex-end; }}
 .row.r {{ font-style: italic; }}
 .row.rb {{ font-style: italic; font-weight: 700; }}
 
 .foot {{
   position: absolute; left: 13.4pt; right: 14.4pt; bottom: 13.5pt;
-  display: flex; justify-content: space-between;
+  display: flex; justify-content: flex-end;
   font: 600 4.6pt/1 "Work Sans", sans-serif; letter-spacing: .5pt; color: var(--ink); opacity: .8;
 }}
 .foot > span {{ background: var(--paper); padding: 1.5pt 2pt; }}
-.foot i {{ display: inline-block; width: 6pt; height: 6pt; vertical-align: -1.3pt; margin-right: 2pt; }}
 </style></head>
 <body>
 {grid}
 <header class="label">
   <div class="tab">
     <svg viewBox="0 0 68 44" aria-hidden="true">
-      <path d="M6 30 A28 28 0 0 1 62 30" fill="none" stroke="#fff" stroke-width="7"/>
-      <path d="M17 30 A17 17 0 0 1 51 30" fill="none" stroke="#fff" stroke-width="5"/>
-      <text x="34" y="43" text-anchor="middle" fill="#fff" font-family="Nunito" font-weight="900" font-size="17">GA</text>
+      <g stroke="#d3c073" stroke-width="1.6" stroke-linecap="butt"><line x1="34" y1="42" x2="73.4" y2="35.1"/><line x1="34" y1="42" x2="70.0" y2="24.5"/><line x1="34" y1="42" x2="63.7" y2="15.2"/><line x1="34" y1="42" x2="55.2" y2="8.1"/><line x1="34" y1="42" x2="45.0" y2="3.5"/><line x1="34" y1="42" x2="34.0" y2="2.0"/><line x1="34" y1="42" x2="23.0" y2="3.5"/><line x1="34" y1="42" x2="12.8" y2="8.1"/><line x1="34" y1="42" x2="4.3" y2="15.2"/><line x1="34" y1="42" x2="-2.0" y2="24.5"/><line x1="34" y1="42" x2="-5.4" y2="35.1"/></g>
+      <path d="M18 42 A16 16 0 0 1 50 42 Z" fill="#d3c073"/>
+      <path d="M22 42 A12 12 0 0 1 46 42" fill="none" stroke="#b73824" stroke-width="1.4"/>
+      <path d="M26 42 A8 8 0 0 1 42 42" fill="none" stroke="#b73824" stroke-width="1.4"/>
+      <g fill="#e9e2e2" stroke="#b73824" stroke-width=".9" stroke-linejoin="round">
+        <path d="M34 3.5 C35.6 3.5 36.2 6 36.2 9 L36.2 15 L56 16.4 L56 20.2 L36.2 21 L35.6 30.5 L42 31.6 L42 34.2 L34 34.6 L26 34.2 L26 31.6 L32.4 30.5 L31.8 21 L12 20.2 L12 16.4 L31.8 15 L31.8 9 C31.8 6 32.4 3.5 34 3.5 Z"/>
+      </g>
+      <rect x="29.5" y="2.6" width="9" height="1.2" rx=".6" fill="#26355f"/>
     </svg>
     <b>PA-28</b>
   </div>
@@ -240,7 +252,6 @@ body {{
 </header>
 <main class="cols">{cols}</main>
 <footer class="foot">
-  <span><i style="background:var(--blue)"></i>Ground<span style="display:inline-block;width:8pt"></span><i style="background:var(--red)"></i>In flight</span>
   <span>GA-PA28-IFR &nbsp;·&nbsp; Greenville Aviation</span>
 </footer>
 </body></html>"""

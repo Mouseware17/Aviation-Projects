@@ -6,12 +6,14 @@
 <style>
 @page { size: 5.5in 8.5in; margin: 0; }
 :root {
-  --paper: #f5f2e7;
-  --ink: #1b2585;          /* blue printing ink */
-  --blue: #2338a8;         /* royal blue label */
-  --red: #d42f3c;          /* label red */
-  --grid: rgba(64, 78, 196, .26);
-  --stripe: rgba(60, 90, 220, .13);
+  /* Retro Art Deco palette: B73824 E9E2E2 D3C073 138FAE 344989 */
+  --paper: #e9e2e2;
+  --navy: #344989;
+  --teal: #138fae;
+  --rust: #b73824;
+  --gold: #d3c073;
+  --ink: #26355f;          /* navy darkened for small text */
+  --stripe: rgba(211, 192, 115, .34);
   --row: 8.26pt;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -29,23 +31,29 @@ body {
 /* ---------- header label ---------- */
 .label {
   position: absolute; left: 13.4pt; right: 14.4pt; top: 11pt; height: 52pt;
-  display: flex; color: #fff;
+  display: flex; color: var(--paper);
   box-shadow: 0 0 0 1.2pt var(--paper);
 }
 .label .tab {
-  width: 72pt; background: var(--red);
+  width: 72pt; background: var(--rust);
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.5pt;
 }
-.label .tab svg { width: 34pt; height: 22pt; display: block; }
-.label .tab b { font: 600 5.4pt/1 "Work Sans", sans-serif; letter-spacing: .9pt; }
+.label .tab svg { width: 46pt; height: 30pt; display: block; }
+.label .tab b { font: 600 5.4pt/1 "Work Sans", sans-serif; letter-spacing: 1.2pt; color: var(--gold); }
 .label .band {
-  flex: 1; background: var(--blue); padding: 6.5pt 10pt 0 11pt; position: relative;
+  flex: 1; padding: 6pt 10pt 0 11pt; position: relative;
+  /* deco speed stripes along the bottom of the band */
+  background:
+    linear-gradient(to bottom, transparent 44.6pt, var(--gold) 44.6pt, var(--gold) 46pt,
+      var(--navy) 46pt, var(--navy) 47pt, var(--teal) 47pt, var(--teal) 48.6pt,
+      var(--navy) 48.6pt, var(--navy) 49.6pt, var(--rust) 49.6pt, var(--rust) 51pt, var(--navy) 51pt),
+    var(--navy);
 }
 .label .brand { font: 300 12.5pt/1 "Work Sans", sans-serif; letter-spacing: -.1pt; }
 .label .brand sup { font-size: 4.5pt; vertical-align: 6pt; margin-left: .5pt; }
-.label .title { font: 900 20.5pt/1 "Nunito", sans-serif; letter-spacing: -.3pt; margin-top: 2.5pt; }
+.label .title { font: 900 20.5pt/1 "Nunito", sans-serif; letter-spacing: -.3pt; margin-top: 2.5pt; color: var(--gold); }
 .label .spec {
-  position: absolute; right: 9pt; bottom: 6pt; text-align: right;
+  position: absolute; right: 9pt; bottom: 11pt; text-align: right;
   font: 600 4.9pt/1.35 "Work Sans", sans-serif; letter-spacing: .1pt;
 }
 
@@ -55,15 +63,15 @@ body {
   display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 4.6pt;
 }
 .col { display: flex; flex-direction: column; gap: 4.1pt; }
-.box { border: 1pt solid var(--blue); background: rgba(245,242,231,.72); position: relative; }
-.box.red { border-color: var(--red); }
+.box { border: 1pt solid var(--navy); background: rgba(233,226,226,.74); position: relative; }
+.box.red { border-color: var(--teal); }
 .box h2 {
   height: 13.4pt; display: flex; align-items: center; justify-content: center;
-  background: var(--blue); color: #fff;
+  background: var(--navy); color: var(--paper);
   font: 900 7.6pt/1 "Nunito", sans-serif; letter-spacing: .25pt;
-  border-bottom: 1.4pt solid var(--red);
+  border-bottom: 1.4pt solid var(--gold);
 }
-.box.red h2 { background: var(--red); border-bottom-color: var(--blue); }
+.box.red h2 { background: var(--teal); color: #fff; }
 .row {
   height: var(--row); padding: 0 2.6pt; display: flex; align-items: center; justify-content: space-between;
   white-space: nowrap;
@@ -74,30 +82,34 @@ body {
 .row.n { padding-left: 14pt; }
 .row.si { font-style: italic; }
 .row.b { font-weight: 700; }
-.row.h { justify-content: center; font-weight: 700; color: var(--red); letter-spacing: .15pt; }
-.box.red .row.h { color: var(--blue); }
+.row.h { justify-content: center; font-weight: 700; color: var(--rust); letter-spacing: .15pt; }
+
 .row.c { justify-content: center; font-style: italic; }
-.row.cb { justify-content: center; font-style: italic; font-weight: 700; color: var(--red); }
+.row.cb { justify-content: center; font-style: italic; font-weight: 700; color: var(--rust); }
 .row.r, .row.rb, .row.rp { justify-content: flex-end; }
 .row.r { font-style: italic; }
 .row.rb { font-style: italic; font-weight: 700; }
 
 .foot {
   position: absolute; left: 13.4pt; right: 14.4pt; bottom: 13.5pt;
-  display: flex; justify-content: space-between;
+  display: flex; justify-content: flex-end;
   font: 600 4.6pt/1 "Work Sans", sans-serif; letter-spacing: .5pt; color: var(--ink); opacity: .8;
 }
 .foot > span { background: var(--paper); padding: 1.5pt 2pt; }
-.foot i { display: inline-block; width: 6pt; height: 6pt; vertical-align: -1.3pt; margin-right: 2pt; }
 </style></head>
 <body>
-<svg class="grid" viewBox="0 0 396 612" aria-hidden="true"><path d="M6.6 0V612M21.0 0V612M35.4 0V612M49.8 0V612M64.2 0V612M78.6 0V612M93.0 0V612M107.4 0V612M121.8 0V612M136.2 0V612M150.6 0V612M165.0 0V612M179.4 0V612M193.8 0V612M208.2 0V612M222.6 0V612M237.0 0V612M251.4 0V612M265.8 0V612M280.2 0V612M294.6 0V612M309.0 0V612M323.4 0V612M337.8 0V612M352.2 0V612M366.6 0V612M381.0 0V612M395.4 0V612M0 4.2H396M0 18.6H396M0 33.0H396M0 47.4H396M0 61.8H396M0 76.2H396M0 90.6H396M0 105.0H396M0 119.4H396M0 133.8H396M0 148.2H396M0 162.6H396M0 177.0H396M0 191.4H396M0 205.8H396M0 220.2H396M0 234.6H396M0 249.0H396M0 263.4H396M0 277.8H396M0 292.2H396M0 306.6H396M0 321.0H396M0 335.4H396M0 349.8H396M0 364.2H396M0 378.6H396M0 393.0H396M0 407.4H396M0 421.8H396M0 436.2H396M0 450.6H396M0 465.0H396M0 479.4H396M0 493.8H396M0 508.2H396M0 522.6H396M0 537.0H396M0 551.4H396M0 565.8H396M0 580.2H396M0 594.6H396M0 609.0H396" fill="none" stroke="#4d5fd0" stroke-width=".45" stroke-opacity=".42"/></svg>
+<svg class="grid" viewBox="0 0 396 612" aria-hidden="true"><path d="M6.6 0V612M21.0 0V612M35.4 0V612M49.8 0V612M64.2 0V612M78.6 0V612M93.0 0V612M107.4 0V612M121.8 0V612M136.2 0V612M150.6 0V612M165.0 0V612M179.4 0V612M193.8 0V612M208.2 0V612M222.6 0V612M237.0 0V612M251.4 0V612M265.8 0V612M280.2 0V612M294.6 0V612M309.0 0V612M323.4 0V612M337.8 0V612M352.2 0V612M366.6 0V612M381.0 0V612M395.4 0V612M0 4.2H396M0 18.6H396M0 33.0H396M0 47.4H396M0 61.8H396M0 76.2H396M0 90.6H396M0 105.0H396M0 119.4H396M0 133.8H396M0 148.2H396M0 162.6H396M0 177.0H396M0 191.4H396M0 205.8H396M0 220.2H396M0 234.6H396M0 249.0H396M0 263.4H396M0 277.8H396M0 292.2H396M0 306.6H396M0 321.0H396M0 335.4H396M0 349.8H396M0 364.2H396M0 378.6H396M0 393.0H396M0 407.4H396M0 421.8H396M0 436.2H396M0 450.6H396M0 465.0H396M0 479.4H396M0 493.8H396M0 508.2H396M0 522.6H396M0 537.0H396M0 551.4H396M0 565.8H396M0 580.2H396M0 594.6H396M0 609.0H396" fill="none" stroke="#138fae" stroke-width=".45" stroke-opacity=".33"/></svg>
 <header class="label">
   <div class="tab">
     <svg viewBox="0 0 68 44" aria-hidden="true">
-      <path d="M6 30 A28 28 0 0 1 62 30" fill="none" stroke="#fff" stroke-width="7"/>
-      <path d="M17 30 A17 17 0 0 1 51 30" fill="none" stroke="#fff" stroke-width="5"/>
-      <text x="34" y="43" text-anchor="middle" fill="#fff" font-family="Nunito" font-weight="900" font-size="17">GA</text>
+      <g stroke="#d3c073" stroke-width="1.6" stroke-linecap="butt"><line x1="34" y1="42" x2="73.4" y2="35.1"/><line x1="34" y1="42" x2="70.0" y2="24.5"/><line x1="34" y1="42" x2="63.7" y2="15.2"/><line x1="34" y1="42" x2="55.2" y2="8.1"/><line x1="34" y1="42" x2="45.0" y2="3.5"/><line x1="34" y1="42" x2="34.0" y2="2.0"/><line x1="34" y1="42" x2="23.0" y2="3.5"/><line x1="34" y1="42" x2="12.8" y2="8.1"/><line x1="34" y1="42" x2="4.3" y2="15.2"/><line x1="34" y1="42" x2="-2.0" y2="24.5"/><line x1="34" y1="42" x2="-5.4" y2="35.1"/></g>
+      <path d="M18 42 A16 16 0 0 1 50 42 Z" fill="#d3c073"/>
+      <path d="M22 42 A12 12 0 0 1 46 42" fill="none" stroke="#b73824" stroke-width="1.4"/>
+      <path d="M26 42 A8 8 0 0 1 42 42" fill="none" stroke="#b73824" stroke-width="1.4"/>
+      <g fill="#e9e2e2" stroke="#b73824" stroke-width=".9" stroke-linejoin="round">
+        <path d="M34 3.5 C35.6 3.5 36.2 6 36.2 9 L36.2 15 L56 16.4 L56 20.2 L36.2 21 L35.6 30.5 L42 31.6 L42 34.2 L34 34.6 L26 34.2 L26 31.6 L32.4 30.5 L31.8 21 L12 20.2 L12 16.4 L31.8 15 L31.8 9 C31.8 6 32.4 3.5 34 3.5 Z"/>
+      </g>
+      <rect x="29.5" y="2.6" width="9" height="1.2" rx=".6" fill="#26355f"/>
     </svg>
     <b>PA-28</b>
   </div>
@@ -109,7 +121,6 @@ body {
 </header>
 <main class="cols"><div class="col"><section class="box blue"><h2>Initial</h2><div class="row s">N.W.K.R.A.F.T</div><div class="row s">Brief Procedures</div><div class="row"><span>Flight Plan</span><span class="v">File</span></div><div class="row s">A.R.O.W</div><div class="row"><span>Fuel Selector</span><span class="v">Cycle</span></div><div class="row"><span>Control Lock</span><span class="v">Remove</span></div><div class="row"><span>Flaps</span><span class="v">Extend</span></div><div class="row"><span>Lights/Pitot Heat</span><span class="v">On</span></div><div class="row"><span>Master</span><span class="v">On</span></div><div class="row"><span>Fuel Gauges</span><span class="v">Check</span></div><div class="row s">Check Lights, Pitot Heat,</div><div class="row s">Stall Horn</div><div class="row"><span>Master</span><span class="v">Off</span></div><div class="row"><span>Pitot Static Drains</span><span class="v">Check</span></div><div class="row"><span>Alternate Air</span><span class="v">Check</span></div><div class="row"><span>Trim &amp; Flight Controls</span><span class="v">Check</span></div></section><section class="box blue"><h2>Preflight</h2><div class="row h">Right Side</div><div class="row"><span>Flap/Aileron</span><span class="v">Check</span></div><div class="row"><span>Fuel Quantity</span><span class="v">Measure</span></div><div class="row"><span>Fuel Quality</span><span class="v">Sump</span></div><div class="row"><span>Right Gear</span><span class="v">Pressure/Pin</span></div><div class="row"><span>Right Brake</span><span class="v">Pads/Leaks</span></div><div class="row"><span>Right Strut</span><span class="v">~4.5 in</span></div><div class="row h">Nose</div><div class="row"><span>Oil</span><span class="v">6-8 Qt</span></div><div class="row"><span>Prop/Spinner</span><span class="v">Inspect</span></div><div class="row"><span>Alternator</span><span class="v">Check Belt</span></div><div class="row"><span>Intake(s)</span><span class="v">Clear</span></div><div class="row"><span>Nose Strut</span><span class="v">~3.5 in</span></div><div class="row"><span>Nose Sump</span><span class="v">Drain</span></div><div class="row h">Left Side</div><div class="row"><span>Fuel Quality</span><span class="v">Sump</span></div><div class="row"><span>Left Gear</span><span class="v">Pressure/Pin</span></div><div class="row"><span>Left Brake</span><span class="v">Pad/Leaks</span></div><div class="row"><span>Left Strut</span><span class="v">~4.5 in</span></div><div class="row"><span>Fuel Quantity</span><span class="v">Measure</span></div><div class="row"><span>Stall Vane</span><span class="v">Check</span></div><div class="row"><span>Pitot Mast</span><span class="v">Check</span></div><div class="row"><span>Aileron/Flap</span><span class="v">Check</span></div><div class="row h">Fueselage</div><div class="row s">Antennas</div><div class="row s">Stabilator</div><div class="row s">Anti-Servo Tab</div><div class="row s">Rudder/Vertical Stabilizer</div><div class="row h">Final Walk Around</div><div class="row s">Surfaces &amp; Controls</div><div class="row"><span>Chocks/Tiedowns</span><span class="v">Clear</span></div><div class="row"><span>Baggage Door</span><span class="v">Shut</span></div><div class="row"><span>Flaps</span><span class="v">Up</span></div><div class="row h">Before Start</div><div class="row s">Hobbs/Tach</div><div class="row s">Check Squawks</div><div class="row"><span>Circuit Breakers</span><span class="v">In</span></div><div class="row"><span>Switches</span><span class="v">Off</span></div></section></div><div class="col"><section class="box blue"><h2>Startup</h2><div class="row c">——— S.A.F.E.T.Y. ———</div><div class="row"><span>Seat</span><span class="v">Locked</span></div><div class="row"><span>Brakes</span><span class="v">Pump &amp; Set</span></div><div class="row"><span>Fuel</span><span class="v">Fullest Tank</span></div><div class="row"><span>Beacon</span><span class="v">On</span></div><div class="row"><span>Throttle</span><span class="v">1/4-1/8</span></div><div class="row"><span>Mixture</span><span class="v">Full Rich</span></div><div class="row"><span>Fuel Pump</span><span class="v">On</span></div><div class="row"><span>Prime</span><span class="v">As required</span></div><div class="row"><span>BAT</span><span class="v">On</span></div><div class="row"><span>Prop Area</span><span class="v">Clear</span></div><div class="row"><span>Magnetos</span><span class="v">Start</span></div><div class="row n">-Oil Pressure Green-</div><div class="row"><span>Fuel Pump</span><span class="v">Off</span></div><div class="row"><span>ALT</span><span class="v">On</span></div><div class="row c">-Avionics On-</div></section><section class="box blue"><h2>After Start</h2><div class="row"><span>Taxi Lights</span><span class="v">Set</span></div><div class="row"><span>Mixture</span><span class="v">Lean for Taxi</span></div><div class="row"><span>Brakes</span><span class="v">Check x2</span></div><div class="row h">Taxi to Runup Area</div><div class="row"><span>GPS</span><span class="v">Database/Fuel/CDI</span></div><div class="row"><span>ELT</span><span class="v">Armed</span></div><div class="row"><span>Radios</span><span class="v">Test/Set</span></div><div class="row"><span>AutoPilot</span><span class="v">Test</span></div><div class="row n">-ATIS</div><div class="row n">-Altimeter x2</div><div class="row n">-C.R.A.F.T</div><div class="row n">—Set FPL/NAV</div><div class="row"><span>XPDR</span><span class="v">Set + Alt</span></div><div class="row"><span>Altimeters</span><span class="v">Within 75’</span></div><div class="row"><span>Instruments</span><span class="v">Check</span></div><div class="row"><span>G5</span><span class="v">Check Battery</span></div><div class="row"><span>WAAS</span><span class="v">Confirmed</span></div></section><section class="box blue"><h2>Runup</h2><div class="row"><span>Brakes</span><span class="v">Set</span></div><div class="row"><span>Fuel</span><span class="v">Switch</span></div><div class="row"><span>Trim</span><span class="v">Takeoff</span></div><div class="row"><span>Flight Controls</span><span class="v">Check</span></div><div class="row"><span>Mixture</span><span class="v">Best Power</span></div><div class="row"><span>Primer</span><span class="v">In/Locked</span></div><div class="row s">2000 RPM</div><div class="row"><span>Magnetos</span><span class="v">L/R</span></div><div class="row"><span>Fuel Pump</span><span class="v">Cycle</span></div><div class="row n">-Oil Temp &amp; Pressure-</div><div class="row n">-Fuel Pressure-</div><div class="row"><span>Amps/Volts</span><span class="v">Check</span></div><div class="row"><span>Carb Heat</span><span class="v">Test</span></div><div class="row"><span>Throttle</span><span class="v">Idle</span></div><div class="row"><span>Carb Heat</span><span class="v">In</span></div><div class="row s">1000 RPM</div><div class="row s">Lean for Taxi</div><div class="row s">Adjust Friction</div><div class="row r">Obtain Taxi Clearance</div></section></div><div class="col"><section class="box blue"><h2>Pre-Takeoff</h2><div class="row"><span>C.R.A.F.T</span><span class="v">Set/Confirmed</span></div><div class="row si">-Set Destination ATIS</div><div class="row h">Takeoff Briefing</div><div class="row s">-Runway</div><div class="row s">-Departure Instructions</div><div class="row s">-Failures &amp; Fly/Fix</div><div class="row"><span>Doors/Windows</span><span class="v">Shut</span></div><div class="row"><span>Lights</span><span class="v">On</span></div><div class="row"><span>Pitot Heat</span><span class="v">As Required</span></div><div class="row"><span>Mixture</span><span class="v">Best Power</span></div><div class="row"><span>Fuel Pump</span><span class="v">On</span></div><div class="row rb">Clearance/Announce</div></section><section class="box red"><h2>Climb</h2><div class="row"><span>Landing Light</span><span class="v">Off</span></div><div class="row"><span>Engine Instruments</span><span class="v">Check</span></div><div class="row"><span>Amps/Volts</span><span class="v">Check</span></div><div class="row"><span>Mixture</span><span class="v">Lean &gt;3000’</span></div></section><section class="box red"><h2>Cruise</h2><div class="row"><span>Mixture</span><span class="v">Set</span></div><div class="row"><span>Fuel Pump</span><span class="v">Off</span></div><div class="row b">ATIS</div><div class="row b">Altimeter</div><div class="row b">Approach Briefing</div><div class="row b">Avionics</div><div class="row b">Airplane</div></section><section class="box red"><h2>Pre-Landing</h2><div class="row h">Before IAF</div><div class="row"><span>Flight Plan</span><span class="v">Confirmed</span></div><div class="row"><span>Frequencies</span><span class="v">Set</span></div><div class="row"><span>Fuel Pump</span><span class="v">On</span></div><div class="row h">Before FAF</div><div class="row s">G.U.M.P.S</div><div class="row"><span>Precision</span><span class="v">Check</span></div><div class="row"><span>Minimums</span><span class="v">Bugged</span></div><div class="row"><span>Altimeter</span><span class="v">Set</span></div><div class="row"><span>Airport Lighting</span><span class="v">ON</span></div><div class="row s">1800/10 deg/85 kts</div></section><section class="box blue"><h2>After Landing</h2><div class="row"><span>Flaps</span><span class="v">Up</span></div><div class="row"><span>Fuel Pump</span><span class="v">Off</span></div><div class="row"><span>XPDR</span><span class="v">VFR</span></div><div class="row"><span>Avionics</span><span class="v">Off</span></div><div class="row s">Lights off Except Beacon</div><div class="row"><span>Pitot Heat/Switches</span><span class="v">Off</span></div><div class="row"><span>Mixture</span><span class="v">Full Lean</span></div><div class="row"><span>Magnetos</span><span class="v">Off</span></div><div class="row"><span>Master</span><span class="v">Off</span></div><div class="row cb">CLOSE FLIGHT PLAN</div><div class="row rp">Hobbs/Tach</div></section></div></main>
 <footer class="foot">
-  <span><i style="background:var(--blue)"></i>Ground<span style="display:inline-block;width:8pt"></span><i style="background:var(--red)"></i>In flight</span>
   <span>GA-PA28-IFR &nbsp;·&nbsp; Greenville Aviation</span>
 </footer>
 </body></html>
